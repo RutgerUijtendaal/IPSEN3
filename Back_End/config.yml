@@ -1,0 +1,4 @@
+logging:
+  level: INFO
+  loggers:
+    IPSEN3_Back_End: DEBUG
