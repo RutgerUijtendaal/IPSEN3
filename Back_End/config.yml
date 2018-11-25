@@ -2,3 +2,14 @@ logging:
   level: INFO
   loggers:
     IPSEN3_Back_End: DEBUG
+
+daoRepository:
+  adminDao:
+    tableName: admin
+    columnNames: [email, password, rights_id]
+  answerDao:
+    tableName: answer
+    columnNames: [dilemma_id, extension, text]
+  dilemmaDao:
+    tableName: dilemma
+    columnNames: [week_nr, theme, feedback]
