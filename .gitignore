@@ -1,0 +1,12 @@
+# IntelliJ IDE specific files
+/.idea/
+*.iml
+
+# Class files
+*.class
+
+# Out dir
+out/
+
+# MacOS file
+\.DS_Store
