@@ -2,7 +2,7 @@ package api.resources;
 
 import api.config.ApiConfiguration;
 import com.codahale.metrics.annotation.Timed;
-import database.DaoRepository;
+import api.DaoRepository;
 import database.daos.GenericDao;
 import database.models.DatabaseObject;
 import io.dropwizard.setup.Environment;
@@ -65,16 +65,20 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
 
 
     public static void initResources(ApiConfiguration configuration, Environment environment){
-        DaoRepository daoRepository = configuration.getDaoRepository().build();
+        DaoRepository daoRepository = configuration.getDaoRepository();
 
-        final AdminResource adminResource = new AdminResource(daoRepository.adminDao);
-        environment.jersey().register(adminResource);
+        registerResource(new AdminResource(daoRepository.adminDao), environment);
+        registerResource(new AnswerResource(daoRepository.answerDao), environment);
+        registerResource(new ChildResource(daoRepository.childDao), environment);
+        registerResource(new CoupleResource(daoRepository.coupleDao), environment);
+        registerResource(new DilemmaResource(daoRepository.dilemmaDao), environment);
+        registerResource(new ParentResource(daoRepository.parentDao), environment);
+        registerResource(new ResultResource(daoRepository.resultDao), environment);
+        registerResource(new RightResource(daoRepository.rightDao), environment);
+    }
 
-        final AnswerResource answerResource = new AnswerResource(daoRepository.answerDao);
-        environment.jersey().register(answerResource);
-
-        final DilemmaResource dilemmaResource = new DilemmaResource(daoRepository.dilemmaDao);
-        environment.jersey().register(dilemmaResource);
+    private static void registerResource(GenericResource resource, Environment environment){
+        environment.jersey().register(resource);
     }
 
 }

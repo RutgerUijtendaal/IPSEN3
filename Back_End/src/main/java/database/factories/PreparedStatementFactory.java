@@ -1,4 +1,4 @@
-package database.daos;
+package database.factories;
 
 import exceptions.PrepareStatementException;
 
@@ -9,10 +9,18 @@ import java.sql.SQLException;
 /**
  * @author Bas de Bruyn
  */
-class PreparedStatementFactory {
+public class PreparedStatementFactory {
+
+    private static ConnectionFactory connectionFactory;
+
+    public static void setConnectionFactory(ConnectionFactory connectionFactory) {
+        PreparedStatementFactory.connectionFactory = connectionFactory;
+    }
+
+
 
     public static PreparedStatement createPreparedStatement(String query){
-        Connection connection = ConnectionFactory.getConnection();
+        Connection connection = connectionFactory.getConnection();
 
         try {
             return connection.prepareStatement(query);
@@ -22,7 +30,7 @@ class PreparedStatementFactory {
     }
 
     public static PreparedStatement createPreparedStatementWithReturnedKey(String query){
-        Connection connection = ConnectionFactory.getConnection();
+        Connection connection = connectionFactory.getConnection();
 
         try {
             return connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);

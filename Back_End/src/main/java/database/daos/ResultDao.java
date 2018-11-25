@@ -1,5 +1,8 @@
 package database.daos;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import database.factories.PreparedStatementFactory;
 import database.models.Result;
 import exceptions.FillPreparedStatementException;
 import exceptions.ReadFromResultSetException;
@@ -11,13 +14,12 @@ import java.sql.*;
  */
 public class ResultDao extends GenericDao<Result> {
 
-    private final String tableName = "result";
-    private final String[] columnNames= {
-            "parent_id",
-            "answer_id",
-            "date_dilemma_sent",
-            "date_dilemma_answered"
-    };
+    @JsonCreator
+    public ResultDao(@JsonProperty("tableName") String tableName, @JsonProperty("columnNames") String[] columnNames) {
+        super(tableName, columnNames);
+    }
+
+
 
     public boolean isDilemmaAnswered(int parentId) {
         // Query to check if the most recent dilemma has been answered
@@ -41,6 +43,8 @@ public class ResultDao extends GenericDao<Result> {
 
         return executeGetByAttribute(preparedStatement);
     }
+
+
 
     @Override
     public Result createFromResultSet(ResultSet resultSet) {
@@ -72,18 +76,8 @@ public class ResultDao extends GenericDao<Result> {
         }
     }
 
-    @Override
-    public String getTableName() {
-        return tableName;
-    }
+
 
     @Override
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    @Override
-    public GenericDao<Result> getDao() {
-        return this;
-    }
+    public GenericDao<Result> getDao() { return this; }
 }

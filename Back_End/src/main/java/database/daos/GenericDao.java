@@ -1,7 +1,11 @@
 package database.daos;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import database.factories.PreparedStatementFactory;
 import database.models.DatabaseObject;
 import exceptions.*;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,14 +29,29 @@ import java.util.List;
  * @author Bas de Bruyn
  * @param <T> class of the model the dao interacts with
  */
-@SuppressWarnings("SameParameterValue")
 public abstract class GenericDao<T extends DatabaseObject<T>>{
 
     private final GenericDao<T> daoSubclass;
 
-    GenericDao() {
+    @NotEmpty
+    @JsonProperty
+    protected final String tableName;
+
+    @NotEmpty
+    @JsonProperty
+    protected final String[] columnNames;
+
+
+
+    @JsonCreator
+    public GenericDao(String tableName, String[] columnNames) {
+        this.tableName = tableName;
+        this.columnNames = columnNames;
+
         daoSubclass = getDao();
     }
+
+
 
     public List<T> getAll() {
         PreparedStatement preparedStatement = PreparedStatementFactory.createSelectAllStatement(daoSubclass.getTableName());
@@ -107,6 +126,8 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
     public boolean delete(T deletedObject) {
         return deleteById(deletedObject.getId());
     }
+
+
 
     public static ResultSet executeQuery(PreparedStatement preparedStatement){
         try {
@@ -233,14 +254,17 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
             throw new FillPreparedStatementException();
         }
     }
+
+
     
     protected abstract T createFromResultSet(ResultSet resultSet);
 
     protected abstract void fillPreparedStatement(PreparedStatement preparedStatement, T object);
 
-    protected abstract String getTableName();
-
-    protected abstract String[] getColumnNames();
-
     protected abstract GenericDao<T> getDao();
+
+
+
+    public String getTableName() { return tableName; }
+    public String[] getColumnNames() { return columnNames; }
 }

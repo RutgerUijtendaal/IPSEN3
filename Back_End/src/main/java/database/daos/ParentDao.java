@@ -1,5 +1,8 @@
 package database.daos;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import database.factories.PreparedStatementFactory;
 import database.models.Parent;
 import exceptions.FillPreparedStatementException;
 import exceptions.ReadFromResultSetException;
@@ -13,12 +16,12 @@ import java.sql.SQLException;
  */
 public class ParentDao extends GenericDao<Parent> {
 
-    private final String tableName = "parent";
-    private final String[] columnNames= {
-            "first_name",
-            "email",
-            "phone_nr"
-    };
+    @JsonCreator
+    public ParentDao(@JsonProperty("tableName") String tableName, @JsonProperty("columnNames") String[] columnNames) {
+        super(tableName, columnNames);
+    }
+
+
 
     public boolean emailExists(String parent_email) {
 
@@ -40,6 +43,8 @@ public class ParentDao extends GenericDao<Parent> {
 
         return executeGetByAttribute(preparedStatement);
     }
+
+
 
     @Override
     public Parent createFromResultSet(ResultSet resultSet){
@@ -66,19 +71,9 @@ public class ParentDao extends GenericDao<Parent> {
         }
     }
 
-    @Override
-    public String getTableName() {
-        return tableName;
-    }
+
 
     @Override
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    @Override
-    public GenericDao<Parent> getDao() {
-        return this;
-    }
+    public GenericDao<Parent> getDao() { return this; }
 }
 

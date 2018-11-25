@@ -1,5 +1,6 @@
 package database.daos;
 
+import database.factories.PreparedStatementFactory;
 import database.models.CoupleListModel;
 import database.models.Parent;
 import exceptions.ReadFromResultSetException;

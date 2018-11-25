@@ -1,5 +1,8 @@
 package database.daos;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import database.factories.PreparedStatementFactory;
 import database.models.Child;
 import database.models.Couple;
 import exceptions.FillPreparedStatementException;
@@ -14,12 +17,13 @@ import java.sql.SQLException;
  * @author Bas de Bruyn
  */
 public class ChildDao extends GenericDao<Child> {
-    private final String tableName = "child";
-    private final String[] columnNames = {
-            "couple_id",
-            "is_born",
-            "date"
-    };
+
+    @JsonCreator
+    public ChildDao(@JsonProperty("tableName") String tableName, @JsonProperty("columnNames") String[] columnNames) {
+        super(tableName, columnNames);
+    }
+
+
 
     public Child getByCouple(Couple couple) {
         PreparedStatement preparedStatement = PreparedStatementFactory.createSelectByAttributeStatement(tableName, columnNames[0]);
@@ -28,6 +32,9 @@ public class ChildDao extends GenericDao<Child> {
 
         return executeGetByAttribute(preparedStatement);
     }
+
+
+
 
     @Override
     public Child createFromResultSet(ResultSet resultSet){
@@ -54,19 +61,9 @@ public class ChildDao extends GenericDao<Child> {
         }
     }
 
-    @Override
-    public String getTableName() {
-        return tableName;
-    }
+
 
     @Override
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    @Override
-    public GenericDao<Child> getDao() {
-        return this;
-    }
+    public GenericDao<Child> getDao() { return this; }
 }
 

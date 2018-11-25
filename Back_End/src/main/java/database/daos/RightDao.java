@@ -1,5 +1,7 @@
 package database.daos;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import database.models.Right;
 import exceptions.FillPreparedStatementException;
 import exceptions.ReadFromResultSetException;
@@ -12,11 +14,13 @@ import java.sql.SQLException;
  * @author Bas de Bruyn
  */
 public class RightDao extends GenericDao<Right> {
-    private final String[] columnNames= {
-            "can_edit_dilemma",
-            "can_view_statistics",
-            "can_edit_user_info"
-    };
+
+    @JsonCreator
+    public RightDao(@JsonProperty("tableName") String tableName, @JsonProperty("columnNames") String[] columnNames) {
+        super(tableName, columnNames);
+    }
+
+
 
     @Override
     public Right createFromResultSet(ResultSet resultSet){
@@ -42,18 +46,8 @@ public class RightDao extends GenericDao<Right> {
         }
     }
 
-    @Override
-    public String getTableName() {
-        return "rights";
-    }
+
 
     @Override
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    @Override
-    public GenericDao<Right> getDao() {
-        return this;
-    }
+    public GenericDao<Right> getDao() { return this; }
 }

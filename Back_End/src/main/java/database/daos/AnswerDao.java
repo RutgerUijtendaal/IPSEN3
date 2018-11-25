@@ -1,5 +1,8 @@
 package database.daos;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import database.factories.PreparedStatementFactory;
 import database.models.Answer;
 import exceptions.FillPreparedStatementException;
 import exceptions.NoFurtherResultsException;
@@ -13,21 +16,13 @@ import java.sql.SQLException;
  * @author Bas de Bruyn
  */
 public class AnswerDao extends GenericDao<Answer> {
-//    private final String tableName = "answer";
-//    private final String[] columnNames= {
-//            "dilemma_id",
-//            "extension",
-//            "text"
-//    };
 
-    private final String tableName;
-    private final String[] columnNames;
-
-
-    public AnswerDao(String tableName, String[] columnNames) {
-        this.tableName = tableName;
-        this.columnNames = columnNames;
+    @JsonCreator
+    public AnswerDao(@JsonProperty("tableName") String tableName, @JsonProperty("columnNames") String[] columnNames) {
+        super(tableName, columnNames);
     }
+
+
 
     public Answer[] getByDilemmaId(int dilemmaId){
         Answer[] answers;
@@ -40,7 +35,7 @@ public class AnswerDao extends GenericDao<Answer> {
         ResultSet resultSet = executeQuery(statement);
 
         try {
-            answers = extractAnswersfromResultset(resultSet);
+            answers = extractAnswersFromResultSet(resultSet);
         } catch (SQLException exception) {
             throw new ReadFromResultSetException();
         } finally {
@@ -49,6 +44,8 @@ public class AnswerDao extends GenericDao<Answer> {
 
         return answers;
     }
+
+
 
     @Override
     public Answer createFromResultSet(ResultSet resultSet){
@@ -75,22 +72,9 @@ public class AnswerDao extends GenericDao<Answer> {
         }
     }
 
-    @Override
-    public String getTableName() {
-        return tableName;
-    }
 
-    @Override
-    public String[] getColumnNames() {
-        return columnNames;
-    }
 
-    @Override
-    public GenericDao<Answer> getDao() {
-        return this;
-    }
-
-    private Answer[] extractAnswersfromResultset(ResultSet resultSet) throws SQLException {
+    private Answer[] extractAnswersFromResultSet(ResultSet resultSet) throws SQLException {
         Answer[] answers = new Answer[2];
 
         if(resultSet.next()) {
@@ -109,5 +93,10 @@ public class AnswerDao extends GenericDao<Answer> {
 
         return answers;
     }
+
+
+
+    @Override
+    public GenericDao<Answer> getDao() { return this; }
 }
 

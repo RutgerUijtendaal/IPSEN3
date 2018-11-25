@@ -14,4 +14,5 @@ public class AnswerResource extends GenericResource<Answer> {
     public AnswerResource(AnswerDao dao) {
         super(dao);
     }
+
 }

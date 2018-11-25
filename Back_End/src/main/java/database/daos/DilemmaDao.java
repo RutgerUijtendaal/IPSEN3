@@ -1,5 +1,8 @@
 package database.daos;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import database.factories.PreparedStatementFactory;
 import database.models.Dilemma;
 import exceptions.FillPreparedStatementException;
 import exceptions.ReadFromResultSetException;
@@ -13,12 +16,12 @@ import java.sql.SQLException;
  */
 public class DilemmaDao extends GenericDao<Dilemma> {
 
-    private final String tableName = "dilemma";
-    private final String[] columnNames= {
-            "week_nr",
-            "theme",
-            "feedback"
-    };
+    @JsonCreator
+    public DilemmaDao(@JsonProperty("tableName") String tableName, @JsonProperty("columnNames") String[] columnNames) {
+        super(tableName, columnNames);
+    }
+
+
 
     public Dilemma getByWeekNr(int week) {
         PreparedStatement statement = PreparedStatementFactory.createSelectByAttributeStatement(tableName, columnNames[0]);
@@ -40,6 +43,8 @@ public class DilemmaDao extends GenericDao<Dilemma> {
 
         return executeIsTrue(statement);
     }
+
+
 
     @Override
     public Dilemma createFromResultSet(ResultSet resultSet) {
@@ -65,19 +70,9 @@ public class DilemmaDao extends GenericDao<Dilemma> {
         }
     }
 
-    @Override
-    public String getTableName() {
-        return tableName;
-    }
+
 
     @Override
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    @Override
-    public GenericDao<Dilemma> getDao() {
-        return this;
-    }
+    public GenericDao<Dilemma> getDao() { return this; }
 }
 

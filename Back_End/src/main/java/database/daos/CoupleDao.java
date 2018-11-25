@@ -1,5 +1,8 @@
 package database.daos;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import database.factories.PreparedStatementFactory;
 import database.models.Couple;
 import database.models.Parent;
 import exceptions.FillPreparedStatementException;
@@ -15,12 +18,12 @@ import java.sql.SQLException;
  */
 public class CoupleDao extends GenericDao<Couple> {
 
-    private final String tableName = "couple";
-    private final String[] columnNames = {
-            "parent1_id",
-            "parent2_id",
-            "signup_date"
-    };
+    @JsonCreator
+    public CoupleDao(@JsonProperty("tableName") String tableName, @JsonProperty("columnNames") String[] columnNames) {
+        super(tableName, columnNames);
+    }
+
+
 
     public Couple getByParent(Parent parent) {
         String query = "SELECT * FROM " + tableName + " WHERE " + columnNames[0] + " = ? OR " + columnNames[1] + " = ?;";
@@ -31,6 +34,8 @@ public class CoupleDao extends GenericDao<Couple> {
 
         return executeGetByAttribute(preparedStatement);
     }
+
+
 
     @Override
     public Couple createFromResultSet(ResultSet resultSet){
@@ -56,19 +61,9 @@ public class CoupleDao extends GenericDao<Couple> {
         }
     }
 
-    @Override
-    public String getTableName() {
-        return tableName;
-    }
+
 
     @Override
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    @Override
-    public GenericDao<Couple> getDao() {
-        return this;
-    }
+    public GenericDao<Couple> getDao() { return this; }
 }
 

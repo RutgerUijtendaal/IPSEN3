@@ -1,5 +1,8 @@
 package database.daos;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import database.factories.PreparedStatementFactory;
 import database.models.Admin;
 import exceptions.FillPreparedStatementException;
 import exceptions.ReadFromResultSetException;
@@ -13,21 +16,11 @@ import java.sql.SQLException;
  */
 public class AdminDao extends GenericDao<Admin> {
 
-//    private final String tableName = "admin";
-//    private final String[] columnNames= {
-//            "email",
-//            "password",
-//            "rights_id"
-//    };
-
-    private final String tableName;
-    private final String[] columnNames;
-
-
-    public AdminDao(String tableName, String[] columnNames) {
-        this.tableName = tableName;
-        this.columnNames = columnNames;
+    @JsonCreator
+    public AdminDao(@JsonProperty("tableName") String tableName, @JsonProperty("columnNames") String[] columnNames) {
+        super(tableName, columnNames);
     }
+
 
 
     public void updateWithoutPassword(Admin admin) {
@@ -72,6 +65,8 @@ public class AdminDao extends GenericDao<Admin> {
         return executeIsTrue(statement);
     }
 
+
+
     @Override
     public Admin createFromResultSet(ResultSet resultSet){
         try {
@@ -96,19 +91,9 @@ public class AdminDao extends GenericDao<Admin> {
         }
     }
 
-    @Override
-    public String getTableName() {
-        return tableName;
-    }
+
 
     @Override
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    @Override
-    public GenericDao<Admin> getDao() {
-        return this;
-    }
+    public GenericDao<Admin> getDao() { return this; }
 }
 
