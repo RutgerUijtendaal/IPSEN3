@@ -26,7 +26,7 @@ daoRepository:
     tableName: result
     columnNames: [parent_id, answer_id, date_dilemma_sent, date_dilemma_answered]
   rightDao:
-    tableName: right
+    tableName: rights
     columnNames: [can_edit_dilemma, can_view_statistics, can_edit_user_info]
 
 databaseConnection:
@@ -36,3 +36,11 @@ databaseConnection:
   database: dubio
   user: postgres
   password: dreamteam_en_bas
+
+#databaseConnection:
+#  jdbc: postgresql
+#  host: localhost
+#  port: 5432
+#  database: springtest
+#  user: postgres
+#  password:
