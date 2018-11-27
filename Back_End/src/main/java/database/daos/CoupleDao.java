@@ -53,8 +53,8 @@ public class CoupleDao extends GenericDao<Couple> {
     @Override
     public void fillPreparedStatement(PreparedStatement preparedStatement, Couple couple){
         try {
-            preparedStatement.setInt(1, couple.getParent1_id());
-            preparedStatement.setInt(2, couple.getParent2_id());
+            preparedStatement.setInt(1, couple.getParent1Id());
+            preparedStatement.setInt(2, couple.getParent2Id());
             preparedStatement.setDate(3, couple.getSignupDate());
         } catch (SQLException exception){
             throw new FillPreparedStatementException();

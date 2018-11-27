@@ -63,11 +63,11 @@ public class ResultDao extends GenericDao<Result> {
     @Override
     public void fillPreparedStatement(PreparedStatement preparedStatement, Result result) {
         try {
-            preparedStatement.setInt(1, result.getParent_id());
-            if(result.getAnswer_id() == null) {
+            preparedStatement.setInt(1, result.getParentId());
+            if(result.getAnswerId() == null) {
                 preparedStatement.setNull(2, Types.INTEGER);
             } else {
-                preparedStatement.setInt(2, result.getAnswer_id());
+                preparedStatement.setInt(2, result.getAnswerId());
             }
             preparedStatement.setTimestamp(3, result.getSentTime());
             preparedStatement.setTimestamp(4, result.getAnsweredTime());

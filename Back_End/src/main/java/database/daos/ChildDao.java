@@ -53,7 +53,7 @@ public class ChildDao extends GenericDao<Child> {
     @Override
     public void fillPreparedStatement(PreparedStatement preparedStatement, Child child){
         try {
-            preparedStatement.setInt(1, child.getCouple_id());
+            preparedStatement.setInt(1, child.getCoupleId());
             preparedStatement.setBoolean(2, child.getIsBorn());
             preparedStatement.setDate(3, child.getDate());
         } catch (SQLException exception){
