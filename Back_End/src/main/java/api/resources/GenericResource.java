@@ -37,6 +37,13 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
         return dao.getById(id);
     }
 
+    @GET
+    @Timed
+    @Path("/{id}")
+    public T getFromId(@PathParam("id") Integer id){
+        return dao.getById(id);
+    }
+
     @POST
     @Timed
     public Integer save(@Valid T object){
