@@ -5,10 +5,14 @@ import com.codahale.metrics.annotation.Timed;
 import api.DaoRepository;
 import database.daos.GenericDao;
 import database.models.DatabaseObject;
+import io.dropwizard.jersey.PATCH;
 import io.dropwizard.setup.Environment;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 public abstract class GenericResource<T extends DatabaseObject<T>> {
@@ -25,15 +29,14 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
 
     @GET
     @Timed
-    @Path("/all")
     public List<T> getAll(){
         return dao.getAll();
     }
 
     @GET
     @Timed
-    @Path("/byId")
-    public T getById(@QueryParam("id") Integer id){
+    @Path("/{id}")
+    public T getById(@PathParam("id") Integer id){
         return dao.getById(id);
     }
 
@@ -45,8 +48,16 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
 
     @PUT
     @Timed
-    public boolean update(@Valid T object){
+    public boolean updateObject(@Valid T object){
         return dao.update(object);
+    }
+
+    @PATCH
+    @Timed
+    public String updateValue(@Context UriInfo ui){
+        MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+        System.out.println(queryParams.getFirst("firstName"));
+        return "Updated";
     }
 
     @DELETE
@@ -57,8 +68,8 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
 
     @DELETE
     @Timed
-    @Path("/byId")
-    public boolean deleteById(@QueryParam("id") Integer id){
+    @Path("/{id}")
+    public boolean deleteById(@PathParam("id") Integer id){
         return dao.deleteById(id);
     }
 

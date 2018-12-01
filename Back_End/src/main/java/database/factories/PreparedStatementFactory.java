@@ -1,5 +1,6 @@
 package database.factories;
 
+import database.daos.GenericDao;
 import exceptions.PrepareStatementException;
 
 import java.sql.Connection;
@@ -46,9 +47,13 @@ public class PreparedStatementFactory {
     }
 
     public static PreparedStatement createSelectByIdStatement(String table, int id){
-        String query = "SELECT * FROM " + table + " WHERE id = " + id + ";";
+        String query = "SELECT * FROM " + table + " WHERE id = ?;";
 
-        return createPreparedStatement(query);
+        PreparedStatement statement = createPreparedStatement(query);
+
+        GenericDao.fillParameter(statement, 1, id);
+
+        return statement;
     }
 
     public static PreparedStatement createSelectByAttributeStatement(String table, String attribute){
@@ -84,15 +89,23 @@ public class PreparedStatementFactory {
             query.append(" , ").append(columnNames[i]).append(" = ?");
         }
 
-        query.append(" WHERE id = ").append(id).append(";");
+        query.append(" WHERE id = ?;");
 
-        return createPreparedStatement(query.toString());
+        PreparedStatement statement = createPreparedStatement(query.toString());
+
+        GenericDao.fillParameter(statement, columnNames.length + 1, id);
+
+        return statement;
     }
 
     public static PreparedStatement createDeleteStatement(String table, int id){
-        String query = "DELETE FROM " + table + " WHERE id = " + id + ";";
+        String query = "DELETE FROM " + table + " WHERE id = ?;";
 
-        return createPreparedStatement(query);
+        PreparedStatement statement = createPreparedStatement(query);
+
+        GenericDao.fillParameter(statement, 1, id);
+
+        return statement;
     }
 
 }
