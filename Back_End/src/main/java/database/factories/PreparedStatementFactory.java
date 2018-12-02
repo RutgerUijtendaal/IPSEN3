@@ -63,35 +63,27 @@ public class PreparedStatementFactory {
     }
 
     public static PreparedStatement createInsertStatement(String table, String[] columnNames){
-        StringBuilder query = new StringBuilder("INSERT INTO " + table + "(" + columnNames[0]);
+        String query = "INSERT INTO " + table + "(";
 
-        for (int i = 1; i < columnNames.length; i++) {
-            query.append(",").append(columnNames[i]);
-        }
+        query += String.join(", ", columnNames);
 
-        query.append(")" + " VALUES(?");
+        query += ") VALUES(?";
 
-        for (int i = 1; i < columnNames.length; i++) {
-            query.append(",?");
-        }
+        query = appendValue(query, ",?",columnNames.length -1);
 
-        query.append(");");
+        query += ");";
 
-        return createPreparedStatementWithReturnedKey(query.toString());
+        return createPreparedStatementWithReturnedKey(query);
     }
 
     public static PreparedStatement createUpdateStatement(String[] columnNames, String table, int id){
-        StringBuilder query = new StringBuilder("UPDATE " + table);
+        String query = "UPDATE " + table;
 
-        query.append(" SET ").append(columnNames[0]).append(" = ?");
+        query += " SET " + String.join(" = ? , ", columnNames) + " = ?";
 
-        for (int i = 1; i < columnNames.length; i++) {
-            query.append(" , ").append(columnNames[i]).append(" = ?");
-        }
+        query += " WHERE id = ?;";
 
-        query.append(" WHERE id = ?;");
-
-        PreparedStatement statement = createPreparedStatement(query.toString());
+        PreparedStatement statement = createPreparedStatement(query);
 
         GenericDao.fillParameter(statement, columnNames.length + 1, id);
 
@@ -106,6 +98,16 @@ public class PreparedStatementFactory {
         GenericDao.fillParameter(statement, 1, id);
 
         return statement;
+    }
+
+
+
+    private static String appendValue(String string, String value, int times){
+        StringBuilder queryBuilder = new StringBuilder(string);
+        for (int i = 1; i <= times; i++) {
+            queryBuilder.append(value);
+        }
+        return queryBuilder.toString();
     }
 
 }
