@@ -11,10 +11,12 @@ import io.dropwizard.setup.Environment;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
+@Produces(MediaType.APPLICATION_JSON)
 public abstract class GenericResource<T extends DatabaseObject<T>> {
 
     protected final GenericDao<T> dao;
