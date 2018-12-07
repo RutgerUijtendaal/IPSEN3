@@ -36,11 +36,3 @@ databaseConnection:
   database: dubio
   user: postgres
   password: dreamteam_en_bas
-
-#databaseConnection:
-#  jdbc: postgresql
-#  host: localhost
-#  port: 5432
-#  database: springtest
-#  user: postgres
-#  password:

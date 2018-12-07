@@ -1,7 +1,7 @@
 package api.config;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import api.DaoRepository;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import database.factories.ConnectionFactory;
 import io.dropwizard.Configuration;
 

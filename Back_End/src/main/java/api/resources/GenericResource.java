@@ -1,8 +1,8 @@
 package api.resources;
 
+import api.DaoRepository;
 import api.config.ApiConfiguration;
 import com.codahale.metrics.annotation.Timed;
-import api.DaoRepository;
 import database.daos.GenericDao;
 import database.models.DatabaseObject;
 import io.dropwizard.jersey.PATCH;
