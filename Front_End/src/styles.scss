@@ -6,4 +6,13 @@ body {
   background-color: $background-color;
 
   font-family: "Helvetica Neue Regular";
+
+  height: 100%;
+}
+
+footer {
+  position: relative;
+  //margin-top: -180px;
+  clear: both;
+  height: 180px;
 }

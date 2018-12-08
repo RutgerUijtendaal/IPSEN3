@@ -1,0 +1,17 @@
+h4 {
+  color: black;
+}
+
+#cards > div {
+  margin-top: 15px;
+}
+
+#cards > div:first-child {
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  #cards > div {
+    margin-top: 0;
+  }
+}
