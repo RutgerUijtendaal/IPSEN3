@@ -7,12 +7,16 @@ import { RegisterComponent } from './register/register.component';
 import { ParentComponent } from './form/model/parent/parent.component';
 import { ChildComponent } from './form/model/child/child.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { HeaderComponent } from './template/header/header.component';
+import { FooterComponent } from './template/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     ParentComponent,
-    ChildComponent
+    ChildComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
