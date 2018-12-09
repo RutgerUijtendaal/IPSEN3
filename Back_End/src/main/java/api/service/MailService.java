@@ -31,9 +31,10 @@ public class MailService {
         this.gmailUsername = gmailUsername;
         this.password = password;
         this.messageQueue = new ArrayList<>();
+        startMailThread();
     }
 
-    public void startMailThread() {
+    private void startMailThread() {
         Runnable mailThread = () -> {
             try {
                 while (true) {
