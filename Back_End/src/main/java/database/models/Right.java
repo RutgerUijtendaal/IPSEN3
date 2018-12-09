@@ -14,8 +14,6 @@ public class Right implements DatabaseObject<Right> {
     @JsonProperty
     private boolean canEditUserInfo;
 
-
-
     public Right (boolean canViewStatistics, boolean canEditDilemma, boolean canEditUserInfo) {
         this.canViewStatistics = canViewStatistics;
         this.canEditDilemma = canEditDilemma;
@@ -37,8 +35,6 @@ public class Right implements DatabaseObject<Right> {
         this.canEditUserInfo = canEditUserInfo;
     }
 
-
-
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public boolean isCanViewStatistics() { return canViewStatistics; }
@@ -47,8 +43,6 @@ public class Right implements DatabaseObject<Right> {
     public void setCanEditDilemma(boolean canEditDilemma) { this.canEditDilemma = canEditDilemma; }
     public boolean isCanEditUserInfo() { return canEditUserInfo; }
     public void setCanEditUserInfo(boolean canEditUserInfo) { this.canEditUserInfo = canEditUserInfo; }
-
-
 
     @Override
     public String toString() {

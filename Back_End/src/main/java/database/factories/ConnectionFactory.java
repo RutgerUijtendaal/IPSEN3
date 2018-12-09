@@ -40,8 +40,6 @@ public class ConnectionFactory {
     @JsonProperty
     private final String PASSWORD;
 
-
-
     @JsonCreator
     public ConnectionFactory(
         @JsonProperty("jdbc") String jdbc,
@@ -58,8 +56,6 @@ public class ConnectionFactory {
         USER = user;
         PASSWORD = password;
     }
-
-
 
     public Connection getConnection() {
         try {

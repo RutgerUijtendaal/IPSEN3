@@ -14,8 +14,6 @@ public class Dilemma implements DatabaseObject<Dilemma> {
     @JsonProperty
     private String feedback;
 
-
-
     public Dilemma (short weekNr, String theme, String feedback) {
         this.weekNr = weekNr;
         this.theme = theme;
@@ -37,8 +35,6 @@ public class Dilemma implements DatabaseObject<Dilemma> {
         this.feedback = feedback;
     }
 
-
-
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public short getWeekNr() { return weekNr; }
@@ -47,8 +43,6 @@ public class Dilemma implements DatabaseObject<Dilemma> {
     public void setTheme(String theme) { this.theme = theme; }
     public String getFeedback() { return feedback; }
     public void setFeedback(String feedback) { this.feedback = feedback; }
-
-
 
     @Override
     public String toString() {

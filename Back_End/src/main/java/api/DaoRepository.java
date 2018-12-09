@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import database.daos.*;
 
 public class DaoRepository {
+
     @JsonProperty
     public final AdminDao adminDao;
     @JsonProperty

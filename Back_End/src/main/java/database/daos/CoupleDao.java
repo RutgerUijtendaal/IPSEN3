@@ -23,8 +23,6 @@ public class CoupleDao extends GenericDao<Couple> {
         super(tableName, columnNames);
     }
 
-
-
     public Couple getByParent(Parent parent) {
         String query = "SELECT * FROM " + tableName + " WHERE " + columnNames[0] + " = ? OR " + columnNames[1] + " = ?;";
         PreparedStatement preparedStatement = PreparedStatementFactory.createPreparedStatement(query);
@@ -34,8 +32,6 @@ public class CoupleDao extends GenericDao<Couple> {
 
         return executeGetByAttribute(preparedStatement);
     }
-
-
 
     @Override
     public Couple createFromResultSet(ResultSet resultSet){
@@ -60,8 +56,6 @@ public class CoupleDao extends GenericDao<Couple> {
             throw new FillPreparedStatementException();
         }
     }
-
-
 
     @Override
     public GenericDao<Couple> getDao() { return this; }

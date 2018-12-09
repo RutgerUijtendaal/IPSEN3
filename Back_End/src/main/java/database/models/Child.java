@@ -16,8 +16,6 @@ public class Child implements DatabaseObject<Child> {
     @JsonProperty
     private boolean isBorn;
 
-
-
     public Child (int coupleId, Date date, boolean isBorn) {
         this.coupleId = coupleId;
         this.date = date;
@@ -39,8 +37,6 @@ public class Child implements DatabaseObject<Child> {
         this.isBorn = isBorn;
     }
 
-
-
     public void setId(int id){ this.id = id; }
     public void setCoupleId(int coupleId) { this.coupleId = coupleId; }
     public void setDate(Date date) { this.date = date; }
@@ -49,8 +45,6 @@ public class Child implements DatabaseObject<Child> {
     public int getCoupleId() { return coupleId; }
     public Date getDate() { return date; }
     public boolean getIsBorn() { return isBorn; }
-
-
 
     @Override
     public String toString() {

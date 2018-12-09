@@ -23,8 +23,6 @@ public class ChildDao extends GenericDao<Child> {
         super(tableName, columnNames);
     }
 
-
-
     public Child getByCouple(Couple couple) {
         PreparedStatement preparedStatement = PreparedStatementFactory.createSelectByAttributeStatement(tableName, columnNames[0]);
 
@@ -32,9 +30,6 @@ public class ChildDao extends GenericDao<Child> {
 
         return executeGetByAttribute(preparedStatement);
     }
-
-
-
 
     @Override
     public Child createFromResultSet(ResultSet resultSet){
@@ -60,8 +55,6 @@ public class ChildDao extends GenericDao<Child> {
             throw new FillPreparedStatementException();
         }
     }
-
-
 
     @Override
     public GenericDao<Child> getDao() { return this; }

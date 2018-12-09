@@ -41,8 +41,6 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
     @JsonProperty
     protected final String[] columnNames;
 
-
-
     @JsonCreator
     public GenericDao(String tableName, String[] columnNames) {
         this.tableName = tableName;
@@ -50,8 +48,6 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
 
         daoSubclass = getDao();
     }
-
-
 
     public List<T> getAll() {
         PreparedStatement preparedStatement = PreparedStatementFactory.createSelectAllStatement(daoSubclass.getTableName());
@@ -255,16 +251,14 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
         }
     }
 
-
-    
     protected abstract T createFromResultSet(ResultSet resultSet);
 
     protected abstract void fillPreparedStatement(PreparedStatement preparedStatement, T object);
 
     protected abstract GenericDao<T> getDao();
 
-
-
     public String getTableName() { return tableName; }
+
     public String[] getColumnNames() { return columnNames; }
+
 }

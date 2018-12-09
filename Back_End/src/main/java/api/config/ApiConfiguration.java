@@ -20,8 +20,6 @@ public class ApiConfiguration extends Configuration {
     @JsonProperty("databaseConnection")
     private ConnectionFactory connectionFactory;
 
-
-
     public DaoRepository getDaoRepository() { return daoRepository; }
     public void setDaoRepository(DaoRepository daoRepository) { this.daoRepository = daoRepository; }
     public ConnectionFactory getConnectionFactory() { return connectionFactory; }

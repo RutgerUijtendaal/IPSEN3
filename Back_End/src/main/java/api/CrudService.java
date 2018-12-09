@@ -14,11 +14,11 @@ public interface CrudService<T extends DatabaseObject<T>> {
      Integer save(T object);
 
      boolean updateObject(T object);
-        
+
      String updateValue(UriInfo ui);
 
      boolean delete(T object);
 
-    boolean deleteById(Integer id);
+     boolean deleteById(Integer id);
 
 }

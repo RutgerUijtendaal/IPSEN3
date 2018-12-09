@@ -22,8 +22,6 @@ public class AnswerDao extends GenericDao<Answer> {
         super(tableName, columnNames);
     }
 
-
-
     public Answer[] getByDilemmaId(int dilemmaId){
         Answer[] answers;
 
@@ -44,8 +42,6 @@ public class AnswerDao extends GenericDao<Answer> {
 
         return answers;
     }
-
-
 
     @Override
     public Answer createFromResultSet(ResultSet resultSet){
@@ -72,8 +68,6 @@ public class AnswerDao extends GenericDao<Answer> {
         }
     }
 
-
-
     private Answer[] extractAnswersFromResultSet(ResultSet resultSet) throws SQLException {
         Answer[] answers = new Answer[2];
 
@@ -93,8 +87,6 @@ public class AnswerDao extends GenericDao<Answer> {
 
         return answers;
     }
-
-
 
     @Override
     public GenericDao<Answer> getDao() { return this; }
