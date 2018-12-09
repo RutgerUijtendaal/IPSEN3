@@ -6,8 +6,6 @@
 #header ul {
   padding: 0;
   list-style: none;
-
-  overflow-x: auto;
   display: inline-block;
 }
 
@@ -23,6 +21,10 @@
 
 #header ul > li > img {
   height: 50px;
+}
+
+img:hover{
+  transform: scale(1.1);
 }
 
 // Medium devices (tablets, 768px and up)
