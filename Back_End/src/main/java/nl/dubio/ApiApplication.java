@@ -5,8 +5,10 @@ import io.dropwizard.setup.Environment;
 import nl.dubio.config.ApiConfiguration;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.resources.GenericResource;
+import nl.dubio.utils.MailUtility;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
+import javax.mail.MessagingException;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import java.util.EnumSet;
