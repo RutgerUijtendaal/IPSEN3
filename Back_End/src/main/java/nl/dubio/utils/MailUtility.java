@@ -1,4 +1,4 @@
-package api.service;
+package nl.dubio.utils;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -16,7 +16,7 @@ import java.util.Properties;
  * @author Stefan de Keijzer
  * @author Jordi Dorren
  */
-public class MailService {
+public class MailUtility {
 
     private static Properties mailServerProperties;
     private static Session mailSession;
@@ -27,7 +27,7 @@ public class MailService {
 
     private List<MimeMessage> messageQueue;
 
-    public MailService(String gmailUsername, String password) {
+    public MailUtility(String gmailUsername, String password) {
         this.gmailUsername = gmailUsername;
         this.password = password;
         this.messageQueue = new ArrayList<>();
@@ -80,12 +80,12 @@ public class MailService {
 
     public void addWelcomeMailToQueue(String to, String parentName) throws MessagingException {
         final String subject = "Welkom bij Dubio!";
-        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateService.getWelcomeMail(parentName));
+        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getWelcomeMail(parentName));
         messageQueue.add(mimeMessage);
     }
 
     /**
-     * Generates the properties of the mailing server
+     * Generates the properties of the utils server
      */
     private void generateProperties() {
         mailServerProperties = System.getProperties();

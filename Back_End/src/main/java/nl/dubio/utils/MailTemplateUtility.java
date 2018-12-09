@@ -1,17 +1,17 @@
-package api.service;
+package nl.dubio.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class MailTemplateService {
+public class MailTemplateUtility {
 
     private static final String NAME_REPLACER = "REPLACENAMEHERE";
     private static final String SIGNOUT_REPLACER = "REPLACESIGNOUTHERE";
 
     public static String getWelcomeMail(String name) {
-        InputStream input = MailTemplateService.class.getResourceAsStream("/welcome.html");
+        InputStream input = MailTemplateUtility.class.getResourceAsStream("/welcome.html");
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         StringBuilder builder = new StringBuilder();
         String line;
