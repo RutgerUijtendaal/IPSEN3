@@ -21,8 +21,6 @@ public class DilemmaDao extends GenericDao<Dilemma> {
         super(tableName, columnNames);
     }
 
-
-
     public Dilemma getByWeekNr(int week) {
         PreparedStatement statement = PreparedStatementFactory.createSelectByAttributeStatement(tableName, columnNames[0]);
 
@@ -43,8 +41,6 @@ public class DilemmaDao extends GenericDao<Dilemma> {
 
         return executeIsTrue(statement);
     }
-
-
 
     @Override
     public Dilemma createFromResultSet(ResultSet resultSet) {
@@ -69,8 +65,6 @@ public class DilemmaDao extends GenericDao<Dilemma> {
             throw new FillPreparedStatementException();
         }
     }
-
-
 
     @Override
     public GenericDao<Dilemma> getDao() { return this; }

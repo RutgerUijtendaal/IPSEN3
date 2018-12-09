@@ -21,8 +21,6 @@ public class AdminDao extends GenericDao<Admin> {
         super(tableName, columnNames);
     }
 
-
-
     public void updateWithoutPassword(Admin admin) {
         final String[] columnNamesWithoutPassword = {
             columnNames[0],
@@ -65,8 +63,6 @@ public class AdminDao extends GenericDao<Admin> {
         return executeIsTrue(statement);
     }
 
-
-
     @Override
     public Admin createFromResultSet(ResultSet resultSet){
         try {
@@ -90,8 +86,6 @@ public class AdminDao extends GenericDao<Admin> {
             throw new FillPreparedStatementException();
         }
     }
-
-
 
     @Override
     public GenericDao<Admin> getDao() { return this; }

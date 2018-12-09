@@ -14,8 +14,6 @@ public class Parent implements DatabaseObject<Parent> {
     @JsonProperty
     private String email;
 
-
-
     public Parent (String phoneNr, String firstName, String email) {
         this.phoneNr = phoneNr;
         this.firstName = firstName;
@@ -37,8 +35,6 @@ public class Parent implements DatabaseObject<Parent> {
         this.email = email;
     }
 
-
-
     public String getPhoneNr() { return phoneNr; }
     public void setPhoneNr(String phoneNr) { this.phoneNr = phoneNr; }
     public String getFirstName() { return firstName; }
@@ -47,8 +43,6 @@ public class Parent implements DatabaseObject<Parent> {
     public void setId(int id) { this.id = id; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-
-
 
     @Override
     public String toString() {

@@ -18,8 +18,6 @@ public class Admin implements DatabaseObject<Admin> {
     @JsonProperty
     private Date signupDate;
 
-
-
     public Admin (String email, String password, int rightId) {
         this.email = email;
         this.password = password;
@@ -41,8 +39,6 @@ public class Admin implements DatabaseObject<Admin> {
         this.rightId = rightId;
     }
 
-
-
     public void setId(int id) { this.id = id; }
     public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
@@ -53,8 +49,6 @@ public class Admin implements DatabaseObject<Admin> {
     public int getId() { return id; }
     public int getRights_id() { return rightId; }
     public Date getSignupDate() { return signupDate; }
-
-
 
     @Override
     public String toString() {

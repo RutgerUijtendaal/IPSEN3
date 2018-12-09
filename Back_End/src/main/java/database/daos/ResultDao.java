@@ -19,8 +19,6 @@ public class ResultDao extends GenericDao<Result> {
         super(tableName, columnNames);
     }
 
-
-
     public boolean isDilemmaAnswered(int parentId) {
         // Query to check if the most recent dilemma has been answered
         String subQuery = "SELECT * FROM " + tableName + " WHERE " + columnNames[0] + " = ? ORDER BY id DESC LIMIT 1";
@@ -43,8 +41,6 @@ public class ResultDao extends GenericDao<Result> {
 
         return executeGetByAttribute(preparedStatement);
     }
-
-
 
     @Override
     public Result createFromResultSet(ResultSet resultSet) {
@@ -75,8 +71,6 @@ public class ResultDao extends GenericDao<Result> {
             throw new FillPreparedStatementException();
         }
     }
-
-
 
     @Override
     public GenericDao<Result> getDao() { return this; }

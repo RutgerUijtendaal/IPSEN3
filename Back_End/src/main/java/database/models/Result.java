@@ -18,8 +18,6 @@ public class Result implements DatabaseObject<Result> {
     @JsonProperty
     private Timestamp answeredTime;
 
-
-
     public Result (int parentId, Integer answerId, Timestamp sentTime, Timestamp answeredTime) {
         this.parentId = parentId;
         this.answerId = answerId;
@@ -44,8 +42,6 @@ public class Result implements DatabaseObject<Result> {
         this.answeredTime = answeredTime;
     }
 
-
-
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public int getParentId() { return parentId; }
@@ -56,8 +52,6 @@ public class Result implements DatabaseObject<Result> {
     public void setAnsweredTime(Timestamp answeredTime) { this.answeredTime = answeredTime; }
     public Timestamp getSentTime() { return sentTime; }
     public void setSentTime(Timestamp sentTime) { this.sentTime = sentTime; }
-
-
 
     @Override
     public String toString() {

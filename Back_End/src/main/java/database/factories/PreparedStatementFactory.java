@@ -18,8 +18,6 @@ public class PreparedStatementFactory {
         PreparedStatementFactory.connectionFactory = connectionFactory;
     }
 
-
-
     public static PreparedStatement createPreparedStatement(String query){
         Connection connection = connectionFactory.getConnection();
 
@@ -99,8 +97,6 @@ public class PreparedStatementFactory {
 
         return statement;
     }
-
-
 
     private static String appendValue(String string, String value, int times){
         StringBuilder queryBuilder = new StringBuilder(string);

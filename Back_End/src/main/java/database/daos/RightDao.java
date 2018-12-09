@@ -20,8 +20,6 @@ public class RightDao extends GenericDao<Right> {
         super(tableName, columnNames);
     }
 
-
-
     @Override
     public Right createFromResultSet(ResultSet resultSet){
         try {
@@ -45,8 +43,6 @@ public class RightDao extends GenericDao<Right> {
             throw new FillPreparedStatementException();
         }
     }
-
-
 
     @Override
     public GenericDao<Right> getDao() { return this; }

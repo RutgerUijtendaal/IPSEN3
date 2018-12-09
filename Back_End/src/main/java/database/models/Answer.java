@@ -14,8 +14,6 @@ public class Answer implements DatabaseObject<Answer> {
     @JsonProperty
     private String text;
 
-
-
     public Answer (int dilemmaId, String url, String text) {
         this.dilemmaId = dilemmaId;
         this.url = url;
@@ -37,8 +35,6 @@ public class Answer implements DatabaseObject<Answer> {
         this.text = text;
     }
 
-
-
     public void setId(int id) { this.id = id; }
     public void setText(String text) { this.text = text; }
     public void setUrl(String url) { this.url = url; }
@@ -48,8 +44,6 @@ public class Answer implements DatabaseObject<Answer> {
     public String getUrl() { return url; }
     public int getDilemmaId() { return dilemmaId; }
     public boolean hasImage() { return this.url != null; }
-
-
 
     @Override
     public String toString() {

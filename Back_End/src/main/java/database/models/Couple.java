@@ -16,8 +16,6 @@ public class Couple implements DatabaseObject<Couple> {
     @JsonProperty
     private int parent2Id;
 
-
-
     public Couple (Date signupDate, int parent1Id, int parent2Id) {
         this.signupDate = signupDate;
         this.parent1Id = parent1Id;
@@ -39,8 +37,6 @@ public class Couple implements DatabaseObject<Couple> {
         this.parent2Id = parent2Id;
     }
 
-
-
     public Date getSignupDate() { return signupDate; }
     public void setSignupDate(Date signupDate) { this.signupDate = signupDate; }
     public int getParent1Id() { return parent1Id; }
@@ -49,8 +45,6 @@ public class Couple implements DatabaseObject<Couple> {
     public void setParent2Id(int parent2Id) { this.parent2Id = parent2Id; }
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
-
-
 
     @Override
     public String toString() {

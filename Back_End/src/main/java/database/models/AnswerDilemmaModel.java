@@ -9,7 +9,6 @@ class AnswerDilemmaModel {
     private Dilemma dilemma;
     private Answer answer;
 
-
     public AnswerDilemmaModel(int currentAnswer, Couple couple, Child child, Parent parent, Dilemma dilemma, Answer answer) {
         this.currentAnswer = currentAnswer;
         this.couple = couple;
@@ -18,7 +17,6 @@ class AnswerDilemmaModel {
         this.dilemma = dilemma;
         this.answer = answer;
     }
-
 
     public void setCouple(Couple couple) {
         this.couple = couple;

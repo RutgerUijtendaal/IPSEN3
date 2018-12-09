@@ -21,8 +21,6 @@ public class ParentDao extends GenericDao<Parent> {
         super(tableName, columnNames);
     }
 
-
-
     public boolean emailExists(String parent_email) {
 
         String query = "SELECT (COUNT(" + columnNames[1] + ") >= 1)\n" +
@@ -43,8 +41,6 @@ public class ParentDao extends GenericDao<Parent> {
 
         return executeGetByAttribute(preparedStatement);
     }
-
-
 
     @Override
     public Parent createFromResultSet(ResultSet resultSet){
@@ -70,8 +66,6 @@ public class ParentDao extends GenericDao<Parent> {
             throw new FillPreparedStatementException();
         }
     }
-
-
 
     @Override
     public GenericDao<Parent> getDao() { return this; }

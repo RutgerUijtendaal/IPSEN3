@@ -17,8 +17,6 @@ public class ApiApplication extends Application<ApiConfiguration> {
         new ApiApplication().run(args);
     }
 
-
-
     @Override
     public void run(ApiConfiguration configuration, Environment environment){
         setupCORS(environment);
@@ -27,8 +25,6 @@ public class ApiApplication extends Application<ApiConfiguration> {
 
         GenericResource.initResources(configuration, environment);
     }
-
-
 
     private void setupCORS(Environment environment) {
         final FilterRegistration.Dynamic cors =

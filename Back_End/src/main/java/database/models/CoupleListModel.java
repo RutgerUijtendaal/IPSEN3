@@ -6,13 +6,11 @@ public class CoupleListModel {
     private Parent parent1;
     private Parent parent2;
 
-
     public CoupleListModel(int coupleId, Parent parent1, Parent parent2) {
         this.coupleId = coupleId;
         this.parent1 = parent1;
         this.parent2 = parent2;
     }
-
 
     public int getCoupleId() {
         return coupleId;
@@ -32,7 +30,6 @@ public class CoupleListModel {
     public void setParent2(Parent parent2) {
         this.parent2 = parent2;
     }
-
 
     @Override
     public String toString() {

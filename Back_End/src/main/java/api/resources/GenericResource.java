@@ -21,13 +21,9 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
 
     protected final GenericDao<T> dao;
 
-
-
     protected GenericResource(GenericDao<T> dao) {
         this.dao = dao;
     }
-
-
 
     @GET
     @Timed
@@ -74,8 +70,6 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
     public boolean deleteById(@PathParam("id") Integer id){
         return dao.deleteById(id);
     }
-
-
 
     public static void initResources(ApiConfiguration configuration, Environment environment){
         DaoRepository daoRepository = configuration.getDaoRepository();
