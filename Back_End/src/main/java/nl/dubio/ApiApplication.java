@@ -1,12 +1,14 @@
-package nl.dubio;
+package api;
 
-import nl.dubio.config.ApiConfiguration;
-import nl.dubio.resources.GenericResource;
-import nl.dubio.factories.PreparedStatementFactory;
+import api.config.ApiConfiguration;
+import api.resources.GenericResource;
+import api.service.MailService;
+import database.factories.PreparedStatementFactory;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
+import javax.mail.MessagingException;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import java.util.EnumSet;
@@ -23,7 +25,9 @@ public class ApiApplication extends Application<ApiConfiguration> {
 
         PreparedStatementFactory.setConnectionFactory(configuration.getConnectionFactory());
 
-        GenericResource.initResources(environment);
+        GenericResource.initResources(configuration, environment);
+
+
     }
 
     private void setupCORS(Environment environment) {
