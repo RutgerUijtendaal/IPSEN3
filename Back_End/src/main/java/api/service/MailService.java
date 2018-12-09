@@ -38,24 +38,22 @@ public class MailService {
         Runnable mailThread = () -> {
             try {
                 while (true) {
-                    System.out.println("checking for emails in queue");
                     if (!messageQueue.isEmpty()) {
-                        System.out.println("sending mail...");
+                        String info = "[+] Sending mail to: '" + messageQueue.get(0).getAllRecipients()[0] +
+                                "' with subject: '" + messageQueue.get(0).getSubject() + "'";
+                        System.out.println(info);
                         sendMailInQueue(messageQueue.get(0));
                         messageQueue.remove(0);
                     }
                     Thread.sleep(MAILSPEED);
                 }
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-                startMailThread();
-            } catch (MessagingException e2) {
+            } catch (MessagingException e1) {
                 moveMessageToBack();
                 startMailThread();
-                e2.printStackTrace();
-            } catch (Exception e) {
+                e1.printStackTrace();
+            } catch (Exception e2) {
                 startMailThread();
-                e.printStackTrace();
+                e2.printStackTrace();
             }
         };
         new Thread(mailThread).start();
@@ -74,7 +72,6 @@ public class MailService {
     private void sendMailInQueue(MimeMessage message) throws MessagingException {
         generateProperties();
         mailSession = Session.getDefaultInstance(mailServerProperties, null);
-        //Send Mail
         Transport transport = mailSession.getTransport("smtp");
         transport.connect("smtp.gmail.com", gmailUsername, password);
         transport.sendMessage(message, message.getAllRecipients());
@@ -82,7 +79,8 @@ public class MailService {
     }
 
     public void addWelcomeMailToQueue(String to, String parentName) throws MessagingException {
-        MimeMessage mimeMessage = generateMessage(to, "Welkom bij Dubio!", MailTemplateService.getWelcomeMail(parentName));
+        final String subject = "Welkom bij Dubio!";
+        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateService.getWelcomeMail(parentName));
         messageQueue.add(mimeMessage);
     }
 
