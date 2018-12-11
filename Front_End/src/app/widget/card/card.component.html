@@ -1,0 +1,17 @@
+<mdb-card>
+  <!--Card image-->
+  <mdb-card-img *ngIf="image" [src]="image" [alt]="alt"></mdb-card-img>
+  <!--Card content-->
+  <mdb-card-body *ngIf="title || content">
+
+    <!--Title-->
+    <mdb-card-title *ngIf="title">
+      <h4>{{ title }}</h4>
+    </mdb-card-title>
+
+    <!--Text-->
+    <mdb-card-text>
+      <ng-content></ng-content>
+    </mdb-card-text>
+  </mdb-card-body>
+</mdb-card>
