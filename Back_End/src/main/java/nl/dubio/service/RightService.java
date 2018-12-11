@@ -1,37 +1,45 @@
 package nl.dubio.service;
 
 import nl.dubio.models.Right;
+import nl.dubio.persistance.DaoRepository;
+import nl.dubio.persistance.RightDao;
 
 import java.util.List;
 
 public class RightService implements CrudService<Right> {
+    private final RightDao dao;
+
+    public RightService() {
+        this.dao = DaoRepository.getRightDao();
+    }
+
     @Override
     public List<Right> getAll() {
-        return null;
+        return dao.getAll();
     }
 
     @Override
     public Right getById(Integer id) {
-        return null;
+        return dao.getById(id);
     }
 
     @Override
     public Integer save(Right right) {
-        return null;
+        return dao.save(right);
     }
 
     @Override
-    public boolean update(Right right) {
-        return false;
+    public boolean update(Right Right) {
+        return dao.update(Right);
     }
 
     @Override
-    public boolean delete(Right right) {
-        return false;
+    public boolean delete(Right Right) {
+        return dao.delete(Right);
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        return false;
+        return dao.deleteById(id);
     }
 }
