@@ -1,8 +1,8 @@
 package nl.dubio.service;
 
+import nl.dubio.models.Dilemma;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.DilemmaDao;
-import nl.dubio.models.Dilemma;
 
 import java.util.List;
 
@@ -26,21 +26,21 @@ public class DilemmaService implements CrudService<Dilemma> {
 
     @Override
     public Integer save(Dilemma dilemma) {
-        return null;
+        return dao.save(dilemma);
     }
 
     @Override
-    public boolean update(Dilemma object) {
-        return false;
+    public boolean update(Dilemma Dilemma) {
+        return dao.update(Dilemma);
     }
 
     @Override
-    public boolean delete(Dilemma object) {
-        return false;
+    public boolean delete(Dilemma Dilemma) {
+        return dao.delete(Dilemma);
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        return false;
+        return dao.deleteById(id);
     }
 }
