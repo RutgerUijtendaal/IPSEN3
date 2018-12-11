@@ -1,5 +1,20 @@
 .mapouter {
+  margin-top: 5px;
   box-shadow: 0 0 12px gray;
-  min-width: 90%;
-  max-width: 90%;
+  min-width: 95%;
+  max-width: 95%;
+}
+.info-button {
+  box-shadow: 0 0 12px gray;
+  border: 0px;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background-color: #e2b53b;
+  margin: 20px;
+  transition: all .15s ease-in-out;
+}
+
+.info-button:hover {
+  transform: scale(1.1);
 }
