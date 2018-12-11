@@ -13,8 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { CardComponent } from './widget/card/card.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-
+import { NavbarComponent } from './template/header/navbar/navbar.component';
+import { DropdownNavDirective } from './dropdownnav.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,15 +26,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     HomeComponent,
     CardComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NavbarComponent,
+    DropdownNavDirective
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot(),
-    NgbModule
+    MDBBootstrapModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
