@@ -3,9 +3,10 @@ package nl.dubio.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.security.Principal;
 import java.sql.Date;
 
-public class Admin implements DatabaseObject<Admin> {
+public class Admin implements DatabaseObject<Admin>, Principal {
 
     @JsonProperty
     private int id;
@@ -59,6 +60,11 @@ public class Admin implements DatabaseObject<Admin> {
                 ", rightId=" + rightId +
                 ", signupDate=" + signupDate +
                 '}';
+    }
+
+    @Override
+    public String getName() {
+        return email;
     }
 }
 

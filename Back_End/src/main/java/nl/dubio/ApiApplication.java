@@ -1,12 +1,19 @@
 package nl.dubio;
 
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.setup.Environment;
+import nl.dubio.auth.AdminAuthenticator;
+import nl.dubio.auth.AdminAuthorizer;
 import nl.dubio.config.ApiConfiguration;
 import nl.dubio.factories.PreparedStatementFactory;
+import nl.dubio.models.Admin;
 import nl.dubio.resources.GenericResource;
 import nl.dubio.utils.MailUtility;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.mail.MessagingException;
 import javax.servlet.DispatcherType;
@@ -24,6 +31,16 @@ public class ApiApplication extends Application<ApiConfiguration> {
         setupCORS(environment);
 
         PreparedStatementFactory.setConnectionFactory(configuration.getConnectionFactory());
+
+        environment.jersey().register(new AuthDynamicFeature(
+                new BasicCredentialAuthFilter.Builder<Admin>()
+                        .setAuthenticator(new AdminAuthenticator())
+                        .setAuthorizer(new AdminAuthorizer())
+                        .setRealm("SUPER SECRET STUFF")
+                        .buildAuthFilter()));
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
+        //If you want to use @Auth to inject a custom Principal type into your resource
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(Admin.class));
 
         GenericResource.initResources(environment);
     }
