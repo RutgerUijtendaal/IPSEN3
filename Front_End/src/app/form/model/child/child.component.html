@@ -1,3 +1,43 @@
-<p>
-  child works!
-</p>
+<!-- Parent form login -->
+<div class="card">
+
+  <h5 class="card-header white-text text-center py-6">
+    <strong> {{ formTitle }} </strong>
+  </h5>
+
+  <!--Card content-->
+  <div class="card-body px-lg-5 pt-0">
+
+    <!-- Form -->
+    <div
+      [formGroup]="child"
+      class="row text-center"
+      style="color: #757575;">
+
+      <!-- Date -->
+      <label for="date"> Geboortedatum </label>
+      <div class="col-md-8 md-form">
+        <input
+          type="date"
+          id="date"
+          formControlName="date"
+          class="form-control form-control-sm">
+      </div>
+
+      <!-- isborn -->
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          id="isBorn"
+          formControlName="isBorn">
+        <label class="custom-control-label" for="isBorn"> Kind Geboren </label>
+      </div>
+
+
+    </div>
+    <!-- Form -->
+
+  </div>
+
+</div>
