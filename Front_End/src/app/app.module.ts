@@ -15,6 +15,8 @@ import { CardComponent } from './widget/card/card.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NavbarComponent } from './template/header/navbar/navbar.component';
 import { DropdownNavDirective } from './dropdownnav.directive';
+import { LoginComponent } from './login/login.component';
+import { LoginCardComponent } from './login/login-card/login-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,9 @@ import { DropdownNavDirective } from './dropdownnav.directive';
     HomeComponent,
     CardComponent,
     HomeComponent,
+    PageNotFoundComponent,
+    LoginComponent,
+    LoginCardComponent,
     PageNotFoundComponent,
     NavbarComponent,
     DropdownNavDirective
