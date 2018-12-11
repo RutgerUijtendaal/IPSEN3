@@ -4,30 +4,48 @@
       <button (click)="toggleLocation()" class="info-button" ><i class="fa fa-map-marker fa-2x"></i></button>
       <button (click)="togglePhone()" class="info-button" ><i class="fa fa-phone fa-2x"></i></button>
       <button (click)="toggleEmail()" class="info-button" ><i  class="fa fa-envelope fa-2x"></i></button>
-      <div class="row py-5" id="cards">
-        <div class="col-sm-12 col-lg-3" [hidden]="!showLocation">
+      <div style="padding-bottom: 25px;" class="row py-5" class="d-flex justify-content-center" id="cards">
+        <div class="col-xs-8 col-md-5" [hidden]="!showLocation">
           <mdb-card>
-            <mdb-card-body>
+            <mdb-card-body style="padding: 0px;">
+              <mdb-card-title>
+                <h5 class="card-header white-text text-center" style="background-color: #e2b53b;">
+                  <strong> Locatie </strong>
+                </h5>
+              </mdb-card-title>
+              <div style="padding: 10px"></div>
               <mdb-card-text>
-                LOCATIE
+                LOCATIE INFO
               </mdb-card-text>
             </mdb-card-body>
           </mdb-card>
         </div>
-        <div class="col-sm-12 col-lg-3" [hidden]="!showEmail">
+        <div class="col-xs-8 col-md-5" [hidden]="!showEmail">
           <mdb-card>
-            <mdb-card-body>
+            <mdb-card-body style="padding: 0px;">
+              <mdb-card-title>
+                <h5 class="card-header white-text text-center" style="background-color: #e2b53b;">
+                  <strong> Email </strong>
+                </h5>
+              </mdb-card-title>
+              <div style="padding: 10px"></div>
               <mdb-card-text>
-                EMAIL
+                EMAIL INFO
               </mdb-card-text>
             </mdb-card-body>
           </mdb-card>
         </div>
-        <div class="col-sm-12 col-lg-3" [hidden]="!showPhone">
+        <div class="col-xs-8 col-md-5" [hidden]="!showPhone">
           <mdb-card>
-            <mdb-card-body>
+            <mdb-card-body style="padding: 0px;">
+              <mdb-card-title>
+                <h5 class="card-header white-text text-center" style="background-color: #e2b53b;">
+                  <strong> Telefoon </strong>
+                </h5>
+              </mdb-card-title>
+              <div style="padding: 10px"></div>
               <mdb-card-text>
-                PHONE
+                TELEFOON INFO
               </mdb-card-text>
             </mdb-card-body>
           </mdb-card>

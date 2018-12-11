@@ -13,20 +13,26 @@ export class ContactComponent implements OnInit {
 
   constructor() {
     this.showLocation = true;
-    this.showPhone = true;
-    this.showEmail = true;
+    this.showPhone = false;
+    this.showEmail = false;
   }
 
   toggleLocation(): void {
-    this.showLocation = !this.showLocation;
+    this.showLocation = true;
+    this.showPhone = false;
+    this.showEmail = false;
   }
 
   togglePhone(): void {
-    this.showPhone = !this.showPhone;
+    this.showLocation = false;
+    this.showPhone = true;
+    this.showEmail = false;
   }
 
   toggleEmail(): void {
-    this.showEmail = !this.showEmail;
+    this.showLocation = false;
+    this.showPhone = false;
+    this.showEmail = true;
 
   }
 
