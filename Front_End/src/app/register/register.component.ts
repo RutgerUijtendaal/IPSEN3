@@ -20,7 +20,21 @@ export class RegisterComponent implements OnInit {
   }
 
   submitForm(): void {
-    console.log(this.coupleForm.value)
+    console.log(this.coupleForm.value);
+    const collection: any = {
+      firstname1: this.coupleForm.value.parentA.name,
+      phoneNr1: this.coupleForm.value.parentA.phone,
+      email1: this.coupleForm.value.parentA.email,
+
+      firstname2: this.coupleForm.value.parentA.name,
+      phoneNr2: this.coupleForm.value.parentA.phone,
+      email2: this.coupleForm.value.parentA.email,
+
+      isBorn: this.coupleForm.value.child.isBorn,
+      date: this.coupleForm.value.child.date.getMilliseconds()
+    };
+
+    console.log(collection);
   }
 
   private initForm() {
