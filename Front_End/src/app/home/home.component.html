@@ -1,8 +1,8 @@
 <div id="slider">
-  <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+  <mdb-carousel>
     <mdb-carousel-item>
       <div class="view w-100">
-        <img class="d-block w-100" src="https://via.placeholder.com/1400x400.png" alt="First slide">
+        <img class="d-block w-100" src="assets/images/slider/home_slide_1.jpg" alt="First slide">
         <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
       </div>
       <div class="carousel-caption">
@@ -11,26 +11,19 @@
         <a routerLink="/registreren" routerLinkActive="active" class="btn-rouded btn-normalize" type="button" mdbBtn color="primary" mdbWavesEffect>Inschrijven</a>
       </div>
     </mdb-carousel-item>
-
-    <mdb-carousel-item>
-      <div class="view w-100">
-        <img class="d-block w-100" src="https://via.placeholder.com/1400x400.png" alt="Second slide">
-      </div>
-    </mdb-carousel-item>
-
-    <mdb-carousel-item>
-      <div class="view w-100">
-        <img class="d-block w-100" src="https://via.placeholder.com/1400x400.png" alt="Third slide">
-      </div>
-
-    </mdb-carousel-item>
   </mdb-carousel>
+</div>
+
+<div id="howitworks">
+  <h3>
+    Hoe werkt het?
+  </h3>
 </div>
 
 <div class="container">
   <div class="row" id="cards">
     <div class="col-sm-12 col-lg-4">
-      <app-widget-card [image]="'https://via.placeholder.com/700x300.png'" [alt]="'Sample image'"
+      <app-widget-card [image]="'assets/images/cards/dubio_dilemma.png'" [alt]="'Sample image 1'"
                        [title]="'Weekelijkse dilemma\'s'">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aperiam, at consequatur delectus
         eaque enim expedita facere fugit impedit labore pariatur possimus qui sapiente, sequi sit totam vel vero?
@@ -38,7 +31,7 @@
     </div>
 
     <div class="col-sm-12 col-lg-4">
-      <app-widget-card [image]="'https://via.placeholder.com/700x300.png'" [alt]="'Sample image'"
+      <app-widget-card [image]="'assets/images/cards/dubio_talk.png'" [alt]="'Sample image'"
                        [title]="'Beantwoord en bespreek'">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aperiam, at consequatur delectus
         eaque enim expedita facere fugit impedit labore pariatur possimus qui sapiente, sequi sit totam vel vero?
@@ -46,7 +39,7 @@
     </div>
 
     <div class="col-sm-12 col-lg-4">
-      <app-widget-card [image]="'https://via.placeholder.com/700x300.png'" [alt]="'Sample image'"
+      <app-widget-card [image]="'assets/images/cards/dubio_feedback.png'" [alt]="'Sample image'"
                        [title]="'Krijg feedback'">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aperiam, at consequatur delectus
         eaque enim expedita facere fugit impedit labore pariatur possimus qui sapiente, sequi sit totam vel vero?
