@@ -2,17 +2,21 @@
 $background-color: #809baa;
 
 body {
+  margin: 0;
+  padding: 0;
+
   color: white;
   background-color: $background-color;
 
   font-family: "Helvetica Neue Regular";
-
-  height: 100%;
+  position: relative;
 }
 
-footer {
-  position: relative;
-  //margin-top: -180px;
-  clear: both;
-  height: 180px;
+.btn-rouded {
+  border-radius: 50px;
+}
+
+.btn-normalize {
+  text-transform: none;
+  font-size: 1em;
 }

@@ -11,6 +11,7 @@ import { HeaderComponent } from './template/header/header.component';
 import { FooterComponent } from './template/footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+import { CardComponent } from './widget/card/card.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   declarations: [
@@ -20,6 +21,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ChildComponent,
     HeaderComponent,
     FooterComponent,
+    HomeComponent,
+    CardComponent,
     HomeComponent,
     PageNotFoundComponent
   ],
