@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { CardComponent } from './widget/card/card.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NavbarComponent } from './template/header/navbar/navbar.component';
+import { DropdownNavDirective } from './dropdownnav.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     HomeComponent,
     CardComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NavbarComponent,
+    DropdownNavDirective
   ],
   imports: [
     BrowserModule,
