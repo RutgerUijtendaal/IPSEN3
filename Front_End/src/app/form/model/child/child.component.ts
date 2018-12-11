@@ -9,13 +9,19 @@ import {FormGroup} from '@angular/forms';
 export class ChildComponent implements OnInit {
   @Input() child: FormGroup;
   @Input() formTitle: string;
-  dateText: string;
-
-
+  dateText: string = "Verwachtingsdatum";
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onIsBornToggle(value: boolean) {
+    if(value) {
+      this.dateText = "Geboortedatum";
+    } else {
+      this.dateText = "Verwachtingsdatum";
+    }
   }
 
 }

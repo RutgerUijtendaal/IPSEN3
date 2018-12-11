@@ -14,25 +14,35 @@
       class="row text-center"
       style="color: #757575;">
 
+      <div class="col-12 col-lg-6 my-md-4 mt-3">
+        <div class="custom-control form-control-lg custom-checkbox">
+          <input
+            #isBorn
+            type="checkbox"
+            class="custom-control-input"
+            id="isBorn"
+            (change)="onIsBornToggle(isBorn.checked)"
+            formControlName="isBorn">
+          <label class="custom-control-label" for="isBorn">Ons kind is al geboren.</label>
+        </div>
+      </div>
+
+      <div class="col-12" id="horizontalLine">
+        <hr>
+      </div>
+
       <!-- Date -->
-      <label for="date"> Geboortedatum </label>
-      <div class="col-md-8 md-form">
+      <div class="col-12 col-lg-6 mb-sm-5 form-control-lg" >
+        <label for="date"> {{ dateText }} </label>
         <input
-          type="date"
-          id="date"
-          formControlName="date"
-          class="form-control form-control-sm">
+            type="date"
+            id="date"
+            formControlName="date"
+            class="form-control form-control-sm">
+
       </div>
 
       <!-- isborn -->
-      <div class="custom-control custom-checkbox">
-        <input
-          type="checkbox"
-          class="custom-control-input"
-          id="isBorn"
-          formControlName="isBorn">
-        <label class="custom-control-label" for="isBorn"> Kind Geboren </label>
-      </div>
 
 
     </div>
