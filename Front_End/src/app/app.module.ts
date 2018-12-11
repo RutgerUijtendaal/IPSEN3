@@ -17,6 +17,7 @@ import { NavbarComponent } from './template/header/navbar/navbar.component';
 import { DropdownNavDirective } from './dropdownnav.directive';
 import { LoginComponent } from './login/login.component';
 import { LoginCardComponent } from './login/login-card/login-card.component';
+import { ContactComponent } from './contact/contact.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,8 @@ import { LoginCardComponent } from './login/login-card/login-card.component';
     DropdownNavDirective,
     PageNotFoundComponent,
     LoginComponent,
-    LoginCardComponent
+    LoginCardComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
