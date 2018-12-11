@@ -1,5 +1,15 @@
-div {
-  background-color: #dbd8c6;
-  color: #03142b;
-  padding: 10% 10%;
+$dubio-dark-blue: #1e4768;
+
+mdb-card-body {
+  color: black;
 }
+
+mdb-card-title {
+  background-color: $dubio-dark-blue;
+  font-size: 34px;
+  color: white;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
