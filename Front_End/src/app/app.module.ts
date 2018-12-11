@@ -11,6 +11,10 @@ import { HeaderComponent } from './template/header/header.component';
 import { FooterComponent } from './template/footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+import { CardComponent } from './widget/card/card.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NavbarComponent } from './template/header/navbar/navbar.component';
+import { DropdownNavDirective } from './dropdownnav.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,10 +24,16 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    PageNotFoundComponent
+    CardComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    NavbarComponent,
+    DropdownNavDirective
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     MDBBootstrapModule.forRoot()
   ],
