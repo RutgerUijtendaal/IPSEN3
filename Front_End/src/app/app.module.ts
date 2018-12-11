@@ -25,7 +25,8 @@ import { CardComponent } from './widget/card/card.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
