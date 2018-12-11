@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { CardComponent } from './widget/card/card.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { LoginCardComponent } from './login/login-card/login-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     HomeComponent,
     CardComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoginComponent,
+    LoginCardComponent
   ],
   imports: [
     BrowserModule,

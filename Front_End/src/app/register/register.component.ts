@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
   }
 
   submitForm(): void {
-    console.log(this.coupleForm.value)
+    console.log(this.coupleForm.value);
   }
 
   private initForm() {
@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
         'date': new FormControl(''),
         'isBorn': new FormControl('')
       })
-    })
+    });
   }
 
 }
