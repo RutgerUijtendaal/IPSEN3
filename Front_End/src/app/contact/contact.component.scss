@@ -10,9 +10,13 @@
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  background-color: #e2b53b;
+  background-color: #1e4768;
   margin: 20px;
   transition: all .15s ease-in-out;
+}
+
+i {
+  color: white;
 }
 
 .info-button:hover {
