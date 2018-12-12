@@ -3,6 +3,10 @@ logging:
   loggers:
     IPSEN3_Back_End: DEBUG
 
+mailUtility:
+  username: dubiogroep9
+  password: dreamteam_en_bas
+
 daoRepository:
   adminDao:
     tableName: admin
