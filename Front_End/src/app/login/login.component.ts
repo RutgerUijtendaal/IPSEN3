@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ValidateEmail} from '../validators/email.validator';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   adminForm: FormGroup;
 
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   private initForm() {
@@ -20,6 +21,10 @@ export class LoginComponent implements OnInit {
       'email': new FormControl('', [Validators.required, ValidateEmail]),
       'password': new FormControl('', [Validators.required, Validators.minLength(8)])
     });
+  }
+
+  onGoBack() {
+    this.router.navigate(['../']);
   }
 
   submitForm(): void {
