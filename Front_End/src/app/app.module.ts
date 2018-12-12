@@ -18,6 +18,7 @@ import { DropdownNavDirective } from './dropdownnav.directive';
 import { LoginComponent } from './login/login.component';
 import { LoginCardComponent } from './login/login-card/login-card.component';
 import { ContactComponent } from './contact/contact.component';
+import { PrivacyComponent } from './privacy/privacy.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { ContactComponent } from './contact/contact.component';
     PageNotFoundComponent,
     LoginComponent,
     LoginCardComponent,
-    ContactComponent
+    ContactComponent,
+    PrivacyComponent
   ],
   imports: [
     BrowserModule,
