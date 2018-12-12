@@ -32,9 +32,9 @@ export class RegisterComponent implements OnInit {
       phoneNr1: this.coupleForm.value.parentA.phone,
       email1: this.coupleForm.value.parentA.email,
 
-      firstName2: this.coupleForm.value.parentA.name,
-      phoneNr2: this.coupleForm.value.parentA.phone,
-      email2: this.coupleForm.value.parentA.email,
+      firstName2: this.coupleForm.value.parentB.name,
+      phoneNr2: this.coupleForm.value.parentB.phone,
+      email2: this.coupleForm.value.parentB.email,
 
       isBorn: this.coupleForm.value.child.isBorn,
       date: (new Date(this.coupleForm.value.child.date)).getMilliseconds()
