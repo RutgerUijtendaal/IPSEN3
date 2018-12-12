@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ValidatePhone} from '../validators/phone.validator';
 import {ValidateEmail} from '../validators/email.validator';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
   coupleForm: FormGroup;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
@@ -26,6 +27,10 @@ export class RegisterComponent implements OnInit {
     console.log(this.coupleForm.value);
   }
 
+  onGoBack() {
+    this.router.navigate(['../']);
+  }
+
   private initForm() { 'yyyy-MM-dd'
     this.coupleForm = new FormGroup({
       'parentA': new FormGroup({
@@ -34,7 +39,7 @@ export class RegisterComponent implements OnInit {
         'phone': new FormControl('', [Validators.required, ValidatePhone]),
       }),
       'parentB': new FormGroup({
-        'name': new FormControl('', [Validators.required,  Validators.minLength(4)]),
+        'name': new FormControl('', [Validators.required,  Validators.minLength(2)]),
         'email': new FormControl('', [Validators.required, ValidateEmail]),
         'phone': new FormControl('', [Validators.required, ValidatePhone]),
       }),
