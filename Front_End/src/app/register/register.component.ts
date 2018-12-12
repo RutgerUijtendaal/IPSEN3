@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { RegisterService } from './register.service';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ export class RegisterComponent implements OnInit {
   formTitleChild = "Jullie kind";
   coupleForm: FormGroup;
 
-  constructor() {
+  constructor(private service: RegisterService) {
   }
 
   ngOnInit() {
@@ -21,7 +22,7 @@ export class RegisterComponent implements OnInit {
 
   submitForm(): void {
     console.log(this.coupleForm.value);
-    const collection: any = {
+    const collection: object = {
       firstname1: this.coupleForm.value.parentA.name,
       phoneNr1: this.coupleForm.value.parentA.phone,
       email1: this.coupleForm.value.parentA.email,
@@ -31,10 +32,10 @@ export class RegisterComponent implements OnInit {
       email2: this.coupleForm.value.parentA.email,
 
       isBorn: this.coupleForm.value.child.isBorn,
-      date: this.coupleForm.value.child.date.getMilliseconds()
+      date: (new Date(this.coupleForm.value.child.date)).getMilliseconds()
     };
 
-    console.log(collection);
+    this.service.register(collection);
   }
 
   private initForm() {
@@ -53,7 +54,7 @@ export class RegisterComponent implements OnInit {
         'date': new FormControl(''),
         'isBorn': new FormControl('')
       })
-    })
+    });
   }
 
 }
