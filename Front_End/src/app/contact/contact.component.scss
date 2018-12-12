@@ -26,3 +26,8 @@ i {
 .info-button:hover {
   transform: scale(1.1);
 }
+
+button:focus {
+  outline: none !important;
+}
+

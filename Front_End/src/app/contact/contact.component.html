@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row justify-content-center py-5">
     <div align="center">
-      <button (click)="toggleLocation()" class="info-button" ><i class="fa fa-map-marker fa-2x"></i></button>
-      <button (click)="togglePhone()" class="info-button" ><i class="fa fa-phone fa-2x"></i></button>
-      <button (click)="toggleEmail()" class="info-button" ><i  class="fa fa-envelope fa-2x"></i></button>
+      <button [ngStyle]="{'background-color': locationColor}" (click)="toggleLocation()" class="info-button" ><i class="fa fa-map-marker fa-2x"></i></button>
+      <button [ngStyle]="{'background-color': mailColor}" (click)="toggleEmail()" class="info-button" ><i  class="fa fa-envelope fa-2x"></i></button>
+      <button [ngStyle]="{'background-color': phoneColor}" (click)="togglePhone()" class="info-button" ><i class="fa fa-phone fa-2x"></i></button>
       <div style="padding-bottom: 25px;" class="row py-5" class="d-flex justify-content-center" id="cards">
         <div class="col-xs-8 col-md-5" [hidden]="!showLocation">
           <mdb-card>
