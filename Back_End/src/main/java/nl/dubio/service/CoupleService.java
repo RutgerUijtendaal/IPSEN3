@@ -1,10 +1,13 @@
 package nl.dubio.service;
 
+import nl.dubio.ApiApplication;
 import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleRegistry;
 import nl.dubio.persistance.CoupleDao;
 import nl.dubio.persistance.DaoRepository;
+import nl.dubio.utils.MailUtility;
 
+import javax.mail.MessagingException;
 import java.sql.Date;
 import java.util.List;
 
@@ -63,6 +66,18 @@ public class CoupleService implements CrudService<Couple> {
                 registry.getDate().compareTo(new Date(System.currentTimeMillis())) < 0 :
                 registry.getDate().compareTo(new Date(System.currentTimeMillis())) > 0
         );
-        return dao.saveCoupleViaRegistry(registry);
+
+        int coupleId = dao.saveCoupleViaRegistry(registry);
+
+        // Send welcome mails if successful
+        MailUtility mailUtility = ApiApplication.getMailUtility();
+        try {
+            mailUtility.addWelcomeMailToQueue(registry.getEmail1(), registry.getFirstName1());
+            mailUtility.addWelcomeMailToQueue(registry.getEmail2(), registry.getFirstName2());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        return coupleId;
     }
 }

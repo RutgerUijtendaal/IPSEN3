@@ -15,6 +15,8 @@ import java.util.EnumSet;
 
 public class ApiApplication extends Application<ApiConfiguration> {
 
+    private static MailUtility mailUtility;
+
     public static void main(String[] args) throws Exception {
         new ApiApplication().run(args);
     }
@@ -26,7 +28,11 @@ public class ApiApplication extends Application<ApiConfiguration> {
         PreparedStatementFactory.setConnectionFactory(configuration.getConnectionFactory());
 
         GenericResource.initResources(environment);
+
+        mailUtility = configuration.getMailUtility();
     }
+
+    public static MailUtility getMailUtility() { return mailUtility; }
 
     private void setupCORS(Environment environment) {
         final FilterRegistration.Dynamic cors =
