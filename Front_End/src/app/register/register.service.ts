@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppComponent } from '../app.component';
 
 @Injectable({
@@ -13,7 +13,13 @@ export class RegisterService {
   register(data) {
     const url = AppComponent.environment.server + '/couple/register';
 
-    this.httpClient.post(url, data).subscribe((message: any) => {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    this.httpClient.post(url, data, httpOptions).subscribe((message: any) => {
       console.log('Hello World');
     });
   }
