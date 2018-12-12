@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ValidatePhone} from '../validators/phone.validator';
 import {ValidateEmail} from '../validators/email.validator';
 import {Router} from '@angular/router';
+import { RegisterService } from './register.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ export class RegisterComponent implements OnInit {
 
   coupleForm: FormGroup;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private service: RegisterService) {
   }
 
   ngOnInit() {
@@ -25,6 +26,20 @@ export class RegisterComponent implements OnInit {
 
   submitForm(): void {
     console.log(this.coupleForm.value);
+    const collection: object = {
+      firstname1: this.coupleForm.value.parentA.name,
+      phoneNr1: this.coupleForm.value.parentA.phone,
+      email1: this.coupleForm.value.parentA.email,
+
+      firstname2: this.coupleForm.value.parentA.name,
+      phoneNr2: this.coupleForm.value.parentA.phone,
+      email2: this.coupleForm.value.parentA.email,
+
+      isBorn: this.coupleForm.value.child.isBorn,
+      date: (new Date(this.coupleForm.value.child.date)).getMilliseconds()
+    };
+
+    this.service.register(collection);
   }
 
   onGoBack() {

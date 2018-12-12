@@ -1,5 +1,17 @@
 <div id="slider">
-  <mdb-carousel>
+  <mdb-carousel [animation]="'slide'">
+    <mdb-carousel-item>
+      <div class="view w-100">
+        <img class="d-block w-100" src="assets/images/slider/home_slide_1.jpg" alt="First slide">
+        <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
+      </div>
+      <div class="carousel-caption">
+        <h3 class="h3-responsive">Dubio</h3>
+        <p>Jeugdzorg voor de toekomst</p>
+        <a routerLink="/registreren" routerLinkActive="active" class="btn-rouded btn-normalize" type="button" mdbBtn color="primary" mdbWavesEffect>Inschrijven</a>
+      </div>
+    </mdb-carousel-item>
+
     <mdb-carousel-item>
       <div class="view w-100">
         <img class="d-block w-100" src="assets/images/slider/home_slide_1.jpg" alt="First slide">

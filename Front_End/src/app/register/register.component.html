@@ -1,6 +1,10 @@
 <div class="container">
 
   <div class="row justify-content-center py-5">
+    <div class="col-10">
+<div class="container">
+
+  <div class="row justify-content-center py-5">
     <div class="col-12">
 
       <div class="card">
@@ -8,8 +12,18 @@
         <h5 class="card-header white-text text-center py-4">
           <strong> Registeren </strong>
         </h5>
+        <div class="row justify-content-center py-md-3">
+          <div class="col-xs-10 col-md-5 mx-md-0 py-md-3 mx-sm-5 py-sm-2">
+            <app-parent [parent]="coupleForm.controls.parentA" [formTitle]="formTitleParentA"></app-parent>
+          </div>
+          <div class="col-xs-12 col-md-5 mx-md-0 py-md-3 mx-sm-5 py-sm-2">
+            <app-parent [parent]="coupleForm.controls.parentB" [formTitle]="formTitleParentB"></app-parent>
+          </div>
+        </div>
+        <h5 class="card-header white-text text-center py-4">
+          <strong> Registeren </strong>
+        </h5>
 
-        <form action="" (submit)="submitForm()">
           <div class="row justify-content-center py-md-3">
             <div class="col-xs-10 col-md-5 mx-md-0 py-md-3 mx-sm-5 py-sm-2">
               <app-parent [parent]="coupleForm.controls.parentA" [formTitle]="formTitleParentA"></app-parent>
@@ -25,6 +39,37 @@
             </div>
           </div>
 
+        <div class="row justify-content-center py-5 mx-5">
+          <div class="col-10">
+            <div class="row">
+              <div class="col-auto mr-auto">
+                <button
+                  mdbBtn
+                  type="button"
+                  color="danger"
+                  size="lg"
+                  mdbWavesEffect
+                >
+                  Terug
+                </button>
+              </div>
+              <div class="col-auto">
+                <button
+                  mdbBtn
+                  [disabled]="!coupleForm.valid"
+                  (click)="submitForm()"
+                  type="button"
+                  color="success"
+                  size="lg"
+                  mdbWavesEffect
+                >
+                  Inschrijven
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
           <div class="row justify-content-center py-5 mx-5">
             <div class="col-10">
               <div class="row">
@@ -58,7 +103,6 @@
             </div>
           </div>
 
-        </form>
       </div>
     </div>
   </div>
