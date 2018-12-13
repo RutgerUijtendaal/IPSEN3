@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AppComponent } from '../app.component';
+import { AppComponent } from '../../app.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterService {
+export class RegisterNewService {
 
   constructor(private httpClient: HttpClient) {
   }
@@ -20,8 +20,6 @@ export class RegisterService {
       })
     };
 
-    this.httpClient.post(url, data, httpOptions).subscribe((message: any) => {
-      console.log('Hello World');
-    });
+    return this.httpClient.post(url, data, httpOptions);
   }
 }

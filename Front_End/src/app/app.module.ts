@@ -18,8 +18,13 @@ import { DropdownNavDirective } from './dropdownnav.directive';
 import { LoginComponent } from './login/login.component';
 import { LoginCardComponent } from './login/login-card/login-card.component';
 import { ContactComponent } from './contact/contact.component';
-import { PrivacyComponent } from './privacy/privacy.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterSuccessComponent } from './register/register-success/register-success.component';
+import { PrivacyComponent} from './privacy/privacy.component';
+import { RegisterNewComponent } from './register/register-new/register-new.component';
+import { ErrorMessageComponent } from './widget/error-message/error-message.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,12 +45,16 @@ import { HttpClientModule } from '@angular/common/http';
     PageNotFoundComponent,
     LoginComponent,
     LoginCardComponent,
+    PrivacyComponent,
     ContactComponent,
-    PrivacyComponent
+    RegisterSuccessComponent,
+    RegisterNewComponent,
+    ErrorMessageComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
