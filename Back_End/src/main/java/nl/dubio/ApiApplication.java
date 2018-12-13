@@ -1,15 +1,16 @@
 package nl.dubio;
 
+import com.google.common.collect.Lists;
 import io.dropwizard.Application;
-import io.dropwizard.auth.AuthDynamicFeature;
-import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.*;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.auth.chained.ChainedAuthFilter;
 import io.dropwizard.setup.Environment;
-import nl.dubio.auth.AdminAuthenticator;
-import nl.dubio.auth.AdminAuthorizer;
+import nl.dubio.auth.*;
 import nl.dubio.config.ApiConfiguration;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.Admin;
+import nl.dubio.models.Parent;
 import nl.dubio.resources.GenericResource;
 import nl.dubio.utils.MailUtility;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
@@ -17,6 +18,8 @@ import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.EnumSet;
 
 public class ApiApplication extends Application<ApiConfiguration> {
@@ -33,19 +36,28 @@ public class ApiApplication extends Application<ApiConfiguration> {
 
         PreparedStatementFactory.setConnectionFactory(configuration.getConnectionFactory());
 
-        environment.jersey().register(new AuthDynamicFeature(
-                new BasicCredentialAuthFilter.Builder<Admin>()
-                        .setAuthenticator(new AdminAuthenticator())
-                        .setAuthorizer(new AdminAuthorizer())
-                        .setRealm("SUPER SECRET STUFF")
-                        .buildAuthFilter()));
-        environment.jersey().register(RolesAllowedDynamicFeature.class);
-
-        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(Admin.class));
+        setupAuthentication(environment);
 
         GenericResource.initResources(environment);
 
         mailUtility = configuration.getMailUtility();
+    }
+
+    private void setupAuthentication(Environment environment) {
+        AuthFilter authFilterAdmin = new BasicCredentialAuthFilter.Builder<Admin>()
+                        .setAuthenticator(new AdminAuthenticator())
+                        .setAuthorizer(new AdminAuthorizer())
+                        .setRealm("ADMIN")
+                        .buildAuthFilter();
+        AuthFilter authFilterParent = new BasicCredentialAuthFilter.Builder<Parent>()
+                        .setAuthenticator(new ParentAuthenticator())
+                        .setAuthorizer(new ParentAuthorizer())
+                        .setRealm("PARENT")
+                        .buildAuthFilter();
+        ArrayList<AuthFilter> filters = Lists.newArrayList(authFilterAdmin, authFilterParent);
+        environment.jersey().register(new AuthDynamicFeature(new ChainedAuthFilter(filters)));
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(Authorizable.class));
     }
 
     public static MailUtility getMailUtility() { return mailUtility; }

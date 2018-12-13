@@ -1,4 +1,11 @@
 package nl.dubio.auth;
 
-public class ParentAuthorizer {
+import io.dropwizard.auth.Authorizer;
+import nl.dubio.models.Parent;
+
+public class ParentAuthorizer implements Authorizer<Parent> {
+    @Override
+    public boolean authorize(Parent parent, String s) {
+        return false;
+    }
 }

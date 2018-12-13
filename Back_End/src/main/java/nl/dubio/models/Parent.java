@@ -2,8 +2,11 @@ package nl.dubio.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import nl.dubio.auth.Authorizable;
 
-public class Parent implements DatabaseObject<Parent> {
+import java.security.Principal;
+
+public class Parent implements DatabaseObject<Parent>, Authorizable {
 
     @JsonProperty
     private int id;
@@ -52,5 +55,10 @@ public class Parent implements DatabaseObject<Parent> {
                 ", firstName='" + firstName + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getName() {
+        return email;
     }
 }
