@@ -10,7 +10,7 @@ mailUtility:
 server:
   applicationConnectors:
     - type: https
-      port: 8443
+      port: 8080
       keyStorePath: keystore.jks
       keyStorePassword: "dreamteam_en_bas"
 
