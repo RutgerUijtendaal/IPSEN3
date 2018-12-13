@@ -1,9 +1,12 @@
 .mapouter {
-  margin-top: 5px;
-  box-shadow: 0 0 12px gray;
   max-width: 100%;
   min-width: 100%;
 }
+
+.mapdiv {
+  border-top: 2px solid black;
+}
+
 .info-button {
   box-shadow: 0 0 12px gray;
   border: 0px;
