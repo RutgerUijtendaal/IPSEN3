@@ -6,10 +6,17 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import {LoginComponent} from './login/login.component';
 import {ContactComponent} from './contact/contact.component';
 import {PrivacyComponent} from './privacy/privacy.component';
+import {RegisterSuccessComponent} from './register/register-success/register-success.component';
+import {RegisterNewComponent} from './register/register-new/register-new.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'registreren', component: RegisterComponent},
+  { path: 'registreren',
+    component: RegisterComponent,
+    children: [
+      {path: '', component: RegisterNewComponent},
+      {path: 'succes', component: RegisterSuccessComponent}
+    ]},
   { path: 'pagina-niet-gevonden', component: PageNotFoundComponent},
   { path: 'inloggen', component: LoginComponent},
   { path: 'contact', component: ContactComponent },

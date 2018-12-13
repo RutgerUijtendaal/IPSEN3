@@ -19,8 +19,6 @@ export class RegisterService {
       })
     };
 
-    this.httpClient.post(url, data, httpOptions).subscribe((message: any) => {
-      console.log('Hello World');
-    });
+    return this.httpClient.post(url, data, httpOptions);
   }
 }

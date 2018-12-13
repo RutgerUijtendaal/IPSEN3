@@ -23,5 +23,4 @@ export class ChildComponent implements OnInit {
       this.dateText = "Verwachtingsdatum";
     }
   }
-
 }
