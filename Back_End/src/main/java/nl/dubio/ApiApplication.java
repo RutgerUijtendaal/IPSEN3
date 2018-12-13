@@ -15,7 +15,6 @@ import nl.dubio.utils.MailUtility;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
-import javax.mail.MessagingException;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import java.util.EnumSet;
@@ -41,7 +40,7 @@ public class ApiApplication extends Application<ApiConfiguration> {
                         .setRealm("SUPER SECRET STUFF")
                         .buildAuthFilter()));
         environment.jersey().register(RolesAllowedDynamicFeature.class);
-        //If you want to use @Auth to inject a custom Principal type into your resource
+
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(Admin.class));
 
         GenericResource.initResources(environment);
