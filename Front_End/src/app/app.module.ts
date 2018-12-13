@@ -22,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterSuccessComponent } from './register/register-success/register-success.component';
 import { PrivacyComponent} from './privacy/privacy.component';
 import { RegisterNewComponent } from './register/register-new/register-new.component';
-import { SubmitComponent } from './form/submit/submit.component';
+import { ErrorMessageComponent } from './widget/error-message/error-message.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -48,11 +49,12 @@ import { SubmitComponent } from './form/submit/submit.component';
     ContactComponent,
     RegisterSuccessComponent,
     RegisterNewComponent,
-    SubmitComponent,
+    ErrorMessageComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
