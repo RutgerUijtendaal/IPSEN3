@@ -7,6 +7,13 @@ mailUtility:
   username: dubiogroep9
   password: dreamteam_en_bas
 
+server:
+  applicationConnectors:
+    - type: https
+      port: 8443
+      keyStorePath: keystore.jks
+      keyStorePassword: "dreamteam_en_bas"
+
 daoRepository:
   adminDao:
     tableName: admin
