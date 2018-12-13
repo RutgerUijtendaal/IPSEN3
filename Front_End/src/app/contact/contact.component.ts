@@ -10,16 +10,24 @@ export class ContactComponent implements OnInit {
   LIGHT_COLOR = '#1e4768';
   DARK_COLOR = '#03142b';
 
+  displayTitle: string;
+  displayDetails: string;
+
   locationColor: string;
   phoneColor: string;
   mailColor: string;
+
+  phoneDetails = 'TELEFOON Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.';
+  mailDetails = 'EMAIL Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.';
+  locationDetails = 'LOCATIE Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.';
 
   showLocation: boolean;
   showPhone: boolean;
   showEmail: boolean;
 
-
   constructor() {
+    this.displayTitle = 'Email';
+    this.displayDetails = this.mailDetails;
     this.mailColor = this.DARK_COLOR;
     this.showLocation = false;
     this.showPhone = false;
@@ -27,6 +35,8 @@ export class ContactComponent implements OnInit {
   }
 
   toggleLocation(): void {
+    this.displayTitle = 'Locatie';
+    this.displayDetails = this.locationDetails;
     this.showLocation = true;
     this.locationColor = this.DARK_COLOR;
     this.showPhone = false;
@@ -36,6 +46,8 @@ export class ContactComponent implements OnInit {
   }
 
   togglePhone(): void {
+    this.displayTitle = 'Telefoon';
+    this.displayDetails = this.phoneDetails;
     this.showLocation = false;
     this.locationColor = this.LIGHT_COLOR;
     this.showPhone = true;
@@ -45,6 +57,8 @@ export class ContactComponent implements OnInit {
   }
 
   toggleEmail(): void {
+    this.displayTitle = 'Email';
+    this.displayDetails = this.mailDetails;
     this.showLocation = false;
     this.locationColor = this.LIGHT_COLOR;
     this.showPhone = false;
