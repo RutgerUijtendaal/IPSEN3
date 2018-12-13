@@ -29,6 +29,9 @@ public class CoupleRegistry {
     private boolean isBorn;
     @JsonProperty
     private Date date;
+    @JsonProperty()
+    @Length(min = 8)
+    private String password;
 
     public CoupleRegistry(
         @JsonProperty("firstName1") String firstName1,
@@ -38,7 +41,8 @@ public class CoupleRegistry {
         @JsonProperty("phoneNr2") String phoneNr2,
         @JsonProperty("email2") String email2,
         @JsonProperty("isBorn") boolean isBorn,
-        @JsonProperty("date") long date
+        @JsonProperty("date") long date,
+        @JsonProperty("password") String password
     ) {
         this.phoneNr1 = phoneNr1;
         this.firstName1 = firstName1;
@@ -48,6 +52,7 @@ public class CoupleRegistry {
         this.email2 = email2;
         this.isBorn = isBorn;
         this.date = new Date(date);
+        this.password = password;
     }
 
     public String getPhoneNr1() { return phoneNr1; }
@@ -66,6 +71,8 @@ public class CoupleRegistry {
     public void setBorn(boolean born) { isBorn = born; }
     public Date getDate() { return date; }
     public void setDate(long date) { this.date = new Date(date); }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
     @Override
     public String toString() {

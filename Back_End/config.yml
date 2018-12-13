@@ -7,12 +7,12 @@ mailUtility:
   username: dubiogroep9
   password: dreamteam_en_bas
 
-server:
-  applicationConnectors:
-    - type: https
-      port: 8080
-      keyStorePath: keystore.jks
-      keyStorePassword: "dreamteam_en_bas"
+#server:
+#  applicationConnectors:
+#    - type: https
+#      port: 8080
+#      keyStorePath: keystore.jks
+#      keyStorePassword: "dreamteam_en_bas"
 
 daoRepository:
   adminDao:
@@ -26,7 +26,7 @@ daoRepository:
     columnNames: [couple_id, is_born, date]
   coupleDao:
     tableName: couple
-    columnNames: [parent1_id, parent2_id, signup_date]
+    columnNames: [parent1_id, parent2_id, signup_date, password]
   dilemmaDao:
     tableName: dilemma
     columnNames: [week_nr, theme, feedback]

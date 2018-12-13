@@ -14,10 +14,10 @@ import { AppComponent } from '../../app.component';
 export class RegisterNewComponent implements OnInit {
   submitLoading = false;
   showError = false;
-  errorMessage = "";
+  errorMessage = '';
   formTitleParentA = 'Uw Info';
   formTitleParentB = 'Uw Partner';
-  formTitleChild = 'Jullie kind';
+  formTitleChild = 'Gezamelijke Informatie';
 
   coupleForm: FormGroup;
 
@@ -42,7 +42,8 @@ export class RegisterNewComponent implements OnInit {
       email2: this.coupleForm.value.parentB.email,
 
       isBorn: this.coupleForm.value.child.isBorn,
-      date: (new Date(this.coupleForm.value.child.date)).getMilliseconds()
+      date: (new Date(this.coupleForm.value.child.date)).getMilliseconds(),
+      password: this.coupleForm.value.child.password
     };
 
     this.service.register(collection).subscribe(
@@ -52,7 +53,7 @@ export class RegisterNewComponent implements OnInit {
       },
       (error: any) => {
         this.submitLoading = false;
-        this.errorMessage = "Er is iets fout gegaan tijdens het inschrijven";
+        this.errorMessage = 'Er is iets fout gegaan tijdens het inschrijven';
         this.showError = true;
         this.scrollToTop();
       });
@@ -72,14 +73,15 @@ export class RegisterNewComponent implements OnInit {
       }),
       'child': new FormGroup({
         'date': new FormControl(null, Validators.required),
-        'isBorn': new FormControl(false, Validators.required)
+        'isBorn': new FormControl(false, Validators.required),
+        'password': new FormControl('', [Validators.required, Validators.minLength(8)])
       })
     });
   }
 
   scrollToTop() {
-    let scrollToTop = window.setInterval(() => {
-      let pos = window.pageYOffset;
+    const scrollToTop = window.setInterval(() => {
+      const pos = window.pageYOffset;
       if (pos > 0) {
         window.scrollTo(0, pos - 40); // how far to scroll on each step
       } else {

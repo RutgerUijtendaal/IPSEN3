@@ -9,7 +9,7 @@ import {FormGroup} from '@angular/forms';
 export class ChildComponent implements OnInit {
   @Input() child: FormGroup;
   @Input() formTitle: string;
-  dateText: string = "Verwachtingsdatum";
+  dateText = 'Verwachtingsdatum';
 
   constructor() { }
 
@@ -17,10 +17,10 @@ export class ChildComponent implements OnInit {
   }
 
   onIsBornToggle(value: boolean) {
-    if(value) {
-      this.dateText = "Geboortedatum";
+    if (value) {
+      this.dateText = 'Geboortedatum';
     } else {
-      this.dateText = "Verwachtingsdatum";
+      this.dateText = 'Verwachtingsdatum';
     }
   }
 }

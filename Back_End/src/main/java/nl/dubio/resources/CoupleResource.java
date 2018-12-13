@@ -36,7 +36,8 @@ public class CoupleResource extends GenericResource<Couple> {
                 "06-13487621",
                 "JaneDoe@bar.com",
                 true,
-                System.currentTimeMillis()
+                System.currentTimeMillis(),
+                "Test"
         );
     }
 

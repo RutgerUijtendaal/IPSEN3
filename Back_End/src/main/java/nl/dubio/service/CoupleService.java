@@ -64,7 +64,8 @@ public class CoupleService implements CrudService<Couple> {
             ValidationService.isValidEmail(registry.getEmail2()),
             registry.getIsBorn() ?
                 registry.getDate().compareTo(new Date(System.currentTimeMillis())) < 0 :
-                registry.getDate().compareTo(new Date(System.currentTimeMillis())) > 0
+                registry.getDate().compareTo(new Date(System.currentTimeMillis())) > 0,
+            ValidationService.isValidPassword(registry.getPassword())
         );
 
         int coupleId = dao.saveCoupleViaRegistry(registry);
