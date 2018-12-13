@@ -5,11 +5,23 @@ body {
   margin: 0;
   padding: 0;
 
+  min-height: 100vh;
+
   color: white;
   background-color: $background-color;
 
-  font-family: "Helvetica Neue Regular";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   position: relative;
+}
+
+#router-outlet {
+  padding-bottom: 120px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .btn-rouded {

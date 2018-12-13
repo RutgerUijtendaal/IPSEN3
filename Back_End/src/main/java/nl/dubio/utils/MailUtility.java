@@ -1,5 +1,8 @@
 package nl.dubio.utils;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -20,15 +23,17 @@ public class MailUtility {
 
     private static Properties mailServerProperties;
     private static Session mailSession;
-    private final String gmailUsername;
+    private final String username;
     private final String password;
 
     private final int MAILSPEED = 5000;
 
     private List<MimeMessage> messageQueue;
 
-    public MailUtility(String gmailUsername, String password) {
-        this.gmailUsername = gmailUsername;
+    @JsonCreator
+    public MailUtility(@JsonProperty("username") String username,
+                       @JsonProperty("password") String password) {
+        this.username = username;
         this.password = password;
         this.messageQueue = new ArrayList<>();
         startMailThread();
@@ -73,7 +78,7 @@ public class MailUtility {
         generateProperties();
         mailSession = Session.getDefaultInstance(mailServerProperties, null);
         Transport transport = mailSession.getTransport("smtp");
-        transport.connect("smtp.gmail.com", gmailUsername, password);
+        transport.connect("smtp.gmail.com", username, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
     }

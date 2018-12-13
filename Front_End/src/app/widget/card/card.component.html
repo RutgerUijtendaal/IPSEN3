@@ -1,6 +1,9 @@
 <mdb-card>
   <!--Card image-->
   <mdb-card-img *ngIf="image" [src]="image" [alt]="alt"></mdb-card-img>
+  <div *ngIf="image">
+    <hr>
+  </div>
   <!--Card content-->
   <mdb-card-body *ngIf="title">
 

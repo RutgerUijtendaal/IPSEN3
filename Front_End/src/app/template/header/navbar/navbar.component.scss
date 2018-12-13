@@ -30,7 +30,6 @@ a {
 
 .nav-item {
   padding-bottom: 5px;
-
 }
 
 img {
@@ -38,6 +37,7 @@ img {
   margin-right: 20px;
   float: left;
   text-align: center;
+  transition: all .15s ease-in-out;
 }
 
 img:hover{

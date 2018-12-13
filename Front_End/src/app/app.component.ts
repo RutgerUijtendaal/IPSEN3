@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, isDevMode } from '@angular/core';
+import { environment as devEnv } from '../environments/environment';
+import { environment as prodEnv } from '../environments/environment.prod';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  static environment: any;
+
   title = 'Dubio';
+
+  constructor() {
+    if (isDevMode()) {
+      AppComponent.environment = devEnv;
+    } else {
+      AppComponent.environment = prodEnv;
+    }
+  }
 }
