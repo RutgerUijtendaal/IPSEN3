@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ParentModel} from '../../models/parent.model';
-import {CoupleModel} from '../../models/couple.model';
+import {ParentModel} from '../../../models/parent.model';
+import {CoupleModel} from '../../../models/couple.model';
 
 @Component({
   selector: 'app-couple-list',

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ParentModel} from '../../../models/parent.model';
+import {ParentModel} from '../../../../models/parent.model';
 
 @Component({
   selector: 'app-couple-in-list',
