@@ -8,12 +8,13 @@
 
 .left-icons {
   display: inline-block;
+  text-align: center;
 }
 
 .right-icon {
   display: inline-block;
+  text-align: center;
 }
-
 
 i {
   font-size: 40px;
@@ -23,4 +24,8 @@ i {
   display: inline-block;
   text-align: center;
   margin: 0 auto;
+}
+
+.info-text {
+  font-size: 22px;
 }
