@@ -1,4 +1,9 @@
 <mdb-card>
+  <div>
+    <h3 [hidden]="shownCouples.length > 0">
+      Geen resultaten gevonden
+    </h3>
+  </div>
   <mdb-card-body id="results-body">
     <app-couple-in-list *ngFor="let c of shownCouples" [parent1]="c.parent1" [parent2]="c.parent2"></app-couple-in-list>
   </mdb-card-body>

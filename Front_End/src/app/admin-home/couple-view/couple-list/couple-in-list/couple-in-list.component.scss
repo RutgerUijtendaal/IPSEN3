@@ -3,29 +3,18 @@
   text-align: center;
 }
 
-.mainbody {
-}
-
-.left-icons {
-  display: inline-block;
-  text-align: center;
-}
-
-.right-icon {
-  display: inline-block;
-  text-align: center;
-}
-
 i {
-  font-size: 40px;
+  font-size: 50px;
 }
 
-.plus {
-  display: inline-block;
+.plus, .delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin: 0 auto;
 }
 
 .info-text {
   font-size: 22px;
 }
+

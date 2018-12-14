@@ -1,15 +1,7 @@
-<mdb-card>
-  <mdb-card-body class="mainbody">
-    <div class="col-md-1 left-icons">
-      <div>
-        <i class="fa fa-envelope-o"></i>
-      </div>
-      <div>
-        <i class="fa fa-phone"></i>
-      </div>
-    </div>
+<mdb-card style="margin-bottom: 1rem">
+  <mdb-card-body class="col-md-12 d-flex flex-wrap">
     <div class="col-md-4 parent">
-      <i class="fa fa-male" aria-hidden="true"></i>
+      <i class="fa fa-user" aria-hidden="true"></i>
       <div class="info-text">
         {{ parent1.email }}
       </div>
@@ -18,10 +10,10 @@
       </div>
     </div>
     <div class="col-md-2 plus">
-        <i style="font-size: 50px; color: lightblue" class="fa fa-plus" aria-hidden="true"></i>
+      <i style="font-size: 50px; color: lightblue" class="fa fa-plus" aria-hidden="true"></i>
     </div>
     <div class="col-md-4 parent">
-      <i class="fa fa-male" aria-hidden="true"></i>
+      <i class="fa fa-user" aria-hidden="true"></i>
       <div class="info-text">
         {{ parent2.email }}
       </div>
@@ -29,10 +21,8 @@
         {{ parent2.phone }}
       </div>
     </div>
-    <div class="col-md-1 right-icon">
-      <div>
+    <div class="col-md-2 delete">
         <i style="font-size: 60px; color: darkred" class="fa fa-trash"></i>
-      </div>
     </div>
   </mdb-card-body>
 </mdb-card>
