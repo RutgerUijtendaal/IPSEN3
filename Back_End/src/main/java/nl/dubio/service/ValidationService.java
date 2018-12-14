@@ -88,7 +88,7 @@ class ValidationService {
      * @param phone Phone number to validate.
      * @return true if phone number is a valid international nr.
      */
-    public static  boolean isValidInternationalPhone(String phone) {
+    public static boolean isValidInternationalPhone(String phone) {
         // ^\+\d{11}$ -> validates +31652240372
         String pPatternInternational = "^\\+\\d{11}$";
         Pattern pInternational = Pattern.compile(pPatternInternational);
@@ -108,6 +108,18 @@ class ValidationService {
     }
 
     /**
+     * Check if a phone number is in a valid Dutch international or local format.
+     *
+     * @param phone Phone number to validate.
+     * @return true if phone number is a valid international or local nr.
+     */
+    public static boolean isValidPhone(String phone){
+        return ValidationService.isValidInternationalPhone(phone)
+                || ValidationService.isValidInternationalPhone(
+                        ValidationService.localPhoneToInternational(phone));
+    }
+
+    /**
      * Check if a String is not empty.
      *
      * @param s String to check.
@@ -115,13 +127,5 @@ class ValidationService {
      */
     private static boolean isNotEmpty(String s) {
         return !s.trim().isEmpty();
-    }
-
-    public static boolean checkMultipleValidations(boolean... checks){
-        for (boolean check : checks)
-            if (!check)
-                return false;
-
-        return true;
     }
 }
