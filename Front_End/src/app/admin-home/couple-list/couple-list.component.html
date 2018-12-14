@@ -1,0 +1,10 @@
+<div class="container">
+  <mdb-card>
+    <mdb-card-header id="search-header">
+      SEARCHBAR
+    </mdb-card-header>
+    <mdb-card-body id="results-body">
+      <app-couple-in-list *ngFor="let c of couples" [parent1]="c.parent1" [parent2]="c.parent2"></app-couple-in-list>
+    </mdb-card-body>
+  </mdb-card>
+</div>

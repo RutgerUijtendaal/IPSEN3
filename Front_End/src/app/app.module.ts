@@ -24,6 +24,9 @@ import { PrivacyComponent} from './privacy/privacy.component';
 import { RegisterNewComponent } from './register/register-new/register-new.component';
 import { ErrorMessageComponent } from './widget/error-message/error-message.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { CoupleListComponent } from './admin-home/couple-list/couple-list.component';
+import { CoupleInListComponent } from './admin-home/couple-list/couple-in-list/couple-in-list.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     RegisterSuccessComponent,
     RegisterNewComponent,
     ErrorMessageComponent,
+    AdminHomeComponent,
+    CoupleListComponent,
+    CoupleInListComponent,
   ],
   imports: [
     BrowserModule,
