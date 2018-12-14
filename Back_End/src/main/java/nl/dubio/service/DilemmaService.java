@@ -8,39 +8,39 @@ import java.util.List;
 
 public class DilemmaService implements CrudService<Dilemma> {
 
-    private final DilemmaDao dao;
+    private final DilemmaDao dilemmaDao;
 
     public DilemmaService() {
-        this.dao = DaoRepository.getDilemmaDao();
+        this.dilemmaDao = DaoRepository.getDilemmaDao();
     }
 
     @Override
     public List<Dilemma> getAll() {
-        return dao.getAll();
+        return dilemmaDao.getAll();
     }
 
     @Override
     public Dilemma getById(Integer id) {
-        return dao.getById(id);
+        return dilemmaDao.getById(id);
     }
 
     @Override
     public Integer save(Dilemma dilemma) {
-        return dao.save(dilemma);
+        return dilemmaDao.save(dilemma);
     }
 
     @Override
     public boolean update(Dilemma Dilemma) {
-        return dao.update(Dilemma);
+        return dilemmaDao.update(Dilemma);
     }
 
     @Override
     public boolean delete(Dilemma Dilemma) {
-        return dao.delete(Dilemma);
+        return dilemmaDao.delete(Dilemma);
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        return dao.deleteById(id);
+        return dilemmaDao.deleteById(id);
     }
 }

@@ -7,39 +7,39 @@ import nl.dubio.persistance.ResultDao;
 import java.util.List;
 
 public class ResultService implements CrudService<Result> {
-    private final ResultDao dao;
+    private final ResultDao resultDao;
 
     public ResultService() {
-        this.dao = DaoRepository.getResultDao();
+        this.resultDao = DaoRepository.getResultDao();
     }
 
     @Override
     public List<Result> getAll() {
-        return dao.getAll();
+        return resultDao.getAll();
     }
 
     @Override
     public Result getById(Integer id) {
-        return dao.getById(id);
+        return resultDao.getById(id);
     }
 
     @Override
     public Integer save(Result result) {
-        return dao.save(result);
+        return resultDao.save(result);
     }
 
     @Override
     public boolean update(Result Result) {
-        return dao.update(Result);
+        return resultDao.update(Result);
     }
 
     @Override
     public boolean delete(Result Result) {
-        return dao.delete(Result);
+        return resultDao.delete(Result);
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        return dao.deleteById(id);
+        return resultDao.deleteById(id);
     }
 }

@@ -7,39 +7,39 @@ import nl.dubio.persistance.DaoRepository;
 import java.util.List;
 
 public class ChildService implements CrudService<Child> {
-    private final ChildDao dao;
+    private final ChildDao childDao;
 
     public ChildService() {
-        this.dao = DaoRepository.getChildDao();
+        this.childDao = DaoRepository.getChildDao();
     }
 
     @Override
     public List<Child> getAll() {
-        return dao.getAll();
+        return childDao.getAll();
     }
 
     @Override
     public Child getById(Integer id) {
-        return dao.getById(id);
+        return childDao.getById(id);
     }
 
     @Override
     public Integer save(Child child) {
-        return dao.save(child);
+        return childDao.save(child);
     }
 
     @Override
     public boolean update(Child Child) {
-        return dao.update(Child);
+        return childDao.update(Child);
     }
 
     @Override
     public boolean delete(Child Child) {
-        return dao.delete(Child);
+        return childDao.delete(Child);
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        return dao.deleteById(id);
+        return childDao.deleteById(id);
     }
 }
