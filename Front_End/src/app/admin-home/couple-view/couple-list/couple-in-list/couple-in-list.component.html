@@ -1,11 +1,16 @@
 <mdb-card>
   <mdb-card-body>
-
-    {{ parent1.name }}
-    {{ parent2.name }}
-    {{ parent1.email }}
-    {{ parent2.email }}
-    {{ parent1.phone }}
-    {{ parent2.phone }}
+    <div class="col-md-6">
+      <i class="fa fa-male" aria-hidden="true"></i>
+      {{ parent1.name }}
+      {{ parent1.email }}
+      {{ parent1.phone }}
+    </div>
+    <div class="col-md-6">
+      <i class="fa fa-male" aria-hidden="true"></i>
+      {{ parent2.name }}
+      {{ parent2.email }}
+      {{ parent2.phone }}
+    </div>
   </mdb-card-body>
 </mdb-card>

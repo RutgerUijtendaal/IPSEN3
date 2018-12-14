@@ -14,7 +14,7 @@ export class CoupleListComponent implements OnInit {
   shownCouples: CoupleModel[];
 
   constructor(service: CoupleListService) {
-    service.searchQuery.subscribe(s => this.updateList(s));
+    service.searchQuery.subscribe(search => this.updateList(search));
     this.allCouples = [];
     this.createFakeRecords();
     this.updateList('');
@@ -30,13 +30,13 @@ export class CoupleListComponent implements OnInit {
   }
 
   updateList(searchQuery: string) {
-    this.shownCouples = this.allCouples.filter( p =>
-      p.parent1.name.includes(searchQuery) ||
-      p.parent2.name.includes(searchQuery) ||
-      p.parent1.email.includes(searchQuery) ||
-      p.parent2.email.includes(searchQuery) ||
-      p.parent1.phone.includes(searchQuery) ||
-      p.parent2.phone.includes(searchQuery)
+    this.shownCouples = this.allCouples.filter( couple =>
+      couple.parent1.name.includes(searchQuery) ||
+      couple.parent2.name.includes(searchQuery) ||
+      couple.parent1.email.includes(searchQuery) ||
+      couple.parent2.email.includes(searchQuery) ||
+      couple.parent1.phone.includes(searchQuery) ||
+      couple.parent2.phone.includes(searchQuery)
     );
   }
 
