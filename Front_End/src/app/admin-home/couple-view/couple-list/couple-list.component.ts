@@ -21,7 +21,7 @@ export class CoupleListComponent implements OnInit {
   }
 
   createFakeRecords() {
-    for (let i = 0; i < 100; i += 2) {
+    for (let i = 0; i < 20; i += 2) {
       this.allCouples.push(new CoupleModel(
         new ParentModel('Foo' + String(i), String(i) + 'parentemail@gmail.com', '+31612345678'),
         new ParentModel('Bar' + String(i + 1), String(i + 1) + 'parentemail@gmail.com', '+31612345678')
