@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CoupleListService} from '../couple-list-service';
 
 @Component({
   selector: 'app-couple-list-searchbar',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoupleListSearchbarComponent implements OnInit {
 
-  constructor() { }
+  service: CoupleListService;
+
+  constructor(service: CoupleListService) {
+    this.service = service;
+  }
+
+  newInput(event: any) {
+    this.service.searchQuery.next(event.value);
+  }
 
   ngOnInit() {
   }

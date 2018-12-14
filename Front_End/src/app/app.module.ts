@@ -29,6 +29,7 @@ import { CoupleListComponent } from './admin-home/couple-view/couple-list/couple
 import { CoupleInListComponent } from './admin-home/couple-view/couple-list/couple-in-list/couple-in-list.component';
 import { CoupleListSearchbarComponent } from './admin-home/couple-view/couple-list-searchbar/couple-list-searchbar.component';
 import { CoupleViewComponent } from './admin-home/couple-view/couple-view.component';
+import {CoupleListService} from './admin-home/couple-view/couple-list-service';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,7 @@ import { CoupleViewComponent } from './admin-home/couple-view/couple-view.compon
     HttpClientModule,
     MDBBootstrapModule.forRoot()
   ],
-  providers: [],
+  providers: [CoupleListService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
