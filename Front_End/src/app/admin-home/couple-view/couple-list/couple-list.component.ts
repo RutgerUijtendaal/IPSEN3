@@ -23,16 +23,14 @@ export class CoupleListComponent implements OnInit {
   createFakeRecords() {
     for (let i = 0; i < 100; i += 2) {
       this.allCouples.push(new CoupleModel(
-        new ParentModel('naam' + String(i), 'email', 'phone'),
-        new ParentModel('naam' + String(i + 1), 'email', 'phone')
+        new ParentModel('Foo' + String(i), String(i) + 'parentemail@gmail.com', '+31612345678'),
+        new ParentModel('Bar' + String(i + 1), String(i + 1) + 'parentemail@gmail.com', '+31612345678')
       ));
     }
   }
 
   updateList(searchQuery: string) {
     this.shownCouples = this.allCouples.filter( couple =>
-      couple.parent1.name.includes(searchQuery) ||
-      couple.parent2.name.includes(searchQuery) ||
       couple.parent1.email.includes(searchQuery) ||
       couple.parent2.email.includes(searchQuery) ||
       couple.parent1.phone.includes(searchQuery) ||

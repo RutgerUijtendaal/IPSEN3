@@ -1,8 +1,26 @@
-div {
+.parent {
   display: inline-block;
   text-align: center;
 }
 
+.mainbody {
+}
+
+.left-icons {
+  display: inline-block;
+}
+
+.right-icon {
+  display: inline-block;
+}
+
+
 i {
-  font-size: 20px;
+  font-size: 40px;
+}
+
+.plus {
+  display: inline-block;
+  text-align: center;
+  margin: 0 auto;
 }
