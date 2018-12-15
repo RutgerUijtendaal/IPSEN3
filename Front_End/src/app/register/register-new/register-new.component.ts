@@ -14,7 +14,7 @@ import { AppComponent } from '../../app.component';
 export class RegisterNewComponent implements OnInit {
   submitLoading = false;
   showError = false;
-  errorMessage = "";
+  errorMessage = '';
   formTitleParentA = 'Uw Info';
   formTitleParentB = 'Uw Partner';
   formTitleChild = 'Jullie kind';
@@ -52,13 +52,15 @@ export class RegisterNewComponent implements OnInit {
       },
       (error: any) => {
         this.submitLoading = false;
-        this.errorMessage = "Er is iets fout gegaan tijdens het inschrijven";
+        this.errorMessage = 'Er is iets fout gegaan tijdens het inschrijven';
         this.showError = true;
         this.scrollToTop();
       });
   }
 
-  private initForm() { 'yyyy-MM-dd'
+  private initForm() {
+    // yyyy-MM-dd
+
     this.coupleForm = new FormGroup({
       'parentA': new FormGroup({
         'name': new FormControl('', [Validators.required,  Validators.minLength(2)]),
@@ -78,8 +80,8 @@ export class RegisterNewComponent implements OnInit {
   }
 
   scrollToTop() {
-    let scrollToTop = window.setInterval(() => {
-      let pos = window.pageYOffset;
+    const scrollToTop = window.setInterval(() => {
+      const pos = window.pageYOffset;
       if (pos > 0) {
         window.scrollTo(0, pos - 40); // how far to scroll on each step
       } else {

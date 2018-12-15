@@ -1,12 +1,12 @@
 export class ParentModel {
   public id: number;
-  public name: string;
+  public firstName: string;
   public email: string;
-  public phone: string;
+  public phoneNr: string;
 
-  constructor(name: string, email: string, phone: string) {
-    this.name = name;
+  constructor(firstName: string, email: string, phoneNr: string) {
+    this.firstName = firstName;
     this.email = email;
-    this.phone = phone;
+    this.phoneNr = phoneNr;
   }
 }

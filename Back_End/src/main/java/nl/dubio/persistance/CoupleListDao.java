@@ -90,7 +90,7 @@ public class CoupleListDao implements DatabaseViewDao<CoupleListModel> {
             Parent parent2 = new Parent(parent_id2, phone_nr2, name2, email2);
 
             return new CoupleListModel(couple_id, parent1, parent2);
-        } catch (SQLException excception){
+        } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
     }
