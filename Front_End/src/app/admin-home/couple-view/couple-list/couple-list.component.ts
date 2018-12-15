@@ -20,11 +20,11 @@ export class CoupleListComponent implements OnInit {
     this.allCouples = [];
     this.shownCouples = [];
     httpClient.get('http://localhost:8080/couple/getRegistry').subscribe(data =>
-      this.createRealRecords(data as CoupleListModel[])
+      this.createRecords(data as CoupleListModel[])
     );
   }
 
-  createRealRecords(data: CoupleListModel[]) {
+  createRecords(data: CoupleListModel[]) {
     data.forEach(couple =>
       this.allCouples.push(new CoupleModel(
         new ParentModel(couple.firstName1, couple.email1, couple.phoneNr1),

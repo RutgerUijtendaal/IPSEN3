@@ -9,10 +9,12 @@ mailUtility:
 
 server:
   applicationConnectors:
-    - type: https
+    - type: http
       port: 8080
-      keyStorePath: keystore.jks
-      keyStorePassword: "dreamteam_en_bas"
+    # - type: https
+      # port: 8080
+      # keyStorePath: keystore.jks
+      # keyStorePassword: "dreamteam_en_bas"
 
 daoRepository:
   adminDao:
