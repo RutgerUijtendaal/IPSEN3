@@ -3,10 +3,10 @@
     <div class="col-md-4 parent">
       <i class="fa fa-user" aria-hidden="true"></i>
       <div class="info-text">
-        {{ parent1.email }}
+        {{ couple.parent1.email }}
       </div>
       <div class="info-text">
-        {{ parent1.phoneNr }}
+        {{ couple.parent1.phoneNr }}
       </div>
     </div>
     <div class="col-md-2 plus">
@@ -15,14 +15,14 @@
     <div class="col-md-4 parent">
       <i class="fa fa-user" aria-hidden="true"></i>
       <div class="info-text">
-        {{ parent2.email }}
+        {{ couple.parent2.email }}
       </div>
       <div class="info-text">
-        {{ parent2.phoneNr }}
+        {{ couple.parent2.phoneNr }}
       </div>
     </div>
     <div class="col-md-2 delete">
-        <i style="font-size: 60px; color: darkred" class="fa fa-trash delete-button"></i>
+        <i (click)="deleteRequest()" style="font-size: 60px; color: darkred" class="fa fa-trash delete-button"></i>
     </div>
   </mdb-card-body>
 </mdb-card>
