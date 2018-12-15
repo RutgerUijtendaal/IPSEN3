@@ -3,7 +3,6 @@ import {ParentModel} from '../../../models/parent.model';
 import {CoupleModel} from '../../../models/couple.model';
 import {CoupleListService} from '../couple-list-service';
 import {HttpClient} from '@angular/common/http';
-import {CoupleListModel} from '../../../models/couple-list.model';
 
 @Component({
   selector: 'app-couple-list',
@@ -12,6 +11,7 @@ import {CoupleListModel} from '../../../models/couple-list.model';
 })
 export class CoupleListComponent implements OnInit {
 
+  URL = 'http://localhost:8080/couple/all-list';
   allCouples: CoupleModel[];
   shownCouples: CoupleModel[];
 
@@ -19,17 +19,19 @@ export class CoupleListComponent implements OnInit {
     service.searchQuery.subscribe(search => this.updateList(search));
     this.allCouples = [];
     this.shownCouples = [];
-    httpClient.get('http://localhost:8080/couple/getRegistry').subscribe(data =>
-      this.createRecords(data as CoupleListModel[])
+    httpClient.get(this.URL).subscribe(data =>
+      this.createRecords(data as CoupleModel[])
     );
   }
 
-  createRecords(data: CoupleListModel[]) {
-    data.forEach(couple =>
-      this.allCouples.push(new CoupleModel(
-        new ParentModel(couple.firstName1, couple.email1, couple.phoneNr1),
-        new ParentModel(couple.firstName2, couple.email2, couple.phoneNr2)
-      ))
+  createRecords(data: CoupleModel[]) {
+    data.forEach(couple => {
+        const parent1: ParentModel = new ParentModel(couple.parent1.name, couple.parent1.email, couple.parent1.phone);
+        const parent2: ParentModel = new ParentModel(couple.parent2.name, couple.parent2.email, couple.parent2.phone);
+        parent1.id = couple.parent1.id;
+        parent2.id = couple.parent2.id;
+        this.allCouples.push(new CoupleModel(couple.coupleId, parent1, parent2));
+      }
     );
     this.updateList('');
   }
