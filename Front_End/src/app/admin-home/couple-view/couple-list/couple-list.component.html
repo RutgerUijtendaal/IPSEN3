@@ -5,6 +5,6 @@
     </h3>
   </div>
   <mdb-card-body id="results-body">
-    <app-couple-in-list *ngFor="let c of shownCouples" [couple]="c"></app-couple-in-list>
+    <app-couple-in-list (delete)="deleteRequest($event)" *ngFor="let c of shownCouples" [couple]="c"></app-couple-in-list>
   </mdb-card-body>
 </mdb-card>

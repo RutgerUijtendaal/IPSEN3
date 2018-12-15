@@ -14,6 +14,7 @@ export class CoupleListComponent implements OnInit {
   URL = 'http://localhost:8080/couple/all-list';
   allCouples: CoupleModel[];
   shownCouples: CoupleModel[];
+  oldSearch: string;
 
   constructor(service: CoupleListService, httpClient: HttpClient) {
     service.searchQuery.subscribe(search => this.updateList(search));
@@ -37,12 +38,20 @@ export class CoupleListComponent implements OnInit {
   }
 
   updateList(searchQuery: string) {
+    this.oldSearch = searchQuery;
     this.shownCouples = this.allCouples.filter( couple =>
       couple.parent1.email.includes(searchQuery) ||
       couple.parent2.email.includes(searchQuery) ||
       couple.parent1.phoneNr.includes(searchQuery) ||
       couple.parent2.phoneNr.includes(searchQuery)
     );
+  }
+
+  deleteRequest(coupleModel: CoupleModel) {
+    this.allCouples.splice(this.allCouples.findIndex(c => c.coupleId === coupleModel.coupleId), 1);
+    this.updateList(this.oldSearch);
+    // TODO api call
+    console.log('couple: ' + coupleModel.coupleId +  ', parent1: ' + coupleModel.parent1.id + ', parent2: ' + coupleModel.parent2.id);
   }
 
   ngOnInit() {

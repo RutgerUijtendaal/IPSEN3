@@ -1,5 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
-import {ParentModel} from '../../../../models/parent.model';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CoupleModel} from '../../../../models/couple.model';
 
 @Component({
@@ -10,16 +9,17 @@ import {CoupleModel} from '../../../../models/couple.model';
 export class CoupleInListComponent implements OnInit {
 
   @Input() couple: CoupleModel;
+  @Output() delete: EventEmitter<CoupleModel>;
 
-  constructor() { }
+  constructor() {
+    this.delete = new EventEmitter();
+  }
 
   ngOnInit() {
   }
 
   deleteRequest() {
-    console.log('coupleId: ' + this.couple.coupleId);
-    console.log('parent1: ' + this.couple.parent1.id);
-    console.log('parent2: ' + this.couple.parent2.id);
+    this.delete.emit(this.couple);
   }
 
 }
