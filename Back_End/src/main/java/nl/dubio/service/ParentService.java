@@ -7,39 +7,39 @@ import nl.dubio.persistance.ParentDao;
 import java.util.List;
 
 public class ParentService implements CrudService<Parent> {
-    private final ParentDao dao;
+    private final ParentDao parentDao;
 
     public ParentService() {
-        this.dao = DaoRepository.getParentDao();
+        this.parentDao = DaoRepository.getParentDao();
     }
 
     @Override
     public List<Parent> getAll() {
-        return dao.getAll();
+        return parentDao.getAll();
     }
 
     @Override
     public Parent getById(Integer id) {
-        return dao.getById(id);
+        return parentDao.getById(id);
     }
 
     @Override
     public Integer save(Parent child) {
-        return dao.save(child);
+        return parentDao.save(child);
     }
 
     @Override
     public boolean update(Parent Parent) {
-        return dao.update(Parent);
+        return parentDao.update(Parent);
     }
 
     @Override
     public boolean delete(Parent Parent) {
-        return dao.delete(Parent);
+        return parentDao.delete(Parent);
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        return dao.deleteById(id);
+        return parentDao.deleteById(id);
     }
 }

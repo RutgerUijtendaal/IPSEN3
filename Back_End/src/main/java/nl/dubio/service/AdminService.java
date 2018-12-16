@@ -8,39 +8,39 @@ import java.util.List;
 
 public class AdminService implements CrudService<Admin> {
 
-    private final AdminDao dao;
+    private final AdminDao adminDao;
 
     public AdminService() {
-        this.dao = DaoRepository.getAdminDao();
+        this.adminDao = DaoRepository.getAdminDao();
     }
 
     @Override
     public List<Admin> getAll() {
-        return dao.getAll();
+        return adminDao.getAll();
     }
 
     @Override
     public Admin getById(Integer id) {
-        return dao.getById(id);
+        return adminDao.getById(id);
     }
 
     @Override
     public Integer save(Admin admin) {
-        return dao.save(admin);
+        return adminDao.save(admin);
     }
 
     @Override
     public boolean update(Admin Admin) {
-        return dao.update(Admin);
+        return adminDao.update(Admin);
     }
 
     @Override
     public boolean delete(Admin Admin) {
-        return dao.delete(Admin);
+        return adminDao.delete(Admin);
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        return dao.deleteById(id);
+        return adminDao.deleteById(id);
     }
 }

@@ -1,0 +1,10 @@
+<mdb-card style="margin-bottom: 10px;">
+  <div>
+    <h3 [hidden]="shownCouples.length > 0">
+      <img width="100px" src="assets/images/couple-list/no-results.png" alt="Laden...">
+    </h3>
+  </div>
+  <mdb-card-body id="results-body">
+    <app-couple-in-list (delete)="deleteRequest($event)" *ngFor="let c of shownCouples" [couple]="c"></app-couple-in-list>
+  </mdb-card-body>
+</mdb-card>

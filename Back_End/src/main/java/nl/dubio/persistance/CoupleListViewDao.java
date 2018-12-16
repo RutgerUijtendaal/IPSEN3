@@ -1,5 +1,7 @@
 package nl.dubio.persistance;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.CoupleListModel;
 import nl.dubio.models.Parent;
@@ -13,21 +15,19 @@ import java.util.List;
 
 /**
  * @author Bas de Bruyn
+ * @author Jordi Dorren
  */
-public class CoupleListDao implements DatabaseViewDao<CoupleListModel> {
+public class CoupleListViewDao implements DatabaseViewDao<CoupleListModel> {
 
-    private final String tableName = "couple_list_view";
-    private final String[] columnNames= {
-            "couple_id",
-            "parent_id1",
-            "name1",
-            "email1",
-            "phone_nr1",
-            "parent_id2",
-            "name2",
-            "email2",
-            "phone_nr2"
-    };
+    private final String tableName;
+    private final String[] columnNames;
+
+    @JsonCreator
+    public CoupleListViewDao(@JsonProperty("tableName") String tableName,
+                             @JsonProperty("columnNames") String[] columnNames) {
+        this.tableName = tableName;
+        this.columnNames = columnNames;
+    }
 
     @Override
     public List<CoupleListModel> getAll(){
@@ -90,7 +90,7 @@ public class CoupleListDao implements DatabaseViewDao<CoupleListModel> {
             Parent parent2 = new Parent(parent_id2, phone_nr2, name2, email2);
 
             return new CoupleListModel(couple_id, parent1, parent2);
-        } catch (SQLException excception){
+        } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
     }

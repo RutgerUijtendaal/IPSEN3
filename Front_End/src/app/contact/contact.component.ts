@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactComponent implements OnInit {
 
-  LIGHT_COLOR = '#1e4768';
-  DARK_COLOR = '#03142b';
+  UNSELECTED = '#1e4768';
+  SELECTED = '#03142b';
   phoneDetails = 'TELEFOON Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.';
   mailDetails = 'EMAIL Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.';
   locationDetails = 'LOCATIE Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.';
@@ -26,9 +26,9 @@ export class ContactComponent implements OnInit {
   }
 
   defaults() {
-    this.locationColor = this.LIGHT_COLOR;
-    this.phoneColor = this.LIGHT_COLOR;
-    this.mailColor = this.LIGHT_COLOR;
+    this.locationColor = this.UNSELECTED;
+    this.phoneColor = this.UNSELECTED;
+    this.mailColor = this.UNSELECTED;
   }
 
 
@@ -36,21 +36,21 @@ export class ContactComponent implements OnInit {
     this.defaults();
     this.displayTitle = 'Locatie';
     this.displayDetails = this.locationDetails;
-    this.locationColor = this.DARK_COLOR;
+    this.locationColor = this.SELECTED;
   }
 
   togglePhone(): void {
     this.defaults();
     this.displayTitle = 'Telefoon';
     this.displayDetails = this.phoneDetails;
-    this.phoneColor = this.DARK_COLOR;
+    this.phoneColor = this.SELECTED;
   }
 
   toggleEmail(): void {
     this.defaults();
     this.displayTitle = 'Email';
     this.displayDetails = this.mailDetails;
-    this.mailColor = this.DARK_COLOR;
+    this.mailColor = this.SELECTED;
   }
 
   ngOnInit() {

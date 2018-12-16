@@ -59,7 +59,9 @@ export class RegisterNewComponent implements OnInit {
       });
   }
 
-  private initForm() { 'yyyy-MM-dd'
+  private initForm() {
+    // yyyy-MM-dd
+
     this.coupleForm = new FormGroup({
       'parentA': new FormGroup({
         'name': new FormControl('', [Validators.required,  Validators.minLength(2)]),
