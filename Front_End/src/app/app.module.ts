@@ -18,7 +18,7 @@ import { DropdownNavDirective } from './dropdownnav.directive';
 import { LoginComponent } from './login/login.component';
 import { LoginCardComponent } from './login/login-card/login-card.component';
 import { ContactComponent } from './contact/contact.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RegisterSuccessComponent } from './register/register-success/register-success.component';
 import { PrivacyComponent} from './privacy/privacy.component';
 import { RegisterNewComponent } from './register/register-new/register-new.component';
@@ -30,6 +30,8 @@ import { CoupleInListComponent } from './admin-home/couple-view/couple-list/coup
 import { CoupleListSearchbarComponent } from './admin-home/couple-view/couple-list-searchbar/couple-list-searchbar.component';
 import { CoupleViewComponent } from './admin-home/couple-view/couple-view.component';
 import {CoupleListService} from './admin-home/couple-view/couple-list-service';
+import {ErrorInterceptor} from './service/error.Interceptor';
+import {NoaccessComponent} from './noaccess/noaccess.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ import {CoupleListService} from './admin-home/couple-view/couple-list-service';
     CoupleInListComponent,
     CoupleListSearchbarComponent,
     CoupleViewComponent,
+    NoaccessComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,13 @@ import {CoupleListService} from './admin-home/couple-view/couple-list-service';
     HttpClientModule,
     MDBBootstrapModule.forRoot()
   ],
-  providers: [CoupleListService],
+  providers: [
+    CoupleListService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
