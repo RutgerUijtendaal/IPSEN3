@@ -11,8 +11,9 @@ import {HttpClient} from '@angular/common/http';
 })
 export class CoupleListComponent implements OnInit {
 
-  // URL = 'http://localhost:8080/couple/all-list';
-  URL = 'https://dubio-groep9.nl:8080/couple/all-list';
+  // URL = 'http://localhost:8080/couple-list';
+  URL = 'https://dubio-groep9.nl:8080/couple-list';
+
   allCouples: CoupleModel[];
   shownCouples: CoupleModel[];
   oldSearch: string;

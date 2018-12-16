@@ -16,6 +16,8 @@ public class DaoRepository {
     @JsonProperty
     private static CoupleDao coupleDao;
     @JsonProperty
+    private static CoupleListViewDao coupleListViewDao;
+    @JsonProperty
     private static ParentDao parentDao;
     @JsonProperty
     private static ResultDao resultDao;
@@ -28,6 +30,7 @@ public class DaoRepository {
         @JsonProperty("answerDao") AnswerDao answerDao,
         @JsonProperty("childDao") ChildDao childDao,
         @JsonProperty("coupleDao") CoupleDao coupleDao,
+        @JsonProperty("coupleListViewDao") CoupleListViewDao coupleListViewDao,
         @JsonProperty("dilemmaDao") DilemmaDao dilemmaDao,
         @JsonProperty("parentDao") ParentDao parentDao,
         @JsonProperty("resultDao") ResultDao resultDao,
@@ -37,6 +40,7 @@ public class DaoRepository {
         DaoRepository.answerDao = answerDao;
         DaoRepository.childDao = childDao;
         DaoRepository.coupleDao = coupleDao;
+        DaoRepository.coupleListViewDao = coupleListViewDao;
         DaoRepository.dilemmaDao = dilemmaDao;
         DaoRepository.parentDao = parentDao;
         DaoRepository.resultDao = resultDao;
@@ -48,6 +52,7 @@ public class DaoRepository {
     public static DilemmaDao getDilemmaDao() { return dilemmaDao; }
     public static ChildDao getChildDao() { return childDao; }
     public static CoupleDao getCoupleDao() { return coupleDao; }
+    public static CoupleListViewDao getCoupleListViewDao() { return coupleListViewDao; }
     public static ParentDao getParentDao() { return parentDao; }
     public static ResultDao getResultDao() { return resultDao; }
     public static RightDao getRightDao() { return rightDao; }

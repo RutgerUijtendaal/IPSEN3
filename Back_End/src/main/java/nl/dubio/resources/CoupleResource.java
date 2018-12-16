@@ -48,7 +48,7 @@ public class CoupleResource extends GenericResource<Couple> {
     @Path("/all-list")
     public List<CoupleListModel> getAllCoupleList() {
         List<CoupleListModel> allCouples = new ArrayList<>();
-        for (int i = 1; i < 100; i++) {
+        for (int i = 1; i < 100; i += 2) {
             allCouples.add(
                     new CoupleListModel(
                             i,
