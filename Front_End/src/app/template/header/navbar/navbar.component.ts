@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AccountModel} from '../../../models/account.model';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  accountModel: AccountModel;
 
   constructor() { }
 
   ngOnInit() {
+    this.accountModel = new AccountModel('admin', 'Naam');
   }
 
 }

@@ -29,8 +29,8 @@ export class CoupleListComponent implements OnInit {
 
   createRecords(data: CoupleModel[]) {
     data.forEach(couple => {
-        const parent1: ParentModel = new ParentModel(couple.parent1.firstName, couple.parent1.email, couple.parent1.phoneNr);
-        const parent2: ParentModel = new ParentModel(couple.parent2.firstName, couple.parent2.email, couple.parent2.phoneNr);
+        const parent1: ParentModel = new ParentModel(couple.parent1.firstName, couple.parent1.email, couple.parent1.phoneNr, '');
+        const parent2: ParentModel = new ParentModel(couple.parent2.firstName, couple.parent2.email, couple.parent2.phoneNr, '');
         parent1.id = couple.parent1.id;
         parent2.id = couple.parent2.id;
         this.allCouples.push(new CoupleModel(couple.coupleId, parent1, parent2));

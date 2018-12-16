@@ -12,13 +12,14 @@ export class DropdownNavDirective {
   private isOpen = true;
 
   @Input('appDropdownNav') element: ElementRef;
+  @Input('appClassname') classname = 'collapse';
 
   @HostListener('click') toggleOpen() {
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
-      this.renderer.addClass(this.element, 'collapse');
+      this.renderer.addClass(this.element, this.classname);
     } else {
-      this.renderer.removeClass(this.element, 'collapse');
+      this.renderer.removeClass(this.element, this.classname);
     }
   }
 

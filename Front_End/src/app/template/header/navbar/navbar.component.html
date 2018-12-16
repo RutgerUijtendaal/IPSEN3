@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark" [ngSwitch]="accountModel.type">
   <a class="navbar-brand" routerLink="/">
     <img src="assets/images/letters/d.png" width="25" height="30" alt="">
   </a>
@@ -18,12 +18,25 @@
         <a class="nav-link" routerLink="/privacy">Privacy</a>
       </li>
     </ul>
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto" *ngSwitchCase="null">
       <li class="nav-item px-3" routerLinkActive="active">
         <a class="nav-link" routerLink="/inloggen">Login</a>
       </li>
       <li class="nav-item px-3" id="register" routerLinkActive="active">
         <a class="nav-link" routerLink="/registreren">Registreren</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto" *ngSwitchCase="'admin'">
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light">
+          Welkom {{accountModel.name}}<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Admin Pagina</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Dilemma Lijst</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Ouder Lijst</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Uitloggen</a>
+        </div>
       </li>
     </ul>
   </div>
