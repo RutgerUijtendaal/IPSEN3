@@ -7,4 +7,15 @@ export class AccountModel {
 
   constructor() {
   }
+
+  setData (data) {
+    let loginData;
+    loginData = data as AccountModel;
+    this.type = loginData.type;
+    this.name = loginData.name;
+    this.email = loginData.email;
+    this.password = loginData.password;
+    console.log(this.name);
+  }
+
 }

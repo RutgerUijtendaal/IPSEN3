@@ -10,6 +10,7 @@ import {RegisterSuccessComponent} from './register/register-success/register-suc
 import {RegisterNewComponent} from './register/register-new/register-new.component';
 import {AdminHomeComponent} from './admin-home/admin-home.component';
 import {NoaccessComponent} from './noaccess/noaccess.component';
+import {LogoutComponent} from './logout/logout.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'privacy', component: PrivacyComponent },
   { path: 'beheerder', component: AdminHomeComponent },
   { path: 'forbidden', component: NoaccessComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: '**', redirectTo: 'pagina-niet-gevonden'}
 ];
 

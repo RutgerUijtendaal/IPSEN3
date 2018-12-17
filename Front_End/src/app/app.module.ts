@@ -32,6 +32,7 @@ import { CoupleViewComponent } from './admin-home/couple-view/couple-view.compon
 import {CoupleListService} from './admin-home/couple-view/couple-list-service';
 import {ErrorInterceptor} from './service/error.Interceptor';
 import {NoaccessComponent} from './noaccess/noaccess.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import {NoaccessComponent} from './noaccess/noaccess.component';
     CoupleInListComponent,
     CoupleListSearchbarComponent,
     CoupleViewComponent,
-    NoaccessComponent
+    NoaccessComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
