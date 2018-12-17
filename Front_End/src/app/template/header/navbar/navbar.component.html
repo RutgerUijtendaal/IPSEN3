@@ -42,5 +42,16 @@
         </div>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto" *ngSwitchCase="'user'">
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light">
+          Welkom {{accountModel.name}}<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Een pagina</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/logout">Uitloggen</a>
+        </div>
+      </li>
+    </ul>
   </div>
 </nav>
