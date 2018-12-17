@@ -67,7 +67,7 @@ import { LogoutComponent } from './logout/logout.component';
     CoupleListSearchbarComponent,
     CoupleViewComponent,
     NoaccessComponent,
-    LogoutComponent
+    LogoutComponent,
     NoaccessComponent,
     UnregisterSuccessComponent,
     UnregisterComponent
