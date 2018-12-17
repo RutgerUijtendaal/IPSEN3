@@ -32,6 +32,8 @@ import { CoupleViewComponent } from './admin-home/couple-view/couple-view.compon
 import {CoupleListService} from './admin-home/couple-view/couple-list-service';
 import {ErrorInterceptor} from './service/error.Interceptor';
 import {NoaccessComponent} from './noaccess/noaccess.component';
+import { UnregisterSuccessComponent } from './unregister/unregister-success/unregister-success.component';
+import { UnregisterComponent } from './unregister/unregister.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import {NoaccessComponent} from './noaccess/noaccess.component';
     CoupleInListComponent,
     CoupleListSearchbarComponent,
     CoupleViewComponent,
-    NoaccessComponent
+    NoaccessComponent,
+    UnregisterSuccessComponent,
+    UnregisterComponent
   ],
   imports: [
     BrowserModule,
