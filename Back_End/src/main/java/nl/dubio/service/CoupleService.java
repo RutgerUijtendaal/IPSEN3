@@ -8,6 +8,8 @@ import nl.dubio.persistance.DaoRepository;
 import nl.dubio.utils.MailUtility;
 
 import javax.mail.MessagingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +63,12 @@ public class CoupleService implements CrudService<Couple> {
             return -1;
         }
 
-        int coupleId = coupleDao.saveCoupleViaRegistry(registry);
+        int coupleId = 0;
+        try {
+            coupleId = coupleDao.saveCoupleViaRegistry(registry);
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
         // Send welcome mails if successful
         MailUtility mailUtility = ApiApplication.getMailUtility();

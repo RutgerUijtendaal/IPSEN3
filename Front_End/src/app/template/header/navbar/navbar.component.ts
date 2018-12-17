@@ -19,11 +19,11 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.httpClient.get(this.URL).subscribe(data => {
         console.log(data);
       });
-    } , 10000);
+    } , 1);*/
   }
 
 }

@@ -1,10 +1,10 @@
 export class AccountModel {
 
-  public type: string
-  public name: String;
+  public type: string;
+  public name: string;
+  public email: string;
+  public password: string;
 
-  constructor(type: string, name: String) {
-    this.type = type;
-    this.name = name;
+  constructor() {
   }
 }

@@ -19,7 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       if (err.status === 401) {
         // TODO PROPER LOG OUT
         this.autenticationService.accountModel.type = null;
-        this.router.navigate(['/forbidden']);
+        // this.router.navigate(['/forbidden']);
         // location.reload(true);
       }
       const error = err.error.message || err.statusText;

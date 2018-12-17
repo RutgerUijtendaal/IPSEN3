@@ -40,7 +40,7 @@ public class CoupleDao extends GenericDao<Couple> {
         return executeGetByAttribute(preparedStatement);
     }
 
-    public int saveCoupleViaRegistry(CoupleRegistry registry){
+    public int saveCoupleViaRegistry(CoupleRegistry registry) throws InvalidKeySpecException, NoSuchAlgorithmException {
         ParentDao parentDao = DaoRepository.getParentDao();
         ChildDao childDao = DaoRepository.getChildDao();
 
@@ -55,7 +55,7 @@ public class CoupleDao extends GenericDao<Couple> {
                 registry.getEmail2());
         int parent2Id = parentDao.save(parent2);
 
-        Couple couple = new Couple(new Date(System.currentTimeMillis()), parent1Id, parent2Id, registry.getPassword());
+        Couple couple = new Couple(new Date(System.currentTimeMillis()), parent1Id, parent2Id, PasswordService.generatePasswordHash(registry.getPassword()));
         int coupleId = save(couple);
 
         Child child = new Child(coupleId, registry.getDate(), registry.getIsBorn());
@@ -73,9 +73,8 @@ public class CoupleDao extends GenericDao<Couple> {
             int parent1_id = resultSet.getInt("parent1_id");
             int parent2_id = resultSet.getInt("parent2_id");
             String password = resultSet.getString("password");
-            String passwordHashed = PasswordService.generatePasswordHash(password);
-            return new Couple(id, signup_date, parent1_id, parent2_id, passwordHashed);
-        } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException exception){
+            return new Couple(id, signup_date, parent1_id, parent2_id, password);
+        } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
     }
