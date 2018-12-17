@@ -2,6 +2,7 @@ import {AccountModel} from '../models/account.model';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AppComponent} from '../app.component';
+import {Router} from '@angular/router';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ export class AuthenticationService {
 
   accountModel: AccountModel;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private router: Router) {
     this.accountModel = new AccountModel();
     console.log(localStorage.getItem('login'));
     const loginData: string = localStorage.getItem('login');
@@ -33,6 +34,7 @@ export class AuthenticationService {
       if (data != null) {
         this.accountModel.setData(data);
         localStorage.setItem('login', JSON.stringify(this.accountModel));
+        this.router.navigateByUrl('/');
       }
     });
   }
