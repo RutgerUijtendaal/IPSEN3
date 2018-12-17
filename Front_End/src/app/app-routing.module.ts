@@ -12,6 +12,7 @@ import {AdminHomeComponent} from './admin-home/admin-home.component';
 import {UnregisterComponent} from './unregister/unregister.component';
 import {UnregisterSuccessComponent} from './unregister/unregister-success/unregister-success.component';
 import {NoaccessComponent} from './noaccess/noaccess.component';
+import {LogoutComponent} from './logout/logout.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'privacy', component: PrivacyComponent },
   { path: 'beheerder', component: AdminHomeComponent },
   { path: 'forbidden', component: NoaccessComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: '**', redirectTo: 'pagina-niet-gevonden'}
 ];
 

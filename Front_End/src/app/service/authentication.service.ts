@@ -13,6 +13,11 @@ export class AuthenticationService {
 
   constructor(private httpClient: HttpClient) {
     this.accountModel = new AccountModel();
+    console.log(localStorage.getItem('login'));
+    const loginData: string = localStorage.getItem('login');
+    if (loginData != null) {
+      this.accountModel.setData(JSON.parse(loginData));
+    }
   }
 
   login(email: string, password: string) {
@@ -26,13 +31,14 @@ export class AuthenticationService {
     console.log(logindata);
     this.httpClient.post(url, logindata, httpOptions).subscribe(data => {
       if (data != null) {
-        const loginData = data as AccountModel;
-        this.accountModel.type = loginData.type;
-        this.accountModel.name = loginData.name;
-        this.accountModel.email = loginData.email;
-        this.accountModel.password = loginData.password;
+        this.accountModel.setData(data);
+        localStorage.setItem('login', JSON.stringify(this.accountModel));
       }
-      console.log(this.accountModel.type);
     });
+  }
+
+  logout() {
+    localStorage.clear();
+    this.accountModel.type = null;
   }
 }

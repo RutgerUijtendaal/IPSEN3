@@ -34,6 +34,7 @@ import {ErrorInterceptor} from './service/error.Interceptor';
 import {NoaccessComponent} from './noaccess/noaccess.component';
 import { UnregisterSuccessComponent } from './unregister/unregister-success/unregister-success.component';
 import { UnregisterComponent } from './unregister/unregister.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,8 @@ import { UnregisterComponent } from './unregister/unregister.component';
     CoupleInListComponent,
     CoupleListSearchbarComponent,
     CoupleViewComponent,
+    NoaccessComponent,
+    LogoutComponent
     NoaccessComponent,
     UnregisterSuccessComponent,
     UnregisterComponent

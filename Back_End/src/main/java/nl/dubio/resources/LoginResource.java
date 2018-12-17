@@ -11,7 +11,6 @@ import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.ParentDao;
 import nl.dubio.service.PasswordService;
 
-import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.security.NoSuchAlgorithmException;
@@ -34,9 +33,6 @@ public class LoginResource {
             System.out.println(parent);
             if (parent != null) {
                 Couple couple = coupleDao.getByParent(parent);
-                //couple.setPassword(PasswordService.generatePasswordHash(loginModel.getPassword()));
-                //coupleDao.update(couple);
-                System.out.println();
                 if (PasswordService.isValidPassword(loginModel.getPassword(), couple.getPassword())) {
                     loginModel.setType("user");
                     //TODO FIX THIS
