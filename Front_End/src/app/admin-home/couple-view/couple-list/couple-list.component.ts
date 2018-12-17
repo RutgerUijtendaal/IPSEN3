@@ -17,6 +17,7 @@ export class CoupleListComponent implements OnInit {
   allCouples: CoupleModel[];
   shownCouples: CoupleModel[];
   oldSearch: string;
+  currentSelectedCouple: CoupleModel;
 
   constructor(service: CoupleListService, httpClient: HttpClient) {
     service.searchQuery.subscribe(search => this.updateList(search));
@@ -49,11 +50,15 @@ export class CoupleListComponent implements OnInit {
     );
   }
 
-  deleteRequest(coupleModel: CoupleModel) {
-    this.allCouples.splice(this.allCouples.findIndex(c => c.coupleId === coupleModel.coupleId), 1);
+  confirmDelete() {
+    this.allCouples.splice(this.allCouples.findIndex(c => c.coupleId === this.currentSelectedCouple.coupleId), 1);
     this.updateList(this.oldSearch);
     // TODO api call
-    console.log('couple: ' + coupleModel.coupleId +  ', parent1: ' + coupleModel.parent1.id + ', parent2: ' + coupleModel.parent2.id);
+    console.log('couple: ' + this.currentSelectedCouple.coupleId +  ', parent1: ' + this.currentSelectedCouple.parent1.id + ', parent2: ' + this.currentSelectedCouple.parent2.id);
+  }
+
+  deleteRequest(coupleModel: CoupleModel) {
+    this.currentSelectedCouple = coupleModel;
   }
 
   ngOnInit() {
