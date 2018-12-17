@@ -9,6 +9,8 @@ import {PrivacyComponent} from './privacy/privacy.component';
 import {RegisterSuccessComponent} from './register/register-success/register-success.component';
 import {RegisterNewComponent} from './register/register-new/register-new.component';
 import {AdminHomeComponent} from './admin-home/admin-home.component';
+import {UnregisterComponent} from './unregister/unregister.component';
+import {UnregisterSuccessComponent} from './unregister/unregister-success/unregister-success.component';
 import {NoaccessComponent} from './noaccess/noaccess.component';
 
 const routes: Routes = [
@@ -18,6 +20,11 @@ const routes: Routes = [
     children: [
       {path: '', component: RegisterNewComponent},
       {path: 'succes', component: RegisterSuccessComponent}
+    ]},
+  { path: 'uitschrijven/:token',
+    component: UnregisterComponent,
+    children: [
+      {path: 'succes', component: UnregisterSuccessComponent}
     ]},
   { path: 'pagina-niet-gevonden', component: PageNotFoundComponent},
   { path: 'inloggen', component: LoginComponent},
