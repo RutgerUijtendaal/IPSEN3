@@ -8,10 +8,7 @@ import {CoupleListService} from '../couple-list-service';
 })
 export class CoupleListSearchbarComponent implements OnInit {
 
-  service: CoupleListService;
-
-  constructor(service: CoupleListService) {
-    this.service = service;
+  constructor(private service: CoupleListService) {
   }
 
   newInput(event: any) {
