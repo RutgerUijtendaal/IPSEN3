@@ -17,12 +17,15 @@ public class Couple implements DatabaseObject<Couple> {
     private int parent2Id;
     @JsonProperty
     private String password;
+    @JsonProperty
+    private String token;
 
-    public Couple (Date signupDate, int parent1Id, int parent2Id, String password) {
+    public Couple (Date signupDate, int parent1Id, int parent2Id, String password, String token) {
         this.signupDate = signupDate;
         this.parent1Id = parent1Id;
         this.parent2Id = parent2Id;
         this.password = password;
+        this.token = token;
     }
 
     @JsonCreator
@@ -32,7 +35,8 @@ public class Couple implements DatabaseObject<Couple> {
         @JsonProperty("signupDate") Date signupDate,
         @JsonProperty("parent1Id") int parent1Id,
         @JsonProperty("parent2Id") int parent2Id,
-        @JsonProperty("password") String password
+        @JsonProperty("password") String password,
+        @JsonProperty("token") String token
     )
     {
         this.id = id;
@@ -40,6 +44,7 @@ public class Couple implements DatabaseObject<Couple> {
         this.parent1Id = parent1Id;
         this.parent2Id = parent2Id;
         this.password = password;
+        this.token = token;
     }
 
     public Date getSignupDate() { return signupDate; }
@@ -52,6 +57,8 @@ public class Couple implements DatabaseObject<Couple> {
     public void setId(int id) { this.id = id; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+    public String getToken() { return token; }
+    public void setToken(String token) { this.token = token; }
 
     @Override
     public String toString() {

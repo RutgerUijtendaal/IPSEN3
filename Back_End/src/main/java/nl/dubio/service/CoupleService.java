@@ -6,8 +6,11 @@ import nl.dubio.models.CoupleRegistry;
 import nl.dubio.persistance.CoupleDao;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.utils.MailUtility;
+import nl.dubio.utils.TokenGenerator;
 
 import javax.mail.MessagingException;
+import javax.ws.rs.core.Response.Status;
+import javax.xml.ws.WebServiceException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
@@ -55,13 +58,30 @@ public class CoupleService implements CrudService<Couple> {
         return coupleDao.deleteById(id);
     }
 
+    public void unregister(String token) throws WebServiceException {
+        Couple couple = coupleDao.getByToken(token);
+
+        if(couple == null) {
+            System.out.println("couple not found");
+            throw new WebServiceException("No couple for that token");
+        }
+
+        coupleDao.delete(couple);
+    }
+
     public int register(CoupleRegistry registry){
         List<String> errors = validateRegistry(registry);
 
         if (errors.size() > 0){
             //TODO the errors should be given to the client
+            for(String error: errors) {
+                System.out.println(error);
+            }
             return -1;
         }
+
+        String unregisterToken = TokenGenerator.getToken();
+        registry.setToken(unregisterToken);
 
         int coupleId = 0;
         try {
@@ -73,8 +93,8 @@ public class CoupleService implements CrudService<Couple> {
         // Send welcome mails if successful
         MailUtility mailUtility = ApiApplication.getMailUtility();
         try {
-            mailUtility.addWelcomeMailToQueue(registry.getEmail1(), registry.getFirstName1());
-            mailUtility.addWelcomeMailToQueue(registry.getEmail2(), registry.getFirstName2());
+            mailUtility.addWelcomeMailToQueue(registry.getEmail1(), registry.getFirstName1(), unregisterToken);
+            mailUtility.addWelcomeMailToQueue(registry.getEmail2(), registry.getFirstName2(), unregisterToken);
         } catch (MessagingException e) {
             e.printStackTrace();
         }

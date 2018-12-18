@@ -33,6 +33,8 @@ public class CoupleRegistry {
     @Length(min = 8)
     private String password;
 
+    private String token;
+
     public CoupleRegistry(
         @JsonProperty("firstName1") String firstName1,
         @JsonProperty("phoneNr1") String phoneNr1,
@@ -73,6 +75,8 @@ public class CoupleRegistry {
     public void setDate(long date) { this.date = new Date(date); }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+    public String getToken() { return token; }
+    public void setToken(String token) { this.token = token; }
 
     @Override
     public String toString() {
@@ -85,6 +89,8 @@ public class CoupleRegistry {
                 ", email2='" + email2 + '\'' +
                 ", isBorn=" + isBorn +
                 ", date=" + date +
+                ", password=" + password +
+                ", token=" + token +
                 '}';
     }
 }

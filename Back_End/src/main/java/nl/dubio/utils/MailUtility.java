@@ -83,9 +83,9 @@ public class MailUtility {
         transport.close();
     }
 
-    public void addWelcomeMailToQueue(String to, String parentName) throws MessagingException {
+    public void addWelcomeMailToQueue(String to, String parentName, String unregisterToken) throws MessagingException {
         final String subject = "Welkom bij Dubio!";
-        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getWelcomeMail(parentName));
+        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getWelcomeMail(parentName, unregisterToken));
         messageQueue.add(mimeMessage);
     }
 
