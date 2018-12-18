@@ -59,7 +59,6 @@ public class CoupleDao extends GenericDao<Couple> {
         Parent parent1 = new Parent(registry.getFirstName1(),
                 registry.getPhoneNr1(),
                 registry.getEmail1());
-        System.out.println(parent1);
         int parent1Id = parentDao.save(parent1);
 
         Parent parent2 = new Parent(registry.getFirstName2(),
