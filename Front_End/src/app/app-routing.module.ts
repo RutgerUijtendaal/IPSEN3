@@ -13,6 +13,7 @@ import {UnregisterComponent} from './unregister/unregister.component';
 import {UnregisterSuccessComponent} from './unregister/unregister-success/unregister-success.component';
 import {NoaccessComponent} from './noaccess/noaccess.component';
 import {LogoutComponent} from './logout/logout.component';
+import {UnregisterNewComponent} from './unregister/unregister-new/unregister-new.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -22,10 +23,11 @@ const routes: Routes = [
       {path: '', component: RegisterNewComponent},
       {path: 'succes', component: RegisterSuccessComponent}
     ]},
-  { path: 'uitschrijven/:token',
+  { path: 'uitschrijven',
     component: UnregisterComponent,
     children: [
-      {path: 'succes', component: UnregisterSuccessComponent}
+      { path: ':token', component: UnregisterNewComponent },
+      { path: ':token/succes', component: UnregisterSuccessComponent},
     ]},
   { path: 'pagina-niet-gevonden', component: PageNotFoundComponent},
   { path: 'inloggen', component: LoginComponent},

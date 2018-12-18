@@ -5,31 +5,7 @@
         <h5 class="card-header white-text text-center py-4">
           <strong> Uitschrijven </strong>
         </h5>
-        <div class="row justify-content-center py-5">
-          <div class="col-12">
-
-            <app-widget-error-message *ngIf="showError" [errorMessage]="errorMessage"></app-widget-error-message>
-
-            <div class="row justify-content-center py-md-3">
-              <div class="col-6 text-center">
-                <p>Weet je zeker dat je jezelf en jou partner wil uitschrijven?</p>
-              </div>
-            </div>
-            <div class="row justify-content-center py-4">
-              <button
-                style="width: 200px"
-                mdbBtn
-                (click)="unregister()"
-                type="button"
-                color="success"
-                size="lg"
-                mdbWavesEffect>
-                <span *ngIf="!unregisterLoading">Uitschrijven</span>
-                <i *ngIf="unregisterLoading" class="fa fa-refresh fa-spin"></i>
-              </button>
-            </div>
-          </div>
-        </div>
+        <router-outlet></router-outlet>
       </div>
     </div>
   </div>

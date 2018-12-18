@@ -1,13 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UnregisterService} from './unregister-new/unregister.service';
+import {UnregisterService} from './unregister.service';
 
 @Component({
-  selector: 'app-unregister',
-  templateUrl: './unregister.component.html',
-  styleUrls: ['./unregister.component.scss']
+  selector: 'app-unregister-new',
+  templateUrl: './unregister-new.component.html',
+  styleUrls: ['./unregister-new.component.scss']
 })
-export class UnregisterComponent implements OnInit, OnDestroy {
+export class UnregisterNewComponent implements OnInit, OnDestroy {
   unregisterLoading = false;
   showError = false;
   errorMessage = '';

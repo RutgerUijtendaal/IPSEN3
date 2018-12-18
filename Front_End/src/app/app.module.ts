@@ -35,6 +35,7 @@ import {NoaccessComponent} from './noaccess/noaccess.component';
 import { UnregisterSuccessComponent } from './unregister/unregister-success/unregister-success.component';
 import { UnregisterComponent } from './unregister/unregister.component';
 import { LogoutComponent } from './logout/logout.component';
+import { UnregisterNewComponent } from './unregister/unregister-new/unregister-new.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { LogoutComponent } from './logout/logout.component';
     LogoutComponent,
     NoaccessComponent,
     UnregisterSuccessComponent,
-    UnregisterComponent
+    UnregisterComponent,
+    UnregisterNewComponent,
   ],
   imports: [
     BrowserModule,
