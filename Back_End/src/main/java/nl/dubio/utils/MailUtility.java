@@ -25,6 +25,7 @@ public class MailUtility {
     private static Session mailSession;
     private final String username;
     private final String password;
+    private final String websiteUrl;
 
     private final int MAILSPEED = 5000;
 
@@ -32,9 +33,11 @@ public class MailUtility {
 
     @JsonCreator
     public MailUtility(@JsonProperty("username") String username,
-                       @JsonProperty("password") String password) {
+                       @JsonProperty("password") String password,
+                       @JsonProperty("websiteUrl") String websiteUrl) {
         this.username = username;
         this.password = password;
+        this.websiteUrl = websiteUrl;
         this.messageQueue = new ArrayList<>();
         startMailThread();
     }
@@ -85,7 +88,7 @@ public class MailUtility {
 
     public void addWelcomeMailToQueue(String to, String parentName, String unregisterToken) throws MessagingException {
         final String subject = "Welkom bij Dubio!";
-        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getWelcomeMail(parentName, unregisterToken));
+        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getWelcomeMail(websiteUrl, parentName, unregisterToken));
         messageQueue.add(mimeMessage);
     }
 

@@ -6,6 +6,7 @@ logging:
 mailUtility:
   username: dubiogroep9
   password: dreamteam_en_bas
+  websiteUrl: "http://localhost:4200/"
 
 server:
   applicationConnectors:
