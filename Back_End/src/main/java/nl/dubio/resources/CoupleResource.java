@@ -1,6 +1,5 @@
 package nl.dubio.resources;
 
-import io.dropwizard.jersey.params.NonEmptyStringParam;
 import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleListModel;
 import nl.dubio.models.CoupleRegistry;
@@ -11,7 +10,6 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.ws.WebServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +30,12 @@ public class CoupleResource extends GenericResource<Couple> {
     @DELETE
     @Path("/unregister")
     public Response unregister(@QueryParam("token") String token) {
-        ((CoupleService) crudService).unregister(token);
+        try {
+            ((CoupleService) crudService).unregister(token);
+        } catch (NotFoundException e) {
+            throw e;
+        }
         return Response.ok().build();
-
     }
 
     @GET

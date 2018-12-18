@@ -9,6 +9,7 @@ import nl.dubio.utils.MailUtility;
 import nl.dubio.utils.TokenGenerator;
 
 import javax.mail.MessagingException;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.ws.WebServiceException;
 import java.security.NoSuchAlgorithmException;
@@ -58,12 +59,11 @@ public class CoupleService implements CrudService<Couple> {
         return coupleDao.deleteById(id);
     }
 
-    public void unregister(String token) throws WebServiceException {
+    public void unregister(String token) throws NotFoundException {
         Couple couple = coupleDao.getByToken(token);
 
         if(couple == null) {
-            System.out.println("couple not found");
-            throw new WebServiceException("No couple for that token");
+            throw new NotFoundException("No couple for that token");
         }
 
         coupleDao.delete(couple);
