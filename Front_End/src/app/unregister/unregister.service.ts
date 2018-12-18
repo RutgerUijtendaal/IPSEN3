@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { AppComponent } from '../app.component';
 
 @Injectable({
@@ -14,12 +14,15 @@ export class UnregisterService {
     const url = AppComponent.environment.server + '/couple/unregister';
     console.log('url in unregister(token): ' + url);
 
+    let params = new HttpParams().set('token', token);
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
-      })
+      }),
+      params: params,
     };
 
-    return this.httpClient.post(url, token, httpOptions);
+    return this.httpClient.delete(url, httpOptions);
   }
 }
