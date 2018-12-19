@@ -3,6 +3,7 @@ import {ParentModel} from '../../../models/parent.model';
 import {CoupleModel} from '../../../models/couple.model';
 import {CoupleListService} from '../couple-list-service';
 import {HttpClient} from '@angular/common/http';
+import {AppComponent} from '../../../app.component';
 
 @Component({
   selector: 'app-couple-list',
@@ -11,19 +12,18 @@ import {HttpClient} from '@angular/common/http';
 })
 export class CoupleListComponent implements OnInit {
 
-  // URL = 'http://localhost:8080/couple-list';
-  URL = 'https://dubio-groep9.nl:8080/couple-list';
+  URL = AppComponent.environment.server;
 
   allCouples: CoupleModel[];
   shownCouples: CoupleModel[];
   oldSearch: string;
   currentSelectedCouple: CoupleModel;
 
-  constructor(service: CoupleListService, httpClient: HttpClient) {
+  constructor(private service: CoupleListService, private httpClient: HttpClient) {
     service.searchQuery.subscribe(search => this.updateList(search));
     this.allCouples = [];
     this.shownCouples = [];
-    httpClient.get(this.URL).subscribe(data =>
+    httpClient.get(this.URL + '/couple-list').subscribe(data =>
       this.createRecords(data as CoupleModel[])
     );
   }
@@ -53,8 +53,7 @@ export class CoupleListComponent implements OnInit {
   confirmDelete() {
     this.allCouples.splice(this.allCouples.findIndex(c => c.coupleId === this.currentSelectedCouple.coupleId), 1);
     this.updateList(this.oldSearch);
-    // TODO api call
-    console.log('couple: ' + this.currentSelectedCouple.coupleId +  ', parent1: ' + this.currentSelectedCouple.parent1.id + ', parent2: ' + this.currentSelectedCouple.parent2.id);
+    this.httpClient.delete(this.URL + '/couple/' + this.currentSelectedCouple.coupleId).subscribe((res) => {});
   }
 
   deleteRequest(coupleModel: CoupleModel) {
