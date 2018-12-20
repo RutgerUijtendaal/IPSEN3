@@ -10,7 +10,9 @@ import {AuthenticationService} from '../service/authentication.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  loginLoading = false;
+  showError = false;
+  errorMessage = '';
   adminForm: FormGroup;
 
 
@@ -25,13 +27,22 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onGoBack() {
-    this.router.navigate(['../']);
-  }
-
   submitForm(): void {
-    console.log(this.adminForm.value);
-    this.authenticationService.login(this.adminForm.value.email, this.adminForm.value.password);
+    this.loginLoading = true;
+
+    this.authenticationService.login(this.adminForm.value.email, this.adminForm.value.password).subscribe(
+      (data: any) => {
+        this.loginLoading = false;
+        if (data != null) {
+          this.authenticationService.setLogin(data);
+          this.router.navigateByUrl('/');
+        }
+      },
+      (error: any) => {
+        this.loginLoading = false;
+        this.errorMessage = 'Gebruiker bestaat niet, controleer uw inlog gegevens.';
+        this.showError = true;
+    });
   }
 
   ngOnInit() {

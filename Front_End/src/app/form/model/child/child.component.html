@@ -11,12 +11,12 @@
     <!-- Form -->
     <div
       [formGroup]="child"
-      class="row text-center"
+      class="row"
       style="color: #757575;">
 
       <!-- isborn -->
-      <div class="col-12 col-lg-6 my-md-4 mt-3">
-        <div class="custom-control form-control-lg custom-checkbox">
+      <div class="col-12 col-md-6 my-md-4">
+        <div class="custom-control form-control-lg custom-checkbox mt-3">
           <input
             #isBorn
             type="checkbox"
@@ -28,33 +28,32 @@
         </div>
       </div>
 
-      <div class="col-12" class="horizontalLine">
-        <hr>
-      </div>
-
       <!-- Date -->
-      <div class="col-12" >
+      <div class="col-12 col-md-6 mt-3" >
         <label for="date"> {{ dateText }} </label>
         <input
             type="date"
             id="date"
             formControlName="date"
+            data-error="Voer een geldige datum in."
             class="form-control form-control-sm">
       </div>
 
-      <div class="col-12" class="horizontalLine">
+      <div class="col-12">
         <hr>
       </div>
 
       <!-- Date -->
-      <div class="col-12" >
+      <div class="col-12 text-center">
         <label for="password">Wachtwoord</label>
+      </div>
+      <div class="col-12 col-md-12 mt-sm-3 mb-3" >
         <input
           type="password"
           id="password"
           formControlName="password"
           mdbInputDirective
-          data-success="Geldig"
+          data-success=" "
           data-error="Een wachtwoord bestaat uit minimaal acht karakters"
           class="form-control form-control-sm"
           placeholder="">
