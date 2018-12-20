@@ -5,6 +5,7 @@ import {ValidateEmail} from '../../validators/email.validator';
 import {ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
 import { RegisterNewService } from './register-new.service';
 import { AppComponent } from '../../app.component';
+import {ValidateBirthdate} from '../../validators/birthdate.validator';
 
 @Component({
   selector: 'app-register-new',
@@ -42,7 +43,7 @@ export class RegisterNewComponent implements OnInit {
       email2: this.coupleForm.value.parentB.email,
 
       isBorn: this.coupleForm.value.child.isBorn,
-      date: (new Date(this.coupleForm.value.child.date)).getMilliseconds(),
+      date: (new Date(this.coupleForm.value.child.date)).getTime(),
       password: this.coupleForm.value.child.password
     };
 
@@ -64,22 +65,23 @@ export class RegisterNewComponent implements OnInit {
 
     this.coupleForm = new FormGroup({
       'parentA': new FormGroup({
-        'name': new FormControl('', [Validators.required,  Validators.minLength(2)]),
-        'email': new FormControl('', [Validators.required, ValidateEmail]),
-        'phone': new FormControl('', [Validators.required, ValidatePhone]),
+        'name': new FormControl('klj', [Validators.required,  Validators.minLength(1)]),
+        'email': new FormControl('rutger@example.com', [Validators.required, ValidateEmail]),
+        'phone': new FormControl('+31652240273', [Validators.required, ValidatePhone]),
       }),
       'parentB': new FormGroup({
-        'name': new FormControl('', [Validators.required,  Validators.minLength(2)]),
-        'email': new FormControl('', [Validators.required, ValidateEmail]),
-        'phone': new FormControl('', [Validators.required, ValidatePhone]),
+        'name': new FormControl('jlk', [Validators.required,  Validators.minLength(1)]),
+        'email': new FormControl('rutger2@example.com', [Validators.required, ValidateEmail]),
+        'phone': new FormControl('+31652240278', [Validators.required, ValidatePhone]),
       }),
       'child': new FormGroup({
         'date': new FormControl(null, Validators.required),
         'isBorn': new FormControl(false, Validators.required),
-        'password': new FormControl('', [Validators.required, Validators.minLength(8)])
-      })
+        'password': new FormControl('asdfjklo', [Validators.required, Validators.minLength(8)])
+      }, ValidateBirthdate)
     });
   }
+
 
   scrollToTop() {
     const scrollToTop = window.setInterval(() => {

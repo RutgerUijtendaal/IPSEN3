@@ -1,8 +1,13 @@
 $dubio-yellow: #e2b53b;
+$dubio-blue: #2f7caf;
 
 h5 {
   background-color: $dubio-yellow;
   font-size: 34px;
+}
+
+.custom-control-label {
+  color: #757575;
 }
 
 .custom-control-label::before,
@@ -15,6 +20,11 @@ h5 {
 .horizontalLine {
   display: none;
 }
+
+label {
+  color: $dubio-blue;
+}
+
 
 /*show for small screens */
 @media screen and (max-width: 960px) {
