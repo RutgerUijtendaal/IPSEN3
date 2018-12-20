@@ -14,8 +14,7 @@ export class AuthenticationService {
 
   constructor(private httpClient: HttpClient, private router: Router) {
     this.accountModel = new AccountModel();
-    console.log(localStorage.getItem('login'));
-    const loginData: string = localStorage.getItem('login');
+    const loginData: string = sessionStorage.getItem('login');
     if (loginData != null) {
       this.accountModel.setData(JSON.parse(loginData));
     }
@@ -35,11 +34,11 @@ export class AuthenticationService {
 
   setLogin(data: any) {
     this.accountModel.setData(data);
-    localStorage.setItem('login', JSON.stringify(this.accountModel));
+    sessionStorage.setItem('login', JSON.stringify(this.accountModel));
   }
 
   logout() {
-    localStorage.clear();
+    sessionStorage.clear();
     this.accountModel.type = null;
   }
 }
