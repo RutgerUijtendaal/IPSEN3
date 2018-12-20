@@ -90,7 +90,7 @@ public class CoupleService implements CrudService<Couple> {
             e.printStackTrace();
         }
 
-        // Send welcome mails if successful
+//         Send welcome mails if successful
         MailUtility mailUtility = ApiApplication.getMailUtility();
         try {
             mailUtility.addWelcomeMailToQueue(registry.getEmail1(), registry.getFirstName1(), unregisterToken);
@@ -105,6 +105,7 @@ public class CoupleService implements CrudService<Couple> {
     //TODO better error messages and the messages should come from a constants class
     private List<String> validateRegistry(CoupleRegistry registry) {
         List<String> errors = new ArrayList<>();
+        Date currentDate = new Date(System.currentTimeMillis());
 
         if (! ValidationService.isValidName(registry.getFirstName1()) )
             errors.add("The first name of parent 1 is not valid");
@@ -121,14 +122,19 @@ public class CoupleService implements CrudService<Couple> {
         if (! ValidationService.isValidEmail(registry.getEmail2()) )
             errors.add("The email of parent 2 is not valid");
 
-        if (registry.getIsBorn())
-            if( registry.getDate().compareTo(new Date(System.currentTimeMillis())) > 0 )
+        // If on the same date both born and expected are possible so we let it through
+        if(registry.getDate().compareTo(currentDate) != 0) {
+            if (registry.getIsBorn()) {
+                if (registry.getDate().compareTo(new Date(System.currentTimeMillis())) > 0)
+                    errors.add("The birth date of the baby is not valid");
+            }
+            else if (registry.getDate().compareTo(new Date(System.currentTimeMillis())) < 0)
                 errors.add("The birth date of the baby is not valid");
-        else
-            if( registry.getDate().compareTo(new Date(System.currentTimeMillis())) < 0 )
-                errors.add("The birth date of the baby is not valid");
+        }
+
         if (!ValidationService.isValidPassword(registry.getPassword()))
             errors.add("Password not valid");
+
         return errors;
     }
 
