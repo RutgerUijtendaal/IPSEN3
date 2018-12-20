@@ -65,19 +65,19 @@ export class RegisterNewComponent implements OnInit {
 
     this.coupleForm = new FormGroup({
       'parentA': new FormGroup({
-        'name': new FormControl('klj', [Validators.required,  Validators.minLength(1)]),
-        'email': new FormControl('rutger@example.com', [Validators.required, ValidateEmail]),
-        'phone': new FormControl('+31652240273', [Validators.required, ValidatePhone]),
+        'name': new FormControl('', [Validators.required,  Validators.minLength(1)]),
+        'email': new FormControl('', [Validators.required, ValidateEmail]),
+        'phone': new FormControl('', [Validators.required, ValidatePhone]),
       }),
       'parentB': new FormGroup({
-        'name': new FormControl('jlk', [Validators.required,  Validators.minLength(1)]),
-        'email': new FormControl('rutger2@example.com', [Validators.required, ValidateEmail]),
-        'phone': new FormControl('+31652240278', [Validators.required, ValidatePhone]),
+        'name': new FormControl('', [Validators.required,  Validators.minLength(1)]),
+        'email': new FormControl('', [Validators.required, ValidateEmail]),
+        'phone': new FormControl('', [Validators.required, ValidatePhone]),
       }),
       'child': new FormGroup({
         'date': new FormControl(null, Validators.required),
         'isBorn': new FormControl(false, Validators.required),
-        'password': new FormControl('asdfjklo', [Validators.required, Validators.minLength(8)])
+        'password': new FormControl('', [Validators.required, Validators.minLength(8)])
       }, ValidateBirthdate)
     });
   }
