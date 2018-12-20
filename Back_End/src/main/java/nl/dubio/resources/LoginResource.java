@@ -49,6 +49,8 @@ public class LoginResource {
                     return loginModel;
                 }
             }
+
+            throw new NotFoundException("No user found");
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             e.printStackTrace();
         }
