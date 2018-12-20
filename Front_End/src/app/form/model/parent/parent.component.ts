@@ -9,6 +9,7 @@ import {FormGroup} from '@angular/forms';
 export class ParentComponent implements OnInit {
   @Input() parent: FormGroup;
   @Input() formTitle: string;
+  @Input() id: number;
 
   constructor() { }
 

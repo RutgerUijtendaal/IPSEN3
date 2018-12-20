@@ -15,11 +15,11 @@
       style="color: #757575;">
 
       <!-- Name -->
-      <label for="name" class="pt-3">Naam</label>
+      <label [for]="'name' + id " class="pt-3">Naam</label>
       <div class="md-form my-0 py-0">
         <input
           type="text"
-          id="name"
+          [id]="'name' + id "
           formControlName="name"
           mdbInputDirective
           data-success=" "
@@ -29,11 +29,11 @@
       </div>
 
       <!-- Email -->
-      <label for="email" class="pt-3">E-mail</label>
+      <label [for]="'email' + id " class="pt-3">E-mail</label>
       <div class="md-form my-0 py-0">
         <input
           type="email"
-          id="email"
+          [id]="'email' + id "
           formControlName="email"
           mdbInputDirective
           data-success=" "
@@ -43,11 +43,11 @@
       </div>
 
       <!-- Phone Nr -->
-      <label for="phone" class="pt-3">Telefoon</label>
+      <label [for]="'phone' + id " class="pt-3">Telefoon</label>
       <div class="md-form my-0 py-0">
         <input
           type="tel"
-          id="phone"
+          [id]="'phone' + id "
           formControlName="phone"
           mdbInputDirective
           data-success=" "
