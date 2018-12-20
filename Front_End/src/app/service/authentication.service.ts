@@ -29,14 +29,13 @@ export class AuthenticationService {
       })
     };
     const logindata = {'email' : email, 'password' : password};
-    console.log(logindata);
-    this.httpClient.post(url, logindata, httpOptions).subscribe(data => {
-      if (data != null) {
-        this.accountModel.setData(data);
-        localStorage.setItem('login', JSON.stringify(this.accountModel));
-        this.router.navigateByUrl('/');
-      }
-    });
+
+    return this.httpClient.post(url, logindata, httpOptions);
+  }
+
+  setLogin(data: any) {
+    this.accountModel.setData(data);
+    localStorage.setItem('login', JSON.stringify(this.accountModel));
   }
 
   logout() {
