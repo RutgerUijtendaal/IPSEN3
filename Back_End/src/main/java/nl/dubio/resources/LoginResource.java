@@ -19,9 +19,9 @@ import java.security.spec.InvalidKeySpecException;
 @Path("/login")
 public class LoginResource {
 
-    AdminDao adminDao = DaoRepository.getAdminDao();
-    ParentDao parentDao = DaoRepository.getParentDao();
-    CoupleDao coupleDao = DaoRepository.getCoupleDao();
+    private AdminDao adminDao = DaoRepository.getAdminDao();
+    private ParentDao parentDao = DaoRepository.getParentDao();
+    private CoupleDao coupleDao = DaoRepository.getCoupleDao();
 
     @POST
     @Path("/")
@@ -49,12 +49,10 @@ public class LoginResource {
                     return loginModel;
                 }
             }
-
-            throw new NotFoundException("No user found");
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             e.printStackTrace();
         }
-        return null;
+        throw new NotAuthorizedException("");
     }
 
 }

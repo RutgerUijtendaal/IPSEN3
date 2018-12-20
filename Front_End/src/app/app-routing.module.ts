@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'inloggen', component: LoginComponent},
   { path: 'contact', component: ContactComponent },
   { path: 'privacy', component: PrivacyComponent },
-  { path: 'beheerder', component: AdminHomeComponent },
+  { path: 'beheerder/ouders', component: AdminHomeComponent },
   { path: 'forbidden', component: NoaccessComponent },
   { path: 'logout', component: LogoutComponent },
   { path: '**', redirectTo: 'pagina-niet-gevonden'}
