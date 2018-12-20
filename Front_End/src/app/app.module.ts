@@ -36,6 +36,7 @@ import { UnregisterSuccessComponent } from './unregister/unregister-success/unre
 import { UnregisterComponent } from './unregister/unregister.component';
 import { LogoutComponent } from './logout/logout.component';
 import { UnregisterNewComponent } from './unregister/unregister-new/unregister-new.component';
+import {AuthenticationInterceptor} from './service/authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,11 @@ import { UnregisterNewComponent } from './unregister/unregister-new/unregister-n
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
       multi: true
     }],
   bootstrap: [AppComponent],

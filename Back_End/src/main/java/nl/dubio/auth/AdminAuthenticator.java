@@ -19,6 +19,7 @@ public class AdminAuthenticator implements Authenticator<BasicCredentials, Admin
 
     @Override
     public Optional<Admin> authenticate(BasicCredentials basicCredentials) throws AuthenticationException {
+        System.out.println(basicCredentials.getUsername());
         String email = basicCredentials.getUsername();
         String password = basicCredentials.getPassword();
         Admin admin = adminDao.getByEmail(email);
