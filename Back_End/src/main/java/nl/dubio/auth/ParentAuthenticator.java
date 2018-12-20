@@ -24,7 +24,6 @@ public class ParentAuthenticator implements Authenticator<BasicCredentials, Pare
         String email = basicCredentials.getUsername();
         String password = basicCredentials.getPassword();
         Parent parent = parentDao.getByEmail(email);
-        System.out.println(email);
         if (parent != null) {
             System.out.println(parent);
             Couple couple = coupleDao.getByParent(parent);

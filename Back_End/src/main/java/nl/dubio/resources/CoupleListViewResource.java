@@ -1,12 +1,14 @@
 package nl.dubio.resources;
 
 import io.dropwizard.auth.Auth;
+import nl.dubio.auth.AdminRights;
 import nl.dubio.auth.Authorizable;
 import nl.dubio.models.Admin;
 import nl.dubio.models.CoupleListModel;
 import nl.dubio.models.Parent;
 import nl.dubio.service.CoupleListService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Path;
@@ -42,6 +44,7 @@ public class CoupleListViewResource {
     }
 
     @GET
+    @RolesAllowed(AdminRights.Constants.USERINFO)
     public List<CoupleListModel> getAll(@Auth Authorizable authorizable) {
         if (!(authorizable instanceof Admin)) {
             throw new NotAuthorizedException("");
