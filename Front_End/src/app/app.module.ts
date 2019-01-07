@@ -3,89 +3,31 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegisterComponent } from './register/register.component';
-import { ParentComponent } from './form/model/parent/parent.component';
-import { ChildComponent } from './form/model/child/child.component';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { HeaderComponent } from './template/header/header.component';
-import { FooterComponent } from './template/footer/footer.component';
-import { HomeComponent } from './home/home.component';
-import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
-import { CardComponent } from './widget/card/card.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { NavbarComponent } from './template/header/navbar/navbar.component';
-import { DropdownNavDirective } from './dropdownnav.directive';
-import { LoginComponent } from './login/login.component';
-import { LoginCardComponent } from './login/login-card/login-card.component';
-import { ContactComponent } from './contact/contact.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { RegisterSuccessComponent } from './register/register-success/register-success.component';
-import { PrivacyComponent} from './privacy/privacy.component';
-import { RegisterNewComponent } from './register/register-new/register-new.component';
-import { ErrorMessageComponent } from './widget/error-message/error-message.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { AdminHomeComponent } from './admin-home/admin-home.component';
-import { CoupleListComponent } from './admin-home/couple-view/couple-list/couple-list.component';
-import { CoupleInListComponent } from './admin-home/couple-view/couple-list/couple-in-list/couple-in-list.component';
-import { CoupleListSearchbarComponent } from './admin-home/couple-view/couple-list-searchbar/couple-list-searchbar.component';
-import { CoupleViewComponent } from './admin-home/couple-view/couple-view.component';
-import {CoupleListService} from './admin-home/couple-view/couple-list-service';
-import {ErrorInterceptor} from './service/error.Interceptor';
-import {NoaccessComponent} from './noaccess/noaccess.component';
-import { UnregisterSuccessComponent } from './unregister/unregister-success/unregister-success.component';
-import { UnregisterComponent } from './unregister/unregister.component';
-import { LogoutComponent } from './logout/logout.component';
-import { UnregisterNewComponent } from './unregister/unregister-new/unregister-new.component';
-import {AuthenticationInterceptor} from './service/authentication.interceptor';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {ErrorInterceptor} from './core/auth/error.Interceptor';
+import {AuthenticationInterceptor} from './core/auth/authentication.interceptor';
+import {CoreModule} from './core/core.module';
+import {AuthModule} from './modules/auth/auth.module';
+import {HomeModule} from './modules/home/home.module';
+import {AdminModule} from './modules/admin/admin.module';
+import {DilemmaModule} from './modules/dilemma/dilemma.module';
+import {ParentModule} from './modules/parent/parent.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent,
-    ParentComponent,
-    ChildComponent,
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent,
-    CardComponent,
-    HomeComponent,
-    PageNotFoundComponent,
-    LoginComponent,
-    LoginCardComponent,
-    PageNotFoundComponent,
-    NavbarComponent,
-    DropdownNavDirective,
-    PageNotFoundComponent,
-    LoginComponent,
-    LoginCardComponent,
-    PrivacyComponent,
-    ContactComponent,
-    RegisterSuccessComponent,
-    RegisterNewComponent,
-    ErrorMessageComponent,
-    AdminHomeComponent,
-    CoupleListComponent,
-    CoupleInListComponent,
-    CoupleListSearchbarComponent,
-    CoupleViewComponent,
-    NoaccessComponent,
-    LogoutComponent,
-    NoaccessComponent,
-    UnregisterSuccessComponent,
-    UnregisterComponent,
-    UnregisterNewComponent,
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    FormsModule,
     AppRoutingModule,
-    HttpClientModule,
-    MDBBootstrapModule.forRoot()
+    AdminModule,
+    AuthModule,
+    DilemmaModule,
+    HomeModule,
+    ParentModule,
+    CoreModule,
   ],
   providers: [
-    CoupleListService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
