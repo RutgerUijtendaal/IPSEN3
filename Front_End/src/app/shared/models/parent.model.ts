@@ -3,9 +3,9 @@ export class ParentModel {
   public firstName: string;
   public email: string;
   public phoneNr: string;
-  public password: string;
+  public password = '';
 
-  constructor(phoneNr: string, email: string, firstName: string, password: string) {
+  constructor(phoneNr: string, email: string, firstName: string, password = '') {
     this.firstName = firstName;
     this.email = email;
     this.phoneNr = phoneNr;
