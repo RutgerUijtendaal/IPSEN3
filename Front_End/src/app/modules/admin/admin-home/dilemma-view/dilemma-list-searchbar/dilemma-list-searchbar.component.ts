@@ -9,6 +9,10 @@ export class DilemmaListSearchbarComponent implements OnInit {
 
   constructor() { }
 
+  newInput(event: any) {
+    // this.service.searchQuery.next(event.value);
+  }
+
   ngOnInit() {
   }
 

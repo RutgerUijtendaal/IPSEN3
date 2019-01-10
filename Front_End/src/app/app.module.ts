@@ -15,7 +15,7 @@ import {ParentModule} from './modules/parent/parent.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
