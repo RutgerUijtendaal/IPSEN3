@@ -1,0 +1,36 @@
+#header {
+  text-align: center;
+  margin-top: 7px;
+}
+
+#header ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: inline-block;
+}
+
+#header ul > li {
+  margin-left: 15px;
+  float: left;
+  text-align: center;
+}
+
+#header ul > li:first-child {
+  margin-left: 0;
+}
+
+#header ul > li > img {
+  height: 30px;
+}
+
+img:hover{
+  transform: scale(1.1);
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  #header ul > li > img {
+    height: 80px;
+  }
+}

@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row justify-content-center py-5">
+    <div style="margin-top: -25px;" align="center">
+      <button [ngStyle]="{'background-color': locationColor}" (click)="toggleLocation()" class="info-button" ><i class="fa fa-map-marker fa-2x"></i></button>
+      <button [ngStyle]="{'background-color': mailColor}" (click)="toggleEmail()" class="info-button" ><i  class="fa fa-envelope fa-2x"></i></button>
+      <button [ngStyle]="{'background-color': phoneColor}" (click)="togglePhone()" class="info-button" ><i class="fa fa-phone fa-2x"></i></button>
+      <div style="padding-bottom: 25px;" class="row py-5" class="d-flex justify-content-center" id="cards">
+        <div class="col-xs-8 col-md-8">
+          <mdb-card>
+            <mdb-card-body style="padding: 0px;">
+              <mdb-card-title>
+                <h5 class="card-header white-text text-center" style="background-color: #e2b53b;">
+                  <strong> {{ displayTitle }} </strong>
+                </h5>
+              </mdb-card-title>
+              <div style="padding: 10px"></div>
+              <mdb-card-text>
+                <div class="main-text" style="padding: 0px 20px 5px 20px;">
+                  {{ displayDetails }}
+                </div>
+              </mdb-card-text>
+              <div class="mapdiv">
+                <iframe class="mapouter" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.6272506795526!2d4.852133316182213!3d52.34090797978071!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c5e1fbcf89e03f%3A0xd68bc102e345bde0!2sGarage2020!5e0!3m2!1snl!2snl!4v1544543550745" width="1400" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+              </div>
+            </mdb-card-body>
+          </mdb-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

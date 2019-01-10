@@ -2,3 +2,54 @@ logging:
   level: INFO
   loggers:
     IPSEN3_Back_End: DEBUG
+
+mailUtility:
+  username: dubiogroep9
+  password: dreamteam_en_bas
+  websiteUrl: "http://localhost:4200/"
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+    # - type: https
+      # port: 8080
+      # keyStorePath: keystore.jks
+      # keyStorePassword: "dreamteam_en_bas"
+
+daoRepository:
+  adminDao:
+    tableName: admin
+    columnNames: [email, password, rights_id]
+  answerDao:
+    tableName: answer
+    columnNames: [dilemma_id, extension, text]
+  childDao:
+    tableName: child
+    columnNames: [couple_id, is_born, date]
+  coupleDao:
+    tableName: couple
+    columnNames: [parent1_id, parent2_id, signup_date, password, token]
+  coupleListViewDao:
+    tableName: couple_list_view
+    columnNames: [couple_id, parent_id1, name1, email1, phone_nr1, parent_id2, name2, email2, phone_nr2]
+  dilemmaDao:
+    tableName: dilemma
+    columnNames: [week_nr, theme, feedback]
+  parentDao:
+    tableName: parent
+    columnNames: [first_name, email, phone_nr]
+  resultDao:
+    tableName: result
+    columnNames: [parent_id, answer_id, date_dilemma_sent, date_dilemma_answered]
+  rightDao:
+    tableName: rights
+    columnNames: [can_edit_dilemma, can_view_statistics, can_edit_user_info]
+
+databaseConnection:
+  jdbc: postgresql
+  host: 80.100.250.208
+  port: 25002
+  database: dubio
+  user: postgres
+  password: dreamteam_en_bas

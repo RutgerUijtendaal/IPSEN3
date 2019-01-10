@@ -1,0 +1,56 @@
+$dubio-black: #03142b;
+
+nav {
+  background-color: $dubio-black;
+}
+
+a {
+  color: #ffffff;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+.navbar.navbar-dark .breadcrumb .nav-item.active > .nav-link, .navbar.navbar-dark .navbar-nav .nav-item.active > .nav-link {
+  background-color: rgba(255, 255, 255, 0);
+  font-weight: 500;
+  padding-bottom: 1px;
+  border-bottom: 3px solid #e2b53b;
+}
+
+#register {
+  background-color: #e2b53b;
+}
+
+#register.active > .nav-link {
+  padding-bottom: 1px;
+  border-bottom: 2px solid white !important;
+}
+
+.nav-item {
+  padding-bottom: 5px;
+}
+
+img {
+  margin-left: 3px;
+  margin-right: 20px;
+  float: left;
+  text-align: center;
+  transition: all .15s ease-in-out;
+}
+
+img:hover{
+  transform: scale(1.1);
+}
+
+.dropdown .dropdown-menu .show {
+  display: block !important;
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  #header ul > li > img {
+    height: 80px;
+  }
+}

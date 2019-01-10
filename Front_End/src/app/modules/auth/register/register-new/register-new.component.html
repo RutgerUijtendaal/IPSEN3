@@ -1,0 +1,37 @@
+<div class="row justify-content-center py-5">
+  <div class="col-12">
+
+    <app-widget-error-message *ngIf="showError" [errorMessage]="errorMessage"></app-widget-error-message>
+
+    <div class="row justify-content-center py-md-3">
+      <div class="col-10 col-md-5 mx-md-0 py-md-3 mx-sm-5 py-sm-2">
+        <app-parent [parent]="coupleForm.controls.parentA" [formTitle]="formTitleParentA"></app-parent>
+      </div>
+      <div class="col-10 col-md-5 mx-md-0 py-md-3 mx-sm-5 py-sm-2">
+        <app-parent [parent]="coupleForm.controls.parentB" [formTitle]="formTitleParentB" [id]="1"></app-parent>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-10 col-md-10 mx-md-0 py-md-3 py-3 mx-sm-5 py-sm-2">
+        <app-child [child]="coupleForm.controls.child" [formTitle]="formTitleChild" [id]="2"></app-child>
+      </div>
+    </div>
+
+    <div class="row justify-content-center py-5">
+        <button
+          class="form-button"
+          style="width: 180px"
+          mdbBtn
+          [disabled]="!coupleForm.valid"
+          (click)="submitForm()"
+          type="button"
+          color="success"
+          size="lg"
+          mdbWavesEffect>
+          <span *ngIf="!submitLoading">Inschrijven</span>
+          <i *ngIf="submitLoading" class="fa fa-refresh fa-spin"></i>
+        </button>
+    </div>
+  </div>
+</div>
