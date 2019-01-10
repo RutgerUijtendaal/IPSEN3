@@ -8,6 +8,14 @@ import {CoupleInListComponent} from './admin-home/couple-view/couple-list/couple
 import {CoupleViewComponent} from './admin-home/couple-view/couple-view.component';
 import {CoupleListService} from './admin-home/couple-view/couple-list-service';
 import {AdminRoutingModule} from './admin-routing.module';
+import { AdminListComponent } from './admin-home/admin-view/admin-list/admin-list.component';
+import { AdminViewComponent } from './admin-home/admin-view/admin-view.component';
+import { AdminListSearchbarComponent } from './admin-home/admin-view/admin-list-searchbar/admin-list-searchbar.component';
+import { DilemmaViewComponent } from './admin-home/dilemma-view/dilemma-view.component';
+import { DilemmaListComponent } from './admin-home/dilemma-view/dilemma-list/dilemma-list.component';
+import { DilemmaListSearchbarComponent } from './admin-home/dilemma-view/dilemma-list-searchbar/dilemma-list-searchbar.component';
+import { DilemmaDetailComponent } from './admin-home/dilemma-view/dilemma-detail/dilemma-detail.component';
+import { AdminDetailComponent } from './admin-home/admin-view/admin-detail/admin-detail.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +24,14 @@ import {AdminRoutingModule} from './admin-routing.module';
     CoupleListSearchbarComponent,
     CoupleInListComponent,
     CoupleViewComponent,
+    AdminListComponent,
+    AdminViewComponent,
+    AdminListSearchbarComponent,
+    DilemmaViewComponent,
+    DilemmaListComponent,
+    DilemmaListSearchbarComponent,
+    DilemmaDetailComponent,
+    AdminDetailComponent
   ],
   imports: [
     CommonModule,
