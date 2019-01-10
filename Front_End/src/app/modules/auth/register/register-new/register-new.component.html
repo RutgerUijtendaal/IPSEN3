@@ -20,7 +20,7 @@
 
     <div class="row justify-content-center py-5">
         <button
-          class="form-button"
+          class="form-button btn-rounded"
           style="width: 180px"
           mdbBtn
           [disabled]="!coupleForm.valid"
@@ -29,7 +29,7 @@
           color="success"
           size="lg"
           mdbWavesEffect>
-          <span *ngIf="!submitLoading">Inschrijven</span>
+          <span *ngIf="!submitLoading">Registreren</span>
           <i *ngIf="submitLoading" class="fa fa-refresh fa-spin"></i>
         </button>
     </div>

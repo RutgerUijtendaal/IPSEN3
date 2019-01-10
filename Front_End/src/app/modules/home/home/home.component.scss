@@ -28,5 +28,10 @@ h3 {
   padding-bottom: 5px;
   margin-bottom: 15px;
 }
+div.carousel-caption {
+  position: absolute;
+  z-index: 999;
+  bottom: 0;
+}
 
 

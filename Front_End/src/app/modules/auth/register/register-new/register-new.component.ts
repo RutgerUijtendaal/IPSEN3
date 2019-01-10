@@ -54,7 +54,7 @@ export class RegisterNewComponent implements OnInit {
       },
       (error: any) => {
         this.submitLoading = false;
-        this.errorMessage = 'Er is iets fout gegaan tijdens het inschrijven';
+        this.errorMessage = 'Er is iets fout gegaan tijdens het Registreren';
         this.showError = true;
         this.scrollToTop();
       });
