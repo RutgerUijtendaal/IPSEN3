@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppComponent } from '../../../../../app.component';
 import { DilemmaListService } from './dilemma-list-service';
+import { DilemmaModel } from '../../../../../shared/models/dilemma.model';
 
 @Component({
   selector: 'app-dilemma-list',

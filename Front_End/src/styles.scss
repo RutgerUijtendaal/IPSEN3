@@ -33,3 +33,11 @@ footer {
   text-transform: none;
   font-size: 1em;
 }
+
+app-couple-in-list {
+  mdb-card-body, .card {
+    box-shadow: none;
+  }
+}
+
+

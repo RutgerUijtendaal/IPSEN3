@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DilemmaModel } from '../../../../../../shared/models/dilemma.model';
 
 @Component({
   selector: 'app-dilemma-in-list',
