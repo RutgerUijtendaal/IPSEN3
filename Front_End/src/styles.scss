@@ -24,8 +24,9 @@ footer {
   width: 100%;
 }
 
-.btn-rouded {
-  border-radius: 50px;
+.btn-rounded, .rounded-corner {
+  border-radius: 30px;
+  overflow: hidden;
 }
 
 .btn-normalize {
