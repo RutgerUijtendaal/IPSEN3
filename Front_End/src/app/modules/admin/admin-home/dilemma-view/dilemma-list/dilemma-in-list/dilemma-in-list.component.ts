@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dilemma-in-list',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DilemmaInListComponent implements OnInit {
 
-  constructor() { }
+  @Input() dilemma: DilemmaModel;
+  @Output() delete: EventEmitter<DilemmaModel>;
+
+  constructor() {
+    this.delete = new EventEmitter();
+  }
 
   ngOnInit() {
+  }
+
+  deleteRequest() {
+    this.delete.emit(this.dilemma);
   }
 
 }

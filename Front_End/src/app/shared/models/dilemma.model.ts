@@ -1,0 +1,3 @@
+class DilemmaModel {
+  id: number;
+}
