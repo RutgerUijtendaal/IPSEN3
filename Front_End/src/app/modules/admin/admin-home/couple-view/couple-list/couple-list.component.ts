@@ -30,6 +30,7 @@ export class CoupleListComponent implements OnInit {
 
   createRecords(data: CoupleModel[]) {
     data.forEach(couple => {
+        console.log(couple.parent1);
         const parent1: ParentModel = couple.parent1;
         const parent2: ParentModel = couple.parent2;
         parent1.id = couple.parent1.id;
@@ -41,10 +42,11 @@ export class CoupleListComponent implements OnInit {
   }
 
   updateList(searchQuery: string) {
+    searchQuery = searchQuery.toLocaleLowerCase()
     this.oldSearch = searchQuery;
     this.shownCouples = this.allCouples.filter( couple =>
-      couple.parent1.email.includes(searchQuery) ||
-      couple.parent2.email.includes(searchQuery) ||
+      couple.parent1.email.toLocaleLowerCase().includes(searchQuery) ||
+      couple.parent2.email.toLocaleLowerCase().includes(searchQuery) ||
       couple.parent1.phoneNr.includes(searchQuery) ||
       couple.parent2.phoneNr.includes(searchQuery)
     );

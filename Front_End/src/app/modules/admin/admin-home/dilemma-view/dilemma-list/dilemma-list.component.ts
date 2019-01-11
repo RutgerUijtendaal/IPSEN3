@@ -58,10 +58,11 @@ export class DilemmaListComponent implements OnInit {
   }
 
   updateList(searchQuery: string) {
+    searchQuery = searchQuery.toLocaleLowerCase();
     this.oldSearch = searchQuery;
     this.shownDilemmas = this.allDilemmas.filter( dilemma =>
       String(dilemma.weekNr).includes(searchQuery) ||
-      dilemma.theme.includes(searchQuery)
+      dilemma.theme.toLocaleLowerCase().includes(searchQuery)
     );
   }
 

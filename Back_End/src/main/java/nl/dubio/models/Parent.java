@@ -27,8 +27,8 @@ public class Parent implements DatabaseObject<Parent>, Authorizable {
     public Parent
     (
         @JsonProperty("id") int id,
-        @JsonProperty("firstName") String firstName,
         @JsonProperty("phoneNr") String phoneNr,
+        @JsonProperty("firstName") String firstName,
         @JsonProperty("email") String email
     )
     {

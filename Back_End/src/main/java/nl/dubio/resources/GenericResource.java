@@ -3,6 +3,7 @@ package nl.dubio.resources;
 import com.codahale.metrics.annotation.Timed;
 import nl.dubio.models.DatabaseObject;
 import io.dropwizard.setup.Environment;
+import nl.dubio.models.Parent;
 import nl.dubio.service.CrudService;
 
 import javax.validation.Valid;
