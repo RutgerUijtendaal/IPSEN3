@@ -26,6 +26,11 @@ h3 {
 mdb-card {
   display: inline-flex;
   vertical-align: top;
+  padding: 0px;
+}
+
+mdb-card-body {
+  padding: 1px 0px;
 }
 
 img {
