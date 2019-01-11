@@ -31,6 +31,10 @@
   border-bottom: 2px solid lightgrey;
 }
 
+.card-body {
+  padding: 5px 0px 0px 0px;
+}
+
 @media all and (max-width: 768px) {
   .plus, .delete {
     padding-top: 10px;

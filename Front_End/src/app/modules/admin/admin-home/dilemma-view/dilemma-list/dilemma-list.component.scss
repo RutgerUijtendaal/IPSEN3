@@ -1,6 +1,4 @@
-#search-header {
-  color: black;
-}
+/*
 
 #results-body {
   color: black;
@@ -12,11 +10,26 @@ h3 {
   padding-top: 40px;
 }
 
+.card {
+  box-shadow: none !important;
+}
 .modal-text {
   color: #03142b;
   text-align: center;
 }
 
-.card {
-  box-shadow: none !important;
+#search-header {
+  color: black;
 }
+*/
+
+mdb-card {
+  display: inline-flex;
+  vertical-align: top;
+}
+
+img {
+  display: flex;
+  align-self: center;
+}
+

@@ -1,18 +1,10 @@
-<mdb-card style="margin-bottom: 0rem">
-  <mdb-card-body class="col-md-3 d-flex flex-wrap">
-    <div class="col-md-2 parent">
-      <div class="info-text">
-        <i class="fa fa-file" style="font-size: 25px" aria-hidden="true"></i>
-      </div>
-      <div class="info-text">
-        Thema: {{ dilemma.theme }}
-      </div>
-      <div class="info-text">
-        Week: {{ dilemma.weekNr }}
-      </div>
+<mdb-card>
+  <mdb-card-body class="col-md-12">
+    <div class="col-md-12">
+      {{ dilemma.theme }}
     </div>
-    <div class="col-md-1 delete">
-      <i (click)="deleteRequest()" style="font-size: 35px; color: darkred" class="fa fa-trash delete-button"></i>
+    <div class="col-md-12">
+      Week {{ dilemma.weekNr }}
     </div>
   </mdb-card-body>
 </mdb-card>

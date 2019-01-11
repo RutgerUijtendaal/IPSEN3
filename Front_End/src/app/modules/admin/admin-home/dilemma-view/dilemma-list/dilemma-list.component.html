@@ -1,10 +1,10 @@
 <mdb-card class="col-md-3" style="margin-bottom: 10px;">
-  <div>
-    <h3 [hidden]="shownDilemmas.length > 0">
-      <img width="100px" src="assets/images/couple-list/no-results.png" alt="Laden...">
-    </h3>
-  </div>
   <mdb-card-body id="results-body">
+    <div>
+      <h3 [hidden]="shownDilemmas.length > 0">
+        <img width="50px" src="assets/images/couple-list/no-results.png" alt="Laden...">
+      </h3>
+    </div>
     <app-dilemma-in-list (delete)="deleteRequest($event); basicModal.show()" *ngFor="let d of shownDilemmas" [dilemma]="d"></app-dilemma-in-list>
   </mdb-card-body>
 </mdb-card>
