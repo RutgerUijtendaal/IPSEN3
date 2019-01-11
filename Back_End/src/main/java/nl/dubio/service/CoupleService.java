@@ -108,9 +108,9 @@ public class CoupleService implements CrudService<Couple> {
         Date currentDate = new Date(System.currentTimeMillis());
 
         if (! ValidationService.isValidName(registry.getFirstName1()) )
-            errors.add("The first name of parent 1 is not valid");
+            errors.add("The first name of parent 1 is not valid: " + registry.getFirstName1());
         if (! ValidationService.isValidName(registry.getFirstName2()) )
-            errors.add("The first name of parent 2 is not valid");
+            errors.add("The first name of parent 2 is not valid: " + registry.getFirstName2());
 
         if (! ValidationService.isValidPhone(registry.getPhoneNr1()) )
             errors.add("The phone number of parent 1 is not valid");
