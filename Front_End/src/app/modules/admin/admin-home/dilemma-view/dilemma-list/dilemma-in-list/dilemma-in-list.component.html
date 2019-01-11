@@ -1,3 +1,18 @@
-<p>
-  dilemma-in-list works!
-</p>
+<mdb-card style="margin-bottom: 0rem">
+  <mdb-card-body class="col-md-6 d-flex flex-wrap">
+    <div class="col-md-4 parent">
+      <div class="info-text">
+        <i class="fa fa-file" style="font-size: 25px" aria-hidden="true"></i>
+      </div>
+      <div class="info-text">
+        Thema: {{ dilemma.theme }}
+      </div>
+      <div class="info-text">
+        Week: {{ dilemma.weekNr }}
+      </div>
+    </div>
+    <div class="col-md-2 delete">
+      <i (click)="deleteRequest()" style="font-size: 35px; color: darkred" class="fa fa-trash delete-button"></i>
+    </div>
+  </mdb-card-body>
+</mdb-card>

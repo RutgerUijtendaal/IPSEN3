@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppComponent } from '../../../../../app.component';
 import { DilemmaListService } from './dilemma-list-service';
 import { DilemmaModel } from '../../../../../shared/models/dilemma.model';
+import { AnswerModel } from '../../../../../shared/models/answer.model';
 
 @Component({
   selector: 'app-dilemma-list',
@@ -14,6 +15,7 @@ export class DilemmaListComponent implements OnInit {
   URL = AppComponent.environment.server;
 
   allDilemmas: DilemmaModel[];
+  allAnswers: AnswerModel[];
   shownDilemmas: DilemmaModel[];
   oldSearch: string;
   currentSelectedDilemma: DilemmaModel;
@@ -22,20 +24,34 @@ export class DilemmaListComponent implements OnInit {
     service.searchQuery.subscribe(search => this.updateList(search));
     this.allDilemmas = [];
     this.shownDilemmas = [];
+    this.allAnswers = [];
     httpClient.get(this.URL + '/dilemma').subscribe(data =>
-      this.createRecords(data as DilemmaModel[])
+      this.createDilemmaRecords(data as DilemmaModel[])
+    );
+    httpClient.get(this.URL + '/answer').subscribe(data =>
+      this.createAnswerRecords(data as AnswerModel[])
     );
   }
 
-  createRecords(data: DilemmaModel[]) {
+  createDilemmaRecords(data: DilemmaModel[]) {
     data.forEach(dilemma => {
-        /*
-          const parent1: ParentModel = dilemma.parent1;
-          const parent2: ParentModel = dilemma.parent2;
-          parent1.id = dilemma.parent1.id;
-          parent2.id = dilemma.parent2.id;
-          */
-        this.allDilemmas.push(new DilemmaModel());
+        const id = dilemma.id;
+        const weekNr = dilemma.weekNr;
+        const theme = dilemma.theme;
+        const feedback = dilemma.feedback;
+        this.allDilemmas.push(new DilemmaModel(id, weekNr, theme, feedback));
+      }
+    );
+    this.updateList('');
+  }
+
+  createAnswerRecords(data: AnswerModel[]) {
+    data.forEach(answer => {
+        const id = answer.id;
+        const dilemmaId = answer.id;
+        const url = answer.url;
+        const text = answer.text;
+        this.allAnswers.push(new AnswerModel(id, dilemmaId, url, text));
       }
     );
     this.updateList('');
@@ -44,9 +60,9 @@ export class DilemmaListComponent implements OnInit {
   updateList(searchQuery: string) {
     this.oldSearch = searchQuery;
     this.shownDilemmas = this.allDilemmas.filter( dilemma =>
-      // TODO
-      console.log(dilemma)
-  );
+      String(dilemma.weekNr).includes(searchQuery) ||
+      dilemma.theme.includes(searchQuery)
+    );
   }
 
   confirmDelete() {
@@ -61,16 +77,5 @@ export class DilemmaListComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  /*
-  createFakeRecords() {
-    for (let i = 0; i < 20; i += 2) {
-      this.allDilemmas.push(new DilemmaModel(
-        new ParentModel('Foo' + String(i), String(i) + 'parentemail@gmail.com', '+31612345678'),
-        new ParentModel('Bar' + String(i + 1), String(i + 1) + 'parentemail@gmail.com', '+31612345678')
-      ));
-    }
-  }
-  */
 
 }

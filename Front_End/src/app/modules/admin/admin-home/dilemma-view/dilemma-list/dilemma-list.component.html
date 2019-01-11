@@ -1,11 +1,11 @@
 <mdb-card style="margin-bottom: 10px;">
   <div>
-    <h3 [hidden]="shownCouples.length > 0">
+    <h3 [hidden]="shownDilemmas.length > 0">
       <img width="100px" src="assets/images/couple-list/no-results.png" alt="Laden...">
     </h3>
   </div>
   <mdb-card-body id="results-body">
-    <app-couple-in-list (delete)="deleteRequest($event); basicModal.show()" *ngFor="let c of shownCouples" [couple]="c"></app-couple-in-list>
+    <app-dilemma-in-list (delete)="deleteRequest($event); basicModal.show()" *ngFor="let d of shownDilemmas" [dilemma]="d"></app-dilemma-in-list>
   </mdb-card-body>
 </mdb-card>
 
@@ -20,7 +20,7 @@
       </div>
       <div class="modal-body">
         <div class="modal-text">
-          Weet je zeker dat je dit ouderpaar uit het programma wilt verwijderen?
+          Weet je zeker dat je dit dilemma uit het programma wilt verwijderen?
         </div>
       </div>
       <div class="justify-content-center modal-footer">
