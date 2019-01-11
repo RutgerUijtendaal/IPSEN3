@@ -3,12 +3,7 @@
   text-align: center;
 }
 
-.plus {
-  padding-bottom: 10px;
-}
-
 .plus, .delete {
-  padding-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,4 +29,11 @@
 
 .card {
   border-bottom: 2px solid lightgrey;
+}
+
+@media all and (max-width: 768px) {
+  .plus, .delete {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }

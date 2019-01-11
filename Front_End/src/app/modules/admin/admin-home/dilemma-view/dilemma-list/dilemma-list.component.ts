@@ -39,7 +39,9 @@ export class DilemmaListComponent implements OnInit {
         const weekNr = dilemma.weekNr;
         const theme = dilemma.theme;
         const feedback = dilemma.feedback;
-        this.allDilemmas.push(new DilemmaModel(id, weekNr, theme, feedback));
+        const dilemmaModel: DilemmaModel = new DilemmaModel(id, weekNr, theme, feedback);
+        this.allDilemmas.push(dilemmaModel);
+        console.log(dilemmaModel);
       }
     );
     this.updateList('');
@@ -51,7 +53,9 @@ export class DilemmaListComponent implements OnInit {
         const dilemmaId = answer.id;
         const url = answer.url;
         const text = answer.text;
-        this.allAnswers.push(new AnswerModel(id, dilemmaId, url, text));
+        const answerModel: AnswerModel = new AnswerModel(id, dilemmaId, url, text);
+        this.allAnswers.push(answerModel);
+        console.log(answerModel);
       }
     );
     this.updateList('');
