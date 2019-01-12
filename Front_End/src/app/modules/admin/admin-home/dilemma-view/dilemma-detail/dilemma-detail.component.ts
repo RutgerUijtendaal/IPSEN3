@@ -20,6 +20,8 @@ export class DilemmaDetailComponent implements OnInit {
   editedAnswerText1: string;
   editedAnswerText2: string;
 
+  loadedImage: string;
+
   constructor(private service: DilemmaViewService, private httpClient: HttpClient) {
   }
 
@@ -69,6 +71,14 @@ export class DilemmaDetailComponent implements OnInit {
     this.service.answer1 = null;
     this.service.answer2 = null;
     this.service.delete.next(this.service.dilemma);
+  }
+
+  showFirstPic() {
+    this.loadedImage = 'https://dubio-groep9.nl/images/' + '21.png';
+  }
+
+  showSecondPic() {
+    this.loadedImage = 'https://dubio-groep9.nl/images/' + '21.png';
   }
 
 }

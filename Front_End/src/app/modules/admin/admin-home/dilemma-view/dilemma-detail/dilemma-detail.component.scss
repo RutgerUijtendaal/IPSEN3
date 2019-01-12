@@ -20,7 +20,7 @@ td {
 }
 
 td:first-child {
-  width: 15%;
+  width: 20%;
 }
 
 input {
@@ -36,6 +36,13 @@ input:hover {
 .modal-text {
   color: #03142b;
   text-align: center;
+}
+
+.modal-content {
+  width: auto;
+  border: 10px solid red;
+  text-align: center
+  a
 }
 
 .inside-card {

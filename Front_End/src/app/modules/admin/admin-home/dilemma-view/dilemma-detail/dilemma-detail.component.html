@@ -1,64 +1,74 @@
-  <mdb-card class="main-card col-md-9">
-    <mdb-card-body>
-      <div *ngIf="service.dilemma != null">
-        <mdb-card class="inside-card">
-          <mdb-card-header>
-            Dilemma
-          </mdb-card-header>
-          <mdb-card-body>
-            <table>
-              <tr>
-                <td>Thema:</td>
-                <td><input class="text-input dilemma-theme" value="{{ service.dilemma.theme }}"></td>
-              </tr>
-              <tr>
-                <td>Week:</td>
-                <td><input class="number-input dilemma-weeknr" value="{{ service.dilemma.weekNr }}"></td>
-              </tr>
-              <tr>
-                <td>Feedback:</td>
-                <td><input class="text-input dilemma-feedback" value="{{ service.dilemma.feedback }}"></td>
-              </tr>
-            </table>
-          </mdb-card-body>
-        </mdb-card>
-        <mdb-card class="inside-card">
-          <mdb-card-header>
-            Antwoord 1
-          </mdb-card-header>
-          <mdb-card-body>
-            <table>
-              <tr>
-                <td>Text:</td>
-                <td><input class="text-input answer1-text" value="{{ service.answer1.text }}"></td>
-              </tr>
-            </table>
-          </mdb-card-body>
-        </mdb-card>
-        <mdb-card class="inside-card">
-          <mdb-card-header>
-            Antwoord 2
-          </mdb-card-header>
-          <mdb-card-body>
-            <table>
-              <tr>
-                <td>Text:</td>
-                <td><input class="text-input answer2-text" value="{{ service.answer2.text }}"></td>
-              </tr>
-            </table>
-          </mdb-card-body>
-        </mdb-card>
-        <div class="buttons">
-          <button class="rounded-corner btn btn-primary" (click)="saveDilemma()">OPSLAAN</button>
-          <button class="rounded-corner btn btn-primary" (click)="resetDetails()">RESET</button>
-          <button class="rounded-corner btn btn-danger" (click)="basicModal.show()">VERWIJDEREN</button>
-        </div>
+<mdb-card class="main-card col-md-9">
+  <mdb-card-body>
+    <div *ngIf="service.dilemma != null">
+      <mdb-card class="inside-card">
+        <mdb-card-header>
+          Dilemma
+        </mdb-card-header>
+        <mdb-card-body>
+          <table>
+            <tr>
+              <td>Thema:</td>
+              <td><input class="text-input dilemma-theme" value="{{ service.dilemma.theme }}"></td>
+            </tr>
+            <tr>
+              <td>Week:</td>
+              <td><input class="number-input dilemma-weeknr" value="{{ service.dilemma.weekNr }}"></td>
+            </tr>
+            <tr>
+              <td>Feedback:</td>
+              <td><input class="text-input dilemma-feedback" value="{{ service.dilemma.feedback }}"></td>
+            </tr>
+          </table>
+        </mdb-card-body>
+      </mdb-card>
+      <mdb-card class="inside-card">
+        <mdb-card-header>
+          Antwoord 1
+        </mdb-card-header>
+        <mdb-card-body>
+          <table>
+            <tr>
+              <td>Text:</td>
+              <td><input class="text-input answer1-text" value="{{ service.answer1.text }}"></td>
+            </tr>
+            <tr>
+              <td>Nieuw plaatje:</td>
+              <td><input accept="image/*" type="file"></td>
+              <td><button (click)="showFirstPic()">Huidig plaatje</button></td>
+            </tr>
+          </table>
+        </mdb-card-body>
+      </mdb-card>
+      <mdb-card class="inside-card">
+        <mdb-card-header>
+          Antwoord 2
+        </mdb-card-header>
+        <mdb-card-body>
+          <table>
+            <tr>
+              <td>Text:</td>
+              <td><input class="text-input answer2-text" value="{{ service.answer2.text }}"></td>
+            </tr>
+            <tr>
+              <td>Nieuw plaatje:</td>
+              <td><input accept="image/*" type="file"></td>
+              <td><button (click)="showSecondPic(); imgModal.show()">Huidig plaatje</button></td>
+            </tr>
+          </table>
+        </mdb-card-body>
+      </mdb-card>
+      <div class="buttons">
+        <button class="rounded-corner btn btn-primary" (click)="saveDilemma()">OPSLAAN</button>
+        <button class="rounded-corner btn btn-primary" (click)="resetDetails()">RESET</button>
+        <button class="rounded-corner btn btn-danger" (click)="basicModal.show()">VERWIJDEREN</button>
       </div>
-      <div style="font-size: 20px; text-align: center; transform: translateX(-1%);" *ngIf="service.dilemma == null">
-        Klik op een dilemma!
-      </div>
-    </mdb-card-body>
-  </mdb-card>
+    </div>
+    <div style="font-size: 20px; text-align: center; transform: translateX(-1%);" *ngIf="service.dilemma == null">
+      Klik op een dilemma!
+    </div>
+  </mdb-card-body>
+</mdb-card>
 
 <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -82,3 +92,11 @@
   </div>
 </div>
 
+
+<div mdbModal #imgModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <img [src]="loadedImage">
+    </div>
+  </div>
+</div>
