@@ -23,14 +23,14 @@ td:first-child {
   width: 15%;
 }
 
-.text-input {
+input {
   border: 0;
   width: 100%;
 }
 
-.number-input {
-  border: 0;
-  width: 100%;
+input:hover {
+  background-color: #f8f8f8;
+
 }
 
 .modal-text {
