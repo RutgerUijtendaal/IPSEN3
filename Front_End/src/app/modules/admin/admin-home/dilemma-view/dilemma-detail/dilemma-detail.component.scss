@@ -3,6 +3,9 @@ mdb-card {
   vertical-align: top;
   padding: 0px;
   color: #03142b;
+  width: 73.5%;
+  margin-left: 1.5%;
+
 }
 
 .text-input {
@@ -17,3 +20,13 @@ mdb-card {
   color: #03142b;
   text-align: center;
 }
+
+// @media all and (max-width: 1199px) { ... }
+// @media all and (max-width: 991px) { ... }
+@media all and (max-width: 768px) {
+  mdb-card {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+// @media all and (max-width: 575px) { ... }

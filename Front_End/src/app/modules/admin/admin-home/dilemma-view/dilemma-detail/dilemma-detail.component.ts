@@ -4,8 +4,6 @@ import {AnswerModel} from '../../../../../shared/models/answer.model';
 import {DilemmaViewService} from '../dilemma-view-service';
 import {AppComponent} from '../../../../../app.component';
 import {HttpClient} from '@angular/common/http';
-import {AuthenticationService} from '../../../../../core/auth/authentication.service';
-import {AuthenticationInterceptor} from '../../../../../core/auth/authentication.interceptor';
 
 @Component({
   selector: 'app-dilemma-detail',
@@ -22,7 +20,7 @@ export class DilemmaDetailComponent implements OnInit {
   editedAnswerText1: string;
   editedAnswerText2: string;
 
-  constructor(private service: DilemmaViewService, private httpClient: HttpClient, private auth: AuthenticationInterceptor) {
+  constructor(private service: DilemmaViewService, private httpClient: HttpClient) {
   }
 
   ngOnInit() {
