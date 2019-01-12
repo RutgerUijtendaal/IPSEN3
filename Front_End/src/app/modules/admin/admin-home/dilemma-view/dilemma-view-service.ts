@@ -10,7 +10,11 @@ export class DilemmaViewService {
   answer1: AnswerModel;
   answer2: AnswerModel;
 
+  delete: Subject<DilemmaModel>;
+
   constructor() {
+    this.delete = new Subject();
+    this.delete.asObservable();
   }
 
 }

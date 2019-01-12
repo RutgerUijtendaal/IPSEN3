@@ -20,11 +20,21 @@ export class DilemmaDetailComponent implements OnInit {
   ngOnInit() {
   }
 
+  resetDetails() {
+    (<HTMLInputElement>document.getElementsByClassName('dilemma-theme')[0]).value = this.service.dilemma.theme;
+    (<HTMLInputElement>document.getElementsByClassName('dilemma-weeknr')[0]).value = String(this.service.dilemma.weekNr);
+    (<HTMLInputElement>document.getElementsByClassName('answer1-text')[0]).value = this.service.answer1.text;
+    (<HTMLInputElement>document.getElementsByClassName('answer2-text')[0]).value = this.service.answer2.text;
+  }
+
   saveDilemma() {
   }
 
   deleteDilemma() {
-
+    this.service.dilemma = null;
+    this.service.answer1 = null;
+    this.service.answer2 = null;
+    this.service.delete.next(this.service.dilemma);
   }
 
 }

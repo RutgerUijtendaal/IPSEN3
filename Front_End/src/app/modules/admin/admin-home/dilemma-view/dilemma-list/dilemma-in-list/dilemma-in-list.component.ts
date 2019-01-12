@@ -9,17 +9,11 @@ import { DilemmaModel } from '../../../../../../shared/models/dilemma.model';
 export class DilemmaInListComponent implements OnInit {
 
   @Input() dilemma: DilemmaModel;
-  @Output() delete: EventEmitter<DilemmaModel>;
 
   constructor() {
-    this.delete = new EventEmitter();
   }
 
   ngOnInit() {
-  }
-
-  deleteRequest() {
-    this.delete.emit(this.dilemma);
   }
 
 }

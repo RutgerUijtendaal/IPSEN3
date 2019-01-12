@@ -25,6 +25,7 @@ export class DilemmaListComponent implements OnInit {
               private httpClient: HttpClient,
               private viewService: DilemmaViewService) {
     listService.searchQuery.subscribe(search => this.updateList(search));
+    viewService.delete.subscribe(dilemma => this.deleteDilemmaFromList());
     this.allDilemmas = [];
     this.shownDilemmas = [];
     this.allAnswers = [];
@@ -95,14 +96,10 @@ export class DilemmaListComponent implements OnInit {
     this.shownDilemmas.sort((a, b) => (a.weekNr > b.weekNr) ? 1 : 0);
   }
 
-  confirmDelete() {
+  deleteDilemmaFromList() {
     this.allDilemmas.splice(this.allDilemmas.findIndex(d => d.id === this.currentSelectedDilemma.id), 1);
     this.updateList(this.oldSearch);
-    this.httpClient.delete(this.URL + '/dilemma/' + this.currentSelectedDilemma.id).subscribe((res) => {});
-  }
-
-  deleteRequest(dilemmaModel: DilemmaModel) {
-    this.currentSelectedDilemma = dilemmaModel;
+    // this.httpClient.delete(this.URL + '/dilemma/' + this.currentSelectedDilemma.id).subscribe((res) => {});
   }
 
   ngOnInit() {

@@ -2,17 +2,18 @@
     <mdb-card-body>
       <div *ngIf="service.dilemma != null">
         <p>
-          <input class="text-input" value="{{ service.dilemma.theme }}">
-          <input class="number-input" value="{{ service.dilemma.weekNr }}">
+          <input class="text-input dilemma-theme" value="{{ service.dilemma.theme }}">
+          <input class="number-input dilemma-weeknr" value="{{ service.dilemma.weekNr }}">
         </p>
         <p>
-          <input class="text-input" value="{{ service.answer1.text }}">
+          <input class="text-input answer1-text" value="{{ service.answer1.text }}">
         </p>
         <p>
-          <input class="text-input" value="{{ service.answer2.text }}">
+          <input class="text-input answer2-text" value="{{ service.answer2.text }}">
         </p>
         <button (click)="saveDilemma()">OPSLAAN</button>
         <button (click)="basicModal.show()">VERWIJDEREN</button>
+        <button (click)="resetDetails()">RESET</button>
       </div>
       <div *ngIf="service.dilemma == null">
         Klik op een dilemma!
