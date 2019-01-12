@@ -21,6 +21,7 @@ import { AdminInListComponent } from './admin-home/admin-view/admin-list/admin-i
 import { DilemmaListService } from './admin-home/dilemma-view/dilemma-list/dilemma-list-service';
 import {DilemmaViewService} from './admin-home/dilemma-view/dilemma-view-service';
 import {FormsModule} from '@angular/forms';
+import {AuthenticationInterceptor} from '../../core/auth/authentication.interceptor';
 
 @NgModule({
   declarations: [

@@ -30,7 +30,6 @@ export class CoupleListComponent implements OnInit {
 
   createRecords(data: CoupleModel[]) {
     data.forEach(couple => {
-        console.log(couple.parent1);
         const parent1: ParentModel = couple.parent1;
         const parent2: ParentModel = couple.parent2;
         parent1.id = couple.parent1.id;
@@ -55,7 +54,9 @@ export class CoupleListComponent implements OnInit {
   confirmDelete() {
     this.allCouples.splice(this.allCouples.findIndex(c => c.coupleId === this.currentSelectedCouple.coupleId), 1);
     this.updateList(this.oldSearch);
-    this.httpClient.delete(this.URL + '/couple/' + this.currentSelectedCouple.coupleId).subscribe((res) => {});
+    this.httpClient.delete(this.URL + '/couple/' + this.currentSelectedCouple.coupleId).subscribe((res) => {
+      console.log(res.toString());
+    });
   }
 
   deleteRequest(coupleModel: CoupleModel) {

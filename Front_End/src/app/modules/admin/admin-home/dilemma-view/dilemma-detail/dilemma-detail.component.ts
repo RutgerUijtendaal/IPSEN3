@@ -2,6 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {DilemmaModel} from '../../../../../shared/models/dilemma.model';
 import {AnswerModel} from '../../../../../shared/models/answer.model';
 import {DilemmaViewService} from '../dilemma-view-service';
+import {AppComponent} from '../../../../../app.component';
+import {HttpClient} from '@angular/common/http';
+import {AuthenticationService} from '../../../../../core/auth/authentication.service';
+import {AuthenticationInterceptor} from '../../../../../core/auth/authentication.interceptor';
 
 @Component({
   selector: 'app-dilemma-detail',
@@ -10,13 +14,15 @@ import {DilemmaViewService} from '../dilemma-view-service';
 })
 export class DilemmaDetailComponent implements OnInit {
 
+  URL = AppComponent.environment.server;
+
   editedTheme: string;
   editedWeekNr: string;
   editedFeedback: string;
   editedAnswerText1: string;
   editedAnswerText2: string;
 
-  constructor(private service: DilemmaViewService) {
+  constructor(private service: DilemmaViewService, private httpClient: HttpClient, private auth: AuthenticationInterceptor) {
   }
 
   ngOnInit() {
@@ -48,6 +54,16 @@ export class DilemmaDetailComponent implements OnInit {
     currentDilemma.weekNr = Number(this.editedWeekNr);
     currentAnswer1.text = this.editedAnswerText1;
     currentAnswer2.text = this.editedAnswerText2;
+    console.log(this.URL);
+    this.httpClient.put(this.URL + '/dilemma/' + currentDilemma.id, currentDilemma).subscribe(res => {
+      console.log(res.toString());
+    });
+    this.httpClient.put(this.URL + '/answer/' + currentAnswer1.id, currentAnswer1).subscribe(res => {
+      console.log(res.toString());
+    });
+    this.httpClient.put(this.URL + '/answer/' + currentAnswer2.id, currentAnswer2).subscribe(res => {
+      console.log(res.toString());
+    });
   }
 
   deleteDilemma() {
