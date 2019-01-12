@@ -1,8 +1,8 @@
 <mdb-card class="col-md-3" style="margin-bottom: 10px;">
   <mdb-card-body id="results-body">
-    <div>
-      <h3 [hidden]="shownDilemmas.length > 0">
-        <img width="50px" src="assets/images/couple-list/no-results.png" alt="Laden...">
+    <div class="img-container" [hidden]="shownDilemmas.length > 0">
+      <h3>
+        <img width="80px" src="assets/images/couple-list/no-results.png" alt="Laden...">
       </h3>
     </div>
     <app-dilemma-in-list (click)="dilemmaClicked(d)" *ngFor="let d of shownDilemmas" [dilemma]="d"></app-dilemma-in-list>

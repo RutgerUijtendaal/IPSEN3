@@ -31,9 +31,13 @@ mdb-card {
 
 mdb-card-body {
   padding: 1px 0px;
+  display: block;
+}
+
+.img-container {
+  padding: 13px 0px 5px 0;
+  text-align: center;
 }
 
 img {
-  display: flex;
-  align-self: center;
 }
