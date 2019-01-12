@@ -19,6 +19,7 @@ import { AdminDetailComponent } from './admin-home/admin-view/admin-detail/admin
 import { DilemmaInListComponent } from './admin-home/dilemma-view/dilemma-list/dilemma-in-list/dilemma-in-list.component';
 import { AdminInListComponent } from './admin-home/admin-view/admin-list/admin-in-list/admin-in-list.component';
 import { DilemmaListService } from './admin-home/dilemma-view/dilemma-list/dilemma-list-service';
+import {DilemmaViewService} from './admin-home/dilemma-view/dilemma-view-service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { DilemmaListService } from './admin-home/dilemma-view/dilemma-list/dilem
   ],
   providers: [
     CoupleListService,
-    DilemmaListService
+    DilemmaListService,
+    DilemmaViewService
   ]
 })
 export class AdminModule {

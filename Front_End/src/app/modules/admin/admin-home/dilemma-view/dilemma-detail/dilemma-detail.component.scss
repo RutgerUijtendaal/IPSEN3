@@ -2,4 +2,18 @@ mdb-card {
   display: inline-block;
   vertical-align: top;
   padding: 0px;
+  color: #03142b;
+}
+
+.text-input {
+  min-width: 50%;
+}
+
+.number-input {
+  max-width: 10%;
+}
+
+.modal-text {
+  color: #03142b;
+  text-align: center;
 }

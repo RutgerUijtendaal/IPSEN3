@@ -1,10 +1,25 @@
   <mdb-card class="col-md-9">
     <mdb-card-body>
-      DILEMMA DETAILS
+      <div *ngIf="service.dilemma != null">
+        <p>
+          <input class="text-input" value="{{ service.dilemma.theme }}">
+          <input class="number-input" value="{{ service.dilemma.weekNr }}">
+        </p>
+        <p>
+          <input class="text-input" value="{{ service.answer1.text }}">
+        </p>
+        <p>
+          <input class="text-input" value="{{ service.answer2.text }}">
+        </p>
+        <button (click)="saveDilemma()">OPSLAAN</button>
+        <button (click)="basicModal.show()">VERWIJDEREN</button>
+      </div>
+      <div *ngIf="service.dilemma == null">
+        Klik op een dilemma!
+      </div>
     </mdb-card-body>
   </mdb-card>
 
-<!--
 <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -20,11 +35,10 @@
         </div>
       </div>
       <div class="justify-content-center modal-footer">
-        <button type="button" mdbBtn color="red" class="relative waves-light" (click)="confirmDelete(); basicModal.hide()" mdbWavesEffect>Ja, verwijderen</button>
+        <button type="button" mdbBtn color="red" class="relative waves-light" (click)="deleteDilemma(); basicModal.hide()" mdbWavesEffect>Ja, verwijderen</button>
         <button type="button" mdbBtn color="blue" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Nee, annuleren</button>
       </div>
     </div>
   </div>
 </div>
--->
 

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {DilemmaModel} from '../../../../../shared/models/dilemma.model';
+import {AnswerModel} from '../../../../../shared/models/answer.model';
+import {DilemmaViewService} from '../dilemma-view-service';
 
 @Component({
   selector: 'app-dilemma-detail',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DilemmaDetailComponent implements OnInit {
 
-  constructor() { }
+  edittedAnswer1: AnswerModel;
+  edittedAnswer2: AnswerModel;
+  edittedDilemma: AnswerModel;
+
+  constructor(private service: DilemmaViewService) {
+  }
 
   ngOnInit() {
+  }
+
+  saveDilemma() {
+  }
+
+  deleteDilemma() {
+
   }
 
 }

@@ -5,7 +5,7 @@
         <img width="50px" src="assets/images/couple-list/no-results.png" alt="Laden...">
       </h3>
     </div>
-    <app-dilemma-in-list (delete)="deleteRequest($event); basicModal.show()" *ngFor="let d of shownDilemmas" [dilemma]="d"></app-dilemma-in-list>
+    <app-dilemma-in-list (click)="dilemmaClicked(d)" (delete)="deleteRequest($event); basicModal.show()" *ngFor="let d of shownDilemmas" [dilemma]="d"></app-dilemma-in-list>
   </mdb-card-body>
 </mdb-card>
 

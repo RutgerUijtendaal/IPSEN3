@@ -4,6 +4,7 @@ import { AppComponent } from '../../../../../app.component';
 import { DilemmaListService } from './dilemma-list-service';
 import { DilemmaModel } from '../../../../../shared/models/dilemma.model';
 import { AnswerModel } from '../../../../../shared/models/answer.model';
+import {DilemmaViewService} from '../dilemma-view-service';
 
 @Component({
   selector: 'app-dilemma-list',
@@ -20,8 +21,10 @@ export class DilemmaListComponent implements OnInit {
   oldSearch: string;
   currentSelectedDilemma: DilemmaModel;
 
-  constructor(private service: DilemmaListService, private httpClient: HttpClient) {
-    service.searchQuery.subscribe(search => this.updateList(search));
+  constructor(private listService: DilemmaListService,
+              private httpClient: HttpClient,
+              private viewService: DilemmaViewService) {
+    listService.searchQuery.subscribe(search => this.updateList(search));
     this.allDilemmas = [];
     this.shownDilemmas = [];
     this.allAnswers = [];
@@ -41,21 +44,42 @@ export class DilemmaListComponent implements OnInit {
         const feedback = dilemma.feedback;
         const dilemmaModel: DilemmaModel = new DilemmaModel(id, weekNr, theme, feedback);
         this.allDilemmas.push(dilemmaModel);
-        console.log(dilemmaModel);
       }
     );
     this.updateList('');
   }
 
+  dilemmaClicked(dilemma: DilemmaModel) {
+    this.currentSelectedDilemma = dilemma;
+    let answer1: AnswerModel = null;
+    let answer2: AnswerModel = null;
+    this.allAnswers.forEach(answer => {
+      if (answer.dilemmaId === dilemma.id) {
+        if (answer1 == null) {
+          answer1 = answer;
+        } else {
+          answer2 = answer;
+          return;
+        }
+      }
+    });
+    if (answer2 == null || answer1 == null) {
+      // TODO error handling ^-- if this happens shit is hitting the fan hard
+      return;
+    }
+    this.viewService.dilemma = dilemma;
+    this.viewService.answer1 = answer1;
+    this.viewService.answer2 = answer2;
+  }
+
   createAnswerRecords(data: AnswerModel[]) {
     data.forEach(answer => {
         const id = answer.id;
-        const dilemmaId = answer.id;
+        const dilemmaId = answer.dilemmaId;
         const url = answer.url;
         const text = answer.text;
         const answerModel: AnswerModel = new AnswerModel(id, dilemmaId, url, text);
         this.allAnswers.push(answerModel);
-        console.log(answerModel);
       }
     );
     this.updateList('');
@@ -68,6 +92,7 @@ export class DilemmaListComponent implements OnInit {
       String(dilemma.weekNr).includes(searchQuery) ||
       dilemma.theme.toLocaleLowerCase().includes(searchQuery)
     );
+    this.shownDilemmas.sort((a, b) => (a.weekNr > b.weekNr) ? 1 : 0);
   }
 
   confirmDelete() {
