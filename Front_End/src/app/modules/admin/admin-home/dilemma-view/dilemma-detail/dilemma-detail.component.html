@@ -1,21 +1,58 @@
-  <mdb-card class="col-md-9">
+  <mdb-card class="main-card col-md-9">
     <mdb-card-body>
       <div *ngIf="service.dilemma != null">
-        <p>
-          <input class="text-input dilemma-theme" value="{{ service.dilemma.theme }}">
-          <input class="number-input dilemma-weeknr" value="{{ service.dilemma.weekNr }}">
-          <br>
-          <input class="text-input dilemma-feedback" value="{{ service.dilemma.feedback }}">
-        </p>
-        <p>
-          <input class="text-input answer1-text" value="{{ service.answer1.text }}">
-        </p>
-        <p>
-          <input class="text-input answer2-text" value="{{ service.answer2.text }}">
-        </p>
-        <button (click)="saveDilemma()">OPSLAAN</button>
-        <button (click)="basicModal.show()">VERWIJDEREN</button>
-        <button (click)="resetDetails()">RESET</button>
+        <mdb-card class="inside-card">
+          <mdb-card-header>
+            Dilemma
+          </mdb-card-header>
+          <mdb-card-body>
+            <table>
+              <tr>
+                <td>Thema:</td>
+                <td><input class="text-input dilemma-theme" value="{{ service.dilemma.theme }}"></td>
+              </tr>
+              <tr>
+                <td>Week:</td>
+                <td><input class="number-input dilemma-weeknr" value="{{ service.dilemma.weekNr }}"></td>
+              </tr>
+              <tr>
+                <td>Feedback:</td>
+                <td><input class="text-input dilemma-feedback" value="{{ service.dilemma.feedback }}"></td>
+              </tr>
+            </table>
+          </mdb-card-body>
+        </mdb-card>
+        <mdb-card class="inside-card">
+          <mdb-card-header>
+            Antwoord 1
+          </mdb-card-header>
+          <mdb-card-body>
+            <table>
+              <tr>
+                <td>Text:</td>
+                <td><input class="text-input answer1-text" value="{{ service.answer1.text }}"></td>
+              </tr>
+            </table>
+          </mdb-card-body>
+        </mdb-card>
+        <mdb-card class="inside-card">
+          <mdb-card-header>
+            Antwoord 2
+          </mdb-card-header>
+          <mdb-card-body>
+            <table>
+              <tr>
+                <td>Text:</td>
+                <td><input class="text-input answer2-text" value="{{ service.answer2.text }}"></td>
+              </tr>
+            </table>
+          </mdb-card-body>
+        </mdb-card>
+        <div class="buttons">
+          <button class="rounded-corner btn btn-primary" (click)="saveDilemma()">OPSLAAN</button>
+          <button class="rounded-corner btn btn-primary" (click)="resetDetails()">RESET</button>
+          <button class="rounded-corner btn btn-danger" (click)="basicModal.show()">VERWIJDEREN</button>
+        </div>
       </div>
       <div *ngIf="service.dilemma == null">
         Klik op een dilemma!
