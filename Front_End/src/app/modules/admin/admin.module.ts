@@ -20,6 +20,7 @@ import { DilemmaInListComponent } from './admin-home/dilemma-view/dilemma-list/d
 import { AdminInListComponent } from './admin-home/admin-view/admin-list/admin-in-list/admin-in-list.component';
 import { DilemmaListService } from './admin-home/dilemma-view/dilemma-list/dilemma-list-service';
 import {DilemmaViewService} from './admin-home/dilemma-view/dilemma-view-service';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {DilemmaViewService} from './admin-home/dilemma-view/dilemma-view-service
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
     AdminRoutingModule
   ],

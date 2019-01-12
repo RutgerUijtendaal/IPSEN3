@@ -60,6 +60,7 @@ div {
   border-bottom: 8px solid #e2b53b;
   transform: scale(1.05);
   cursor: pointer;
+  z-index: 10;
 }
 
 .card-body {
