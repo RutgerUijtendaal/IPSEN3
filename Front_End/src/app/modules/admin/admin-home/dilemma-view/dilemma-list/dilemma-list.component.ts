@@ -15,6 +15,8 @@ export class DilemmaListComponent implements OnInit {
 
   URL = AppComponent.environment.server;
 
+  dil = -1;
+
   allDilemmas: DilemmaModel[];
   allAnswers: AnswerModel[];
   shownDilemmas: DilemmaModel[];
@@ -138,9 +140,10 @@ export class DilemmaListComponent implements OnInit {
       this.matchAnswerDilemma(val);
       return;
     }
-    const newDilemma = new DilemmaModel(-1, 0, '', '');
-    const newAnswer1 = new AnswerModel(-1, -1, null, '');
-    const newAnswer2 = new AnswerModel(-1, -1, null, '');
+    const newDilemma = new DilemmaModel(this.dil, 0, '', '');
+    const newAnswer1 = new AnswerModel(this.dil, this.dil, null, '');
+    const newAnswer2 = new AnswerModel(this.dil, this.dil, null, '');
+    this.dil--; // if it happens that the user is able to add multiple dilemmas in his session this should keep them apart
     this.viewService.dilemma = newDilemma;
     this.viewService.answer1 = newAnswer1;
     this.viewService.answer2 = newAnswer2;

@@ -8,6 +8,6 @@
         <img width="80px" src="assets/images/couple-list/no-results.png" alt="Laden...">
       </h3>
     </div>
-    <app-dilemma-in-list (click)="dilemmaClicked(d);" [style]="dilemmaStyle" *ngFor="let d of shownDilemmas" [dilemma]="d"></app-dilemma-in-list>
+    <app-dilemma-in-list (click)="dilemmaClicked(d);" *ngFor="let d of shownDilemmas" [dilemma]="d"></app-dilemma-in-list>
   </mdb-card-body>
 </mdb-card>
