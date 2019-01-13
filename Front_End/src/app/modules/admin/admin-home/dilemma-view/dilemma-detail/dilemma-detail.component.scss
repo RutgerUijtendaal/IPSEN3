@@ -55,8 +55,11 @@ img {
 }
 
 .image-buttons {
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 2%;
-  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 mdb-card-header {
