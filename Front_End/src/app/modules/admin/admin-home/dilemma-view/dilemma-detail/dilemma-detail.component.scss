@@ -30,7 +30,6 @@ input {
 
 input:hover {
   background-color: #f8f8f8;
-
 }
 
 .modal-text {
@@ -38,15 +37,25 @@ input:hover {
   text-align: center;
 }
 
-.modal-content {
-  width: auto;
-  border: 10px solid red;
-  text-align: center
-  a
+.modal {
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 5%;
 }
 
 .inside-card {
   margin-bottom: 3%;
+}
+
+img {
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+}
+
+.image-buttons {
+  margin-top: 2%;
+  text-align: center;
 }
 
 mdb-card-header {

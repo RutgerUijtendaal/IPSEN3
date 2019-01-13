@@ -32,12 +32,12 @@
               <td>Text:</td>
               <td><input class="text-input answer1-text" value="{{ service.answer1.text }}"></td>
             </tr>
-            <tr>
-              <td>Nieuw plaatje:</td>
-              <td><input accept="image/*" type="file"></td>
-              <td><button (click)="showFirstPic()">Huidig plaatje</button></td>
-            </tr>
           </table>
+          <div class="image-buttons">
+            <button class="btn btn-primary" [disabled]="service.answer1.url == null" (click)="showFirstPic(); imgModal.show()">Huidig plaatje</button>
+            <input hidden type="file" name="file" accept="image/*" id="answer1-file" class="file-input">
+            <label class="btn btn-primary" for="answer1-file">Nieuw plaatje</label>
+          </div>
         </mdb-card-body>
       </mdb-card>
       <mdb-card class="inside-card">
@@ -50,12 +50,12 @@
               <td>Text:</td>
               <td><input class="text-input answer2-text" value="{{ service.answer2.text }}"></td>
             </tr>
-            <tr>
-              <td>Nieuw plaatje:</td>
-              <td><input accept="image/*" type="file"></td>
-              <td><button (click)="showSecondPic(); imgModal.show()">Huidig plaatje</button></td>
-            </tr>
           </table>
+          <div class="image-buttons">
+            <button class="btn btn-primary" [disabled]="service.answer2.url == null" (click)="showSecondPic(); imgModal.show()">Huidig plaatje</button>
+            <input hidden type="file" name="file" accept="image/*" id="answer2-file" class="file-input">
+            <label class="btn btn-primary" for="answer2-file">Nieuw plaatje</label>
+          </div>
         </mdb-card-body>
       </mdb-card>
       <div class="buttons">
@@ -94,9 +94,5 @@
 
 
 <div mdbModal #imgModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <img [src]="loadedImage">
-    </div>
-  </div>
+  <img (click)="imgModal.hide()" [src]="loadedImage">
 </div>

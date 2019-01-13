@@ -74,11 +74,11 @@ export class DilemmaDetailComponent implements OnInit {
   }
 
   showFirstPic() {
-    this.loadedImage = 'https://dubio-groep9.nl/images/' + '21.png';
+    this.loadedImage = 'https://dubio-groep9.nl/images/' + this.service.answer1.url;
   }
 
   showSecondPic() {
-    this.loadedImage = 'https://dubio-groep9.nl/images/' + '21.png';
+    this.loadedImage = 'https://dubio-groep9.nl/images/' + this.service.answer2.url;
   }
 
 }
