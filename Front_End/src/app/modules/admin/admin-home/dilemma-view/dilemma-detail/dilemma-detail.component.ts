@@ -23,6 +23,9 @@ export class DilemmaDetailComponent implements OnInit {
   answer1Button: string;
   answer2Button: string;
 
+  saveButtonClass: string;
+  saveButtonText: string;
+
   answer1ButtonText: string;
   answer2ButtonText: string;
 
@@ -32,10 +35,16 @@ export class DilemmaDetailComponent implements OnInit {
     this.service.click.subscribe(value => {
       this.resetFileInput();
     });
+    this.resetSaveButton();
   }
 
   ngOnInit() {
     this.resetFileInput();
+  }
+
+  resetSaveButton() {
+    this.saveButtonClass = 'primary';
+    this.saveButtonText = 'OPSLAAN';
   }
 
   getDetails() {
@@ -67,17 +76,49 @@ export class DilemmaDetailComponent implements OnInit {
     }
   }
 
-  saveDilemma() {
+  verifyFields() {
+    this.getDetails();
+    if (this.editedTheme.length === 0 || this.editedFeedback.length === 0 || this.editedWeekNr.length === 0) {
+      return false;
+    }
+    return true;
+  }
+
+  saveRequest() {
+    if (!this.verifyFields()) {
+      this.saveButtonText = 'Lege velden';
+      this.saveButtonClass = 'danger';
+      setTimeout(() => {
+        this.resetSaveButton();
+      }, 1500);
+      return;
+    }
+
+    let goodSave = false;
+    if (this.newDilemma()) {
+      goodSave = this.saveDilemma();
+    } else {
+      goodSave = this.updateDilemma();
+    }
+    if (goodSave) {
+      this.saveButtonText = 'OPGESLAGEN';
+      this.saveButtonClass = 'success';
+      setTimeout(() => {
+        this.resetSaveButton();
+      }, 1500);
+
+    }
   }
 
   newDilemma() {
+    return false;
+  }
+
+  saveDilemma() {
     return true;
   }
 
   updateDilemma() {
-    if (this.newDilemma()) {
-      this.saveDilemma();
-    }
     this.getDetails();
     const currentDilemma = this.service.dilemma;
     const currentAnswer1 = this.service.answer1;
@@ -97,6 +138,7 @@ export class DilemmaDetailComponent implements OnInit {
     this.httpClient.put(this.URL + '/answer/' + currentAnswer2.id, currentAnswer2).subscribe(res => {
       console.log(res.toString());
     });
+    return true;
   }
 
   deleteDilemma() {

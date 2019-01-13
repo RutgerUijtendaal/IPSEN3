@@ -59,7 +59,7 @@
         </mdb-card-body>
       </mdb-card>
       <div class="buttons">
-        <button class="rounded-corner btn btn-primary" (click)="updateDilemma()">OPSLAAN</button>
+        <button [ngClass]="'rounded-corner btn btn-' + saveButtonClass" (click)="saveRequest()">{{ saveButtonText }}</button>
         <button class="rounded-corner btn btn-primary" (click)="resetDetails()">RESET</button>
         <button class="rounded-corner btn btn-danger" (click)="basicModal.show()">VERWIJDEREN</button>
       </div>
