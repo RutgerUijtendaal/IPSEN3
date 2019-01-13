@@ -63,13 +63,10 @@ export class DilemmaDetailComponent implements OnInit {
     this.answer2Button = 'primary';
     this.answer1ButtonText = 'Nieuw plaatje';
     this.answer2ButtonText = 'Nieuw plaatje';
-    let inputElement = (<HTMLInputElement>document.getElementById('answer1-file'));
+    const inputElement = (<HTMLInputElement>document.getElementById('answer1-file'));
     if (inputElement != null) {
       inputElement.value = null;
-    }
-    inputElement = (<HTMLInputElement>document.getElementById('answer2-file'));
-    if (inputElement != null) {
-      inputElement.value = null;
+      (<HTMLInputElement>document.getElementById('answer2-file')).value = null;
     }
   }
 
