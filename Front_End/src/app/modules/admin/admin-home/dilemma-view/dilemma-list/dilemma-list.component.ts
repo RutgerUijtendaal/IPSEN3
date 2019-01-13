@@ -71,6 +71,7 @@ export class DilemmaListComponent implements OnInit {
     this.viewService.dilemma = dilemma;
     this.viewService.answer1 = answer1;
     this.viewService.answer2 = answer2;
+    this.viewService.click.next(0);
   }
 
   createAnswerRecords(data: AnswerModel[]) {

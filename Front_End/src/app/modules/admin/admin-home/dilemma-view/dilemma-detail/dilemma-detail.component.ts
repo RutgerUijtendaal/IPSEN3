@@ -29,13 +29,13 @@ export class DilemmaDetailComponent implements OnInit {
   loadedImage: string;
 
   constructor(private service: DilemmaViewService, private httpClient: HttpClient) {
+    this.service.click.subscribe(value => {
+      this.resetFileInput();
+    });
   }
 
   ngOnInit() {
-    this.answer1Button = 'primary';
-    this.answer2Button = 'primary';
-    this.answer1ButtonText = 'Nieuw plaatje';
-    this.answer2ButtonText = 'Nieuw plaatje';
+    this.resetFileInput();
   }
 
   newDilemma() {
@@ -59,12 +59,18 @@ export class DilemmaDetailComponent implements OnInit {
   }
 
   resetFileInput() {
-    (<HTMLInputElement>document.getElementById('answer1-file')).value = '';
-    (<HTMLInputElement>document.getElementById('answer2-file')).value = '';
     this.answer1Button = 'primary';
     this.answer2Button = 'primary';
     this.answer1ButtonText = 'Nieuw plaatje';
     this.answer2ButtonText = 'Nieuw plaatje';
+    let inputElement = (<HTMLInputElement>document.getElementById('answer1-file'));
+    if (inputElement != null) {
+      inputElement.value = null;
+    }
+    inputElement = (<HTMLInputElement>document.getElementById('answer2-file'));
+    if (inputElement != null) {
+      inputElement.value = null;
+    }
   }
 
   saveDilemma() {
@@ -94,6 +100,7 @@ export class DilemmaDetailComponent implements OnInit {
     this.service.answer1 = null;
     this.service.answer2 = null;
     this.service.delete.next(this.service.dilemma);
+    this.resetFileInput();
   }
 
   checkName(event) {
