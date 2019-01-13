@@ -35,8 +35,8 @@
           </table>
           <div class="image-buttons">
             <button class="btn btn-primary" [disabled]="service.answer1.url == null" (click)="showFirstPic(); imgModal.show()">Huidig plaatje</button>
-            <input hidden type="file" name="file" accept="image/*" id="answer1-file" class="file-input">
-            <label class="btn btn-primary" for="answer1-file">Nieuw plaatje</label>
+            <input (change)="answer1FileInput($event)" hidden type="file" name="file" accept=".png, .jpg, .jpeg" id="answer1-file" class="file-input">
+            <label class="btn btn-primary" [ngClass]="'btn btn-' + answer1Button" for="answer1-file">{{ answer1ButtonText }}</label>
           </div>
         </mdb-card-body>
       </mdb-card>
@@ -53,8 +53,8 @@
           </table>
           <div class="image-buttons">
             <button class="btn btn-primary" [disabled]="service.answer2.url == null" (click)="showSecondPic(); imgModal.show()">Huidig plaatje</button>
-            <input hidden type="file" name="file" accept="image/*" id="answer2-file" class="file-input">
-            <label class="btn btn-primary" for="answer2-file">Nieuw plaatje</label>
+            <input (change)="answer2FileInput($event)" hidden type="file" name="file" accept=".png, .jpg, .jpeg" id="answer2-file" class="file-input">
+            <label class="btn btn-primary" [ngClass]="'btn btn-' + answer2Button" for="answer2-file">{{ answer2ButtonText }}</label>
           </div>
         </mdb-card-body>
       </mdb-card>

@@ -20,12 +20,25 @@ export class DilemmaDetailComponent implements OnInit {
   editedAnswerText1: string;
   editedAnswerText2: string;
 
+  answer1Button: string;
+  answer2Button: string;
+
+  answer1ButtonText: string;
+  answer2ButtonText: string;
+
   loadedImage: string;
 
   constructor(private service: DilemmaViewService, private httpClient: HttpClient) {
   }
 
   ngOnInit() {
+    this.answer1Button = 'primary';
+    this.answer2Button = 'primary';
+    this.answer1ButtonText = 'Nieuw plaatje';
+    this.answer2ButtonText = 'Nieuw plaatje';
+  }
+
+  newDilemma() {
   }
 
   getDetails() {
@@ -42,6 +55,16 @@ export class DilemmaDetailComponent implements OnInit {
     (<HTMLInputElement>document.getElementsByClassName('dilemma-feedback')[0]).value = String(this.service.dilemma.feedback);
     (<HTMLInputElement>document.getElementsByClassName('answer1-text')[0]).value = this.service.answer1.text;
     (<HTMLInputElement>document.getElementsByClassName('answer2-text')[0]).value = this.service.answer2.text;
+    this.resetFileInput();
+  }
+
+  resetFileInput() {
+    (<HTMLInputElement>document.getElementById('answer1-file')).value = '';
+    (<HTMLInputElement>document.getElementById('answer2-file')).value = '';
+    this.answer1Button = 'primary';
+    this.answer2Button = 'primary';
+    this.answer1ButtonText = 'Nieuw plaatje';
+    this.answer2ButtonText = 'Nieuw plaatje';
   }
 
   saveDilemma() {
@@ -73,12 +96,40 @@ export class DilemmaDetailComponent implements OnInit {
     this.service.delete.next(this.service.dilemma);
   }
 
+  checkName(event) {
+    const file: File = event.target.files[0];
+    const acceptedFiles = [
+      '.png',
+      '.jpg',
+      '.jpeg',
+    ];
+    let matchingName = false;
+    acceptedFiles.forEach(extension => {
+      if (file.name.endsWith(extension)) {
+        matchingName = true;
+      }
+    });
+    return matchingName;
+  }
+
+  answer1FileInput(event) {
+    const matchingName = this.checkName(event);
+    this.answer1Button = (matchingName) ? 'success' : 'danger';
+    this.answer1ButtonText = (matchingName) ? event.target.files[0].name : 'Fout bestand';
+  }
+
+  answer2FileInput(event) {
+    const matchingName = this.checkName(event);
+    this.answer2Button = (matchingName) ? 'success' : 'danger';
+    this.answer2ButtonText = (matchingName) ? event.target.files[0].name : 'Fout bestand';
+  }
+
   showFirstPic() {
-    this.loadedImage = 'https://dubio-groep9.nl/images/' + this.service.answer1.url;
+    this.loadedImage = 'https://dubio-groep9.nl/images/' + this.service.answer1.id + this.service.answer1.url;
   }
 
   showSecondPic() {
-    this.loadedImage = 'https://dubio-groep9.nl/images/' + this.service.answer2.url;
+    this.loadedImage = 'https://dubio-groep9.nl/images/' + this.service.answer2.id + this.service.answer2.url;
   }
 
 }

@@ -1,4 +1,7 @@
 <mdb-card class="col-md-3" style="margin-bottom: 10px;">
+  <mdb-card-header>
+      <button (click)="newDilemma()" class="btn btn-primary">Nieuw Dilemma</button>
+  </mdb-card-header>
   <mdb-card-body id="results-body">
     <div class="img-container" [hidden]="shownDilemmas.length > 0">
       <h3>

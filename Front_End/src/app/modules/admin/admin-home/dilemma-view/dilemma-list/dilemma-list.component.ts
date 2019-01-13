@@ -102,6 +102,10 @@ export class DilemmaListComponent implements OnInit {
     // this.httpClient.delete(this.URL + '/dilemma/' + this.currentSelectedDilemma.id).subscribe((res) => {});
   }
 
+  newDilemma() {
+
+  }
+
   ngOnInit() {
   }
 
