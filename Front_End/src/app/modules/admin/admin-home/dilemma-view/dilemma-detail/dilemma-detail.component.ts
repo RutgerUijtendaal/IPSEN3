@@ -78,7 +78,10 @@ export class DilemmaDetailComponent implements OnInit {
 
   verifyFields() {
     this.getDetails();
-    if (this.editedTheme.length === 0 || this.editedFeedback.length === 0 || this.editedWeekNr.length === 0) {
+    if (this.editedTheme.length === 0 ||
+        this.editedFeedback.length === 0 ||
+        this.editedWeekNr.length === 0 ||
+        isNaN(Number(this.editedWeekNr))) {
       return false;
     }
     return true;
@@ -86,7 +89,7 @@ export class DilemmaDetailComponent implements OnInit {
 
   saveRequest() {
     if (!this.verifyFields()) {
-      this.saveButtonText = 'Lege velden';
+      this.saveButtonText = 'Foute velden';
       this.saveButtonClass = 'danger';
       setTimeout(() => {
         this.resetSaveButton();
