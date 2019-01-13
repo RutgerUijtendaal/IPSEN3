@@ -1,28 +1,3 @@
-/*
-
-#results-body {
-  color: black;
-}
-
-h3 {
-  color: black;
-  text-align: center;
-  padding-top: 40px;
-}
-
-.card {
-  box-shadow: none !important;
-}
-.modal-text {
-  color: #03142b;
-  text-align: center;
-}
-
-#search-header {
-  color: black;
-}
-*/
-
 mdb-card {
   display: inline-block;
   vertical-align: top;
@@ -39,12 +14,20 @@ mdb-card-body {
   text-align: center;
 }
 
-button {
-  width: 100%;
-  margin-left: 0;
-}
-
 mdb-card-header {
   padding: 6px 10px 6px 10px;
 }
 
+button {
+  width: 100%;
+  margin-left: 0;
+  -webkit-transition: all ease-in-out .10s;
+  -moz-transition: all ease-in-out .10s;
+  -ms-transition: all ease-in-out .10s;
+  -o-transition: all ease-in-out .10s;
+  transition: all ease-in-out .10s;
+}
+
+button:hover {
+  transform: scale(1.03);
+}

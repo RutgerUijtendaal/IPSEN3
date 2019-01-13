@@ -8,6 +8,18 @@
   margin-bottom: 2%;
 }
 
+button {
+  -webkit-transition: all ease-in-out .10s;
+  -moz-transition: all ease-in-out .10s;
+  -ms-transition: all ease-in-out .10s;
+  -o-transition: all ease-in-out .10s;
+  transition: all ease-in-out .10s;
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
 table {
   width: 100%;
 }
