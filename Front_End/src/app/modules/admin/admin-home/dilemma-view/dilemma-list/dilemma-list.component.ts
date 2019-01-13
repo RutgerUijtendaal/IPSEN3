@@ -129,24 +129,25 @@ export class DilemmaListComponent implements OnInit {
     return false;
   }
 
-
   newDilemma() {
     this.viewService.click.next(0);
     const val = this.unfinishedDilemma();
     if (val) {
+      this.currentSelectedDilemma = val;
       this.viewService.dilemma = val;
       this.matchAnswerDilemma(val);
       return;
     }
     const newDilemma = new DilemmaModel(-1, 0, '', '');
-    const newAnswer1 = new AnswerModel(-1, -1, '', '');
-    const newAnswer2 = new AnswerModel(-1, -1, '', '');
+    const newAnswer1 = new AnswerModel(-1, -1, null, '');
+    const newAnswer2 = new AnswerModel(-1, -1, null, '');
     this.viewService.dilemma = newDilemma;
     this.viewService.answer1 = newAnswer1;
     this.viewService.answer2 = newAnswer2;
     this.allDilemmas.push(newDilemma);
     this.allAnswers.push(newAnswer1);
     this.allAnswers.push(newAnswer2);
+    this.currentSelectedDilemma = newDilemma;
     this.updateList(this.oldSearch);
   }
 

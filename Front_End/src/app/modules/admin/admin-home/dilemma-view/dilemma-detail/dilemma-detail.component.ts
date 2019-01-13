@@ -29,6 +29,9 @@ export class DilemmaDetailComponent implements OnInit {
   answer1ButtonText: string;
   answer2ButtonText: string;
 
+  answer1FileGood: boolean;
+  answer2FileGood: boolean;
+
   loadedImage: string;
 
   constructor(private service: DilemmaViewService, private httpClient: HttpClient) {
@@ -36,6 +39,8 @@ export class DilemmaDetailComponent implements OnInit {
       this.resetFileInput();
     });
     this.resetSaveButton();
+    this.answer1FileGood = true;
+    this.answer2FileGood = true;
   }
 
   ngOnInit() {
@@ -69,6 +74,8 @@ export class DilemmaDetailComponent implements OnInit {
     this.answer2Button = 'primary';
     this.answer1ButtonText = 'Nieuw plaatje';
     this.answer2ButtonText = 'Nieuw plaatje';
+    this.answer1FileGood = true;
+    this.answer2FileGood = true;
     const inputElement = (<HTMLInputElement>document.getElementById('answer1-file'));
     if (inputElement != null) {
       inputElement.value = null;
@@ -81,7 +88,8 @@ export class DilemmaDetailComponent implements OnInit {
     if (this.editedTheme.length === 0 ||
         this.editedFeedback.length === 0 ||
         this.editedWeekNr.length === 0 ||
-        isNaN(Number(this.editedWeekNr))) {
+        isNaN(Number(this.editedWeekNr)) ||
+        !this.answer1FileGood || !this.answer2FileGood) {
       return false;
     }
     return true;
@@ -171,12 +179,14 @@ export class DilemmaDetailComponent implements OnInit {
   answer1FileInput(event) {
     const matchingName = this.checkName(event);
     this.answer1Button = (matchingName) ? 'success' : 'danger';
+    this.answer1FileGood = matchingName;
     this.answer1ButtonText = (matchingName) ? event.target.files[0].name : 'Fout bestand';
   }
 
   answer2FileInput(event) {
     const matchingName = this.checkName(event);
     this.answer2Button = (matchingName) ? 'success' : 'danger';
+    this.answer2FileGood = matchingName;
     this.answer2ButtonText = (matchingName) ? event.target.files[0].name : 'Fout bestand';
   }
 
