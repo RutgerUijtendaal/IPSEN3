@@ -11,14 +11,13 @@ export class DilemmaViewService {
   answer2: AnswerModel;
 
   click: Subject<any>;
-
   delete: Subject<DilemmaModel>;
 
   constructor() {
-    this.delete = new Subject();
-    this.delete.asObservable();
     this.click = new Subject();
     this.click.asObservable();
+    this.delete = new Subject();
+    this.delete.asObservable();
   }
 
 }

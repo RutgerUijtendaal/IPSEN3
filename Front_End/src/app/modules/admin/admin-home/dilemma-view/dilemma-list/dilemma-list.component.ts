@@ -20,6 +20,8 @@ export class DilemmaListComponent implements OnInit {
   shownDilemmas: DilemmaModel[];
   oldSearch: string;
   currentSelectedDilemma: DilemmaModel;
+  newDilemmaButtonText: string;
+  newDilemmaButtonClass: string;
 
   constructor(private listService: DilemmaListService,
               private httpClient: HttpClient,
@@ -35,6 +37,7 @@ export class DilemmaListComponent implements OnInit {
     httpClient.get(this.URL + '/answer').subscribe(data =>
       this.createAnswerRecords(data as AnswerModel[])
     );
+    this.resetNewDilemmaButton();
   }
 
   createDilemmaRecords(data: DilemmaModel[]) {
@@ -50,27 +53,25 @@ export class DilemmaListComponent implements OnInit {
     this.updateList('');
   }
 
-  dilemmaClicked(dilemma: DilemmaModel) {
-    this.currentSelectedDilemma = dilemma;
-    let answer1: AnswerModel = null;
-    let answer2: AnswerModel = null;
+  matchAnswerDilemma(dilemma: DilemmaModel) {
+    let first = true;
     this.allAnswers.forEach(answer => {
       if (answer.dilemmaId === dilemma.id) {
-        if (answer1 == null) {
-          answer1 = answer;
+        if (first) {
+          this.viewService.answer1 = answer;
+          first = false;
         } else {
-          answer2 = answer;
+          this.viewService.answer2 = answer;
           return;
         }
       }
     });
-    if (answer2 == null || answer1 == null) {
-      // TODO error handling ^-- if this happens shit is hitting the fan hard
-      return;
-    }
+  }
+
+  dilemmaClicked(dilemma: DilemmaModel) {
+    this.currentSelectedDilemma = dilemma;
     this.viewService.dilemma = dilemma;
-    this.viewService.answer1 = answer1;
-    this.viewService.answer2 = answer2;
+    this.matchAnswerDilemma(dilemma);
     this.viewService.click.next(0);
   }
 
@@ -97,14 +98,56 @@ export class DilemmaListComponent implements OnInit {
     this.shownDilemmas.sort((a, b) => (a.weekNr > b.weekNr) ? 1 : 0);
   }
 
+  deleteAnswersFromList() {
+    this.allAnswers.splice(this.allAnswers.findIndex(a => a.dilemmaId === this.currentSelectedDilemma.id), 1);
+    this.allAnswers.splice(this.allAnswers.findIndex(a => a.dilemmaId === this.currentSelectedDilemma.id), 1);
+  }
+
   deleteDilemmaFromList() {
     this.allDilemmas.splice(this.allDilemmas.findIndex(d => d.id === this.currentSelectedDilemma.id), 1);
+    this.deleteAnswersFromList();
     this.updateList(this.oldSearch);
     // this.httpClient.delete(this.URL + '/dilemma/' + this.currentSelectedDilemma.id).subscribe((res) => {});
   }
 
-  newDilemma() {
+  resetNewDilemmaButton() {
+    this.newDilemmaButtonText = 'Nieuw dilemma';
+    this.newDilemmaButtonClass = 'primary';
+  }
 
+  unfinishedDilemma() {
+    for (const dilemma of this.allDilemmas) {
+      if ((dilemma.theme.length === 0) || (dilemma.feedback.length === 0)) {
+        this.newDilemmaButtonText = 'Onafgemaakt dilemma';
+        this.newDilemmaButtonClass = 'danger';
+        setTimeout(() => {
+          this.resetNewDilemmaButton();
+        }, 1500);
+        return dilemma;
+      }
+    }
+    return false;
+  }
+
+
+  newDilemma() {
+    this.viewService.click.next(0);
+    const val = this.unfinishedDilemma();
+    if (val) {
+      this.viewService.dilemma = val;
+      this.matchAnswerDilemma(val);
+      return;
+    }
+    const newDilemma = new DilemmaModel(-1, 0, '', '');
+    const newAnswer1 = new AnswerModel(-1, -1, '', '');
+    const newAnswer2 = new AnswerModel(-1, -1, '', '');
+    this.viewService.dilemma = newDilemma;
+    this.viewService.answer1 = newAnswer1;
+    this.viewService.answer2 = newAnswer2;
+    this.allDilemmas.push(newDilemma);
+    this.allAnswers.push(newAnswer1);
+    this.allAnswers.push(newAnswer2);
+    this.updateList(this.oldSearch);
   }
 
   ngOnInit() {

@@ -38,9 +38,6 @@ export class DilemmaDetailComponent implements OnInit {
     this.resetFileInput();
   }
 
-  newDilemma() {
-  }
-
   getDetails() {
     this.editedTheme = (<HTMLInputElement>document.getElementsByClassName('dilemma-theme')[0]).value;
     this.editedWeekNr = (<HTMLInputElement>document.getElementsByClassName('dilemma-weeknr')[0]).value;
@@ -71,6 +68,16 @@ export class DilemmaDetailComponent implements OnInit {
   }
 
   saveDilemma() {
+  }
+
+  newDilemma() {
+    return true;
+  }
+
+  updateDilemma() {
+    if (this.newDilemma()) {
+      this.saveDilemma();
+    }
     this.getDetails();
     const currentDilemma = this.service.dilemma;
     const currentAnswer1 = this.service.answer1;

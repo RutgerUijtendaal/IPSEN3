@@ -1,6 +1,6 @@
 <mdb-card class="col-md-3" style="margin-bottom: 10px;">
   <mdb-card-header>
-      <button (click)="newDilemma()" class="btn btn-primary">Nieuw Dilemma</button>
+      <button (click)="newDilemma()" [ngClass]="'btn btn-' + newDilemmaButtonClass">{{ newDilemmaButtonText }}</button>
   </mdb-card-header>
   <mdb-card-body id="results-body">
     <div class="img-container" [hidden]="shownDilemmas.length > 0">
