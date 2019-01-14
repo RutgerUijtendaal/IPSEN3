@@ -41,6 +41,8 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
 
     @PUT
     @Timed
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("{id}")
     public boolean update(@Valid T object){
         return crudService.update(object);
     }
