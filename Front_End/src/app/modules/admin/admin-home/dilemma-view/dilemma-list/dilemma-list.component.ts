@@ -5,6 +5,7 @@ import { DilemmaListService } from './dilemma-list-service';
 import { DilemmaModel } from '../../../../../shared/models/dilemma.model';
 import { AnswerModel } from '../../../../../shared/models/answer.model';
 import {DilemmaViewService} from '../dilemma-view-service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-dilemma-list',
@@ -157,4 +158,8 @@ export class DilemmaListComponent implements OnInit {
   ngOnInit() {
   }
 
+  drop(event: CdkDragDrop<DilemmaModel[]>) {
+    console.log(event.item)
+    moveItemInArray(this.shownDilemmas, event.previousIndex, event.currentIndex);
+  }
 }

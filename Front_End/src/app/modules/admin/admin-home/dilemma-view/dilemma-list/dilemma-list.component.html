@@ -8,6 +8,10 @@
         <img width="80px" src="assets/images/couple-list/no-results.png" alt="Laden...">
       </h3>
     </div>
-    <app-dilemma-in-list (click)="dilemmaClicked(d);" *ngFor="let d of shownDilemmas" [dilemma]="d"></app-dilemma-in-list>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="box" *ngFor="let d of shownDilemmas" cdkDrag>
+        <app-dilemma-in-list (click)="dilemmaClicked(d);" [dilemma]="d"></app-dilemma-in-list>
+      </div>
+    </div>
   </mdb-card-body>
 </mdb-card>
