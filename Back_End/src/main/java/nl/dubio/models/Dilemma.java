@@ -58,6 +58,7 @@ public class Dilemma implements DatabaseObject<Dilemma> {
                 ", weekNr=" + weekNr +
                 ", theme='" + theme + '\'' +
                 ", feedback='" + feedback + '\'' +
+                ", periode='" + periode + '\'' +
                 '}';
     }
 }

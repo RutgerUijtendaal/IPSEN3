@@ -62,6 +62,7 @@ public class DilemmaDao extends GenericDao<Dilemma> {
             preparedStatement.setShort(1, dilemma.getWeekNr());
             preparedStatement.setString(2, dilemma.getTheme());
             preparedStatement.setString(3, dilemma.getFeedback());
+            preparedStatement.setString(4, dilemma.getPeriode());
         } catch (SQLException exception){
             throw new FillPreparedStatementException();
         }

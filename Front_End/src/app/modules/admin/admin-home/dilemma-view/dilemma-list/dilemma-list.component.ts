@@ -43,6 +43,7 @@ export class DilemmaListComponent implements OnInit {
     this.httpClient.get(this.URL + '/dilemma/' + periode).subscribe(data =>
       this.createDilemmaRecords(data as DilemmaModel[])
     );
+    this.allDilemmas.sort(dilemma => dilemma.weekNr);
   }
 
   loadAnswers() {
@@ -58,7 +59,8 @@ export class DilemmaListComponent implements OnInit {
         const weekNr = dilemma.weekNr;
         const theme = dilemma.theme;
         const feedback = dilemma.feedback;
-        const dilemmaModel: DilemmaModel = new DilemmaModel(id, weekNr, theme, feedback);
+        const periode = dilemma.periode;
+        const dilemmaModel: DilemmaModel = new DilemmaModel(id, weekNr, theme, feedback, periode);
         this.allDilemmas.push(dilemmaModel);
       }
     );
@@ -151,7 +153,7 @@ export class DilemmaListComponent implements OnInit {
       this.matchAnswerDilemma(val);
       return;
     }
-    const newDilemma = new DilemmaModel(-1, 0, '', '');
+    const newDilemma = new DilemmaModel(-1, 0, '', '', '');
     const newAnswer1 = new AnswerModel(-2, -1, null, null);
     const newAnswer2 = new AnswerModel(-3, -1, null, null);
     this.viewService.dilemma = newDilemma;
@@ -168,7 +170,13 @@ export class DilemmaListComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<DilemmaModel[]>) {
-    moveItemInArray(this.shownDilemmas, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.allDilemmas, event.previousIndex, event.currentIndex);
+    this.updateList('');
+    this.shownDilemmas.forEach((dilemma, index) => {
+      dilemma.weekNr = index + 1;
+      this.httpClient.put(this.URL + '/dilemma/' + dilemma.id, dilemma).subscribe(res => {
+      });
+    });
   }
 
   onChange(value: string) {
