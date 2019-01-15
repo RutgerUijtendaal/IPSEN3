@@ -74,6 +74,7 @@ export class DilemmaListComponent implements OnInit {
     this.viewService.dilemma = dilemma;
     this.matchAnswerDilemma(dilemma);
     this.viewService.click.next(0);
+    this.allAnswers.sort(   (a, b) => (a.id > b.id) ? 1 : 0);
   }
 
   createAnswerRecords(data: AnswerModel[]) {
@@ -97,6 +98,7 @@ export class DilemmaListComponent implements OnInit {
       dilemma.theme.toLocaleLowerCase().includes(searchQuery)
     );
     this.shownDilemmas.sort((a, b) => (a.weekNr > b.weekNr) ? 1 : 0);
+    this.allAnswers.sort(   (a, b) => (a.id > b.id) ? 1 : 0);
   }
 
   deleteAnswersFromList() {
@@ -108,7 +110,6 @@ export class DilemmaListComponent implements OnInit {
     this.allDilemmas.splice(this.allDilemmas.findIndex(d => d.id === this.currentSelectedDilemma.id), 1);
     this.deleteAnswersFromList();
     this.updateList(this.oldSearch);
-    // this.httpClient.delete(this.URL + '/dilemma/' + this.currentSelectedDilemma.id).subscribe((res) => {});
   }
 
   resetNewDilemmaButton() {
@@ -156,7 +157,6 @@ export class DilemmaListComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<DilemmaModel[]>) {
-    console.log(event.item)
     moveItemInArray(this.shownDilemmas, event.previousIndex, event.currentIndex);
   }
 }

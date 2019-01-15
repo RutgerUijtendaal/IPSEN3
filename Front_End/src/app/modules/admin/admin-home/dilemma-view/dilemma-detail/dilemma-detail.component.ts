@@ -37,7 +37,10 @@ export class DilemmaDetailComponent implements OnInit {
 
   loadedImage: string;
 
-  constructor(private service: DilemmaViewService, private httpClient: HttpClient) {
+  service: DilemmaViewService;
+
+  constructor(service: DilemmaViewService, private httpClient: HttpClient) {
+    this.service = service;
     this.service.click.subscribe(value => {
       this.resetFileInput();
     });
@@ -135,7 +138,6 @@ export class DilemmaDetailComponent implements OnInit {
   }
 
   saveDilemma() {
-    console.log('saving dilemma');
     this.getDetails();
     const currentDilemma = this.service.dilemma;
     const currentAnswer1 = this.service.answer1;
@@ -149,12 +151,12 @@ export class DilemmaDetailComponent implements OnInit {
       currentDilemma.id = Number(dilemmaId);
       currentAnswer1.dilemmaId = Number(dilemmaId);
       currentAnswer2.dilemmaId = Number(dilemmaId);
-      this.uploadPictures();
       this.httpClient.post(this.URL + '/answer', currentAnswer1).subscribe(ans => {
         currentAnswer1.id = Number(ans);
-      });
-      this.httpClient.post(this.URL + '/answer', currentAnswer2).subscribe(ans => {
-        currentAnswer2.id = Number(ans);
+        this.httpClient.post(this.URL + '/answer', currentAnswer2).subscribe(ans => {
+          currentAnswer2.id = Number(ans);
+          this.uploadPictures();
+        });
       });
     });
     return true;
@@ -169,7 +171,6 @@ export class DilemmaDetailComponent implements OnInit {
       formData.append('filename', this.service.answer1.id + this.service.answer1.url);
 
       this.httpClient.post(this.URL + '/imageupload', formData).subscribe(res => {
-        console.log(res);
       });
     }
     if (this.answer2FileGood && this.answerFile2 != null) {
@@ -180,13 +181,12 @@ export class DilemmaDetailComponent implements OnInit {
       formData.append('filename', this.service.answer2.id + this.service.answer2.url);
 
       this.httpClient.post(this.URL + '/imageupload', formData).subscribe(res => {
-        console.log(res);
       });
     }
+    this.resetFileInput();
   }
 
   updateDilemma() {
-    console.log('updating dilemma');
     this.getDetails();
     const currentDilemma = this.service.dilemma;
     const currentAnswer1 = this.service.answer1;
@@ -198,20 +198,16 @@ export class DilemmaDetailComponent implements OnInit {
     currentAnswer2.text = this.editedAnswerText2;
     this.uploadPictures();
     this.httpClient.put(this.URL + '/dilemma/' + currentDilemma.id, currentDilemma).subscribe(res => {
-      // console.log(res.toString());
     });
     this.httpClient.put(this.URL + '/answer/' + currentAnswer1.id, currentAnswer1).subscribe(res => {
-      // console.log(res.toString());
     });
     this.httpClient.put(this.URL + '/answer/' + currentAnswer2.id, currentAnswer2).subscribe(res => {
-      // console.log(res.toString());
     });
     return true;
   }
 
   deleteDilemma() {
     this.httpClient.delete(this.URL + /dilemma/ + this.service.dilemma.id).subscribe(res => {
-      console.log(res.toString());
     });
     this.service.dilemma = null;
     this.service.answer1 = null;
@@ -242,7 +238,6 @@ export class DilemmaDetailComponent implements OnInit {
     this.answer1FileGood = matchingName;
     this.answer1ButtonText = (matchingName) ? event.target.files[0].name : 'Fout bestand';
     if (matchingName) {
-      console.log('assigning to answer1 file');
       this.answerFile1 = event.target.files[0];
     }
   }
@@ -253,17 +248,16 @@ export class DilemmaDetailComponent implements OnInit {
     this.answer2FileGood = matchingName;
     this.answer2ButtonText = (matchingName) ? event.target.files[0].name : 'Fout bestand';
     if (matchingName) {
-      console.log('assigning to answer2 file');
       this.answerFile2 = event.target.files[0];
     }
   }
 
   showFirstPic() {
-    this.loadedImage = 'https://dubio-groep9.nl/images/' + this.service.answer1.id + this.service.answer1.url;
+    this.loadedImage = 'https://dubio-groep9.nl/.answer-images/' + this.service.answer1.id + this.service.answer1.url;
   }
 
   showSecondPic() {
-    this.loadedImage = 'https://dubio-groep9.nl/images/' + this.service.answer2.id + this.service.answer2.url;
+    this.loadedImage = 'https://dubio-groep9.nl/.answer-images/' + this.service.answer2.id + this.service.answer2.url;
   }
 
 }
