@@ -11,9 +11,11 @@ import nl.dubio.config.ApiConfiguration;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.Admin;
 import nl.dubio.models.Parent;
+import nl.dubio.resources.FileUploadResource;
 import nl.dubio.resources.GenericResource;
 import nl.dubio.utils.MailUtility;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.servlet.DispatcherType;
@@ -74,6 +76,10 @@ public class ApiApplication extends Application<ApiConfiguration> {
 
         // Add URL mapping
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+
+        // Setup image uploading
+        environment.jersey().register(MultiPartFeature.class);
+        environment.jersey().register(FileUploadResource.class);
     }
 
 

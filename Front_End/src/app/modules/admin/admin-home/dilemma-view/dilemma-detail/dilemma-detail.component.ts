@@ -3,7 +3,7 @@ import {DilemmaModel} from '../../../../../shared/models/dilemma.model';
 import {AnswerModel} from '../../../../../shared/models/answer.model';
 import {DilemmaViewService} from '../dilemma-view-service';
 import {AppComponent} from '../../../../../app.component';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-dilemma-detail',
@@ -31,6 +31,9 @@ export class DilemmaDetailComponent implements OnInit {
 
   answer1FileGood: boolean;
   answer2FileGood: boolean;
+
+  answerFile1: File;
+  answerFile2: File;
 
   loadedImage: string;
 
@@ -77,6 +80,8 @@ export class DilemmaDetailComponent implements OnInit {
     this.answer2ButtonText = 'Nieuw plaatje';
     this.answer1FileGood = true;
     this.answer2FileGood = true;
+    this.answerFile1 = null;
+    this.answerFile2 = null;
     const inputElement = (<HTMLInputElement>document.getElementById('answer1-file'));
     if (inputElement != null) {
       inputElement.value = null;
@@ -87,10 +92,10 @@ export class DilemmaDetailComponent implements OnInit {
   verifyFields() {
     this.getDetails();
     if (this.editedTheme.length === 0 ||
-        this.editedFeedback.length === 0 ||
-        this.editedWeekNr.length === 0 ||
-        isNaN(Number(this.editedWeekNr)) ||
-        !this.answer1FileGood || !this.answer2FileGood) {
+      this.editedFeedback.length === 0 ||
+      this.editedWeekNr.length === 0 ||
+      isNaN(Number(this.editedWeekNr)) ||
+      !this.answer1FileGood || !this.answer2FileGood) {
       return false;
     }
     return true;
@@ -140,26 +145,48 @@ export class DilemmaDetailComponent implements OnInit {
     currentDilemma.weekNr = Number(this.editedWeekNr);
     currentAnswer1.text = this.editedAnswerText1;
     currentAnswer2.text = this.editedAnswerText2;
-    console.log(this.URL);
     this.httpClient.post(this.URL + '/dilemma', currentDilemma).subscribe(dilemmaId => {
       currentDilemma.id = Number(dilemmaId);
       currentAnswer1.dilemmaId = Number(dilemmaId);
       currentAnswer2.dilemmaId = Number(dilemmaId);
+      this.uploadPictures();
       this.httpClient.post(this.URL + '/answer', currentAnswer1).subscribe(ans => {
         currentAnswer1.id = Number(ans);
-        console.log(ans.toString());
       });
       this.httpClient.post(this.URL + '/answer', currentAnswer2).subscribe(ans => {
         currentAnswer2.id = Number(ans);
-        console.log(ans.toString());
       });
     });
     return true;
   }
 
+  uploadPictures() {
+    if (this.answer1FileGood && this.answerFile1 != null) {
+      this.service.answer1.url = '.' + this.answerFile1.name.split('.').pop();
+
+      const formData = new FormData();
+      formData.append('file', this.answerFile1);
+      formData.append('filename', this.service.answer1.id + this.service.answer1.url);
+
+      this.httpClient.post(this.URL + '/imageupload', formData).subscribe(res => {
+        console.log(res);
+      });
+    }
+    if (this.answer2FileGood && this.answerFile2 != null) {
+      this.service.answer2.url = '.' + this.answerFile2.name.split('.').pop();
+
+      const formData = new FormData();
+      formData.append('file', this.answerFile2);
+      formData.append('filename', this.service.answer2.id + this.service.answer2.url);
+
+      this.httpClient.post(this.URL + '/imageupload', formData).subscribe(res => {
+        console.log(res);
+      });
+    }
+  }
+
   updateDilemma() {
     console.log('updating dilemma');
-    this.getDetails();
     this.getDetails();
     const currentDilemma = this.service.dilemma;
     const currentAnswer1 = this.service.answer1;
@@ -169,15 +196,15 @@ export class DilemmaDetailComponent implements OnInit {
     currentDilemma.weekNr = Number(this.editedWeekNr);
     currentAnswer1.text = this.editedAnswerText1;
     currentAnswer2.text = this.editedAnswerText2;
-    console.log(this.URL);
+    this.uploadPictures();
     this.httpClient.put(this.URL + '/dilemma/' + currentDilemma.id, currentDilemma).subscribe(res => {
-      console.log(res.toString());
+      // console.log(res.toString());
     });
     this.httpClient.put(this.URL + '/answer/' + currentAnswer1.id, currentAnswer1).subscribe(res => {
-      console.log(res.toString());
+      // console.log(res.toString());
     });
     this.httpClient.put(this.URL + '/answer/' + currentAnswer2.id, currentAnswer2).subscribe(res => {
-      console.log(res.toString());
+      // console.log(res.toString());
     });
     return true;
   }
@@ -214,6 +241,10 @@ export class DilemmaDetailComponent implements OnInit {
     this.answer1Button = (matchingName) ? 'success' : 'danger';
     this.answer1FileGood = matchingName;
     this.answer1ButtonText = (matchingName) ? event.target.files[0].name : 'Fout bestand';
+    if (matchingName) {
+      console.log('assigning to answer1 file');
+      this.answerFile1 = event.target.files[0];
+    }
   }
 
   answer2FileInput(event) {
@@ -221,6 +252,10 @@ export class DilemmaDetailComponent implements OnInit {
     this.answer2Button = (matchingName) ? 'success' : 'danger';
     this.answer2FileGood = matchingName;
     this.answer2ButtonText = (matchingName) ? event.target.files[0].name : 'Fout bestand';
+    if (matchingName) {
+      console.log('assigning to answer2 file');
+      this.answerFile2 = event.target.files[0];
+    }
   }
 
   showFirstPic() {
