@@ -35,6 +35,7 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
 
     @POST
     @Timed
+    @Consumes(MediaType.APPLICATION_JSON)
     public Integer save(@Valid T object){
         return crudService.save(object);
     }

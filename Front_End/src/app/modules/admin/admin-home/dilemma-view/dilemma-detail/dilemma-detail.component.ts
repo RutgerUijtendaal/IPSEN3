@@ -41,6 +41,7 @@ export class DilemmaDetailComponent implements OnInit {
     this.resetSaveButton();
     this.answer1FileGood = true;
     this.answer2FileGood = true;
+    this.loadedImage = '';
   }
 
   ngOnInit() {
@@ -122,14 +123,43 @@ export class DilemmaDetailComponent implements OnInit {
   }
 
   newDilemma() {
+    if (this.service.dilemma.id === -1) {
+      return true;
+    }
     return false;
   }
 
   saveDilemma() {
+    console.log('saving dilemma');
+    this.getDetails();
+    const currentDilemma = this.service.dilemma;
+    const currentAnswer1 = this.service.answer1;
+    const currentAnswer2 = this.service.answer2;
+    currentDilemma.theme = this.editedTheme;
+    currentDilemma.feedback = this.editedFeedback;
+    currentDilemma.weekNr = Number(this.editedWeekNr);
+    currentAnswer1.text = this.editedAnswerText1;
+    currentAnswer2.text = this.editedAnswerText2;
+    console.log(this.URL);
+    this.httpClient.post(this.URL + '/dilemma', currentDilemma).subscribe(dilemmaId => {
+      currentDilemma.id = Number(dilemmaId);
+      currentAnswer1.dilemmaId = Number(dilemmaId);
+      currentAnswer2.dilemmaId = Number(dilemmaId);
+      this.httpClient.post(this.URL + '/answer', currentAnswer1).subscribe(ans => {
+        currentAnswer1.id = Number(ans);
+        console.log(ans.toString());
+      });
+      this.httpClient.post(this.URL + '/answer', currentAnswer2).subscribe(ans => {
+        currentAnswer2.id = Number(ans);
+        console.log(ans.toString());
+      });
+    });
     return true;
   }
 
   updateDilemma() {
+    console.log('updating dilemma');
+    this.getDetails();
     this.getDetails();
     const currentDilemma = this.service.dilemma;
     const currentAnswer1 = this.service.answer1;
@@ -153,6 +183,9 @@ export class DilemmaDetailComponent implements OnInit {
   }
 
   deleteDilemma() {
+    this.httpClient.delete(this.URL + /dilemma/ + this.service.dilemma.id).subscribe(res => {
+      console.log(res.toString());
+    });
     this.service.dilemma = null;
     this.service.answer1 = null;
     this.service.answer2 = null;
