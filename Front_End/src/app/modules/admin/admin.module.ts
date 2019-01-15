@@ -46,7 +46,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     FormsModule,
     SharedModule,
     AdminRoutingModule,
-    DragDropModule
+    DragDropModule,
   ],
   providers: [
     CoupleListService,

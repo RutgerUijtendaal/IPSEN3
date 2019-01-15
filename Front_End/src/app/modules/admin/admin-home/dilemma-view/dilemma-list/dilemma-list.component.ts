@@ -23,22 +23,33 @@ export class DilemmaListComponent implements OnInit {
   currentSelectedDilemma: DilemmaModel;
   newDilemmaButtonText: string;
   newDilemmaButtonClass: string;
+  periodes: Periode[] = [];
 
   constructor(private listService: DilemmaListService,
               private httpClient: HttpClient,
               private viewService: DilemmaViewService) {
     listService.searchQuery.subscribe(search => this.updateList(search));
     viewService.delete.subscribe(dilemma => this.deleteDilemmaFromList());
-    this.allDilemmas = [];
     this.shownDilemmas = [];
-    this.allAnswers = [];
-    httpClient.get(this.URL + '/dilemma').subscribe(data =>
+    this.periodes.push(new Periode('voor', 'Voor Geboorte'));
+    this.periodes.push(new Periode('na', 'Na Geboorte'));
+    this.loadDilemmas('voor');
+    this.loadAnswers();
+    this.resetNewDilemmaButton();
+  }
+
+  loadDilemmas(periode: string) {
+    this.allDilemmas = [];
+    this.httpClient.get(this.URL + '/dilemma/' + periode).subscribe(data =>
       this.createDilemmaRecords(data as DilemmaModel[])
     );
-    httpClient.get(this.URL + '/answer').subscribe(data =>
+  }
+
+  loadAnswers() {
+    this.allAnswers = [];
+    this.httpClient.get(this.URL + '/answer/').subscribe(data =>
       this.createAnswerRecords(data as AnswerModel[])
     );
-    this.resetNewDilemmaButton();
   }
 
   createDilemmaRecords(data: DilemmaModel[]) {
@@ -159,4 +170,14 @@ export class DilemmaListComponent implements OnInit {
   drop(event: CdkDragDrop<DilemmaModel[]>) {
     moveItemInArray(this.shownDilemmas, event.previousIndex, event.currentIndex);
   }
+
+  onChange(value: string) {
+    this.loadDilemmas(value);
+  }
+}
+
+class Periode {
+  constructor(public link: string, public name: string) {
+  }
+
 }
