@@ -62,8 +62,8 @@ export class DilemmaListComponent implements OnInit {
         const periode = dilemma.periode;
         const dilemmaModel: DilemmaModel = new DilemmaModel(id, weekNr, theme, feedback, periode);
         this.allDilemmas.push(dilemmaModel);
-      }
-    );
+      });
+    this.allDilemmas.sort((d1, d2) => d1.weekNr > d2.weekNr ? 1 : -1);
     this.updateList('');
   }
 
