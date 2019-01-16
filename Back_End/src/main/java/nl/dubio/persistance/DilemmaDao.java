@@ -49,7 +49,8 @@ public class DilemmaDao extends GenericDao<Dilemma> {
             short week_nr = resultSet.getShort(columnNames[0]);
             String theme = resultSet.getString(columnNames[1]);
             String feedback = resultSet.getString(columnNames[2]);
-            return new Dilemma(id, week_nr, theme, feedback);
+            String periode = resultSet.getString(columnNames[3]);
+            return new Dilemma(id, week_nr, theme, feedback, periode);
         } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
@@ -61,6 +62,7 @@ public class DilemmaDao extends GenericDao<Dilemma> {
             preparedStatement.setShort(1, dilemma.getWeekNr());
             preparedStatement.setString(2, dilemma.getTheme());
             preparedStatement.setString(3, dilemma.getFeedback());
+            preparedStatement.setString(4, dilemma.getPeriode());
         } catch (SQLException exception){
             throw new FillPreparedStatementException();
         }

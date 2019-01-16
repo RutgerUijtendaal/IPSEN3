@@ -2,12 +2,16 @@ package nl.dubio.resources;
 
 import io.dropwizard.auth.Auth;
 import nl.dubio.auth.Authorizable;
+import io.dropwizard.auth.Auth;
+import nl.dubio.auth.AdminRights;
+import nl.dubio.auth.Authorizable;
 import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleListModel;
 import nl.dubio.models.CoupleRegistry;
 import nl.dubio.models.Parent;
 import nl.dubio.service.CoupleService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -42,6 +46,7 @@ public class CoupleResource extends GenericResource<Couple> {
 
     @DELETE
     @Path("/unregister")
+    @RolesAllowed(AdminRights.Constants.USERINFO)
     public Response unregister(@QueryParam("token") String token) {
         try {
             ((CoupleService) crudService).unregister(token);

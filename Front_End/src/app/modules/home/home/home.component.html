@@ -1,0 +1,53 @@
+<div id="slider" style="position: relative">
+  <mdb-carousel [animation]="'slide'">
+    <mdb-carousel-item>
+      <div class="view w-100">
+        <img class="d-block w-100" src="assets/images/slider/home_slide_1.jpg" alt="First slide">
+        <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
+      </div>
+    </mdb-carousel-item>
+
+    <mdb-carousel-item>
+      <div class="view w-100">
+        <img class="d-block w-100" src="assets/images/slider/home_slide_2.jpg" alt="First slide">
+        <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
+      </div>
+    </mdb-carousel-item>
+  </mdb-carousel>
+  <div class="carousel-caption">
+    <h3 class="h3-responsive">Dubio</h3>
+    <p>Dekselse dilemma's voor nieuwe ouders</p>
+    <a id="signup" routerLink="/registreren" routerLinkActive="active" class="btn-rounded btn-normalize" type="button" mdbBtn color="primary" mdbWavesEffect>Registreren</a>
+  </div>
+</div>
+
+<div id="howitworks">
+  <h3>
+    Hoe werkt het?
+  </h3>
+</div>
+
+<div class="container">
+  <div class="row py-5" id="cards">
+    <div class="col-sm-12 col-lg-4 py-3">
+      <app-widget-card [image]="'assets/images/cards/dubio_dilemma.png'" [alt]="'Sample image 1'"
+                       [title]="'Wekelijkse dilemma\'s'">
+        Wekelijks ontvangt u en uw partner van ons een mail met de melding dat een nieuw dilemma klaar staat. Dit dilemma is relevant voor de periode van uw zwangerschap of leeftijd van uw kind.
+      </app-widget-card>
+    </div>
+
+    <div class="col-sm-12 col-lg-4 py-3">
+      <app-widget-card [image]="'assets/images/cards/dubio_talk.png'" [alt]="'Sample image'"
+                       [title]="'Beantwoord en bespreek'">
+        Wanneer u en uw partner het dilemma beantwoord hebben is er de mogelijkheid om elkaars antwoorden te bespreken. Soms zullen jullie antwoorden hetzelfde zijn, soms zullen deze verschillen.
+      </app-widget-card>
+    </div>
+
+    <div class="col-sm-12 col-lg-4 py-3">
+      <app-widget-card [image]="'assets/images/cards/dubio_feedback.png'" [alt]="'Sample image'"
+                       [title]="'Krijg feedback'">
+        Wij versturen nadat we beide antwoorden binnen hebben nog een mail met extra informatie over het dilemma van die week.
+      </app-widget-card>
+    </div>
+  </div>
+</div>

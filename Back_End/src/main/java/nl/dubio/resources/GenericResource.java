@@ -3,6 +3,7 @@ package nl.dubio.resources;
 import com.codahale.metrics.annotation.Timed;
 import nl.dubio.models.DatabaseObject;
 import io.dropwizard.setup.Environment;
+import nl.dubio.models.Parent;
 import nl.dubio.service.CrudService;
 
 import javax.validation.Valid;
@@ -34,12 +35,15 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
 
     @POST
     @Timed
+    @Consumes(MediaType.APPLICATION_JSON)
     public Integer save(@Valid T object){
         return crudService.save(object);
     }
 
     @PUT
     @Timed
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("{id}")
     public boolean update(@Valid T object){
         return crudService.update(object);
     }

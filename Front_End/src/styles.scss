@@ -24,11 +24,25 @@ footer {
   width: 100%;
 }
 
-.btn-rouded {
-  border-radius: 50px;
+.btn-rounded, .rounded-corner {
+  border-radius: 30px;
+  overflow: hidden;
 }
 
 .btn-normalize {
   text-transform: none;
   font-size: 1em;
 }
+
+app-couple-in-list {
+  mdb-card-body, .card {
+    box-shadow: none;
+  }
+}
+
+app-dilemma-in-list {
+  mdb-card-body, .card {
+    box-shadow: none;
+  }
+}
+

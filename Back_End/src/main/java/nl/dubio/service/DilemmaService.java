@@ -30,8 +30,10 @@ public class DilemmaService implements CrudService<Dilemma> {
     }
 
     @Override
-    public boolean update(Dilemma Dilemma) {
-        return dilemmaDao.update(Dilemma);
+    public boolean update(Dilemma dilemma) {
+        System.out.println("UPDATE");
+        System.out.println(dilemma);
+        return dilemmaDao.update(dilemma);
     }
 
     @Override

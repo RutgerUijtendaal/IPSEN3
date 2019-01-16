@@ -1,0 +1,28 @@
+<mdb-card>
+  <mdb-card-body class="col-md-12 d-flex flex-wrap">
+    <div class="col-md-4 parent">
+      <i class="fa fa-user" style="font-size: 25px;" aria-hidden="true"></i>
+      <div class="info-text">
+        {{ couple.parent1.email }}
+      </div>
+      <div class="info-text">
+        {{ couple.parent1.phoneNr }}
+      </div>
+    </div>
+    <div class="col-md-2 plus">
+      <i style="font-size: 35px; color: lightblue" class="fa fa-plus" aria-hidden="true"></i>
+    </div>
+    <div class="col-md-4 parent">
+      <i class="fa fa-user" style="font-size: 25px;" aria-hidden="true"></i>
+      <div class="info-text">
+        {{ couple.parent2.email }}
+      </div>
+      <div class="info-text">
+        {{ couple.parent2.phoneNr }}
+      </div>
+    </div>
+    <div class="col-md-2 delete">
+        <i (click)="deleteRequest()" style="font-size: 35px; color: darkred" class="fa fa-trash delete-button"></i>
+    </div>
+  </mdb-card-body>
+</mdb-card>
