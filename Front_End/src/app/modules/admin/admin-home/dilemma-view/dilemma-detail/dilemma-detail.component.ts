@@ -151,10 +151,10 @@ export class DilemmaDetailComponent implements OnInit {
       currentDilemma.id = Number(dilemmaId);
       currentAnswer1.dilemmaId = Number(dilemmaId);
       currentAnswer2.dilemmaId = Number(dilemmaId);
-      this.httpClient.post(this.URL + '/answer', currentAnswer1).subscribe(ans => {
-        currentAnswer1.id = Number(ans);
-        this.httpClient.post(this.URL + '/answer', currentAnswer2).subscribe(ans => {
-          currentAnswer2.id = Number(ans);
+      this.httpClient.post(this.URL + '/answer', currentAnswer1).subscribe(ans1 => {
+        currentAnswer1.id = Number(ans1);
+        this.httpClient.post(this.URL + '/answer', currentAnswer2).subscribe(ans2 => {
+          currentAnswer2.id = Number(ans2);
           this.uploadPictures();
         });
       });
