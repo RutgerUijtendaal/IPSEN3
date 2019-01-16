@@ -1,5 +1,7 @@
 package nl.dubio.resources;
 
+import io.dropwizard.auth.Auth;
+import nl.dubio.auth.Authorizable;
 import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleListModel;
 import nl.dubio.models.CoupleRegistry;
@@ -19,6 +21,17 @@ public class CoupleResource extends GenericResource<Couple> {
 
     protected CoupleResource() {
         super(new CoupleService());
+    }
+
+    @GET
+    @Path("/email")
+    public Couple getByEmail(@Auth Authorizable authorizable) {
+        if (authorizable instanceof Parent) {
+            String email = ((Parent) authorizable).getEmail();
+            return ((CoupleService) crudService).getCoupleByEmail(email);
+        } else {
+            throw new NotAuthorizedException("");
+        }
     }
 
     @POST

@@ -50,7 +50,7 @@ public class ParentDao extends GenericDao<Parent> {
             String email = resultSet.getString(columnNames[1]);
             String phone_number = resultSet.getString(columnNames[2]);
 
-            return new Parent(id, phone_number, first_name, email);
+            return new Parent(id, first_name, email, phone_number);
         } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }

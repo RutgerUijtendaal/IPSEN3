@@ -3,8 +3,10 @@ package nl.dubio.service;
 import nl.dubio.ApiApplication;
 import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleRegistry;
+import nl.dubio.models.Parent;
 import nl.dubio.persistance.CoupleDao;
 import nl.dubio.persistance.DaoRepository;
+import nl.dubio.persistance.ParentDao;
 import nl.dubio.utils.MailUtility;
 import nl.dubio.utils.TokenGenerator;
 
@@ -20,9 +22,11 @@ import java.util.List;
 
 public class CoupleService implements CrudService<Couple> {
     private final CoupleDao coupleDao;
+    private final ParentDao parentDao;
 
     public CoupleService() {
         this.coupleDao = DaoRepository.getCoupleDao();
+        this.parentDao = DaoRepository.getParentDao();
     }
 
     @Override
@@ -100,6 +104,12 @@ public class CoupleService implements CrudService<Couple> {
         }
 
         return coupleId;
+    }
+
+    public Couple getCoupleByEmail(String email) {
+        Parent parent = parentDao.getByEmail(email);
+        Couple couple = coupleDao.getByParent(parent);
+        return couple;
     }
 
     //TODO better error messages and the messages should come from a constants class
