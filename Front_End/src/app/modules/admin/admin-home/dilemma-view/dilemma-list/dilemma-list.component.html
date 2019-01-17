@@ -2,7 +2,7 @@
   <mdb-card-header>
     <button (click)="newDilemma()" [ngClass]="'btn btn-' + newDilemmaButtonClass">{{ newDilemmaButtonText }}</button>
     <select class="browser-default custom-select" (change)="onChange($event.target.value)">
-      <option *ngFor="let periode of periodes" value="{{periode.link}}">{{periode.name}}</option>
+      <option *ngFor="let period of periods" value="{{period.link}}">{{period.name}}</option>
     </select>
   </mdb-card-header>
   <mdb-card-body id="results-body">

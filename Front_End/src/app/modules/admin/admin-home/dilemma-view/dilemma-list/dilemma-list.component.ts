@@ -23,8 +23,8 @@ export class DilemmaListComponent implements OnInit {
   currentSelectedDilemma: DilemmaModel;
   newDilemmaButtonText: string;
   newDilemmaButtonClass: string;
-  periodes: Periode[] = [];
-  periode: string;
+  periods: Period[] = [];
+  period: string;
 
   constructor(private listService: DilemmaListService,
               private httpClient: HttpClient,
@@ -32,17 +32,17 @@ export class DilemmaListComponent implements OnInit {
     listService.searchQuery.subscribe(search => this.updateList(search));
     viewService.delete.subscribe(dilemma => this.deleteDilemmaFromList());
     this.shownDilemmas = [];
-    this.periodes.push(new Periode('voor', 'Voor Geboorte'));
-    this.periodes.push(new Periode('na', 'Na Geboorte'));
-    this.periode = this.periodes[0].link;
+    this.periods.push(new Period('voor', 'Voor Geboorte'));
+    this.periods.push(new Period('na', 'Na Geboorte'));
+    this.period = this.periods[0].link;
     this.loadDilemmas('voor');
     this.loadAnswers();
     this.resetNewDilemmaButton();
   }
 
-  loadDilemmas(periode: string) {
+  loadDilemmas(period: string) {
     this.allDilemmas = [];
-    this.httpClient.get(this.URL + '/dilemma/' + periode).subscribe(data =>
+    this.httpClient.get(this.URL + '/dilemma/' + period).subscribe(data =>
       this.createDilemmaRecords(data as DilemmaModel[])
     );
     this.allDilemmas.sort(dilemma => dilemma.weekNr);
@@ -61,8 +61,8 @@ export class DilemmaListComponent implements OnInit {
         const weekNr = dilemma.weekNr;
         const theme = dilemma.theme;
         const feedback = dilemma.feedback;
-        const periode = dilemma.periode;
-        const dilemmaModel: DilemmaModel = new DilemmaModel(id, weekNr, theme, feedback, periode);
+        const period = dilemma.period;
+        const dilemmaModel: DilemmaModel = new DilemmaModel(id, weekNr, theme, feedback, period);
         this.allDilemmas.push(dilemmaModel);
       });
     this.allDilemmas.sort((d1, d2) => d1.weekNr > d2.weekNr ? 1 : -1);
@@ -155,7 +155,7 @@ export class DilemmaListComponent implements OnInit {
       this.matchAnswerDilemma(val);
       return;
     }
-    const newDilemma = new DilemmaModel(-1, this.allDilemmas.length + 1, '', '', this.periode);
+    const newDilemma = new DilemmaModel(-1, this.allDilemmas.length + 1, '', '', this.period);
     const newAnswer1 = new AnswerModel(-2, -1, null, null);
     const newAnswer2 = new AnswerModel(-3, -1, null, null);
     this.viewService.dilemma = newDilemma;
@@ -182,12 +182,12 @@ export class DilemmaListComponent implements OnInit {
   }
 
   onChange(value: string) {
-    this.periode = value;
+    this.period = value;
     this.loadDilemmas(value);
   }
 }
 
-class Periode {
+class Period {
   constructor(public link: string, public name: string) {
   }
 

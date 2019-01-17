@@ -23,11 +23,11 @@ export class ParentService {
   dilemmas: DilemmaModel[] = [];
   answers: AnswerModel[] = [];
 
-  periodes: Periode[] = [];
+  periods: Period[] = [];
   activeDilemmas: DilemmaModel[] = [];
   filteredDilemmas: DilemmaModel[] = [];
 
-  periodeFilter: string;
+  periodFilter: string;
   activeDilemma: DilemmaModel = null;
   parentAnswer: AnswerModel = null;
   partnerAnswer: AnswerModel = null;
@@ -38,10 +38,10 @@ export class ParentService {
   constructor(private authenticationService: AuthenticationService,
               private httpClient: HttpClient) {
     this.accountModel = authenticationService.accountModel;
-    this.loadCouple()
-    this.periodes.push(new Periode('voor', 'Voor Geboorte'));
-    this.periodes.push(new Periode('na', 'Na Geboorte'));
-    this.periodeFilter = this.periodes[0].link;
+    this.loadCouple();
+    this.periods.push(new Period('voor', 'Voor Geboorte'));
+    this.periods.push(new Period('na', 'Na Geboorte'));
+    this.periodFilter = this.periods[0].link;
   }
 
   setActiveDilemma(dilemma: DilemmaModel) {
@@ -49,30 +49,30 @@ export class ParentService {
     this.parentAnswer = null;
     this.partnerAnswer = null;
 
-    let possibleAnswers = this.answers.filter(i => i.dilemmaId === dilemma.id);
+    const possibleAnswers = this.answers.filter(i => i.dilemmaId === dilemma.id);
 
-    let parentResult: ResultModel = this.coupleResults[0].find(function(e: ResultModel) {
-      return e.answerId === possibleAnswers[0].id || e.answerId === possibleAnswers[1].id
+    const parentResult: ResultModel = this.coupleResults[0].find(function(e: ResultModel) {
+      return e.answerId === possibleAnswers[0].id || e.answerId === possibleAnswers[1].id;
     });
 
-    if(parentResult) {
+    if (parentResult) {
       this.parentAnswer = this.answers.find(i => i.id === parentResult.answerId);
     }
 
-    let partnerResult: ResultModel = this.coupleResults[1].find(function(e: ResultModel) {
-      return e.answerId === possibleAnswers[0].id || e.answerId === possibleAnswers[1].id
+    const partnerResult: ResultModel = this.coupleResults[1].find(function(e: ResultModel) {
+      return e.answerId === possibleAnswers[0].id || e.answerId === possibleAnswers[1].id;
     });
 
-    if(parentResult) {
+    if (parentResult) {
       this.partnerAnswer = this.answers.find(i => i.id === partnerResult.answerId);
     }
 
 
   }
 
-  filterDilemmas(periode: string) {
-    this.periodeFilter = periode;
-    this.filteredDilemmas = this.activeDilemmas.filter(i => i.periode === periode);
+  filterDilemmas(period: string) {
+    this.periodFilter = period;
+    this.filteredDilemmas = this.activeDilemmas.filter(i => i.period === period);
   }
 
   private loadCouple() {
@@ -81,13 +81,13 @@ export class ParentService {
 
     this.httpClient.get(this.URL + '/couple/email').pipe(
       map((data) => {
-        let parent1$ =  this.httpClient.get(this.URL + '/parent/' + data['parent1Id']);
-        let parent2$ =  this.httpClient.get(this.URL + '/parent/' + data['parent2Id']);
+        const parent1$ =  this.httpClient.get(this.URL + '/parent/' + data['parent1Id']);
+        const parent2$ =  this.httpClient.get(this.URL + '/parent/' + data['parent2Id']);
         forkJoin([parent1$, parent2$]).subscribe(results => {
           let parent1: ParentModel;
           let parent2: ParentModel;
 
-          if(results[0]['email'] === this.accountModel.email) {
+          if (results[0]['email'] === this.accountModel.email) {
             parent1 = this.buildParentFromResponse(results[0]);
             parent2 = this.buildParentFromResponse(results[1]);
           } else {
@@ -97,70 +97,70 @@ export class ParentService {
 
           this.couple = new CoupleModel(data['id'], parent1, parent2);
           this.loadResultsData();
-        })
+        });
       })
     ).subscribe();
   }
 
   private setActiveDilemmas() {
-    for(let d of this.coupleResults[0]) {
-      let answer: AnswerModel = this.answers.find(i => i.id === d.answerId);
-      let dilemma: DilemmaModel = this.dilemmas.find(i => i.id === answer.dilemmaId);
+    for (const d of this.coupleResults[0]) {
+      const answer: AnswerModel = this.answers.find(i => i.id === d.answerId);
+      const dilemma: DilemmaModel = this.dilemmas.find(i => i.id === answer.dilemmaId);
       this.activeDilemmas.push(dilemma);
     }
 
-    this.filterDilemmas(this.periodeFilter);
+    this.filterDilemmas(this.periodFilter);
 
-    if(this.filteredDilemmas.length < 1) {
-      this.filterDilemmas('na')
+    if (this.filteredDilemmas.length < 1) {
+      this.filterDilemmas('na');
     }
   }
 
   private loadResultsData() {
     this.resultsIsLoading = true;
 
-    let dilemmas$ = this.getDilemmas$();
-    let answers$ = this. getAnswers$();
-    let parent1Results$ = this.getResults$(this.couple.parent1.id, 0);
-    let parent2Results$ = this.getResults$(this.couple.parent2.id, 1);
+    const dilemmas$ = this.getDilemmas$();
+    const answers$ = this. getAnswers$();
+    const parent1Results$ = this.getResults$(this.couple.parent1.id, 0);
+    const parent2Results$ = this.getResults$(this.couple.parent2.id, 1);
 
     forkJoin([parent1Results$, parent2Results$]).subscribe( () => {
       this.coupleIsLoading = false;
       forkJoin([dilemmas$, answers$]).subscribe( () => {
           this.resultsIsLoading = false;
-          this.setActiveDilemmas()
-      })
-    })
+          this.setActiveDilemmas();
+      });
+    });
   }
 
   private getDilemmas$() {
     return this.httpClient.get(this.URL + '/dilemma').pipe(
       map((dilemmas) => {
-        for(let item in dilemmas) {
-          this.dilemmas.push(this.buildDilemmaFromResponse(dilemmas[item]))
+        for (const item in dilemmas) {
+          this.dilemmas.push(this.buildDilemmaFromResponse(dilemmas[item]));
         }
       })
-    )
+    );
   }
 
   private getAnswers$() {
     return this.httpClient.get(this.URL + '/answer').pipe(
       map((answers) => {
-        for(let item in answers) {
-          this.answers.push(this.buildAnswerFromResponse(answers[item]))
+        for (const item in answers) {
+          this.answers.push(this.buildAnswerFromResponse(answers[item]));
         }
       })
-    )
+    );
   }
 
   private getResults$(parentId: number, parent: number) {
     return this.httpClient.get(this.URL + '/result/parent/' + parentId.toString()).pipe(
       map((results) => {
-        for (let item in results) {
+        for (const item in results) {
           this.coupleResults[parent].push(this.buildResultFromResponse(results[item]));
         }
       })
-    )
+    );
   }
 
   private buildDilemmaFromResponse(response) {
@@ -169,7 +169,7 @@ export class ParentService {
       response['weekNr'],
       response['theme'],
       response['feedback'],
-      response['periode']
+      response['period']
     );
   }
 
@@ -179,11 +179,11 @@ export class ParentService {
       response['dilemmaId'],
       response['url'],
       response['text']
-    )
+    );
   }
 
   private buildParentFromResponse(response) {
-    let parent: ParentModel = new ParentModel(
+    const parent: ParentModel = new ParentModel(
       response['firstName'],
       response['phoneNr'],
       response['email']
@@ -204,7 +204,7 @@ export class ParentService {
 
 }
 
-class Periode {
+class Period {
   constructor(public link: string, public name: string) {
   }
 }

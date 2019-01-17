@@ -14,8 +14,8 @@ export class ParentDilemmaListComponent implements OnInit {
   ngOnInit() {
   }
 
-  onPeriodeChange(periode) {
-    this.parentService.filterDilemmas(periode);
+  onPeriodChange(period) {
+    this.parentService.filterDilemmas(period);
   }
 
 }
