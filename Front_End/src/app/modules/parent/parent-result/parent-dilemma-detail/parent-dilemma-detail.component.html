@@ -1,0 +1,50 @@
+<mdb-card class="main-card col-md-9">
+  <mdb-card-body>
+    <div *ngIf="parentService.activeDilemma != null">
+      <mdb-card class="inside-card">
+        <mdb-card-header class="dilemma-header">
+          Dilemma
+        </mdb-card-header>
+        <mdb-card-body>
+          <table>
+            <tr>
+              <td>Thema:</td>
+              <td class="text-input dilemma-theme">{{ parentService.activeDilemma.theme }}</td>
+            </tr>
+            <tr>
+              <td>Feedback:</td>
+              <td class="text-input dilemma-feedback">{{ parentService.activeDilemma.feedback }}</td>
+            </tr>
+          </table>
+        </mdb-card-body>
+      </mdb-card>
+      <mdb-card class="inside-card">
+        <mdb-card-header>
+          {{ parentService.couple.parent1.firstName }}
+        </mdb-card-header>
+        <mdb-card-body>
+          <table>
+            <tr>
+              <td class="text-input answer-text"> {{ parentService.parentAnswer.text }}</td>
+            </tr>
+          </table>
+        </mdb-card-body>
+      </mdb-card>
+      <mdb-card class="inside-card">
+        <mdb-card-header>
+          {{ parentService.couple.parent2.firstName }}
+        </mdb-card-header>
+        <mdb-card-body>
+          <table>
+            <tr>
+              <td class="text-input answer-text"> {{ parentService.partnerAnswer.text }}</td>
+            </tr>
+          </table>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+    <div style="font-size: 20px; text-align: center; transform: translateX(-1%);" *ngIf="parentService.activeDilemma == null">
+      Klik op een dilemma!
+    </div>
+  </mdb-card-body>
+</mdb-card>

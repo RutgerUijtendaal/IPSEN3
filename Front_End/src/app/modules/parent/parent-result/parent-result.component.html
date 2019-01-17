@@ -1,0 +1,12 @@
+<div
+  class="row justify-content-center pt-5 mx-0"
+  *ngIf="parentService.resultsIsLoading">
+  <i class="fa fa-refresh fa-spin"></i>
+</div>
+
+<div
+  class="container mt-5"
+  *ngIf="!parentService.resultsIsLoading">
+  <app-parent-dilemma-list></app-parent-dilemma-list>
+  <app-parent-dilemma-detail></app-parent-dilemma-detail>
+</div>
