@@ -1,11 +1,11 @@
 $dubio-black: #03142b;
 
 nav {
-  background-color: #e2b53b;
+  background-color: #1e4768;
 }
 
 a {
-  color: #000000;
+  color: white;
 }
 
 *:focus {
@@ -19,7 +19,9 @@ a {
 }
 
 .nav-pills .nav-link.active {
-  color: white;
-  background-color: #1e4768;
+  color: black;
+  background-color: #e2b53b;
+  text-decoration: underline;
+  text-decoration-style: solid;
 }
 
