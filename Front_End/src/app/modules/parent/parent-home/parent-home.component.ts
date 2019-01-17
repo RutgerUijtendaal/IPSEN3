@@ -13,7 +13,7 @@ export class ParentHomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.parentService.getCouple();
   }
+
 
 }

@@ -1,0 +1,49 @@
+mdb-card {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0px;
+}
+
+mdb-card-body {
+  padding: 1px 0px;
+  display: block;
+}
+
+.img-container {
+  padding: 13px 0px 5px 0;
+  text-align: center;
+}
+
+mdb-card-header {
+  padding: 6px 10px 6px 10px;
+}
+
+button {
+  width: 100%;
+  margin-left: 0;
+  -webkit-transition: all ease-in-out .10s;
+  -moz-transition: all ease-in-out .10s;
+  -ms-transition: all ease-in-out .10s;
+  -o-transition: all ease-in-out .10s;
+  transition: all ease-in-out .10s;
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
+.box {
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+}
+
+.box:last-child {
+  border: none;
+}
+
+.list.cdk-drop-list-dragging .box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

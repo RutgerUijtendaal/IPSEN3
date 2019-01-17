@@ -1,0 +1,22 @@
+<div
+  class="row justify-content-center pt-5 mx-0"
+  *ngIf="(parentService.coupleIsLoading)">
+  <i class="fa fa-refresh fa-spin"></i>
+</div>
+
+<div
+  class="container mt-5"
+  *ngIf="!parentService.coupleIsLoading">
+  <mdb-card class="col-md-12 px-0">
+    <mdb-card-header class="main-header">
+      Gegevens
+    </mdb-card-header>
+    <mdb-card-body
+    class="row justify-content-center">
+      <app-parent-details class="col-md-5 px-0 mr-md-3 mb-sm-3" [parent]="parentService.couple.parent1"></app-parent-details>
+      <app-parent-details class="col-md-5 px-0 ml-md-3" [parent]="parentService.couple.parent2"></app-parent-details>
+    </mdb-card-body>
+  </mdb-card>
+</div>
+
+
