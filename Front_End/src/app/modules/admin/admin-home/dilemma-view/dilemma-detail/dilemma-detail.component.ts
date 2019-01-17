@@ -15,7 +15,6 @@ export class DilemmaDetailComponent implements OnInit {
   URL = AppComponent.environment.server;
 
   editedTheme: string;
-  editedWeekNr: string;
   editedFeedback: string;
   editedAnswerText1: string;
   editedAnswerText2: string;
@@ -61,7 +60,6 @@ export class DilemmaDetailComponent implements OnInit {
 
   getDetails() {
     this.editedTheme = (<HTMLInputElement>document.getElementsByClassName('dilemma-theme')[0]).value;
-    this.editedWeekNr = (<HTMLInputElement>document.getElementsByClassName('dilemma-weeknr')[0]).value;
     this.editedFeedback = (<HTMLInputElement>document.getElementsByClassName('dilemma-feedback')[0]).value;
     this.editedAnswerText1 = (<HTMLInputElement>document.getElementsByClassName('answer1-text')[0]).value;
     this.editedAnswerText2 = (<HTMLInputElement>document.getElementsByClassName('answer2-text')[0]).value;
@@ -69,7 +67,6 @@ export class DilemmaDetailComponent implements OnInit {
 
   resetDetails() {
     (<HTMLInputElement>document.getElementsByClassName('dilemma-theme')[0]).value = this.service.dilemma.theme;
-    (<HTMLInputElement>document.getElementsByClassName('dilemma-weeknr')[0]).value = String(this.service.dilemma.weekNr);
     (<HTMLInputElement>document.getElementsByClassName('dilemma-feedback')[0]).value = String(this.service.dilemma.feedback);
     (<HTMLInputElement>document.getElementsByClassName('answer1-text')[0]).value = this.service.answer1.text;
     (<HTMLInputElement>document.getElementsByClassName('answer2-text')[0]).value = this.service.answer2.text;
@@ -96,8 +93,6 @@ export class DilemmaDetailComponent implements OnInit {
     this.getDetails();
     if (this.editedTheme.length === 0 ||
       this.editedFeedback.length === 0 ||
-      this.editedWeekNr.length === 0 ||
-      isNaN(Number(this.editedWeekNr)) ||
       !this.answer1FileGood || !this.answer2FileGood) {
       return false;
     }
@@ -144,7 +139,6 @@ export class DilemmaDetailComponent implements OnInit {
     const currentAnswer2 = this.service.answer2;
     currentDilemma.theme = this.editedTheme;
     currentDilemma.feedback = this.editedFeedback;
-    currentDilemma.weekNr = Number(this.editedWeekNr);
     currentAnswer1.text = this.editedAnswerText1;
     currentAnswer2.text = this.editedAnswerText2;
     this.httpClient.post(this.URL + '/dilemma', currentDilemma).subscribe(dilemmaId => {
@@ -193,7 +187,6 @@ export class DilemmaDetailComponent implements OnInit {
     const currentAnswer2 = this.service.answer2;
     currentDilemma.theme = this.editedTheme;
     currentDilemma.feedback = this.editedFeedback;
-    currentDilemma.weekNr = Number(this.editedWeekNr);
     currentAnswer1.text = this.editedAnswerText1;
     currentAnswer2.text = this.editedAnswerText2;
     this.uploadPictures();

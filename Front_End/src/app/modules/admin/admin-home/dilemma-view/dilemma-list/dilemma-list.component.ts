@@ -24,6 +24,7 @@ export class DilemmaListComponent implements OnInit {
   newDilemmaButtonText: string;
   newDilemmaButtonClass: string;
   periodes: Periode[] = [];
+  periode: string;
 
   constructor(private listService: DilemmaListService,
               private httpClient: HttpClient,
@@ -33,6 +34,7 @@ export class DilemmaListComponent implements OnInit {
     this.shownDilemmas = [];
     this.periodes.push(new Periode('voor', 'Voor Geboorte'));
     this.periodes.push(new Periode('na', 'Na Geboorte'));
+    this.periode = this.periodes[0].link;
     this.loadDilemmas('voor');
     this.loadAnswers();
     this.resetNewDilemmaButton();
@@ -153,7 +155,7 @@ export class DilemmaListComponent implements OnInit {
       this.matchAnswerDilemma(val);
       return;
     }
-    const newDilemma = new DilemmaModel(-1, 0, '', '', '');
+    const newDilemma = new DilemmaModel(-1, this.allDilemmas.length + 1, '', '', this.periode);
     const newAnswer1 = new AnswerModel(-2, -1, null, null);
     const newAnswer2 = new AnswerModel(-3, -1, null, null);
     this.viewService.dilemma = newDilemma;
@@ -180,6 +182,7 @@ export class DilemmaListComponent implements OnInit {
   }
 
   onChange(value: string) {
+    this.periode = value;
     this.loadDilemmas(value);
   }
 }
