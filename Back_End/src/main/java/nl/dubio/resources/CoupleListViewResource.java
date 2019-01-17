@@ -35,8 +35,8 @@ public class CoupleListViewResource {
             allCouples.add(
                     new CoupleListModel(
                             i,
-                            new Parent(i, "user" + i, "+" + String.valueOf(1156234200 + i), i + "user@gmail.com"),
-                            new Parent(i+1, "user" + i+1, "+" + String.valueOf(1121132233 + i), i+1 + "user@gmail.com")
+                            new Parent(i, "user" + i, "+" + String.valueOf(1156234200 + i), i + "user@gmail.com", null),
+                            new Parent(i+1, "user" + i+1, "+" + String.valueOf(1121132233 + i), i+1 + "user@gmail.com", null)
                     )
             );
         }

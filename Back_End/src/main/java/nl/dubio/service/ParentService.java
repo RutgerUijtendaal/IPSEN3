@@ -23,6 +23,13 @@ public class ParentService implements CrudService<Parent> {
         return parentDao.getById(id);
     }
 
+    public Parent getByToken(String token) { return parentDao.getByToken(token); }
+
+    public boolean revokeTokenAccess(Parent parent) {
+        parent.setToken(null);
+        return parentDao.update(parent);
+    }
+
     @Override
     public Integer save(Parent child) {
         return parentDao.save(child);

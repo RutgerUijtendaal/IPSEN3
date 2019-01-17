@@ -3,6 +3,7 @@ package nl.dubio.service;
 import nl.dubio.ApiApplication;
 import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleRegistry;
+import nl.dubio.models.Parent;
 import nl.dubio.persistance.CoupleDao;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.utils.MailUtility;
@@ -34,6 +35,8 @@ public class CoupleService implements CrudService<Couple> {
     public Couple getById(Integer id) {
         return coupleDao.getById(id);
     }
+
+    public Couple getByParent(Parent parent) { return coupleDao.getByParent(parent); }
 
     @Override
     public Integer save(Couple couple) {

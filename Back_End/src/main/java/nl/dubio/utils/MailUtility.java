@@ -92,6 +92,12 @@ public class MailUtility {
         messageQueue.add(mimeMessage);
     }
 
+    public void addFeedbackMailToQueue(String to, String parentName, String partnerName, String answer, String partnerAnswer, String unregisterToken) throws MessagingException {
+        final String subject = "Uw feedback!";
+        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getFeedbackMail(websiteUrl, parentName, partnerName, answer, partnerAnswer, unregisterToken));
+        messageQueue.add(mimeMessage);
+    }
+
     /**
      * Generates the properties of the utils server
      */

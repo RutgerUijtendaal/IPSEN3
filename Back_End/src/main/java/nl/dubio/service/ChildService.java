@@ -1,6 +1,7 @@
 package nl.dubio.service;
 
 import nl.dubio.models.Child;
+import nl.dubio.models.Couple;
 import nl.dubio.persistance.ChildDao;
 import nl.dubio.persistance.DaoRepository;
 
@@ -22,6 +23,8 @@ public class ChildService implements CrudService<Child> {
     public Child getById(Integer id) {
         return childDao.getById(id);
     }
+
+    public Child getByCouple(Couple couple) { return childDao.getByCouple(couple); }
 
     @Override
     public Integer save(Child child) {

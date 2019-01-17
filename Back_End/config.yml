@@ -38,7 +38,7 @@ daoRepository:
     columnNames: [week_nr, theme, feedback, periode]
   parentDao:
     tableName: parent
-    columnNames: [first_name, email, phone_nr]
+    columnNames: [first_name, email, phone_nr, token]
   resultDao:
     tableName: result
     columnNames: [parent_id, answer_id, date_dilemma_sent, date_dilemma_answered]

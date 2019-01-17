@@ -16,6 +16,8 @@ public class Parent implements DatabaseObject<Parent>, Authorizable {
     private String phoneNr;
     @JsonProperty
     private String email;
+    @JsonProperty
+    private String token;
 
     public Parent (String firstName, String phoneNr, String email) {
         this.phoneNr = phoneNr;
@@ -29,13 +31,15 @@ public class Parent implements DatabaseObject<Parent>, Authorizable {
         @JsonProperty("id") int id,
         @JsonProperty("phoneNr") String phoneNr,
         @JsonProperty("firstName") String firstName,
-        @JsonProperty("email") String email
+        @JsonProperty("email") String email,
+        @JsonProperty("token") String token
     )
     {
         this.id = id;
         this.phoneNr = phoneNr;
         this.firstName = firstName;
         this.email = email;
+        this.token = token;
     }
 
     public String getPhoneNr() { return phoneNr; }
@@ -46,6 +50,8 @@ public class Parent implements DatabaseObject<Parent>, Authorizable {
     public void setId(int id) { this.id = id; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+    public String getToken() { return this.token; }
+    public void setToken(String token) { this.token = token; }
 
     @Override
     public String toString() {
@@ -54,6 +60,7 @@ public class Parent implements DatabaseObject<Parent>, Authorizable {
                 ", phoneNr='" + phoneNr + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", email='" + email + '\'' +
+                ", token='" + token + "\'" +
                 '}';
     }
 

@@ -67,8 +67,8 @@ public class CoupleResource extends GenericResource<Couple> {
             allCouples.add(
                     new CoupleListModel(
                             i,
-                            new Parent(i, "user" + i, "+3156234234", i + "user@gmail.com"),
-                            new Parent(i+1, "user" + i+1, "+3156232344", i+1 + "user@gmail.com")
+                            new Parent(i, "user" + i, "+3156234234", i + "user@gmail.com", null),
+                            new Parent(i+1, "user" + i+1, "+3156232344", i+1 + "user@gmail.com", null)
                     )
             );
         }
