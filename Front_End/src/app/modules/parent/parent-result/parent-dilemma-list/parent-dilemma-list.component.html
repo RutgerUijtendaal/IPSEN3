@@ -10,7 +10,7 @@
         <img width="80px" src="assets/images/couple-list/no-results.png" alt="Laden...">
       </h3>
     </div>
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div cdkDropList class="example-list">
       <div class="box" *ngFor="let dilemma of parentService.filteredDilemmas">
         <app-parent-dilemma-in-list (click)="parentService.setActiveDilemma(dilemma);" [dilemma]="dilemma"></app-parent-dilemma-in-list>
       </div>

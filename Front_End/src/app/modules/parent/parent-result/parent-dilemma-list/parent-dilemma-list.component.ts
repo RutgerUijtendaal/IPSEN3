@@ -8,7 +8,10 @@ import {ParentService} from '../../parent.service';
 })
 export class ParentDilemmaListComponent implements OnInit {
 
-  constructor(private parentService: ParentService) {
+  parentService: ParentService;
+
+  constructor(parentService: ParentService) {
+    this.parentService = parentService;
   }
 
   ngOnInit() {
