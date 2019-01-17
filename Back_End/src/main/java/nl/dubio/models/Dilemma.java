@@ -14,13 +14,13 @@ public class Dilemma implements DatabaseObject<Dilemma> {
     @JsonProperty
     private String feedback;
     @JsonProperty
-    private String periode;
+    private String period;
 
-    public Dilemma (short weekNr, String theme, String feedback, String periode) {
+    public Dilemma (short weekNr, String theme, String feedback, String period) {
         this.weekNr = weekNr;
         this.theme = theme;
         this.feedback = feedback;
-        this.periode = periode;
+        this.period = period;
     }
 
     @JsonCreator
@@ -30,14 +30,14 @@ public class Dilemma implements DatabaseObject<Dilemma> {
         @JsonProperty("weekNr") short weekNr,
         @JsonProperty("theme") String theme,
         @JsonProperty("feedback") String feedback,
-        @JsonProperty("periode") String periode
+        @JsonProperty("period") String period
     )
     {
         this.id = id;
         this.weekNr = weekNr;
         this.theme = theme;
         this.feedback = feedback;
-        this.periode = periode;
+        this.period = period;
     }
 
     public int getId() { return id; }
@@ -48,8 +48,8 @@ public class Dilemma implements DatabaseObject<Dilemma> {
     public void setTheme(String theme) { this.theme = theme; }
     public String getFeedback() { return feedback; }
     public void setFeedback(String feedback) { this.feedback = feedback; }
-    public String getPeriode() { return periode; }
-    public void setPeriode(String periode) { this.periode = periode; }
+    public String getPeriod() { return period; }
+    public void setperiod(String period) { this.period = period; }
 
     @Override
     public String toString() {
@@ -58,7 +58,7 @@ public class Dilemma implements DatabaseObject<Dilemma> {
                 ", weekNr=" + weekNr +
                 ", theme='" + theme + '\'' +
                 ", feedback='" + feedback + '\'' +
-                ", periode='" + periode + '\'' +
+                ", period='" + period + '\'' +
                 '}';
     }
 }
