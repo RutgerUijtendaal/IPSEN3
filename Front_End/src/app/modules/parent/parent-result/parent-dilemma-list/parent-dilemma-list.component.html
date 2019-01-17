@@ -1,4 +1,4 @@
-<mdb-card class="col-md-3" style="margin-bottom: 10px;">
+<mdb-card class="col-md-3 rounded-corner" style="margin-bottom: 10px;">
   <mdb-card-header>
     <select [(ngModel)]="parentService.periodFilter" class="browser-default custom-select" (change)="onPeriodChange($event.target.value)">
       <option *ngFor="let period of parentService.periods" value="{{period.link}}">{{period.name}}</option>

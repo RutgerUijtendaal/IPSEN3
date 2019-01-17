@@ -1,6 +1,6 @@
-<mdb-card class="col-md-3" style="margin-bottom: 10px;">
+<mdb-card class="col-md-3 rounded-corner" style="margin-bottom: 10px;">
   <mdb-card-header>
-    <button (click)="newDilemma()" [ngClass]="'btn btn-' + newDilemmaButtonClass">{{ newDilemmaButtonText }}</button>
+    <button (click)="newDilemma()" [ngClass]="'btn-rounded btn btn-' + newDilemmaButtonClass">{{ newDilemmaButtonText }}</button>
     <select class="browser-default custom-select" (change)="onChange($event.target.value)">
       <option *ngFor="let period of periods" value="{{period.link}}">{{period.name}}</option>
     </select>
