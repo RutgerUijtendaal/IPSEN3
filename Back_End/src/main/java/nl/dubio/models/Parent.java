@@ -30,7 +30,7 @@ public class Parent implements DatabaseObject<Parent>, Authorizable {
     (
         @JsonProperty("id") int id,
         @JsonProperty("firstName") String firstName,
-        @JsonProperty("phoneNr") String phoneNr
+        @JsonProperty("phoneNr") String phoneNr,
         @JsonProperty("email") String email,
         @JsonProperty("token") String token
     )

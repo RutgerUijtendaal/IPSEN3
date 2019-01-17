@@ -59,7 +59,7 @@ public class ParentDao extends GenericDao<Parent> {
             String phone_number = resultSet.getString(columnNames[2]);
             String token = resultSet.getString(columnNames[3]);
 
-            return new Parent(id, first_name, phone_number, emailm token);
+            return new Parent(id, first_name, phone_number, email, token);
         } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
