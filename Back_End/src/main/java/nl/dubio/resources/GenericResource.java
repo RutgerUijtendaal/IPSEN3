@@ -1,6 +1,8 @@
 package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import io.dropwizard.auth.Auth;
+import nl.dubio.auth.Authorizable;
 import nl.dubio.models.DatabaseObject;
 import io.dropwizard.setup.Environment;
 import nl.dubio.models.Parent;
@@ -10,6 +12,7 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
 
 @Produces(MediaType.APPLICATION_JSON)
 public abstract class GenericResource<T extends DatabaseObject<T>> {
@@ -22,21 +25,21 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
 
     @GET
     @Timed
-    public List<T> getAll(){
+    public List<T> getAll(@Auth Optional<Authorizable> authorizable){
         return crudService.getAll();
     }
 
     @GET
     @Timed
     @Path("/{id}")
-    public T getById(@PathParam("id") Integer id){
+    public T getById(@Auth Optional<Authorizable> authorizable, @PathParam("id") Integer id){
         return crudService.getById(id);
     }
 
     @POST
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer save(@Valid T object){
+    public Integer save(@Auth Optional<Authorizable> authorizable, @Valid T object){
         return crudService.save(object);
     }
 
@@ -44,20 +47,20 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public boolean update(@Valid T object){
+    public boolean update(@Auth Optional<Authorizable> authorizable, @Valid T object){
         return crudService.update(object);
     }
 
     @DELETE
     @Timed
-    public boolean delete(@Valid T object){
+    public boolean delete(@Auth Optional<Authorizable> authorizable, @Valid T object){
         return crudService.delete(object);
     }
 
     @DELETE
     @Timed
     @Path("/{id}")
-    public boolean deleteById(@PathParam("id") Integer id){
+    public boolean deleteById(@Auth Optional<Authorizable> authorizable, @PathParam("id") Integer id){
         return crudService.deleteById(id);
     }
 
