@@ -1,5 +1,7 @@
 package nl.dubio;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import io.dropwizard.Application;
 import io.dropwizard.auth.*;
@@ -15,6 +17,7 @@ import nl.dubio.resources.FileUploadResource;
 import nl.dubio.resources.GenericResource;
 import nl.dubio.utils.MailUtility;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
@@ -56,8 +59,20 @@ public class ApiApplication extends Application<ApiConfiguration> {
                         .setAuthorizer(new ParentAuthorizer())
                         .setRealm("PARENT")
                         .buildAuthFilter();
+
         ArrayList<AuthFilter> filters = Lists.newArrayList(authFilterAdmin, authFilterParent);
-        environment.jersey().register(new AuthDynamicFeature(new ChainedAuthFilter(filters)));
+        ChainedAuthFilter chainedAuthFilter = new ChainedAuthFilter(filters);
+
+        final PolymorphicAuthDynamicFeature feature = new PolymorphicAuthDynamicFeature<>(
+                ImmutableMap.of(
+                        Admin.class, authFilterAdmin,
+                        Parent.class, authFilterParent,
+                        Authorizable.class, chainedAuthFilter));
+        final AbstractBinder binder = new PolymorphicAuthValueFactoryProvider.Binder<>(
+                ImmutableSet.of(Admin.class, Parent.class, Authorizable.class));
+
+        environment.jersey().register(feature);
+        environment.jersey().register(binder);
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(Authorizable.class));
     }
