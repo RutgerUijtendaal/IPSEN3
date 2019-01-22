@@ -168,12 +168,13 @@ public class CoupleService implements CrudService<Couple> {
         try {
             Dilemma dilemma;
 
-            // Check if the parent
+            // Get the dilemma
             if (!child.getIsBorn())
                 dilemma = dilemmaService.getByWeekNr((short) (ageInWeeks + 15), "voor");
             else
                 dilemma = dilemmaService.getByWeekNr(ageInWeeks, "na");
 
+            // Throw exception if the dilemma does not exists
             if (dilemma == null)
                 throw new NullPointerException();
 
@@ -188,7 +189,11 @@ public class CoupleService implements CrudService<Couple> {
             parentService.notifyDilemmaReady(parents[0], dilemma, couple.getToken());
             parentService.notifyDilemmaReady(parents[1], dilemma, couple.getToken());
         } catch (NullPointerException e) {
-//            e.printStackTrace();
+            parents[0].setToken(null);
+            parents[1].setToken(null);
+
+            parentService.update(parents[0]);
+            parentService.update(parents[1]);
         }
     }
 }

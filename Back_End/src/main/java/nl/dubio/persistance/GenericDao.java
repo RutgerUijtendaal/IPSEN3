@@ -92,13 +92,6 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
      * @return if the object was successfully updated
      */
     public boolean update(T updatedObject) {
-
-        System.out.println(daoSubclass.getColumnNames());
-
-        for (String column : daoSubclass.getColumnNames()) {
-            System.out.println(column);
-        }
-
         PreparedStatement statement = PreparedStatementFactory.createUpdateStatement(daoSubclass.getColumnNames(), daoSubclass.getTableName(), updatedObject.getId());
 
         daoSubclass.fillPreparedStatement(statement, updatedObject);
