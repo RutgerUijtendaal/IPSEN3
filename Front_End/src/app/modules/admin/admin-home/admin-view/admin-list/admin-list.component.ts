@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../../../../../app.component';
 import {AdminModel} from '../../../../../shared/models/admin.model';
 import {HttpClient} from '@angular/common/http';
-import {AdminListService} from '../admin-list.service';
+import {AdminListService} from './admin-list.service';
+import {AdminViewService} from '../admin-view.service';
 
 @Component({
   selector: 'app-admin-list',
@@ -21,9 +22,9 @@ export class AdminListComponent implements OnInit {
 
   oldSearch: string;
 
-  constructor(private httpClient: HttpClient, private service: AdminListService) {
+  constructor(private httpClient: HttpClient, private listService: AdminListService, private viewService: AdminViewService) {
     this.loadAdmins();
-    this.service.searchQuery.subscribe(searchQuery => this.updateList(searchQuery));
+    this.listService.searchQuery.subscribe(searchQuery => this.updateList(searchQuery));
   }
 
   resetAddAdminButton() {
@@ -35,23 +36,16 @@ export class AdminListComponent implements OnInit {
     this.allAdmins = [];
     this.shownAdmins = [];
     this.httpClient.get(this.URL + '/admin').subscribe(data => {
-      this.createAdminRecords(data as AdminModel[]);
+      this.allAdmins = data as AdminModel[];
       this.updateList('');
     });
   }
 
-  createAdminRecords(data: AdminModel[]) {
-    this.allAdmins = data;
-    this.allAdmins.sort((a1, a2) => a1.rightId > a2.rightId ? 1 : -1);
-    console.log(this.allAdmins.length);
-  }
-
   adminClicked(admin: AdminModel) {
-
+    this.viewService.admin = admin;
   }
 
   newAdmin() {
-
   }
 
   updateList(searchQuery: string) {
@@ -60,7 +54,6 @@ export class AdminListComponent implements OnInit {
     this.shownAdmins = this.allAdmins.filter( admin =>
       String(admin.email).includes(searchQuery)
     );
-    this.allAdmins.sort((a1, a2) => a1.rightId > a2.rightId ? 1 : -1);
     this.shownAdmins.sort((a1, a2) => a1.rightId > a2.rightId ? 1 : -1);
   }
 

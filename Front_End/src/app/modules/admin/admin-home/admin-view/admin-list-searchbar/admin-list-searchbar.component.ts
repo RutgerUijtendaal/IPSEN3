@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AdminListService} from '../admin-list.service';
+import {AdminListService} from '../admin-list/admin-list.service';
 
 @Component({
   selector: 'app-admin-list-searchbar',

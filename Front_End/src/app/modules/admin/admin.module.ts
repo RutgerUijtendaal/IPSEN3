@@ -22,7 +22,7 @@ import { DilemmaListService } from './admin-home/dilemma-view/dilemma-list/dilem
 import {DilemmaViewService} from './admin-home/dilemma-view/dilemma-view-service';
 import {FormsModule} from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import {AdminListService} from './admin-home/admin-view/admin-list.service';
+import {AdminListService} from './admin-home/admin-view/admin-list/admin-list.service';
 
 @NgModule({
   declarations: [
