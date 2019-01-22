@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AdminListService} from '../admin-list.service';
 
 @Component({
   selector: 'app-admin-list-searchbar',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminListSearchbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: AdminListService) {
+  }
+
+  newInput(event: any) {
+    this.service.searchQuery.next(event.value);
+  }
 
   ngOnInit() {
   }
