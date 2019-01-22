@@ -1,11 +1,9 @@
 package nl.dubio.service;
 
 import nl.dubio.ApiApplication;
-import nl.dubio.models.Answer;
-import nl.dubio.models.Couple;
-import nl.dubio.models.Parent;
-import nl.dubio.models.Result;
+import nl.dubio.models.*;
 import nl.dubio.persistance.DaoRepository;
+import nl.dubio.persistance.DilemmaDao;
 import nl.dubio.persistance.ParentDao;
 import nl.dubio.persistance.ResultDao;
 import nl.dubio.utils.MailUtility;
@@ -62,19 +60,26 @@ public class ResultService implements CrudService<Result> {
             Answer answerOne = answerService.getById(resultOne.getAnswerId());
             Answer answerTwo = answerService.getById(resultTwo.getAnswerId());
 
+            DilemmaDao dilemmaDao = DaoRepository.getDilemmaDao();
+            Dilemma dilemma = dilemmaDao.getById(answerOne.getDilemmaId());
+
             try {
                 MailUtility mailUtility = ApiApplication.getMailUtility();
                 mailUtility.addFeedbackMailToQueue(
                         parentOne.getEmail(),
-                        parentOne.getName(), parentTwo.getName(),
+                        parentOne.getFirstName(), parentTwo.getFirstName(),
+                        dilemma.getTheme(),
                         answerOne.getText(), answerTwo.getText(),
+                        dilemma.getFeedback(),
                         couple.getToken()
                 );
 
                 mailUtility.addFeedbackMailToQueue(
                         parentTwo.getEmail(),
-                        parentTwo.getName(), parentOne.getName(),
+                        parentTwo.getFirstName(), parentOne.getFirstName(),
+                        dilemma.getTheme(),
                         answerTwo.getText(), answerOne.getText(),
+                        dilemma.getFeedback(),
                         couple.getToken()
                 );
             } catch (MessagingException e) {

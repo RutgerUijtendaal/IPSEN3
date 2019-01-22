@@ -30,7 +30,7 @@ public class Dilemma implements DatabaseObject<Dilemma> {
         @JsonProperty("weekNr") short weekNr,
         @JsonProperty("theme") String theme,
         @JsonProperty("feedback") String feedback,
-        @JsonProperty("periode") String periode
+        @JsonProperty("period") String periode
     )
     {
         this.id = id;

@@ -48,13 +48,13 @@ public class Child implements DatabaseObject<Child> {
     public Date getDate() { return date; }
     public boolean getIsBorn() { return isBorn; }
 
-    public int getAgeInWeeks() {
+    public short getAgeInWeeks() {
         DateTime now = new DateTime();
         DateTime birthDate = new DateTime(date);
 
         Weeks weeks = Weeks.weeksBetween(birthDate, now);
 
-        return weeks.getWeeks();
+        return (short) weeks.getWeeks();
     }
 
     @Override

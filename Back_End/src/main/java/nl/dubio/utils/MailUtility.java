@@ -92,9 +92,15 @@ public class MailUtility {
         messageQueue.add(mimeMessage);
     }
 
-    public void addFeedbackMailToQueue(String to, String parentName, String partnerName, String answer, String partnerAnswer, String unregisterToken) throws MessagingException {
+    public void addFeedbackMailToQueue(String to, String parentName, String partnerName, String dilemmaName, String answer, String partnerAnswer, String feedback, String unregisterToken) throws MessagingException {
         final String subject = "Uw feedback!";
-        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getFeedbackMail(websiteUrl, parentName, partnerName, answer, partnerAnswer, unregisterToken));
+        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getFeedbackMail(websiteUrl, parentName, partnerName, dilemmaName, answer, partnerAnswer, feedback, unregisterToken));
+        messageQueue.add(mimeMessage);
+    }
+
+    public void addDilemmaReadyToQueue(String to, String parentName, String dilemmaName, String parentToken, String unregisterToken) throws MessagingException {
+        final String subject = "Er staat een nieuw dilemma klaar";
+        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getDilemmaReadymail(websiteUrl, parentName, dilemmaName, parentToken, unregisterToken));
         messageQueue.add(mimeMessage);
     }
 

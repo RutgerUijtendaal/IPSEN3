@@ -2,10 +2,12 @@ package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import nl.dubio.exceptions.InvalidAnswerException;
+import nl.dubio.models.Couple;
 import nl.dubio.models.Dilemma;
 import nl.dubio.models.Parent;
 import nl.dubio.models.Result;
 import nl.dubio.models.databag.AnswerDilemmaDatabag;
+import nl.dubio.service.CoupleService;
 import nl.dubio.service.DilemmaService;
 import nl.dubio.service.ParentService;
 import nl.dubio.service.ResultService;
@@ -27,9 +29,7 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     @Path("/answer/{token}")
     @Produces(MediaType.APPLICATION_JSON)
     public AnswerDilemmaDatabag getDilemmaForParent(@PathParam("token") String token) {
-        System.out.println("Sniggles");
         AnswerDilemmaDatabag databag = ((DilemmaService)crudService).getByParentToken(token);
-        System.out.println(databag.getDilemma().getWeekNr());
         return databag;
     }
 
@@ -47,12 +47,12 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     @GET
     @Path("/token-generate")
     public void tokenGenerator() {
-        ParentService service = new ParentService();
-        List<Parent> parents = service.getAll();
+        CoupleService coupleService = new CoupleService();
+        ParentService parentService = new ParentService();
+        List<Couple> couples = coupleService.getAll();
 
-        for (Parent parent : parents) {
-            parent.setToken(TokenGenerator.getToken());
-            service.update(parent);
+        for (Couple couple : couples) {
+            coupleService.createResultEntry(couple);
         }
     }
 

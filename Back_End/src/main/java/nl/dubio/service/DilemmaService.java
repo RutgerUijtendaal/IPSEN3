@@ -24,6 +24,10 @@ public class DilemmaService implements CrudService<Dilemma> {
         return dilemmaDao.getById(id);
     }
 
+    public Dilemma getByWeekNr(short week, String period) {
+        return dilemmaDao.getByWeekNr(week, period);
+    }
+
     public AnswerDilemmaDatabag getByParentToken(String token) {
         ParentService parentService = new ParentService();
         CoupleService coupleService = new CoupleService();
