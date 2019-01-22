@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/result")
 public class ResultResource extends GenericResource<Result> {
@@ -27,4 +28,8 @@ public class ResultResource extends GenericResource<Result> {
         return ((ResultService) crudService).getByParent(parentId.get());
     }
 
+    @Override
+    protected void checkAuthentication(Optional<Authorizable> authorizable, String request) {
+
+    }
 }

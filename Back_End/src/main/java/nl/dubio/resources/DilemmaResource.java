@@ -1,12 +1,14 @@
 package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import nl.dubio.auth.Authorizable;
 import nl.dubio.models.Dilemma;
 import nl.dubio.service.DilemmaService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Path("/dilemma")
@@ -30,5 +32,10 @@ public class DilemmaResource extends GenericResource<Dilemma> {
             return dilemma.getPeriod().equalsIgnoreCase(period);
         })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    protected void checkAuthentication(Optional<Authorizable> authorizable, String request) {
+
     }
 }
