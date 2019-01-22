@@ -37,8 +37,8 @@ public class DilemmaService implements CrudService<Dilemma> {
     }
 
     @Override
-    public boolean delete(Dilemma Dilemma) {
-        return dilemmaDao.delete(Dilemma);
+    public boolean delete(Dilemma dilemma) {
+        return dilemmaDao.delete(dilemma);
     }
 
     @Override

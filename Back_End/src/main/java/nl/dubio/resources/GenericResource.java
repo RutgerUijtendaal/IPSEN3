@@ -1,12 +1,14 @@
 package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.DatabaseObject;
 import io.dropwizard.setup.Environment;
 import nl.dubio.models.Parent;
 import nl.dubio.service.CrudService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -36,7 +38,7 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
     @POST
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer save(@Valid T object){
+    public Integer save(@Valid @NotNull T object) throws InvalidInputException {
         return crudService.save(object);
     }
 
@@ -44,13 +46,13 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public boolean update(@Valid T object){
+    public boolean update(@Valid @NotNull T object) throws InvalidInputException {
         return crudService.update(object);
     }
 
     @DELETE
     @Timed
-    public boolean delete(@Valid T object){
+    public boolean delete(@Valid @NotNull T object){
         return crudService.delete(object);
     }
 

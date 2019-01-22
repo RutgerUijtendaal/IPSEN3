@@ -33,13 +33,13 @@ public class ResultService implements CrudService<Result> {
     }
 
     @Override
-    public boolean update(Result Result) {
-        return resultDao.update(Result);
+    public boolean update(Result result) {
+        return resultDao.update(result);
     }
 
     @Override
-    public boolean delete(Result Result) {
-        return resultDao.delete(Result);
+    public boolean delete(Result result) {
+        return resultDao.delete(result);
     }
 
     @Override

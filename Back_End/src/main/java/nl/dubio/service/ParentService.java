@@ -4,6 +4,8 @@ import nl.dubio.models.Parent;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.ParentDao;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 public class ParentService implements CrudService<Parent> {
@@ -26,18 +28,19 @@ public class ParentService implements CrudService<Parent> {
     }
 
     @Override
-    public Integer save(Parent child) {
-        return parentDao.save(child);
+    public Integer save(Parent parent) {
+//        return parentDao.save(parent);
+        throw new WebApplicationException("oepsie woepsie", Response.Status.CONFLICT);
     }
 
     @Override
-    public boolean update(Parent Parent) {
-        return parentDao.update(Parent);
+    public boolean update(Parent parent) {
+        return parentDao.update(parent);
     }
 
     @Override
-    public boolean delete(Parent Parent) {
-        return parentDao.delete(Parent);
+    public boolean delete(Parent parent) {
+        return parentDao.delete(parent);
     }
 
     @Override

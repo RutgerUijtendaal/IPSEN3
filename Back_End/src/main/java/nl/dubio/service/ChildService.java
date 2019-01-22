@@ -29,13 +29,13 @@ public class ChildService implements CrudService<Child> {
     }
 
     @Override
-    public boolean update(Child Child) {
-        return childDao.update(Child);
+    public boolean update(Child child) {
+        return childDao.update(child);
     }
 
     @Override
-    public boolean delete(Child Child) {
-        return childDao.delete(Child);
+    public boolean delete(Child child) {
+        return childDao.delete(child);
     }
 
     @Override

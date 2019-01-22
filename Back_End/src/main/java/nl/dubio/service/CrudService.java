@@ -1,5 +1,6 @@
 package nl.dubio.service;
 
+import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.DatabaseObject;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public interface CrudService<T extends DatabaseObject<T>> {
 
      T getById(Integer id);
 
-     Integer save(T t);
+     Integer save(T t) throws InvalidInputException;
 
-     boolean update(T t);
+     boolean update(T t) throws InvalidInputException;
 
      boolean delete(T t);
 

@@ -29,13 +29,13 @@ public class AnswerService implements CrudService<Answer> {
     }
 
     @Override
-    public boolean update(Answer Answer) {
-        return answerDao.update(Answer);
+    public boolean update(Answer answer) {
+        return answerDao.update(answer);
     }
 
     @Override
-    public boolean delete(Answer Answer) {
-        return answerDao.delete(Answer);
+    public boolean delete(Answer answer) {
+        return answerDao.delete(answer);
     }
 
     @Override
