@@ -23,6 +23,7 @@ import {DilemmaViewService} from './admin-home/dilemma-view/dilemma-view-service
 import {FormsModule} from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {AdminListService} from './admin-home/admin-view/admin-list/admin-list.service';
+import {AdminViewService} from './admin-home/admin-view/admin-view.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {AdminListService} from './admin-home/admin-view/admin-list/admin-list.se
     CoupleListService,
     DilemmaListService,
     DilemmaViewService,
-    AdminListService
+    AdminListService,
+    AdminViewService
   ]
 })
 export class AdminModule {

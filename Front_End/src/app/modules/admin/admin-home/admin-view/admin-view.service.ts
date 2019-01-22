@@ -7,6 +7,7 @@ export class AdminViewService {
   admin: AdminModel;
 
   constructor() {
+    this.admin = null;
   }
 
 }

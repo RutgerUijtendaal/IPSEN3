@@ -18,16 +18,14 @@
           </table>
         </mdb-card-body>
       </mdb-card>
-      <mdb-card class="inside-card rounded-corner">
         <div class="buttons">
           <button [ngClass]="'rounded-corner btn btn-' + saveButtonClass" (click)="saveRequest()">{{ saveButtonText }}</button>
           <button class="rounded-corner btn btn-primary" (click)="resetDetails()">RESET</button>
           <button class="rounded-corner btn btn-danger" (click)="basicModal.show()">VERWIJDEREN</button>
         </div>
         <div style="font-size: 20px; text-align: center;" *ngIf="viewService.admin == null">
-          Klik op een dilemma!
+          Klik op een beheerder!
         </div>
-      </mdb-card>
     </div>
   </mdb-card-body>
 </mdb-card>
@@ -43,11 +41,11 @@
       </div>
       <div class="modal-body">
         <div class="modal-text">
-          Weet je zeker dat je dit dilemma uit het programma wilt verwijderen?
+          Weet je zeker dat je deze beheerder van het programma wilt verwijderen?
         </div>
       </div>
       <div class="justify-content-center modal-footer">
-        <button type="button" mdbBtn color="red" class="relative waves-light" (click)="deleteDilemma(); basicModal.hide()" mdbWavesEffect>Ja, verwijderen</button>
+        <button type="button" mdbBtn color="red" class="relative waves-light" (click)="deleteAdmin(); basicModal.hide()" mdbWavesEffect>Ja, verwijderen</button>
         <button type="button" mdbBtn color="blue" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Nee, annuleren</button>
       </div>
     </div>
