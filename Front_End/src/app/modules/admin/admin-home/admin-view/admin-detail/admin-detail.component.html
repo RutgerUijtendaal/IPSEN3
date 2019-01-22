@@ -11,21 +11,40 @@
               <td>Email:</td>
               <td><input class="text-input dilemma-theme" value="{{ viewService.admin.email }}"></td>
             </tr>
-            <tr>
-              <td>Password:</td>
-              <td><input class="text-input dilemma-feedback" value="{{ viewService.admin.password }}"></td>
-            </tr>
           </table>
         </mdb-card-body>
       </mdb-card>
-        <div class="buttons">
-          <button [ngClass]="'rounded-corner btn btn-' + saveButtonClass" (click)="saveRequest()">{{ saveButtonText }}</button>
-          <button class="rounded-corner btn btn-primary" (click)="resetDetails()">RESET</button>
-          <button class="rounded-corner btn btn-danger" (click)="basicModal.show()">VERWIJDEREN</button>
-        </div>
-        <div style="font-size: 20px; text-align: center;" *ngIf="viewService.admin == null">
-          Klik op een beheerder!
-        </div>
+      <mdb-card class="inside-card rounded-corner">
+        <mdb-card-header>
+          Rechten
+        </mdb-card-header>
+        <mdb-card-body>
+          <div class="radiobuttons col col-md-12">
+              <div class="radio-set col col-md-4">
+                <input class="radiobutton" (input)="rightsText = studentText" type="radio" id="student" name="rights" value="student" checked>
+                <label for="student">Student</label>
+              </div>
+              <div class="radio-set col col-md-4">
+                <input class="radiobutton" (input)="rightsText = medewerkerText" type="radio" id="medewerker" name="rights" value="medewerker">
+                <label for="medewerker">Medewerker</label>
+              </div>
+              <div class="radio-set col col-md-4">
+                <input class="radiobutton" (input)="rightsText = beheerderText" type="radio" id="beheerder" name="rights" value="beheerder">
+                <label for="beheerder">Beheerder</label>
+              </div>
+          </div>
+          <div class="rightstext">
+            {{ rightsText }}
+          </div>
+        </mdb-card-body>
+      </mdb-card>
+      <div class="buttons">
+        <button [ngClass]="'rounded-corner btn btn-' + saveButtonClass" (click)="saveRequest()">{{ saveButtonText }}</button>
+        <button class="rounded-corner btn btn-danger" (click)="basicModal.show()">VERWIJDEREN</button>
+      </div>
+    </div>
+    <div style="font-size: 20px; text-align: center;" *ngIf="viewService.admin == null">
+      Klik op een beheerder!
     </div>
   </mdb-card-body>
 </mdb-card>

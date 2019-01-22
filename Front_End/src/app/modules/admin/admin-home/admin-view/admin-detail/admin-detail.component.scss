@@ -92,12 +92,44 @@ mdb-card-header {
   font-size: 14px;
 }
 
-// @media all and (max-width: 1199px) { ... }
-// @media all and (max-width: 991px) { ... }
 @media all and (max-width: 768px) {
   .main-card {
     width: 100%;
     margin-left: 0;
   }
 }
-// @media all and (max-width: 575px) { ... }
+
+label {
+  font-weight: bold;
+}
+
+.radiobutton {
+}
+
+@media all and (max-width: 480px) {
+  #student, #medewerker, #beheerder {
+    min-width: 100%;
+  }
+  label {
+    min-width: 100%;
+  }
+  .radio-set {
+    min-width: 100%;
+  }
+}
+
+.col-md-4 {
+  text-align: center;
+}
+
+.rightstext {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.radiobuttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
