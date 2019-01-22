@@ -43,6 +43,15 @@ public class ResultDao extends GenericDao<Result> {
         return executeGetAll(preparedStatement);
     }
 
+    public Result getRecentByParentId(int id) {
+        // Query to check if the most recent dilemma has been answered
+        String query = "SELECT * FROM " + tableName + " WHERE " + columnNames[0] + " = ? ORDER BY id DESC LIMIT 1";
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+
+        fillParameter(statement,1, id);
+        return executeGetByAttribute(statement);
+    }
+
     @Override
     public Result createFromResultSet(ResultSet resultSet) {
         try {

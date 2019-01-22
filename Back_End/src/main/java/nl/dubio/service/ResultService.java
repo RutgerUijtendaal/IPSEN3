@@ -10,6 +10,7 @@ import nl.dubio.utils.MailUtility;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class ResultService implements CrudService<Result> {
@@ -44,9 +45,11 @@ public class ResultService implements CrudService<Result> {
         Parent parent = parentService.getByToken(token);
         Couple couple = coupleService.getByParent(parent);
 
-        Result result = getByParent(parent);
+        Result result = getRecentResultOfParent(parent);
 
         result.setAnswerId(answerId);
+        result.setAnsweredTime(new Timestamp(System.currentTimeMillis()));
+
         update(result);
 
         // Revoke access token
@@ -94,6 +97,10 @@ public class ResultService implements CrudService<Result> {
 
     public boolean bothHasAnswered(Couple couple) {
         return resultDao.isDilemmaAnswered(couple.getParent1Id()) && resultDao.isDilemmaAnswered(couple.getParent2Id());
+    }
+
+    public Result getRecentResultOfParent(Parent parent) {
+        return resultDao.getRecentByParentId(parent.getId());
     }
 
     @Override
