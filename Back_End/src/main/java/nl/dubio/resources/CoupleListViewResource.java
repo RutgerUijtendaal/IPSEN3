@@ -44,11 +44,8 @@ public class CoupleListViewResource {
     }
 
     @GET
-    @RolesAllowed(AdminRights.Constants.USERINFO)
-    public List<CoupleListModel> getAll(@Auth Authorizable authorizable) {
-        if (!(authorizable instanceof Admin)) {
-            throw new NotAuthorizedException("");
-        }
+    @RolesAllowed(AdminRights.Constants.DILEMMAS)
+    public List<CoupleListModel> getAll(@Auth Admin admin) {
         return this.coupleListService.getAll();
     }
 }
