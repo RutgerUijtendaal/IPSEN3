@@ -20,6 +20,10 @@ public class ChildService implements CrudService<Child> {
         coupleDao = DaoRepository.getCoupleDao();
     }
 
+    public Child getByCouple(int coupleId) {
+        return childDao.getByCouple(coupleDao.getById(coupleId));
+    }
+
     @Override
     public List<Child> getAll() {
         return childDao.getAll();
