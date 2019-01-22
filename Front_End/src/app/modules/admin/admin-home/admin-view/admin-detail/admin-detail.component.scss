@@ -100,11 +100,15 @@ mdb-card-header {
 }
 
 label {
-  font-weight: bold;
+  cursor: pointer;
 }
 
-.radiobutton {
+input:checked ~ label {
+  div {
+    background-color: #1e4768 !important;
+  }
 }
+
 
 @media all and (max-width: 480px) {
   #student, #medewerker, #beheerder {

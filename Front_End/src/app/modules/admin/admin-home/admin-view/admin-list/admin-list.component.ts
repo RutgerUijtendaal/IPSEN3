@@ -43,6 +43,7 @@ export class AdminListComponent implements OnInit {
 
   adminClicked(admin: AdminModel) {
     this.viewService.admin = admin;
+    this.viewService.adminClicked.next(0);
   }
 
   newAdmin() {
