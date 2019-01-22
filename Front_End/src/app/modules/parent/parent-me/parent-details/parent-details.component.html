@@ -1,0 +1,21 @@
+<mdb-card class="rounded-corner">
+  <mdb-card-header class="sub-header">
+    {{ parent.firstName }}
+  </mdb-card-header>
+  <mdb-card-body>
+    <div class="row">
+      <span class="col-md-3">Naam:</span>
+      <span class="col-md-9">{{ parent.firstName }}</span>
+    </div>
+    <hr>
+    <div class="row">
+      <span class="col-md-3">E-mail:</span>
+      <span class="col-md-9">{{ parent.email }}</span>
+    </div>
+    <hr>
+    <div class="row">
+      <span class="col-md-3">Tel.:</span>
+      <span class="col-md-9">{{ parent.phoneNr }}</span>
+    </div>
+  </mdb-card-body>
+</mdb-card>

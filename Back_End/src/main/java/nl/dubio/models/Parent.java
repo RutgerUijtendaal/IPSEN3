@@ -19,18 +19,18 @@ public class Parent implements DatabaseObject<Parent>, Authorizable {
     @JsonProperty
     private String token;
 
-    public Parent (String firstName, String phoneNr, String email) {
-        this.phoneNr = phoneNr;
+    public Parent (String firstName, String email, String phoneNr) {
         this.firstName = firstName;
         this.email = email;
+        this.phoneNr = phoneNr;
     }
 
     @JsonCreator
     public Parent
     (
         @JsonProperty("id") int id,
-        @JsonProperty("phoneNr") String phoneNr,
         @JsonProperty("firstName") String firstName,
+        @JsonProperty("phoneNr") String phoneNr,
         @JsonProperty("email") String email,
         @JsonProperty("token") String token
     )

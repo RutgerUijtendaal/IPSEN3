@@ -25,7 +25,9 @@ public class ParentService implements CrudService<Parent> {
 
     @Override
     public Parent getById(Integer id) {
-        return parentDao.getById(id);
+        Parent parent = parentDao.getById(id);
+        System.out.println(parent);
+        return parent;
     }
 
     public Parent getByToken(String token) { return parentDao.getByToken(token); }

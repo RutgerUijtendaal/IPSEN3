@@ -8,6 +8,7 @@ import nl.dubio.exceptions.FillPreparedStatementException;
 import nl.dubio.exceptions.ReadFromResultSetException;
 
 import java.sql.*;
+import java.util.List;
 
 /**
  * @author Bas de Bruyn
@@ -34,12 +35,12 @@ public class ResultDao extends GenericDao<Result> {
         return executeIsTrue(statement);
     }
 
-    public Result getByParentId(int id) {
+    public List<Result> getByParentId(int id) {
         PreparedStatement preparedStatement = PreparedStatementFactory.createSelectByAttributeStatement(tableName, columnNames[0]);
 
         fillParameter(preparedStatement,1, id);
 
-        return executeGetByAttribute(preparedStatement);
+        return executeGetAll(preparedStatement);
     }
 
     @Override

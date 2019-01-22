@@ -19,6 +19,10 @@ public class ResultService implements CrudService<Result> {
         this.resultDao = DaoRepository.getResultDao();
     }
 
+    public List<Result> getByParent(int parentId) {
+        return resultDao.getByParentId(parentId);
+    }
+
     @Override
     public List<Result> getAll() {
         return resultDao.getAll();
@@ -30,7 +34,7 @@ public class ResultService implements CrudService<Result> {
     }
 
     public Result getByParent(Parent parent) {
-        return resultDao.getByParentId(parent.getId());
+        return resultDao.getByParentId(parent.getId()).get(0);
     }
 
     public void updateResult(String token, int answerId) {

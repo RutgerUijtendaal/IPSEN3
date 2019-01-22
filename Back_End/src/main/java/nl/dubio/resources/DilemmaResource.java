@@ -58,16 +58,16 @@ public class DilemmaResource extends GenericResource<Dilemma> {
 
     @GET
     @Timed
-    @Path("/{periode}")
+    @Path("/{period}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
-    public List<Dilemma> getAllPeriode(@PathParam("periode") String periode){
+    public List<Dilemma> getAllperiod(@PathParam("period") String period){
         List<Dilemma> dilemmas = crudService.getAll();
         return dilemmas.stream().filter(dilemma -> {
-            if (dilemma.getPeriode() == null) {
+            if (dilemma.getPeriod() == null) {
                 return false;
             }
-            return dilemma.getPeriode().equalsIgnoreCase(periode);
+            return dilemma.getPeriod().equalsIgnoreCase(period);
         })
                 .collect(Collectors.toList());
     }
