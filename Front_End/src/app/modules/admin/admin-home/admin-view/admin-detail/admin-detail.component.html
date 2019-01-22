@@ -20,18 +20,12 @@
         </mdb-card-header>
         <mdb-card-body>
           <div class="radiobuttons col col-md-12">
-              <div class="radio-set col col-md-4">
-                <input hidden (input)="rightsText = studentText" type="radio" id="student" name="rights" value="student">
-                <label for="student"><div class="btn btn-primary rounded-corner">Student</div></label>
-              </div>
-              <div class="radio-set col col-md-4">
-                <input hidden (input)="rightsText = medewerkerText" type="radio" id="medewerker" name="rights" value="medewerker">
-                <label for="medewerker"><div class="btn btn-primary rounded-corner">Medewerker</div></label>
-              </div>
-              <div class="radio-set col col-md-4">
-                <input hidden (input)="rightsText = beheerderText" type="radio" id="beheerder" name="rights" value="beheerder">
-                <label for="beheerder"><div class="btn btn-primary rounded-corner">Beheerder</div></label>
-              </div>
+            <input hidden (input)="rightsText = studentText" type="radio" id="student" name="rights" value="student">
+            <label for="student"><div class="btn btn-primary rounded-corner">Student</div></label>
+            <input hidden (input)="rightsText = medewerkerText" type="radio" id="medewerker" name="rights" value="medewerker">
+            <label for="medewerker"><div class="btn btn-primary rounded-corner">Medewerker</div></label>
+            <input hidden (input)="rightsText = beheerderText" type="radio" id="beheerder" name="rights" value="beheerder">
+            <label for="beheerder"><div class="btn btn-primary rounded-corner">Beheerder</div></label>
           </div>
           <div class="rightstext">
             {{ rightsText }}
