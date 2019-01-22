@@ -42,6 +42,7 @@ public class CoupleResource extends GenericResource<Couple> {
     @POST
     @Path("/register")
     public int register(@Valid CoupleRegistry couple){
+        // System.out.println(couple.toString());
         return ((CoupleService) crudService).register(couple);
     }
 
