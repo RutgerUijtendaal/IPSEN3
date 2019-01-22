@@ -12,6 +12,7 @@ import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.Optional;
 
 @Path("/admin")
 public class AdminResource extends GenericResource<Admin> {
@@ -32,4 +33,8 @@ public class AdminResource extends GenericResource<Admin> {
         throw new NotAuthorizedException("");
     }
 
+    @Override
+    protected void checkAuthentication(Optional<Authorizable> authorizable, String request) {
+
+    }
 }

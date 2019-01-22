@@ -26,6 +26,7 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
     @GET
     @Timed
     public List<T> getAll(@Auth Optional<Authorizable> authorizable){
+        checkAuthentication(authorizable, "getAll");
         return crudService.getAll();
     }
 
@@ -33,6 +34,7 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
     @Timed
     @Path("/{id}")
     public T getById(@Auth Optional<Authorizable> authorizable, @PathParam("id") Integer id){
+        checkAuthentication(authorizable, "getID");
         return crudService.getById(id);
     }
 
@@ -40,6 +42,7 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     public Integer save(@Auth Optional<Authorizable> authorizable, @Valid T object){
+        checkAuthentication(authorizable, "insert");
         return crudService.save(object);
     }
 
@@ -48,12 +51,14 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public boolean update(@Auth Optional<Authorizable> authorizable, @Valid T object){
+        checkAuthentication(authorizable, "update");
         return crudService.update(object);
     }
 
     @DELETE
     @Timed
     public boolean delete(@Auth Optional<Authorizable> authorizable, @Valid T object){
+        checkAuthentication(authorizable, "delete");
         return crudService.delete(object);
     }
 
@@ -61,8 +66,11 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
     @Timed
     @Path("/{id}")
     public boolean deleteById(@Auth Optional<Authorizable> authorizable, @PathParam("id") Integer id){
+        checkAuthentication(authorizable, "deleteId");
         return crudService.deleteById(id);
     }
+
+    protected abstract void checkAuthentication(Optional<Authorizable> authorizable, String request);
 
     public static void initResources(Environment environment){
 

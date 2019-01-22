@@ -11,6 +11,7 @@ import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.Optional;
 
 @Path("/parent")
 public class ParentResource extends GenericResource<Parent> {
@@ -31,4 +32,8 @@ public class ParentResource extends GenericResource<Parent> {
         throw new NotAuthorizedException("");
     }
 
+    @Override
+    protected void checkAuthentication(Optional<Authorizable> authorizable, String request) {
+
+    }
 }
