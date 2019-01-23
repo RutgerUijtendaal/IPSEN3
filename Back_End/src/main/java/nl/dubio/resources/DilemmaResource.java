@@ -12,6 +12,7 @@ import nl.dubio.service.DilemmaService;
 import nl.dubio.service.ParentService;
 import nl.dubio.service.ResultService;
 import nl.dubio.utils.TokenGenerator;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -35,7 +36,8 @@ public class DilemmaResource extends GenericResource<Dilemma> {
 
     @POST
     @Path("/answer/{token}")
-    public void saveDilemmaAnswers(@PathParam("token") String token, @QueryParam("answerId") int answerId) {
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void saveDilemmaAnswers(@PathParam("token") String token, @FormParam("answerId") int answerId) {
         if (!((DilemmaService)crudService).validAnswer(token, answerId)) {
             throw new InvalidAnswerException();
         } else {
