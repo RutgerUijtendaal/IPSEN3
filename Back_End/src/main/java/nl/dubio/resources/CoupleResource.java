@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/couple")
 @Produces(MediaType.APPLICATION_JSON)
@@ -56,35 +57,8 @@ public class CoupleResource extends GenericResource<Couple> {
         return Response.ok().build();
     }
 
-    @GET
-    @Path("/getRegistry")
-    public CoupleRegistry getRegistry(){
-        return new CoupleRegistry(
-                "John",
-                "06-65984348",
-                "JohnDoe@foo.com",
-                "Jane",
-                "06-13487621",
-                "JaneDoe@bar.com",
-                true,
-                System.currentTimeMillis(),
-                "Test"
-        );
-    }
+    @Override
+    protected void checkAuthentication(Optional<Authorizable> authorizable, String request) {
 
-    @GET
-    @Path("/all-list")
-    public List<CoupleListModel> getAllCoupleList() {
-        List<CoupleListModel> allCouples = new ArrayList<>();
-        for (int i = 1; i < 100; i += 2) {
-            allCouples.add(
-                    new CoupleListModel(
-                            i,
-                            new Parent(i, "user" + i, "+3156234234", i + "user@gmail.com", null),
-                            new Parent(i+1, "user" + i+1, "+3156232344", i+1 + "user@gmail.com", null)
-                    )
-            );
-        }
-        return allCouples;
     }
 }

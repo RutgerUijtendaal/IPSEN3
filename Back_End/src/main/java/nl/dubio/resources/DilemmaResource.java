@@ -1,6 +1,7 @@
 package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import nl.dubio.auth.Authorizable;
 import nl.dubio.exceptions.InvalidAnswerException;
 import nl.dubio.models.Couple;
 import nl.dubio.models.Dilemma;
@@ -17,6 +18,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Path("/dilemma")
@@ -72,5 +74,10 @@ public class DilemmaResource extends GenericResource<Dilemma> {
             return dilemma.getPeriod().equalsIgnoreCase(period);
         })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    protected void checkAuthentication(Optional<Authorizable> authorizable, String request) {
+
     }
 }
