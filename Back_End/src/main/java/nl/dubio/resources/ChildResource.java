@@ -28,9 +28,4 @@ public class ChildResource extends GenericResource<Child> {
         return ((ChildService) crudService).getByCouple(coupleId.get());
     }
 
-    @Override
-    protected void checkAuthentication(Optional<Authorizable> authorizable, String request) {
-
-    }
-
 }

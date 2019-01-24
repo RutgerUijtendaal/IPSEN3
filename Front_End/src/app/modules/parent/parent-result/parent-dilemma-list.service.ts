@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {DilemmaModel} from "../../../shared/models/dilemma.model";
-import {AnswerModel} from "../../../shared/models/answer.model";
-import {Period} from "../../../shared/models/periode.model";
-import {ResultModel} from "../../../shared/models/result.model";
-import {ParentService} from "../parent.service";
+import {Injectable} from '@angular/core';
+import {DilemmaModel} from '../../../shared/models/dilemma.model';
+import {AnswerModel} from '../../../shared/models/answer.model';
+import {Period} from '../../../shared/models/periode.model';
+import {ResultModel} from '../../../shared/models/result.model';
+import {ParentService} from '../parent.service';
 
 @Injectable()
 export class ParentDilemmaListService {
@@ -55,7 +55,7 @@ export class ParentDilemmaListService {
     });
 
     if (parentResult) {
-      this.parentAnswer = this.parentService.answers.find(i => i.id === parentResult.answerId);
+      this.parentAnswer = this.parentService.answers.find(i => i.id === (parentResult !== undefined ? parentResult.answerId : 0));
     }
 
     const partnerResult: ResultModel = this.parentService.coupleResults[1].find(function(e: ResultModel) {
@@ -63,7 +63,7 @@ export class ParentDilemmaListService {
     });
 
     if (parentResult) {
-      this.partnerAnswer = this.parentService.answers.find(i => i.id === partnerResult.answerId);
+      this.partnerAnswer = this.parentService.answers.find(i => i.id === (parentResult !== undefined ? partnerResult.answerId : 0));
     }
   }
 }

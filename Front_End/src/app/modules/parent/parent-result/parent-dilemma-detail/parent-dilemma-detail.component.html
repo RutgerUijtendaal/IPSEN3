@@ -25,7 +25,7 @@
         <mdb-card-body>
           <table>
             <tr>
-              <td class="text-input answer-text"> {{ parentDilemmaService.parentAnswer.text }}</td>
+              <td class="text-input answer-text"> {{ parentDilemmaService.parentAnswer ? parentDilemmaService.parentAnswer.text : 'Niet Beantwoord' }}</td>
             </tr>
           </table>
         </mdb-card-body>
@@ -37,7 +37,7 @@
         <mdb-card-body>
           <table>
             <tr>
-              <td class="text-input answer-text"> {{ parentDilemmaService.partnerAnswer.text }}</td>
+              <td class="text-input answer-text"> {{ parentDilemmaService.partnerAnswer ? parentDilemmaService.partnerAnswer.text : 'Niet Beantwoorden' }}</td>
             </tr>
           </table>
         </mdb-card-body>

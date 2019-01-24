@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ParentDilemmaListService} from "../parent-dilemma-list.service";
+import {ParentDilemmaListService} from '../parent-dilemma-list.service';
 
 @Component({
   selector: 'app-parent-dilemma-list',

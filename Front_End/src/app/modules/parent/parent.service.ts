@@ -65,7 +65,7 @@ export class ParentService {
   private setActiveDilemmas() {
     for (const d of this.coupleResults[0]) {
       if (d.answerId !== 0) {
-        const answer: AnswerModel = this.answers.find(i => i.id === d.answerId);
+        const answer: AnswerModel = this.answers.find(i => i.id === (d ? d.answerId : 0));
         const dilemma: DilemmaModel = this.dilemmas.find(i => i.id === answer.dilemmaId);
         this.activeDilemmas.push(dilemma);
       }
