@@ -1,18 +1,13 @@
 package nl.dubio.resources;
 
+import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
-import nl.dubio.auth.AdminRights;
-import nl.dubio.auth.Authorizable;
 import nl.dubio.models.Admin;
 import nl.dubio.service.AdminService;
 
-import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import java.util.Optional;
+import java.util.List;
 
 @Path("/admin")
 public class AdminResource extends GenericResource<Admin> {
@@ -22,19 +17,10 @@ public class AdminResource extends GenericResource<Admin> {
     }
 
     @GET
-    @Path("/test")
-    @RolesAllowed(AdminRights.Constants.DILEMMAS)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getSecretPlan(@Auth Authorizable authorizable) {
-        if (authorizable instanceof Admin) {
-            Admin admin = (Admin) authorizable;
-            return admin.getEmail();
-        }
-        throw new NotAuthorizedException("");
+    @Timed
+    //TODO Roles Allowed
+    public List<Admin> getAll(@Auth Admin admin){
+        return crudService.getAll();
     }
 
-    @Override
-    protected void checkAuthentication(Optional<Authorizable> authorizable, String request) {
-
-    }
 }

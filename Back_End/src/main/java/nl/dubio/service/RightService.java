@@ -29,17 +29,22 @@ public class RightService implements CrudService<Right> {
     }
 
     @Override
-    public boolean update(Right Right) {
-        return rightDao.update(Right);
+    public boolean update(Right right) {
+        return rightDao.update(right);
     }
 
     @Override
-    public boolean delete(Right Right) {
-        return rightDao.delete(Right);
+    public boolean delete(Right right) {
+        return rightDao.delete(right);
     }
 
     @Override
     public boolean deleteById(Integer id) {
         return rightDao.deleteById(id);
+    }
+
+    @Override
+    public List<String> validate(Right right) {
+        return null;
     }
 }

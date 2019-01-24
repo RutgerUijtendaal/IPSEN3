@@ -30,7 +30,7 @@
             </tr>
           </table>
           <div class="image-buttons">
-            <button class="btn btn-primary" [disabled]="service.answer1.url == null" (click)="showFirstPic(); imgModal.show()">Huidig plaatje</button>
+            <button class="btn btn-primary" [disabled]="service.answer1.extension == null" (click)="showFirstPic(); imgModal.show()">Huidig plaatje</button>
             <input (change)="answer1FileInput($event)" hidden type="file" name="file" accept=".png, .jpg, .jpeg" id="answer1-file" class="file-input">
             <label class="btn btn-primary" [ngClass]="'btn btn-' + answer1Button" for="answer1-file">{{ answer1ButtonText }}</label>
           </div>
@@ -48,7 +48,7 @@
             </tr>
           </table>
           <div class="image-buttons">
-            <button class="btn btn-primary" [disabled]="service.answer2.url == null" (click)="showSecondPic(); imgModal.show()">Huidig plaatje</button>
+            <button class="btn btn-primary" [disabled]="service.answer2.extension == null" (click)="showSecondPic(); imgModal.show()">Huidig plaatje</button>
             <input (change)="answer2FileInput($event)" hidden type="file" name="file" accept=".png, .jpg, .jpeg" id="answer2-file" class="file-input">
             <label class="btn btn-primary" [ngClass]="'btn btn-' + answer2Button" for="answer2-file">{{ answer2ButtonText }}</label>
           </div>

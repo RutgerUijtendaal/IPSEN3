@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.dubio.auth.Authorizable;
 
-import java.security.Principal;
-
 public class Parent implements DatabaseObject<Parent>, Authorizable {
 
     @JsonProperty

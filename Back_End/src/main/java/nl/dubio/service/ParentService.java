@@ -1,7 +1,6 @@
 package nl.dubio.service;
 
 import nl.dubio.ApiApplication;
-import nl.dubio.models.Couple;
 import nl.dubio.models.Dilemma;
 import nl.dubio.models.Parent;
 import nl.dubio.persistance.DaoRepository;
@@ -41,7 +40,12 @@ public class ParentService implements CrudService<Parent> {
         MailUtility mailUtility = ApiApplication.getMailUtility();
 
         try {
-            mailUtility.addDilemmaReadyToQueue(parent.getEmail(), parent.getFirstName(), dilemma.getTheme(), parent.getToken(), unregisterToken);
+            mailUtility.addDilemmaReadyToQueue(
+                    parent.getEmail(),
+                    parent.getFirstName(),
+                    dilemma.getTheme(),
+                    parent.getToken(),
+                    unregisterToken);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -65,5 +69,10 @@ public class ParentService implements CrudService<Parent> {
     @Override
     public boolean deleteById(Integer id) {
         return parentDao.deleteById(id);
+    }
+
+    @Override
+    public List<String> validate(Parent parent) {
+        return null;
     }
 }

@@ -1,8 +1,11 @@
 package nl.dubio.service;
 
+import javassist.NotFoundException;
+import nl.dubio.exceptions.ClientException;
 import nl.dubio.models.*;
 import nl.dubio.models.databag.AnswerDilemmaDatabag;
-import nl.dubio.persistance.*;
+import nl.dubio.persistance.DaoRepository;
+import nl.dubio.persistance.DilemmaDao;
 
 import java.util.List;
 
@@ -28,7 +31,7 @@ public class DilemmaService implements CrudService<Dilemma> {
         return dilemmaDao.getByWeekNr(week, period);
     }
 
-    public AnswerDilemmaDatabag getByParentToken(String token) {
+    public AnswerDilemmaDatabag getByParentToken(String token) throws ClientException {
         ParentService parentService = new ParentService();
         CoupleService coupleService = new CoupleService();
         ChildService childService = new ChildService();
@@ -43,17 +46,25 @@ public class DilemmaService implements CrudService<Dilemma> {
 
         int age = child.getAgeInWeeks();
 
+        age = (age == 0) ? 1 : age;
+
         if (child.getIsBorn())
             dilemma = dilemmaDao.getByWeekNr(age, "voor");
         else
             dilemma = dilemmaDao.getByWeekNr(age, "na");
 
-        Answer[] answers = answerService.getByDilemma(dilemma);
+        Answer[] answers;
+
+        if(dilemma != null )
+            answers = answerService.getByDilemma(dilemma);
+        else
+            throw new ClientException(404, "No dilemma for this age");
+
 
         return new AnswerDilemmaDatabag(dilemma, answers);
     }
 
-    public boolean validAnswer(String token, int answerId) {
+    public boolean validAnswer(String token, int answerId) throws ClientException {
         boolean valid = false;
 
         AnswerDilemmaDatabag databag = getByParentToken(token);
@@ -82,12 +93,17 @@ public class DilemmaService implements CrudService<Dilemma> {
     }
 
     @Override
-    public boolean delete(Dilemma Dilemma) {
-        return dilemmaDao.delete(Dilemma);
+    public boolean delete(Dilemma dilemma) {
+        return dilemmaDao.delete(dilemma);
     }
 
     @Override
     public boolean deleteById(Integer id) {
         return dilemmaDao.deleteById(id);
+    }
+
+    @Override
+    public List<String> validate(Dilemma dilemma) {
+        return null;
     }
 }

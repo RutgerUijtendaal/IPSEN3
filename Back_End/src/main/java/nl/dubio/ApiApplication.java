@@ -4,12 +4,16 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import io.dropwizard.Application;
-import io.dropwizard.auth.*;
+import io.dropwizard.auth.AuthFilter;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.PolymorphicAuthDynamicFeature;
+import io.dropwizard.auth.PolymorphicAuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.auth.chained.ChainedAuthFilter;
 import io.dropwizard.setup.Environment;
 import nl.dubio.auth.*;
 import nl.dubio.config.ApiConfiguration;
+import nl.dubio.exceptionHandlers.ClientExceptionHandler;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.Admin;
 import nl.dubio.models.Parent;
@@ -23,7 +27,6 @@ import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
@@ -36,7 +39,7 @@ public class ApiApplication extends Application<ApiConfiguration> {
     }
 
     @Override
-    public void run(ApiConfiguration configuration, Environment environment){
+    public void run(ApiConfiguration configuration, Environment environment) {
         setupCORS(environment);
 
         PreparedStatementFactory.setConnectionFactory(configuration.getConnectionFactory());
@@ -44,6 +47,8 @@ public class ApiApplication extends Application<ApiConfiguration> {
         setupAuthentication(environment);
 
         GenericResource.initResources(environment);
+
+        environment.jersey().register(new ClientExceptionHandler());
 
         mailUtility = configuration.getMailUtility();
     }

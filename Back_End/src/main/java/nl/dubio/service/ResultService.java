@@ -4,12 +4,10 @@ import nl.dubio.ApiApplication;
 import nl.dubio.models.*;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.DilemmaDao;
-import nl.dubio.persistance.ParentDao;
 import nl.dubio.persistance.ResultDao;
 import nl.dubio.utils.MailUtility;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -109,17 +107,22 @@ public class ResultService implements CrudService<Result> {
     }
 
     @Override
-    public boolean update(Result Result) {
-        return resultDao.update(Result);
+    public boolean update(Result result) {
+        return resultDao.update(result);
     }
 
     @Override
-    public boolean delete(Result Result) {
-        return resultDao.delete(Result);
+    public boolean delete(Result result) {
+        return resultDao.delete(result);
     }
 
     @Override
     public boolean deleteById(Integer id) {
         return resultDao.deleteById(id);
+    }
+
+    @Override
+    public List<String> validate(Result result) {
+        return null;
     }
 }

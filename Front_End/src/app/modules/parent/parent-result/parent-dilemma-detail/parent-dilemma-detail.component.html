@@ -1,6 +1,6 @@
 <mdb-card class="main-card col-md-9 rounded-corner">
   <mdb-card-body>
-    <div *ngIf="parentService.activeDilemma != null">
+    <div *ngIf="parentDilemmaService.activeDilemma != null">
       <mdb-card class="inside-card">
         <mdb-card-header class="dilemma-header">
           Dilemma
@@ -9,11 +9,11 @@
           <table>
             <tr>
               <td>Thema:</td>
-              <td class="text-input dilemma-theme">{{ parentService.activeDilemma.theme }}</td>
+              <td class="text-input dilemma-theme">{{ parentDilemmaService.activeDilemma.theme }}</td>
             </tr>
             <tr>
               <td>Feedback:</td>
-              <td class="text-input dilemma-feedback">{{ parentService.activeDilemma.feedback }}</td>
+              <td class="text-input dilemma-feedback">{{ parentDilemmaService.activeDilemma.feedback }}</td>
             </tr>
           </table>
         </mdb-card-body>
@@ -24,11 +24,8 @@
         </mdb-card-header>
         <mdb-card-body>
           <table>
-            <tr *ngIf="parentService.parentAnswer.text != ''">
-              <td class="text-input answer-text"> {{ parentService.parentAnswer.text }}</td>
-            </tr>
-            <tr *ngIf="parentService.parentAnswer.url != null">
-              <td><img class="img-fluid" src="{{'https://dubio-groep9.nl/.answer-images/' + parentService.parentAnswer.id + parentService.parentAnswer.url}}" alt=""></td>
+            <tr>
+              <td class="text-input answer-text"> {{ parentDilemmaService.parentAnswer ? parentDilemmaService.parentAnswer.text : 'Niet Beantwoord' }}</td>
             </tr>
           </table>
         </mdb-card-body>
@@ -39,17 +36,14 @@
         </mdb-card-header>
         <mdb-card-body>
           <table>
-            <tr *ngIf="parentService.partnerAnswer.text != ''">
-              <td class="text-input answer-text"> {{ parentService.partnerAnswer.text }}</td>
-            </tr>
-            <tr *ngIf="parentService.partnerAnswer.url != null">
-              <td><img class="img-fluid" src="{{'https://dubio-groep9.nl/.answer-images/' + parentService.partnerAnswer.id + parentService.partnerAnswer.url}}" alt=""></td>
+            <tr>
+              <td class="text-input answer-text"> {{ parentDilemmaService.partnerAnswer ? parentDilemmaService.partnerAnswer.text : 'Niet Beantwoorden' }}</td>
             </tr>
           </table>
         </mdb-card-body>
       </mdb-card>
     </div>
-    <div style="font-size: 20px; text-align: center; transform: translateX(-1%);" *ngIf="parentService.activeDilemma == null">
+    <div style="font-size: 20px; text-align: center; transform: translateX(-1%);" *ngIf="parentDilemmaService.activeDilemma == null">
       Klik op een dilemma!
     </div>
   </mdb-card-body>

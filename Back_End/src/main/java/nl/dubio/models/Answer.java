@@ -10,13 +10,13 @@ public class Answer implements DatabaseObject<Answer> {
     @JsonProperty
     private int dilemmaId;
     @JsonProperty
-    private String url;
+    private String extension;
     @JsonProperty
     private String text;
 
-    public Answer (int dilemmaId, String url, String text) {
+    public Answer (int dilemmaId, String extension, String text) {
         this.dilemmaId = dilemmaId;
-        this.url = url;
+        this.extension = extension;
         this.text = text;
     }
 
@@ -25,32 +25,32 @@ public class Answer implements DatabaseObject<Answer> {
     (
         @JsonProperty("id") int id,
         @JsonProperty("dilemmaId") int dilemmaId,
-        @JsonProperty("url") String url,
+        @JsonProperty("extension") String extension,
         @JsonProperty("text") String text
     )
     {
         this.id = id;
         this.dilemmaId = dilemmaId;
-        this.url = url;
+        this.extension = extension;
         this.text = text;
     }
 
     public void setId(int id) { this.id = id; }
     public void setText(String text) { this.text = text; }
-    public void setUrl(String url) { this.url = url; }
+    public void setExtension(String extension) { this.extension = extension; }
     public void setDilemmaId(int dilemmaId) { this.dilemmaId = dilemmaId; }
     public int getId() { return id; }
     public String getText() { return text; }
-    public String getUrl() { return url; }
+    public String getExtension() { return extension; }
     public int getDilemmaId() { return dilemmaId; }
-    public boolean hasImage() { return this.url != null; }
+    public boolean hasImage() { return this.extension != null; }
 
     @Override
     public String toString() {
         return "Answer{" +
                 "id=" + id +
                 ", dilemmaId=" + dilemmaId +
-                ", url='" + url + '\'' +
+                ", extension='" + extension + '\'' +
                 ", text='" + text + '\'' +
                 '}';
     }

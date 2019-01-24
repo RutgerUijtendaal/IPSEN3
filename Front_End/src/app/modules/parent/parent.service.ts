@@ -10,27 +10,21 @@ import {ParentModel} from '../../shared/models/parent.model';
 import {ResultModel} from '../../shared/models/result.model';
 import {AnswerModel} from '../../shared/models/answer.model';
 import {DilemmaModel} from '../../shared/models/dilemma.model';
+import {ChildModel} from "../../shared/models/child.model";
 
 @Injectable()
 export class ParentService {
 
   private URL = AppComponent.environment.server;
 
-  private accountModel: AccountModel;
+  accountModel: AccountModel;
 
   couple: CoupleModel;
+  child: ChildModel;
   coupleResults: [ResultModel[], ResultModel[]] = [[], []];
   dilemmas: DilemmaModel[] = [];
   answers: AnswerModel[] = [];
-
-  periods: Period[] = [];
   activeDilemmas: DilemmaModel[] = [];
-  filteredDilemmas: DilemmaModel[] = [];
-
-  periodFilter: string;
-  activeDilemma: DilemmaModel = null;
-  parentAnswer: AnswerModel = null;
-  partnerAnswer: AnswerModel = null;
 
   coupleIsLoading = false;
   resultsIsLoading = false;
@@ -39,40 +33,6 @@ export class ParentService {
               private httpClient: HttpClient) {
     this.accountModel = authenticationService.accountModel;
     this.loadCouple();
-    this.periods.push(new Period('voor', 'Voor Geboorte'));
-    this.periods.push(new Period('na', 'Na Geboorte'));
-    this.periodFilter = this.periods[0].link;
-  }
-
-  setActiveDilemma(dilemma: DilemmaModel) {
-    this.activeDilemma = dilemma;
-    this.parentAnswer = null;
-    this.partnerAnswer = null;
-
-    const possibleAnswers = this.answers.filter(i => i.dilemmaId === dilemma.id);
-
-    const parentResult: ResultModel = this.coupleResults[0].find(function(e: ResultModel) {
-      return e.answerId === possibleAnswers[0].id || e.answerId === possibleAnswers[1].id;
-    });
-
-    if (parentResult) {
-      this.parentAnswer = this.answers.find(i => i.id === parentResult.answerId);
-    }
-
-    const partnerResult: ResultModel = this.coupleResults[1].find(function(e: ResultModel) {
-      return e.answerId === possibleAnswers[0].id || e.answerId === possibleAnswers[1].id;
-    });
-
-    if (parentResult) {
-      this.partnerAnswer = this.answers.find(i => i.id === partnerResult.answerId);
-    }
-
-
-  }
-
-  filterDilemmas(period: string) {
-    this.periodFilter = period;
-    this.filteredDilemmas = this.activeDilemmas.filter(i => i.period === period);
   }
 
   private loadCouple() {
@@ -96,7 +56,7 @@ export class ParentService {
           }
 
           this.couple = new CoupleModel(data['id'], parent1, parent2);
-          this.loadResultsData();
+          this.loadData();
         });
       })
     ).subscribe();
@@ -104,33 +64,38 @@ export class ParentService {
 
   private setActiveDilemmas() {
     for (const d of this.coupleResults[0]) {
-      const answer: AnswerModel = this.answers.find(i => i.id === d.answerId);
-      const dilemma: DilemmaModel = this.dilemmas.find(i => i.id === answer.dilemmaId);
-      this.activeDilemmas.push(dilemma);
-    }
-
-    this.filterDilemmas(this.periodFilter);
-
-    if (this.filteredDilemmas.length < 1) {
-      this.filterDilemmas('na');
+      if (d.answerId !== 0) {
+        const answer: AnswerModel = this.answers.find(i => i.id === (d ? d.answerId : 0));
+        const dilemma: DilemmaModel = this.dilemmas.find(i => i.id === answer.dilemmaId);
+        this.activeDilemmas.push(dilemma);
+      }
     }
   }
 
-  private loadResultsData() {
+  private loadData() {
     this.resultsIsLoading = true;
 
     const dilemmas$ = this.getDilemmas$();
-    const answers$ = this. getAnswers$();
+    const answers$ = this.getAnswers$();
+    const getChild$ = this.getChild$();
     const parent1Results$ = this.getResults$(this.couple.parent1.id, 0);
     const parent2Results$ = this.getResults$(this.couple.parent2.id, 1);
 
-    forkJoin([parent1Results$, parent2Results$]).subscribe( () => {
+    forkJoin([parent1Results$, parent2Results$, getChild$]).subscribe( () => {
       this.coupleIsLoading = false;
       forkJoin([dilemmas$, answers$]).subscribe( () => {
           this.resultsIsLoading = false;
           this.setActiveDilemmas();
       });
     });
+  }
+
+  private getChild$() {
+    return this.httpClient.get<ChildModel>(this.URL + '/child/couple/' + this.couple.coupleId).pipe(
+      map((child: ChildModel) => {
+        this.child = child;
+      })
+    )
   }
 
   private getDilemmas$() {
@@ -204,7 +169,3 @@ export class ParentService {
 
 }
 
-class Period {
-  constructor(public link: string, public name: string) {
-  }
-}

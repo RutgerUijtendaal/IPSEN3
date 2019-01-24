@@ -1,8 +1,6 @@
 package nl.dubio.service;
 
-import jdk.nashorn.internal.parser.Token;
 import nl.dubio.ApiApplication;
-import nl.dubio.exceptions.ReadFromResultSetException;
 import nl.dubio.models.*;
 import nl.dubio.persistance.CoupleDao;
 import nl.dubio.persistance.DaoRepository;
@@ -12,8 +10,6 @@ import nl.dubio.utils.TokenGenerator;
 
 import javax.mail.MessagingException;
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.core.Response.Status;
-import javax.xml.ws.WebServiceException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
@@ -64,6 +60,11 @@ public class CoupleService implements CrudService<Couple> {
     @Override
     public boolean deleteById(Integer id) {
         return coupleDao.deleteById(id);
+    }
+
+    @Override
+    public List<String> validate(Couple couple) {
+        return null;
     }
 
     public void unregister(String token) throws NotFoundException {
@@ -136,13 +137,13 @@ public class CoupleService implements CrudService<Couple> {
             errors.add("The email of parent 2 is not valid");
 
         // If on the same date both born and expected are possible so we let it through
-        if(registry.getDate().compareTo(currentDate) != 0) {
+        if (registry.getDate().compareTo(currentDate) != 0) {
             if (registry.getIsBorn()) {
-                if (registry.getDate().compareTo(new Date(System.currentTimeMillis())) > 0)
-                    errors.add("The birth date of the baby is not valid");
+                if (registry.getDate().compareTo(currentDate) > 0)
+                    errors.add("Invalid birth date");
             }
-            else if (registry.getDate().compareTo(new Date(System.currentTimeMillis())) < 0)
-                errors.add("The birth date of the baby is not valid");
+            else if (registry.getDate().compareTo(currentDate) < 0)
+                errors.add("Invalid birth date");
         }
 
         if (!ValidationService.isValidPassword(registry.getPassword()))
