@@ -21,10 +21,23 @@ public class DilemmaDao extends GenericDao<Dilemma> {
         super(tableName, columnNames);
     }
 
+    @Deprecated
     public Dilemma getByWeekNr(int week) {
         PreparedStatement statement = PreparedStatementFactory.createSelectByAttributeStatement(tableName, columnNames[0]);
 
         fillParameter(statement, 1, week);
+
+        return executeGetByAttribute(statement);
+    }
+
+    public Dilemma getByWeekNr(int week, String periode) {
+        PreparedStatement statement = PreparedStatementFactory.createSelectByAttributeStatement(tableName, new String[] {
+                columnNames[0],
+                columnNames[3]
+        });
+
+        fillParameter(statement, 1, week);
+        fillParameter(statement, 2, periode);
 
         return executeGetByAttribute(statement);
     }

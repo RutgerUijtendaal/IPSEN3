@@ -60,6 +60,21 @@ public class PreparedStatementFactory {
         return createPreparedStatement(query);
     }
 
+    public static PreparedStatement createSelectByAttributeStatement(String table, String[] attributes){
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (String attribute : attributes) {
+            stringBuilder.append(attribute + " = ? AND ");
+        }
+
+        String attributeString = stringBuilder.toString();
+        attributeString = attributeString.substring(0, attributeString.lastIndexOf("AND") - 1);
+
+        String query = "SELECT * FROM " + table + " WHERE " + attributeString + ";";
+
+        return createPreparedStatement(query);
+    }
+
     public static PreparedStatement createInsertStatement(String table, String[] columnNames){
         String query = "INSERT INTO " + table + "(";
 

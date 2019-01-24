@@ -1,9 +1,9 @@
 package nl.dubio.service;
 
+import jdk.nashorn.internal.parser.Token;
 import nl.dubio.ApiApplication;
-import nl.dubio.models.Couple;
-import nl.dubio.models.CoupleRegistry;
-import nl.dubio.models.Parent;
+import nl.dubio.exceptions.ReadFromResultSetException;
+import nl.dubio.models.*;
 import nl.dubio.persistance.CoupleDao;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.ParentDao;
@@ -17,6 +17,7 @@ import javax.xml.ws.WebServiceException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class CoupleService implements CrudService<Couple> {
     public Couple getById(Integer id) {
         return coupleDao.getById(id);
     }
+
+    public Couple getByParent(Parent parent) { return coupleDao.getByParent(parent); }
 
     @Override
     public Integer save(Couple couple) {
@@ -148,5 +151,49 @@ public class CoupleService implements CrudService<Couple> {
         return errors;
     }
 
+    public void createResultEntry(Couple couple) {
+        ParentService parentService = new ParentService();
+        ChildService childService = new ChildService();
 
+        DilemmaService dilemmaService = new DilemmaService();
+        ResultService resultService = new ResultService();
+
+        Parent[] parents = new Parent[2];
+        parents[0] = parentService.getById(couple.getParent1Id());
+        parents[1] = parentService.getById(couple.getParent2Id());
+
+        Child child = childService.getByCouple(couple);
+        short ageInWeeks = child.getAgeInWeeks();
+
+        try {
+            Dilemma dilemma;
+
+            // Get the dilemma
+            if (!child.getIsBorn())
+                dilemma = dilemmaService.getByWeekNr((short) (ageInWeeks + 15), "voor");
+            else
+                dilemma = dilemmaService.getByWeekNr(ageInWeeks, "na");
+
+            // Throw exception if the dilemma does not exists
+            if (dilemma == null)
+                throw new NullPointerException();
+
+            for (Parent parent : parents) {
+                Result result = new Result(parent.getId(), null, new Timestamp(System.currentTimeMillis()), null);
+                resultService.save(result);
+
+                parent.setToken(TokenGenerator.getToken());
+                parentService.update(parent);
+            }
+
+            parentService.notifyDilemmaReady(parents[0], dilemma, couple.getToken());
+            parentService.notifyDilemmaReady(parents[1], dilemma, couple.getToken());
+        } catch (NullPointerException e) {
+            parents[0].setToken(null);
+            parents[1].setToken(null);
+
+            parentService.update(parents[0]);
+            parentService.update(parents[1]);
+        }
+    }
 }

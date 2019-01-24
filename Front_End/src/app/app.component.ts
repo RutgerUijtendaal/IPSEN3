@@ -8,15 +8,7 @@ import { environment as prodEnv } from '../environments/environment.prod';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  static environment: any;
+  static environment: any = devEnv;
 
   title = 'Dubio';
-
-  constructor() {
-    if (isDevMode()) {
-      AppComponent.environment = devEnv;
-    } else {
-      AppComponent.environment = prodEnv;
-    }
-  }
 }
