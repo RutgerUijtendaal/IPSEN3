@@ -42,6 +42,14 @@ public class ParentDao extends GenericDao<Parent> {
         return executeGetByAttribute(preparedStatement);
     }
 
+    public Parent getByToken(String token) {
+        PreparedStatement preparedStatement = PreparedStatementFactory.createSelectByAttributeStatement(tableName, columnNames[3]);
+
+        fillParameter(preparedStatement,1, token);
+
+        return executeGetByAttribute(preparedStatement);
+    }
+
     @Override
     public Parent createFromResultSet(ResultSet resultSet){
         try {
@@ -49,8 +57,9 @@ public class ParentDao extends GenericDao<Parent> {
             String first_name = resultSet.getString(columnNames[0]);
             String email = resultSet.getString(columnNames[1]);
             String phone_number = resultSet.getString(columnNames[2]);
+            String token = resultSet.getString(columnNames[3]);
 
-            return new Parent(id, first_name, email, phone_number);
+            return new Parent(id, first_name, phone_number, email, token);
         } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
@@ -62,6 +71,7 @@ public class ParentDao extends GenericDao<Parent> {
             preparedStatement.setString(1, parent.getFirstName());
             preparedStatement.setString(2, parent.getEmail());
             preparedStatement.setString(3, parent.getPhoneNr());
+            preparedStatement.setString(4, parent.getToken());
         } catch (SQLException exception){
             throw new FillPreparedStatementException();
         }

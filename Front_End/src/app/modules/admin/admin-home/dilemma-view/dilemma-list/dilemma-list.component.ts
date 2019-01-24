@@ -45,7 +45,7 @@ export class DilemmaListComponent implements OnInit {
     this.httpClient.get(this.URL + '/dilemma/' + period).subscribe(data =>
       this.createDilemmaRecords(data as DilemmaModel[])
     );
-    this.allDilemmas.sort(dilemma => dilemma.weekNr);
+    this.allDilemmas.sort((d1, d2) => d1.weekNr > d2.weekNr ? 1 : -1);
   }
 
   loadAnswers() {
@@ -56,15 +56,7 @@ export class DilemmaListComponent implements OnInit {
   }
 
   createDilemmaRecords(data: DilemmaModel[]) {
-    data.forEach(dilemma => {
-        const id = dilemma.id;
-        const weekNr = dilemma.weekNr;
-        const theme = dilemma.theme;
-        const feedback = dilemma.feedback;
-        const period = dilemma.period;
-        const dilemmaModel: DilemmaModel = new DilemmaModel(id, weekNr, theme, feedback, period);
-        this.allDilemmas.push(dilemmaModel);
-      });
+    this.allDilemmas = data;
     this.allDilemmas.sort((d1, d2) => d1.weekNr > d2.weekNr ? 1 : -1);
     this.updateList('');
   }
@@ -93,15 +85,7 @@ export class DilemmaListComponent implements OnInit {
   }
 
   createAnswerRecords(data: AnswerModel[]) {
-    data.forEach(answer => {
-        const id = answer.id;
-        const dilemmaId = answer.dilemmaId;
-        const url = answer.url;
-        const text = answer.text;
-        const answerModel: AnswerModel = new AnswerModel(id, dilemmaId, url, text);
-        this.allAnswers.push(answerModel);
-      }
-    );
+    this.allAnswers = data;
     this.updateList('');
   }
 

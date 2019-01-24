@@ -1,11 +1,14 @@
 package nl.dubio.service;
 
+import nl.dubio.ApiApplication;
+import nl.dubio.models.Couple;
+import nl.dubio.models.Dilemma;
 import nl.dubio.models.Parent;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.ParentDao;
+import nl.dubio.utils.MailUtility;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
+import javax.mail.MessagingException;
 import java.util.List;
 
 public class ParentService implements CrudService<Parent> {
@@ -27,29 +30,40 @@ public class ParentService implements CrudService<Parent> {
         return parent;
     }
 
-    @Override
-    public Integer save(Parent parent) {
-//        return parentDao.save(parent);
-        throw new WebApplicationException("oepsie woepsie", Response.Status.CONFLICT);
-    }
+    public Parent getByToken(String token) { return parentDao.getByToken(token); }
 
-    @Override
-    public boolean update(Parent parent) {
+    public boolean revokeTokenAccess(Parent parent) {
+        parent.setToken(null);
         return parentDao.update(parent);
     }
 
+    public void notifyDilemmaReady(Parent parent, Dilemma dilemma, String unregisterToken) {
+        MailUtility mailUtility = ApiApplication.getMailUtility();
+
+        try {
+            mailUtility.addDilemmaReadyToQueue(parent.getEmail(), parent.getFirstName(), dilemma.getTheme(), parent.getToken(), unregisterToken);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
-    public boolean delete(Parent parent) {
-        return parentDao.delete(parent);
+    public Integer save(Parent child) {
+        return parentDao.save(child);
+    }
+
+    @Override
+    public boolean update(Parent Parent) {
+        return parentDao.update(Parent);
+    }
+
+    @Override
+    public boolean delete(Parent Parent) {
+        return parentDao.delete(Parent);
     }
 
     @Override
     public boolean deleteById(Integer id) {
         return parentDao.deleteById(id);
-    }
-
-    @Override
-    public List<String> validate(Parent parent) {
-        return null;
     }
 }

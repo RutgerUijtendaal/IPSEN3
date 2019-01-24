@@ -5,7 +5,7 @@ export class ParentModel {
   public phoneNr: string;
   public password = '';
 
-  constructor(firstName: string, phoneNr: string, email: string, password = '') {
+  constructor(firstName: string, email: string, phoneNr: string, password = '') {
     this.firstName = firstName;
     this.email = email;
     this.phoneNr = phoneNr;

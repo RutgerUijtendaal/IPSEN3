@@ -2,6 +2,7 @@ package nl.dubio.service;
 
 import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Answer;
+import nl.dubio.models.Dilemma;
 import nl.dubio.persistance.AnswerDao;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.DilemmaDao;
@@ -32,6 +33,8 @@ public class AnswerService implements CrudService<Answer> {
     public Answer getById(Integer id) {
         return answerDao.getById(id);
     }
+
+    public Answer[] getByDilemma(Dilemma dilemma) { return answerDao.getByDilemmaId(dilemma.getId()); }
 
     @Override
     public Integer save(Answer answer) throws InvalidInputException {

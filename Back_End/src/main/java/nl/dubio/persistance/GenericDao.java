@@ -149,6 +149,7 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
             System.out.println("!!!!" + preparedStatement.toString());
             preparedStatement.execute();
         } catch (SQLException exception){
+            exception.printStackTrace();
             throw new ExecutePreparedStatementException();
         }
     }

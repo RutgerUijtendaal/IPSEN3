@@ -57,13 +57,13 @@ public class CoupleDao extends GenericDao<Couple> {
         ChildDao childDao = DaoRepository.getChildDao();
 
         Parent parent1 = new Parent(registry.getFirstName1(),
-                registry.getPhoneNr1(),
-                registry.getEmail1());
+                registry.getEmail1(),
+                registry.getPhoneNr1());
         int parent1Id = parentDao.save(parent1);
 
         Parent parent2 = new Parent(registry.getFirstName2(),
-                registry.getPhoneNr2(),
-                registry.getEmail2());
+                registry.getEmail2(),
+                registry.getPhoneNr2());
         int parent2Id = parentDao.save(parent2);
 
         Couple couple = new Couple(new Date(System.currentTimeMillis()), parent1Id, parent2Id, PasswordService.generatePasswordHash(registry.getPassword()), registry.getToken());
