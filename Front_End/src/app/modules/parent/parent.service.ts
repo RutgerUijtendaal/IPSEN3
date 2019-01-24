@@ -39,7 +39,39 @@ export class ParentService {
     this.coupleIsLoading = true;
     this.resultsIsLoading = true;
 
-    this.httpClient.get(this.URL + '/couple/email').pipe(
+    this.getCouple$().subscribe();
+  }
+
+  private setActiveDilemmas() {
+    this.coupleResults[0].forEach( (item, index) => {
+      if (item.answerId !== 0 && this.coupleResults[1][index].answerId !== 0) {
+        const answer: AnswerModel = this.answers.find(i => i.id === item.answerId);
+        const dilemma: DilemmaModel = this.dilemmas.find(i => i.id === answer.dilemmaId);
+        this.activeDilemmas.push(dilemma);
+      }
+    })
+  }
+
+  private loadData() {
+    this.resultsIsLoading = true;
+
+    const dilemmas$ = this.getDilemmas$();
+    const answers$ = this.getAnswers$();
+    const getChild$ = this.getChild$();
+    const parent1Results$ = this.getResults$(this.couple.parent1.id, 0);
+    const parent2Results$ = this.getResults$(this.couple.parent2.id, 1);
+
+    forkJoin([parent1Results$, parent2Results$, getChild$]).subscribe( () => {
+      this.coupleIsLoading = false;
+      forkJoin([dilemmas$, answers$]).subscribe( () => {
+          this.resultsIsLoading = false;
+          this.setActiveDilemmas();
+      });
+    });
+  }
+
+  private getCouple$() {
+    return this.httpClient.get(this.URL + '/couple/email').pipe(
       map((data) => {
         const parent1$ =  this.httpClient.get(this.URL + '/parent/' + data['parent1Id']);
         const parent2$ =  this.httpClient.get(this.URL + '/parent/' + data['parent2Id']);
@@ -59,35 +91,7 @@ export class ParentService {
           this.loadData();
         });
       })
-    ).subscribe();
-  }
-
-  private setActiveDilemmas() {
-    for (const d of this.coupleResults[0]) {
-      if (d.answerId !== 0) {
-        const answer: AnswerModel = this.answers.find(i => i.id === (d ? d.answerId : 0));
-        const dilemma: DilemmaModel = this.dilemmas.find(i => i.id === answer.dilemmaId);
-        this.activeDilemmas.push(dilemma);
-      }
-    }
-  }
-
-  private loadData() {
-    this.resultsIsLoading = true;
-
-    const dilemmas$ = this.getDilemmas$();
-    const answers$ = this.getAnswers$();
-    const getChild$ = this.getChild$();
-    const parent1Results$ = this.getResults$(this.couple.parent1.id, 0);
-    const parent2Results$ = this.getResults$(this.couple.parent2.id, 1);
-
-    forkJoin([parent1Results$, parent2Results$, getChild$]).subscribe( () => {
-      this.coupleIsLoading = false;
-      forkJoin([dilemmas$, answers$]).subscribe( () => {
-          this.resultsIsLoading = false;
-          this.setActiveDilemmas();
-      });
-    });
+    )
   }
 
   private getChild$() {

@@ -1,18 +1,18 @@
 <mdb-card class="col-md-3 rounded-corner" style="margin-bottom: 10px;">
   <mdb-card-header>
-    <select [(ngModel)]="parentService.periodFilter" class="browser-default custom-select" (change)="onPeriodChange($event.target.value)">
-      <option *ngFor="let period of parentService.periods" value="{{period.link}}">{{period.name}}</option>
+    <select [(ngModel)]="parentDilemmaService.periodFilter" class="browser-default custom-select" (change)="onPeriodChange($event.target.value)">
+      <option *ngFor="let period of parentDilemmaService.periods" value="{{period.link}}">{{period.name}}</option>
     </select>
   </mdb-card-header>
   <mdb-card-body id="results-body">
-    <div class="img-container" [hidden]="parentService.filteredDilemmas.length > 0">
+    <div class="img-container" [hidden]="parentDilemmaService.filteredDilemmas.length > 0">
       <h3>
         <img width="80px" src="assets/images/couple-list/no-results.png" alt="Laden...">
       </h3>
     </div>
     <div cdkDropList class="example-list">
-      <div class="box" *ngFor="let dilemma of parentService.filteredDilemmas">
-        <app-parent-dilemma-in-list (click)="parentService.setActiveDilemma(dilemma);" [dilemma]="dilemma"></app-parent-dilemma-in-list>
+      <div class="box" *ngFor="let dilemma of parentDilemmaService.filteredDilemmas">
+        <app-parent-dilemma-in-list (click)="parentDilemmaService.setActiveDilemma(dilemma);" [dilemma]="dilemma"></app-parent-dilemma-in-list>
       </div>
     </div>
   </mdb-card-body>
