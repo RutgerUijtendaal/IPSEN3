@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AdminViewService} from '../admin-view.service';
 import {HttpClient} from '@angular/common/http';
 import {AppComponent} from '../../../../../app.component';
+import {FormControl} from '@angular/forms';
+import {ValidateEmail} from '../../../../../shared/validators/email.validator';
 
 @Component({
   selector: 'app-admin-detail',
@@ -13,6 +15,9 @@ export class AdminDetailComponent implements OnInit {
   URL = AppComponent.environment.server;
 
   viewService: AdminViewService;
+
+  edittedEmail: string;
+  edittedRightsId: string;
 
   saveButtonClass: string;
   saveButtonText: string;
@@ -40,15 +45,34 @@ export class AdminDetailComponent implements OnInit {
     this.viewService.admin = null;
   }
 
+  getDetails() {
+    this.edittedEmail = (<HTMLInputElement>document.getElementById('email-input')).value;
+    this.edittedRightsId = (<HTMLInputElement>document.querySelector('input[name="rights"]:checked')).value;
+  }
+
   saveNewAdmin() {
     console.log('saving new admin...');
+    console.log(this.edittedEmail);
+    console.log(this.edittedRightsId);
   }
 
   updateAdmin() {
     console.log('updating existing admin...');
+    console.log(this.edittedEmail);
+    console.log(this.edittedRightsId);
   }
 
   saveRequest() {
+    this.getDetails();
+    const form = new FormControl(this.edittedEmail);
+    if (ValidateEmail(form)) {
+      this.saveButtonText = 'Foute email';
+      this.saveButtonClass = 'danger';
+      setTimeout(() => {
+        this.resetSaveButton();
+      }, 1500);
+      return;
+    }
     if (this.viewService.admin.id === -1) {
       this.saveNewAdmin();
     } else {
