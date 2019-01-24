@@ -12,7 +12,7 @@ export class UnregisterService {
 
   unregister(token) {
     const url = AppComponent.environment.server + '/couple/unregister';
-    console.log('url in unregister(token): ' + url);
+    console.log('extension in unregister(token): ' + url);
 
     let params = new HttpParams().set('token', token);
 

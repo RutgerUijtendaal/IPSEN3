@@ -2,11 +2,11 @@ package nl.dubio.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import nl.dubio.factories.PreparedStatementFactory;
-import nl.dubio.models.Answer;
 import nl.dubio.exceptions.FillPreparedStatementException;
 import nl.dubio.exceptions.NoFurtherResultsException;
 import nl.dubio.exceptions.ReadFromResultSetException;
+import nl.dubio.factories.PreparedStatementFactory;
+import nl.dubio.models.Answer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

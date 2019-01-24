@@ -1,9 +1,9 @@
 package nl.dubio.config;
 
-import nl.dubio.persistance.DaoRepository;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import nl.dubio.factories.ConnectionFactory;
 import io.dropwizard.Configuration;
+import nl.dubio.factories.ConnectionFactory;
+import nl.dubio.persistance.DaoRepository;
 import nl.dubio.utils.MailUtility;
 
 import javax.validation.Valid;

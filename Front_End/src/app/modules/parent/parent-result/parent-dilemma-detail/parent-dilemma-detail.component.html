@@ -27,8 +27,8 @@
             <tr *ngIf="parentService.parentAnswer.text != ''">
               <td class="text-input answer-text"> {{ parentService.parentAnswer.text }}</td>
             </tr>
-            <tr *ngIf="parentService.parentAnswer.url != null">
-              <td><img class="img-fluid" src="{{'https://dubio-groep9.nl/.answer-images/' + parentService.parentAnswer.id + parentService.parentAnswer.url}}" alt=""></td>
+            <tr *ngIf="parentService.parentAnswer.extension != null">
+              <td><img class="img-fluid" src="{{'https://dubio-groep9.nl/.answer-images/' + parentService.parentAnswer.id + parentService.parentAnswer.extension}}" alt=""></td>
             </tr>
           </table>
         </mdb-card-body>
@@ -42,8 +42,8 @@
             <tr *ngIf="parentService.partnerAnswer.text != ''">
               <td class="text-input answer-text"> {{ parentService.partnerAnswer.text }}</td>
             </tr>
-            <tr *ngIf="parentService.partnerAnswer.url != null">
-              <td><img class="img-fluid" src="{{'https://dubio-groep9.nl/.answer-images/' + parentService.partnerAnswer.id + parentService.partnerAnswer.url}}" alt=""></td>
+            <tr *ngIf="parentService.partnerAnswer.extension != null">
+              <td><img class="img-fluid" src="{{'https://dubio-groep9.nl/.answer-images/' + parentService.partnerAnswer.id + parentService.partnerAnswer.extension}}" alt=""></td>
             </tr>
           </table>
         </mdb-card-body>
