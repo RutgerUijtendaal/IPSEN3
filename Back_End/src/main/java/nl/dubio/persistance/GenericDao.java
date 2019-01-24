@@ -31,6 +31,8 @@ import java.util.List;
  */
 public abstract class GenericDao<T extends DatabaseObject<T>>{
 
+    public final static String idColumnName = "id";
+
     private final GenericDao<T> daoSubclass;
 
     @NotEmpty
@@ -59,6 +61,15 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
         PreparedStatement statement = PreparedStatementFactory.createSelectByIdStatement(daoSubclass.getTableName(), id);
 
         return executeGetByAttribute(statement);
+    }
+
+    public boolean idExists(Integer id){
+        PreparedStatement statement =
+                PreparedStatementFactory.createExistsByAttributeStatement(tableName, idColumnName);
+
+        fillParameter(statement, 1, id);
+
+        return executeIsTrue(statement);
     }
 
     /**

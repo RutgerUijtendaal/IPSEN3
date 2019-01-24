@@ -42,4 +42,9 @@ public class RightService implements CrudService<Right> {
     public boolean deleteById(Integer id) {
         return rightDao.deleteById(id);
     }
+
+    @Override
+    public List<String> validate(Right right) {
+        return null;
+    }
 }

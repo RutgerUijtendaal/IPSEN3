@@ -63,6 +63,11 @@ public class CoupleService implements CrudService<Couple> {
         return coupleDao.deleteById(id);
     }
 
+    @Override
+    public List<String> validate(Couple couple) {
+        return null;
+    }
+
     public void unregister(String token) throws NotFoundException {
         Couple couple = coupleDao.getByToken(token);
 
@@ -133,13 +138,13 @@ public class CoupleService implements CrudService<Couple> {
             errors.add("The email of parent 2 is not valid");
 
         // If on the same date both born and expected are possible so we let it through
-        if(registry.getDate().compareTo(currentDate) != 0) {
+        if (registry.getDate().compareTo(currentDate) != 0) {
             if (registry.getIsBorn()) {
-                if (registry.getDate().compareTo(new Date(System.currentTimeMillis())) > 0)
-                    errors.add("The birth date of the baby is not valid");
+                if (registry.getDate().compareTo(currentDate) > 0)
+                    errors.add("Invalid birth date");
             }
-            else if (registry.getDate().compareTo(new Date(System.currentTimeMillis())) < 0)
-                errors.add("The birth date of the baby is not valid");
+            else if (registry.getDate().compareTo(currentDate) < 0)
+                errors.add("Invalid birth date");
         }
 
         if (!ValidationService.isValidPassword(registry.getPassword()))

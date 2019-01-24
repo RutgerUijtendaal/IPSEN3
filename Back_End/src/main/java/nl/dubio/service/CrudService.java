@@ -1,6 +1,7 @@
 package nl.dubio.service;
 
 import nl.dubio.exceptions.InvalidInputException;
+import nl.dubio.models.Admin;
 import nl.dubio.models.DatabaseObject;
 
 import java.util.List;
@@ -19,4 +20,5 @@ public interface CrudService<T extends DatabaseObject<T>> {
 
      boolean deleteById(Integer id);
 
+    List<String> validate(T t);
 }

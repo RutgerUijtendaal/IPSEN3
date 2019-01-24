@@ -47,4 +47,9 @@ public class ParentService implements CrudService<Parent> {
     public boolean deleteById(Integer id) {
         return parentDao.deleteById(id);
     }
+
+    @Override
+    public List<String> validate(Parent parent) {
+        return null;
+    }
 }

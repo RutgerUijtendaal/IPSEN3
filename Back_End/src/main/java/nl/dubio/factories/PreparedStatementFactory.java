@@ -38,14 +38,14 @@ public class PreparedStatementFactory {
         }
     }
 
-    public static PreparedStatement createSelectAllStatement(String table){
-        String query = "SELECT * FROM " + table + ";";
+    public static PreparedStatement createSelectAllStatement(String tableName){
+        String query = "SELECT * FROM " + tableName + ";";
 
         return createPreparedStatement(query);
     }
 
-    public static PreparedStatement createSelectByIdStatement(String table, int id){
-        String query = "SELECT * FROM " + table + " WHERE id = ?;";
+    public static PreparedStatement createSelectByIdStatement(String tableName, int id){
+        String query = "SELECT * FROM " + tableName + " WHERE id = ?;";
 
         PreparedStatement statement = createPreparedStatement(query);
 
@@ -54,14 +54,20 @@ public class PreparedStatementFactory {
         return statement;
     }
 
-    public static PreparedStatement createSelectByAttributeStatement(String table, String attribute){
-        String query = "SELECT * FROM " + table + " WHERE " + attribute + " = ?;";
+    public static PreparedStatement createSelectByAttributeStatement(String tableName, String attribute){
+        String query = "SELECT * FROM " + tableName + " WHERE " + attribute + " = ?;";
 
         return createPreparedStatement(query);
     }
 
-    public static PreparedStatement createInsertStatement(String table, String[] columnNames){
-        String query = "INSERT INTO " + table + "(";
+    public static PreparedStatement createSelectAttributeStatement(String tableName, String attribute){
+        String query = "SELECT " + attribute + " FROM " + tableName;
+
+        return createPreparedStatement(query);
+    }
+
+    public static PreparedStatement createInsertStatement(String tableName, String[] columnNames){
+        String query = "INSERT INTO " + tableName + "(";
 
         query += String.join(", ", columnNames);
 
@@ -74,8 +80,8 @@ public class PreparedStatementFactory {
         return createPreparedStatementWithReturnedKey(query);
     }
 
-    public static PreparedStatement createUpdateStatement(String[] columnNames, String table, int id){
-        String query = "UPDATE " + table;
+    public static PreparedStatement createUpdateStatement(String[] columnNames, String tableName, int id){
+        String query = "UPDATE " + tableName;
 
         query += " SET " + String.join(" = ? , ", columnNames) + " = ?";
 
@@ -88,14 +94,22 @@ public class PreparedStatementFactory {
         return statement;
     }
 
-    public static PreparedStatement createDeleteStatement(String table, int id){
-        String query = "DELETE FROM " + table + " WHERE id = ?;";
+    public static PreparedStatement createDeleteStatement(String tableName, int id){
+        String query = "DELETE FROM " + tableName + " WHERE id = ?;";
 
         PreparedStatement statement = createPreparedStatement(query);
 
         GenericDao.fillParameter(statement, 1, id);
 
         return statement;
+    }
+    
+    public static PreparedStatement createExistsByAttributeStatement(String tableName, String columnName){
+        String query = "SELECT (COUNT(*) >= 1)\n" +
+                "FROM " + tableName + "\n" +
+                "WHERE " + columnName + " = ?;";
+
+        return PreparedStatementFactory.createPreparedStatement(query);
     }
 
     private static String appendValue(String string, String value, int times){

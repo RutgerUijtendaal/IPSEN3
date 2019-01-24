@@ -3,6 +3,7 @@ package nl.dubio.resources;
 import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
 import nl.dubio.auth.Authorizable;
+import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.DatabaseObject;
 import io.dropwizard.setup.Environment;
 import nl.dubio.models.Parent;
@@ -41,7 +42,7 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
     @POST
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer save(@Auth Optional<Authorizable> authorizable, @Valid T object){
+    public Integer save(@Auth Optional<Authorizable> authorizable, @Valid T object) throws InvalidInputException {
         checkAuthentication(authorizable, "insert");
         return crudService.save(object);
     }
@@ -50,7 +51,7 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public boolean update(@Auth Optional<Authorizable> authorizable, @Valid T object){
+    public boolean update(@Auth Optional<Authorizable> authorizable, @Valid T object) throws InvalidInputException {
         checkAuthentication(authorizable, "update");
         return crudService.update(object);
     }

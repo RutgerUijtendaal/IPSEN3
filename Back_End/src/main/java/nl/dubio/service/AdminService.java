@@ -1,15 +1,11 @@
 package nl.dubio.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Admin;
 import nl.dubio.persistance.AdminDao;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.RightDao;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response.Status;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,13 +15,9 @@ public class AdminService implements CrudService<Admin> {
 
     private final RightDao rightDao;
 
-    private final List<Integer> rights;
-
     public AdminService() {
         this.adminDao = DaoRepository.getAdminDao();
         rightDao = DaoRepository.getRightDao();
-        rights = new ArrayList<>();
-        rightDao.getAll().forEach(right -> rights.add(right.getId()));
     }
 
     @Override
@@ -40,7 +32,7 @@ public class AdminService implements CrudService<Admin> {
 
     @Override
     public Integer save(Admin admin) throws InvalidInputException {
-        List<String> errors = validateAdmin(admin);
+        List<String> errors = validate(admin);
 
         if (errors.size() > 0)
             throw new InvalidInputException(errors);
@@ -51,7 +43,7 @@ public class AdminService implements CrudService<Admin> {
 
     @Override
     public boolean update(Admin admin) throws InvalidInputException {
-        List<String> errors = validateAdmin(admin);
+        List<String> errors = validate(admin);
 
         if (errors.size() > 0)
             throw new InvalidInputException(errors);
@@ -69,15 +61,16 @@ public class AdminService implements CrudService<Admin> {
         return adminDao.deleteById(id);
     }
 
-    private List<String> validateAdmin(Admin admin){
+    @Override
+    public List<String> validate(Admin admin){
         List<String> errors = new ArrayList<>();
 
         if (! ValidationService.isValidEmail(admin.getEmail()) )
             errors.add("Invalid email");
         if (! ValidationService.isValidPassword(admin.getPassword()) )
             errors.add("Invalid password");
-        if (! rights.contains(admin.getRights_id()) )
-            errors.add("Invalid rightId");
+        if (! rightDao.idExists(admin.getRights_id()) )
+            errors.add("Invalid right id");
 
         return errors;
     }

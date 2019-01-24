@@ -45,4 +45,9 @@ public class DilemmaService implements CrudService<Dilemma> {
     public boolean deleteById(Integer id) {
         return dilemmaDao.deleteById(id);
     }
+
+    @Override
+    public List<String> validate(Dilemma dilemma) {
+        return null;
+    }
 }

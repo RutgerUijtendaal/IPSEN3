@@ -46,4 +46,9 @@ public class ResultService implements CrudService<Result> {
     public boolean deleteById(Integer id) {
         return resultDao.deleteById(id);
     }
+
+    @Override
+    public List<String> validate(Result result) {
+        return null;
+    }
 }

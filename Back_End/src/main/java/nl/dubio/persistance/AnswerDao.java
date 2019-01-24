@@ -61,7 +61,7 @@ public class AnswerDao extends GenericDao<Answer> {
     public void fillPreparedStatement(PreparedStatement preparedStatement, Answer answer){
         try {
             preparedStatement.setInt(1, answer.getDilemmaId());
-            preparedStatement.setString(2, answer.getUrl());
+            preparedStatement.setString(2, answer.getExtension());
             preparedStatement.setString(3, answer.getText());
         } catch (SQLException exception){
             throw new FillPreparedStatementException();

@@ -52,11 +52,8 @@ public class AdminDao extends GenericDao<Admin> {
     }
 
     public boolean emailExists(String admin_email) {
-        String query = "SELECT (COUNT(" + columnNames[0] + ") >= 1)\n" +
-                "FROM " + tableName + "\n" +
-                "WHERE " + columnNames[0] + " = ?;";
-
-        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+        PreparedStatement statement =
+                PreparedStatementFactory.createExistsByAttributeStatement(tableName, columnNames[0]);
 
         fillParameter(statement, 1, admin_email);
 
