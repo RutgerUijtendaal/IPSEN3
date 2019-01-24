@@ -24,6 +24,7 @@ import {FormsModule} from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {AdminListService} from './admin-home/admin-view/admin-list/admin-list.service';
 import {AdminViewService} from './admin-home/admin-view/admin-view.service';
+import { ConfigEditComponent } from './config-edit/config-edit.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {AdminViewService} from './admin-home/admin-view/admin-view.service';
     DilemmaDetailComponent,
     AdminDetailComponent,
     DilemmaInListComponent,
-    AdminInListComponent
+    AdminInListComponent,
+    ConfigEditComponent
   ],
   imports: [
     CommonModule,
