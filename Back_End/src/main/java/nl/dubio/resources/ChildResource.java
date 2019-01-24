@@ -32,4 +32,5 @@ public class ChildResource extends GenericResource<Child> {
     protected void checkAuthentication(Optional<Authorizable> authorizable, String request) {
 
     }
+
 }
