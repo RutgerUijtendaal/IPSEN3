@@ -30,14 +30,14 @@ public class DilemmaDao extends GenericDao<Dilemma> {
         return executeGetByAttribute(statement);
     }
 
-    public Dilemma getByWeekNr(int week, String periode) {
-        PreparedStatement statement = PreparedStatementFactory.createSelectByAttributeStatement(tableName, new String[] {
+    public Dilemma getByWeekNr(int week, String period) {
+        PreparedStatement statement = PreparedStatementFactory.createSelectByAttributesStatement(tableName, new String[] {
                 columnNames[0],
                 columnNames[3]
         });
 
         fillParameter(statement, 1, week);
-        fillParameter(statement, 2, periode);
+        fillParameter(statement, 2, period);
 
         return executeGetByAttribute(statement);
     }

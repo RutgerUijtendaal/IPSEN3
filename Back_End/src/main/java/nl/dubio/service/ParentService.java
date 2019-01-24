@@ -41,7 +41,12 @@ public class ParentService implements CrudService<Parent> {
         MailUtility mailUtility = ApiApplication.getMailUtility();
 
         try {
-            mailUtility.addDilemmaReadyToQueue(parent.getEmail(), parent.getFirstName(), dilemma.getTheme(), parent.getToken(), unregisterToken);
+            mailUtility.addDilemmaReadyToQueue(
+                    parent.getEmail(),
+                    parent.getFirstName(),
+                    dilemma.getTheme(),
+                    parent.getToken(),
+                    unregisterToken);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -65,5 +70,10 @@ public class ParentService implements CrudService<Parent> {
     @Override
     public boolean deleteById(Integer id) {
         return parentDao.deleteById(id);
+    }
+
+    @Override
+    public List<String> validate(Parent parent) {
+        return null;
     }
 }

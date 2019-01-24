@@ -54,14 +54,22 @@ public class PreparedStatementFactory {
         return statement;
     }
 
-    public static PreparedStatement createSelectByAttributeStatement(String tableName, String attribute){
-        String query = "SELECT * FROM " + tableName + " WHERE " + attribute + " = ?;";
+    public static PreparedStatement createSelectByAttributeStatement(String tableName, String columnName){
+        String query = "SELECT * FROM " + tableName + " WHERE " + columnName + " = ?;";
 
         return createPreparedStatement(query);
     }
 
-    public static PreparedStatement createSelectAttributeStatement(String tableName, String attribute){
-        String query = "SELECT " + attribute + " FROM " + tableName;
+    public static PreparedStatement createSelectByAttributesStatement(String table, String[] columnNames){
+        String query = "SELECT * FROM " + table + " WHERE ";
+
+        query += String.join(" = ? AND ", columnNames) + " = ?;";
+
+        return createPreparedStatement(query);
+    }
+
+    public static PreparedStatement createSelectAttributeStatement(String tableName, String columnName){
+        String query = "SELECT " + columnName + " FROM " + tableName;
 
         return createPreparedStatement(query);
     }
