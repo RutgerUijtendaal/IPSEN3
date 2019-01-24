@@ -40,8 +40,20 @@ export class AdminDetailComponent implements OnInit {
     this.viewService.admin = null;
   }
 
-  saveRequest() {
+  saveNewAdmin() {
+    console.log('saving new admin...');
+  }
 
+  updateAdmin() {
+    console.log('updating existing admin...');
+  }
+
+  saveRequest() {
+    if (this.viewService.admin.id === -1) {
+      this.saveNewAdmin();
+    } else {
+      this.updateAdmin();
+    }
   }
 
   updateRadioButtons() {
