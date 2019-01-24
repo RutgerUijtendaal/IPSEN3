@@ -12,7 +12,7 @@ export class RegisterNewService {
 
   register(data) {
     const url = AppComponent.environment.server + '/couple/register';
-    console.log('url in register(data): ' + url);
+    console.log('extension in register(data): ' + url);
 
     const httpOptions = {
       headers: new HttpHeaders({

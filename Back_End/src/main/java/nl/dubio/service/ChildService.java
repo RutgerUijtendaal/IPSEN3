@@ -1,16 +1,27 @@
 package nl.dubio.service;
 
+import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Child;
+import nl.dubio.models.Couple;
 import nl.dubio.persistance.ChildDao;
+import nl.dubio.persistance.CoupleDao;
 import nl.dubio.persistance.DaoRepository;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChildService implements CrudService<Child> {
     private final ChildDao childDao;
+    private final CoupleDao coupleDao;
 
     public ChildService() {
         this.childDao = DaoRepository.getChildDao();
+        coupleDao = DaoRepository.getCoupleDao();
+    }
+
+    public Child getByCouple(int coupleId) {
+        return childDao.getByCouple(coupleDao.getById(coupleId));
     }
 
     @Override
@@ -23,23 +34,55 @@ public class ChildService implements CrudService<Child> {
         return childDao.getById(id);
     }
 
+    public Child getByCouple(Couple couple) { return childDao.getByCouple(couple); }
+
     @Override
-    public Integer save(Child child) {
+    public Integer save(Child child) throws InvalidInputException {
+        List<String> errors = validate(child);
+
+        if (errors.size() > 0)
+            throw new InvalidInputException(errors);
+
         return childDao.save(child);
     }
 
     @Override
-    public boolean update(Child Child) {
-        return childDao.update(Child);
+    public boolean update(Child child) throws InvalidInputException {
+        List<String> errors = validate(child);
+
+        if (errors.size() > 0)
+            throw new InvalidInputException(errors);
+
+        return childDao.update(child);
     }
 
     @Override
-    public boolean delete(Child Child) {
-        return childDao.delete(Child);
+    public boolean delete(Child child) {
+        return childDao.delete(child);
     }
 
     @Override
     public boolean deleteById(Integer id) {
         return childDao.deleteById(id);
+    }
+
+    @Override
+    public List<String> validate(Child child) {
+        List<String> errors = new ArrayList<>();
+
+        Date currentDate = new Date(System.currentTimeMillis());
+
+        if (! coupleDao.idExists(child.getCoupleId()) )
+            errors.add("Invalid couple id");
+        if (child.getDate().compareTo(currentDate) != 0) {
+            if (child.getIsBorn()) {
+                if (child.getDate().compareTo(currentDate) > 0)
+                    errors.add("Invalid birth date");
+            }
+            else if (child.getDate().compareTo(currentDate) < 0)
+                errors.add("Invalid birth date");
+        }
+
+        return errors;
     }
 }

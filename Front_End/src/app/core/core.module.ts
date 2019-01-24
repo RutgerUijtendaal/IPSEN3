@@ -10,6 +10,7 @@ import {CoreRoutingModule} from './core-routing.module';
 import {AuthenticationService} from './auth/authentication.service';
 import {AuthenticationInterceptor} from './auth/authentication.interceptor';
 import {ErrorInterceptor} from './auth/error.Interceptor';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {ErrorInterceptor} from './auth/error.Interceptor';
   imports: [
     CommonModule,
     SharedModule,
-    CoreRoutingModule
+    CoreRoutingModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [
     AuthenticationService,

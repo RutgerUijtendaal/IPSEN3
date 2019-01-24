@@ -1,0 +1,15 @@
+<mdb-card class="col-md-3 rounded-corner" style="margin-bottom: 10px;">
+  <mdb-card-header>
+    <button (click)="newAdmin()" [ngClass]="'btn-rounded btn btn-' + newAdminButtonClass">{{ newAdminButtonText }}</button>
+  </mdb-card-header>
+  <mdb-card-body id="results-body">
+    <div class="img-container" [hidden]="shownAdmins.length > 0">
+      <h3>
+        <img width="80px" src="assets/images/couple-list/no-results.png" alt="Laden...">
+      </h3>
+    </div>
+      <div class="box" *ngFor="let a of shownAdmins">
+        <app-admin-in-list (click)="adminClicked(a);" [admin]="a"></app-admin-in-list>
+    </div>
+  </mdb-card-body>
+</mdb-card>

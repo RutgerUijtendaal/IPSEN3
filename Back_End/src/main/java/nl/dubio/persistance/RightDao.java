@@ -2,9 +2,9 @@ package nl.dubio.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import nl.dubio.models.Right;
 import nl.dubio.exceptions.FillPreparedStatementException;
 import nl.dubio.exceptions.ReadFromResultSetException;
+import nl.dubio.models.Right;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

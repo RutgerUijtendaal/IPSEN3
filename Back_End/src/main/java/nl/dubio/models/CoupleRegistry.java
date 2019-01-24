@@ -37,11 +37,11 @@ public class CoupleRegistry {
 
     public CoupleRegistry(
         @JsonProperty("firstName1") String firstName1,
-        @JsonProperty("phoneNr1") String phoneNr1,
         @JsonProperty("email1") String email1,
+        @JsonProperty("phoneNr1") String phoneNr1,
         @JsonProperty("firstName2") String firstName2,
-        @JsonProperty("phoneNr2") String phoneNr2,
         @JsonProperty("email2") String email2,
+        @JsonProperty("phoneNr2") String phoneNr2,
         @JsonProperty("isBorn") boolean isBorn,
         @JsonProperty("date") long date,
         @JsonProperty("password") String password

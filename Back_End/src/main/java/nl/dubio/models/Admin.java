@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.dubio.auth.Authorizable;
 
-import java.security.Principal;
 import java.sql.Date;
 
 public class Admin implements DatabaseObject<Admin>, Authorizable {

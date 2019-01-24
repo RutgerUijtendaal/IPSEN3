@@ -2,12 +2,13 @@ package nl.dubio.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import nl.dubio.factories.PreparedStatementFactory;
-import nl.dubio.models.Result;
 import nl.dubio.exceptions.FillPreparedStatementException;
 import nl.dubio.exceptions.ReadFromResultSetException;
+import nl.dubio.factories.PreparedStatementFactory;
+import nl.dubio.models.Result;
 
 import java.sql.*;
+import java.util.List;
 
 /**
  * @author Bas de Bruyn
@@ -34,12 +35,21 @@ public class ResultDao extends GenericDao<Result> {
         return executeIsTrue(statement);
     }
 
-    public Result getByParentId(int id) {
+    public List<Result> getByParentId(int id) {
         PreparedStatement preparedStatement = PreparedStatementFactory.createSelectByAttributeStatement(tableName, columnNames[0]);
 
         fillParameter(preparedStatement,1, id);
 
-        return executeGetByAttribute(preparedStatement);
+        return executeGetAll(preparedStatement);
+    }
+
+    public Result getRecentByParentId(int id) {
+        // Query to check if the most recent dilemma has been answered
+        String query = "SELECT * FROM " + tableName + " WHERE " + columnNames[0] + " = ? ORDER BY id DESC LIMIT 1";
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+
+        fillParameter(statement,1, id);
+        return executeGetByAttribute(statement);
     }
 
     @Override

@@ -2,10 +2,10 @@ package nl.dubio.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import nl.dubio.factories.PreparedStatementFactory;
-import nl.dubio.models.Dilemma;
 import nl.dubio.exceptions.FillPreparedStatementException;
 import nl.dubio.exceptions.ReadFromResultSetException;
+import nl.dubio.factories.PreparedStatementFactory;
+import nl.dubio.models.Dilemma;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,10 +21,23 @@ public class DilemmaDao extends GenericDao<Dilemma> {
         super(tableName, columnNames);
     }
 
+    @Deprecated
     public Dilemma getByWeekNr(int week) {
         PreparedStatement statement = PreparedStatementFactory.createSelectByAttributeStatement(tableName, columnNames[0]);
 
         fillParameter(statement, 1, week);
+
+        return executeGetByAttribute(statement);
+    }
+
+    public Dilemma getByWeekNr(int week, String period) {
+        PreparedStatement statement = PreparedStatementFactory.createSelectByAttributesStatement(tableName, new String[] {
+                columnNames[0],
+                columnNames[3]
+        });
+
+        fillParameter(statement, 1, week);
+        fillParameter(statement, 2, period);
 
         return executeGetByAttribute(statement);
     }
@@ -49,7 +62,8 @@ public class DilemmaDao extends GenericDao<Dilemma> {
             short week_nr = resultSet.getShort(columnNames[0]);
             String theme = resultSet.getString(columnNames[1]);
             String feedback = resultSet.getString(columnNames[2]);
-            return new Dilemma(id, week_nr, theme, feedback);
+            String period = resultSet.getString(columnNames[3]);
+            return new Dilemma(id, week_nr, theme, feedback, period);
         } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
@@ -61,6 +75,7 @@ public class DilemmaDao extends GenericDao<Dilemma> {
             preparedStatement.setShort(1, dilemma.getWeekNr());
             preparedStatement.setString(2, dilemma.getTheme());
             preparedStatement.setString(3, dilemma.getFeedback());
+            preparedStatement.setString(4, dilemma.getPeriod());
         } catch (SQLException exception){
             throw new FillPreparedStatementException();
         }

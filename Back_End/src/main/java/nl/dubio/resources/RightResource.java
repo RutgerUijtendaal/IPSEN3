@@ -1,6 +1,5 @@
 package nl.dubio.resources;
 
-import nl.dubio.persistance.RightDao;
 import nl.dubio.models.Right;
 import nl.dubio.service.RightService;
 
@@ -12,5 +11,4 @@ public class RightResource extends GenericResource<Right> {
     protected RightResource() {
         super(new RightService());
     }
-
 }

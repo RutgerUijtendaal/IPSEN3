@@ -2,9 +2,9 @@ package nl.dubio.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import nl.dubio.exceptions.*;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.DatabaseObject;
-import nl.dubio.exceptions.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.sql.Connection;
@@ -30,6 +30,8 @@ import java.util.List;
  * @param <T> class of the model the crudService interacts with
  */
 public abstract class GenericDao<T extends DatabaseObject<T>>{
+
+    public final static String idColumnName = "id";
 
     private final GenericDao<T> daoSubclass;
 
@@ -59,6 +61,15 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
         PreparedStatement statement = PreparedStatementFactory.createSelectByIdStatement(daoSubclass.getTableName(), id);
 
         return executeGetByAttribute(statement);
+    }
+
+    public boolean idExists(Integer id){
+        PreparedStatement statement =
+                PreparedStatementFactory.createExistsByAttributeStatement(tableName, idColumnName);
+
+        fillParameter(statement, 1, id);
+
+        return executeIsTrue(statement);
     }
 
     /**
@@ -135,8 +146,10 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
 
     public static void execute(PreparedStatement preparedStatement){
         try {
+            System.out.println("!!!!" + preparedStatement.toString());
             preparedStatement.execute();
         } catch (SQLException exception){
+            exception.printStackTrace();
             throw new ExecutePreparedStatementException();
         }
     }

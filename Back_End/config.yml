@@ -15,7 +15,7 @@ server:
     # - type: https
       # port: 8080
       # keyStorePath: keystore.jks
-      # keyStorePassword: "dreamteam_en_bas"
+      # keyStorePassword: "dreamteam_en_koffie"
 
 daoRepository:
   adminDao:
@@ -35,10 +35,10 @@ daoRepository:
     columnNames: [couple_id, parent_id1, name1, email1, phone_nr1, parent_id2, name2, email2, phone_nr2]
   dilemmaDao:
     tableName: dilemma
-    columnNames: [week_nr, theme, feedback]
+    columnNames: [week_nr, theme, feedback, period]
   parentDao:
     tableName: parent
-    columnNames: [first_name, email, phone_nr]
+    columnNames: [first_name, email, phone_nr, token]
   resultDao:
     tableName: result
     columnNames: [parent_id, answer_id, date_dilemma_sent, date_dilemma_answered]
@@ -52,4 +52,4 @@ databaseConnection:
   port: 25002
   database: dubio
   user: postgres
-  password: dreamteam_en_bas
+  password: dreamteam_en_koffie

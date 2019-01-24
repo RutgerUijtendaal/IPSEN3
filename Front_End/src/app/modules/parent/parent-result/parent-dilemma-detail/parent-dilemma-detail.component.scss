@@ -1,0 +1,62 @@
+.main-card {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0px;
+  color: #03142b;
+  width: 73.5%;
+  margin-left: 1.5%;
+  margin-bottom: 2%;
+}
+
+.dilemma-header {
+  background-color: #1e4768;
+  color: white;
+}
+
+table {
+  width: 100%;
+}
+
+.answer-text {
+  text-align: center;
+}
+
+tr {
+  border-bottom: 2px solid lightgrey;
+}
+
+td {
+  font-size: 18px;
+}
+
+.inside-card {
+  margin-bottom: 3%;
+}
+
+mdb-card-header {
+  text-align: center;
+  font-size: 20px;
+  background-color: #e2b53b;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  min-width: 200px;
+  font-size: 14px;
+}
+
+// @media all and (max-width: 1199px) { ... }
+// @media all and (max-width: 991px) { ... }
+@media all and (max-width: 768px) {
+  .main-card {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+// @media all and (max-width: 575px) { ... }

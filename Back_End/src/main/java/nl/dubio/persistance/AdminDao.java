@@ -2,10 +2,10 @@ package nl.dubio.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import nl.dubio.factories.PreparedStatementFactory;
-import nl.dubio.models.Admin;
 import nl.dubio.exceptions.FillPreparedStatementException;
 import nl.dubio.exceptions.ReadFromResultSetException;
+import nl.dubio.factories.PreparedStatementFactory;
+import nl.dubio.models.Admin;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,11 +52,8 @@ public class AdminDao extends GenericDao<Admin> {
     }
 
     public boolean emailExists(String admin_email) {
-        String query = "SELECT (COUNT(" + columnNames[0] + ") >= 1)\n" +
-                "FROM " + tableName + "\n" +
-                "WHERE " + columnNames[0] + " = ?;";
-
-        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+        PreparedStatement statement =
+                PreparedStatementFactory.createExistsByAttributeStatement(tableName, columnNames[0]);
 
         fillParameter(statement, 1, admin_email);
 

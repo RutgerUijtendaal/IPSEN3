@@ -2,10 +2,10 @@ package nl.dubio.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import nl.dubio.exceptions.ReadFromResultSetException;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.CoupleListModel;
 import nl.dubio.models.Parent;
-import nl.dubio.exceptions.ReadFromResultSetException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,13 +81,13 @@ public class CoupleListViewDao implements DatabaseViewDao<CoupleListModel> {
             String name1 = resultSet.getString(columnNames[2]);
             String email1 = resultSet.getString(columnNames[3]);
             String phone_nr1 = resultSet.getString(columnNames[4]);
-            Parent parent1 = new Parent(parent_id1, phone_nr1, name1, email1);
+            Parent parent1 = new Parent(parent_id1, phone_nr1, name1, email1, null);
 
             int parent_id2 = resultSet.getInt(columnNames[5]);
             String name2 = resultSet.getString(columnNames[6]);
             String email2 = resultSet.getString(columnNames[7]);
             String phone_nr2 = resultSet.getString(columnNames[8]);
-            Parent parent2 = new Parent(parent_id2, phone_nr2, name2, email2);
+            Parent parent2 = new Parent(parent_id2, phone_nr2, name2, email2, null);
 
             return new CoupleListModel(couple_id, parent1, parent2);
         } catch (SQLException exception){

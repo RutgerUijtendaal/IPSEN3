@@ -1,0 +1,94 @@
+<mdb-card class="main-card col-md-9 rounded-corner">
+  <mdb-card-body>
+    <div *ngIf="service.dilemma != null">
+      <mdb-card class="inside-card rounded-corner">
+        <mdb-card-header>
+          Dilemma
+        </mdb-card-header>
+        <mdb-card-body>
+          <table>
+            <tr>
+              <td>Thema:</td>
+              <td><input class="text-input dilemma-theme" value="{{ service.dilemma.theme }}"></td>
+            </tr>
+            <tr>
+              <td>Feedback:</td>
+              <td><input class="text-input dilemma-feedback" value="{{ service.dilemma.feedback }}"></td>
+            </tr>
+          </table>
+        </mdb-card-body>
+      </mdb-card>
+      <mdb-card class="inside-card rounded-corner">
+        <mdb-card-header>
+          Antwoord 1
+        </mdb-card-header>
+        <mdb-card-body>
+          <table>
+            <tr>
+              <td>Tekst:</td>
+              <td><input class="text-input answer1-text" value="{{ service.answer1.text }}"></td>
+            </tr>
+          </table>
+          <div class="image-buttons">
+            <button class="btn btn-primary" [disabled]="service.answer1.extension == null" (click)="showFirstPic(); imgModal.show()">Huidig plaatje</button>
+            <input (change)="answer1FileInput($event)" hidden type="file" name="file" accept=".png, .jpg, .jpeg" id="answer1-file" class="file-input">
+            <label class="btn btn-primary" [ngClass]="'btn btn-' + answer1Button" for="answer1-file">{{ answer1ButtonText }}</label>
+          </div>
+        </mdb-card-body>
+      </mdb-card>
+      <mdb-card class="inside-card rounded-corner">
+        <mdb-card-header>
+          Antwoord 2
+        </mdb-card-header>
+        <mdb-card-body>
+          <table>
+            <tr>
+              <td>Tekst:</td>
+              <td><input class="text-input answer2-text" value="{{ service.answer2.text }}"></td>
+            </tr>
+          </table>
+          <div class="image-buttons">
+            <button class="btn btn-primary" [disabled]="service.answer2.extension == null" (click)="showSecondPic(); imgModal.show()">Huidig plaatje</button>
+            <input (change)="answer2FileInput($event)" hidden type="file" name="file" accept=".png, .jpg, .jpeg" id="answer2-file" class="file-input">
+            <label class="btn btn-primary" [ngClass]="'btn btn-' + answer2Button" for="answer2-file">{{ answer2ButtonText }}</label>
+          </div>
+        </mdb-card-body>
+      </mdb-card>
+      <div class="buttons">
+        <button [ngClass]="'rounded-corner btn btn-' + saveButtonClass" (click)="saveRequest()">{{ saveButtonText }}</button>
+        <button class="rounded-corner btn btn-primary" (click)="resetDetails()">RESET</button>
+        <button class="rounded-corner btn btn-danger" (click)="basicModal.show()">VERWIJDEREN</button>
+      </div>
+    </div>
+    <div style="font-size: 20px; text-align: center; transform: translateX(-1%);" *ngIf="service.dilemma == null">
+      Klik op een dilemma!
+    </div>
+  </mdb-card-body>
+</mdb-card>
+
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-text">
+          Weet je zeker dat je dit dilemma uit het programma wilt verwijderen?
+        </div>
+      </div>
+      <div class="justify-content-center modal-footer">
+        <button type="button" mdbBtn color="red" class="relative waves-light" (click)="deleteDilemma(); basicModal.hide()" mdbWavesEffect>Ja, verwijderen</button>
+        <button type="button" mdbBtn color="blue" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Nee, annuleren</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div mdbModal #imgModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <img (click)="imgModal.hide()" [src]="loadedImage">
+</div>

@@ -1,9 +1,13 @@
 package nl.dubio.service;
 
+import nl.dubio.ApiApplication;
+import nl.dubio.models.Dilemma;
 import nl.dubio.models.Parent;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.ParentDao;
+import nl.dubio.utils.MailUtility;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 public class ParentService implements CrudService<Parent> {
@@ -20,7 +24,31 @@ public class ParentService implements CrudService<Parent> {
 
     @Override
     public Parent getById(Integer id) {
-        return parentDao.getById(id);
+        Parent parent = parentDao.getById(id);
+        System.out.println(parent);
+        return parent;
+    }
+
+    public Parent getByToken(String token) { return parentDao.getByToken(token); }
+
+    public boolean revokeTokenAccess(Parent parent) {
+        parent.setToken(null);
+        return parentDao.update(parent);
+    }
+
+    public void notifyDilemmaReady(Parent parent, Dilemma dilemma, String unregisterToken) {
+        MailUtility mailUtility = ApiApplication.getMailUtility();
+
+        try {
+            mailUtility.addDilemmaReadyToQueue(
+                    parent.getEmail(),
+                    parent.getFirstName(),
+                    dilemma.getTheme(),
+                    parent.getToken(),
+                    unregisterToken);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -41,5 +69,10 @@ public class ParentService implements CrudService<Parent> {
     @Override
     public boolean deleteById(Integer id) {
         return parentDao.deleteById(id);
+    }
+
+    @Override
+    public List<String> validate(Parent parent) {
+        return null;
     }
 }

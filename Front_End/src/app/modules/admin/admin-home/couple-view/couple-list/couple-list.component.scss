@@ -4,15 +4,21 @@
 
 #results-body {
   color: black;
+  padding: 1px 0px;
 }
 
 h3 {
   color: black;
   text-align: center;
-  padding-top: 40px;
+  padding-top: 25px;
+  padding-bottom: 20px;
 }
 
 .modal-text {
   color: #03142b;
   text-align: center;
+}
+
+.card {
+  box-shadow: none !important;
 }

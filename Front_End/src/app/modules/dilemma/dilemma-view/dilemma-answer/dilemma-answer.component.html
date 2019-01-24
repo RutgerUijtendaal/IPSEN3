@@ -1,0 +1,8 @@
+<img *ngIf="answer.extension" class="img-fluid" src="https://dubio-groep9.nl/.answer-images/{{ answer.id + answer.extension}}" alt="Illustratie">
+<div class="text-center">
+  <p class="text-center mb-0 mb-2">
+    {{ answer.text }}
+  </p>
+  <button class="btn btn-rounded btn-warning" (click)="selectAnswer()">Selecteer dit antwoord</button>
+</div>
+
