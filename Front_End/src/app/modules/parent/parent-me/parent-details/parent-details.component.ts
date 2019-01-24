@@ -7,7 +7,6 @@ import {ParentModel} from '../../../../shared/models/parent.model';
   styleUrls: ['./parent-details.component.scss']
 })
 export class ParentDetailsComponent implements OnInit {
-
   @Input() parent: ParentModel;
 
   constructor() { }

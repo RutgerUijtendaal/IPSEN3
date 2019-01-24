@@ -1,8 +1,6 @@
 package nl.dubio.service;
 
-import jdk.nashorn.internal.parser.Token;
 import nl.dubio.ApiApplication;
-import nl.dubio.exceptions.ReadFromResultSetException;
 import nl.dubio.models.*;
 import nl.dubio.persistance.CoupleDao;
 import nl.dubio.persistance.DaoRepository;
@@ -12,8 +10,6 @@ import nl.dubio.utils.TokenGenerator;
 
 import javax.mail.MessagingException;
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.core.Response.Status;
-import javax.xml.ws.WebServiceException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;

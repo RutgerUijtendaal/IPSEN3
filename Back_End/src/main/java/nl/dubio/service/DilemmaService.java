@@ -4,7 +4,8 @@ import javassist.NotFoundException;
 import nl.dubio.exceptions.ClientException;
 import nl.dubio.models.*;
 import nl.dubio.models.databag.AnswerDilemmaDatabag;
-import nl.dubio.persistance.*;
+import nl.dubio.persistance.DaoRepository;
+import nl.dubio.persistance.DilemmaDao;
 
 import java.util.List;
 

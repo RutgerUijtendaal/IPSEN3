@@ -4,12 +4,10 @@ import nl.dubio.ApiApplication;
 import nl.dubio.models.*;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.DilemmaDao;
-import nl.dubio.persistance.ParentDao;
 import nl.dubio.persistance.ResultDao;
 import nl.dubio.utils.MailUtility;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.sql.Timestamp;
 import java.util.List;
 

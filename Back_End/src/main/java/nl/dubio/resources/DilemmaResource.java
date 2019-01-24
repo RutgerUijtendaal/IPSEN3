@@ -1,22 +1,19 @@
 package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import io.dropwizard.auth.Auth;
 import javassist.NotFoundException;
 import nl.dubio.auth.Authorizable;
 import nl.dubio.exceptions.ClientException;
 import nl.dubio.exceptions.InvalidAnswerException;
-import nl.dubio.models.Couple;
+import nl.dubio.exceptions.InvalidInputException;
+import nl.dubio.models.Admin;
 import nl.dubio.models.Dilemma;
-import nl.dubio.models.Parent;
-import nl.dubio.models.Result;
 import nl.dubio.models.databag.AnswerDilemmaDatabag;
-import nl.dubio.service.CoupleService;
 import nl.dubio.service.DilemmaService;
-import nl.dubio.service.ParentService;
 import nl.dubio.service.ResultService;
-import nl.dubio.utils.TokenGenerator;
-import org.glassfish.jersey.media.multipart.FormDataParam;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -51,18 +48,6 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     }
 
     @GET
-    @Path("/token-generate")
-    public void tokenGenerator() {
-        CoupleService coupleService = new CoupleService();
-        ParentService parentService = new ParentService();
-        List<Couple> couples = coupleService.getAll();
-
-        for (Couple couple : couples) {
-            coupleService.createResultEntry(couple);
-        }
-    }
-
-    @GET
     @Timed
     @Path("/{period}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -78,8 +63,47 @@ public class DilemmaResource extends GenericResource<Dilemma> {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    protected void checkAuthentication(Optional<Authorizable> authorizable, String request) {
-
+    @PUT
+    @Timed
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("{id}")
+    //TODO Roles Allowed
+    public boolean update(@Auth Admin admin, @Valid Dilemma object){
+        try {
+            return crudService.update(object);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
+
+    @GET
+    @Timed
+    //TODO ROLES ALLOWED
+    public List<Dilemma> getAll(@Auth Authorizable authorizable){
+        return crudService.getAll();
+    }
+
+
+
+    @POST
+    @Timed
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Integer save(@Auth Admin admin, @Valid Dilemma object)  {
+        try {
+            return crudService.save(object);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @DELETE
+    @Timed
+    @Path("/{id}")
+    public boolean deleteById(@Auth Optional<Authorizable> authorizable, @PathParam("id") Integer id){
+        return crudService.deleteById(id);
+    }
+
+
 }

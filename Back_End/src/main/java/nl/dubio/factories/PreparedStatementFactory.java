@@ -1,7 +1,7 @@
 package nl.dubio.factories;
 
-import nl.dubio.persistance.GenericDao;
 import nl.dubio.exceptions.PrepareStatementException;
+import nl.dubio.persistance.GenericDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

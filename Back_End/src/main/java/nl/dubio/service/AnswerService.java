@@ -72,7 +72,7 @@ public class AnswerService implements CrudService<Answer> {
 
         //TODO allowed extensions should come from configuration
         List<String> allowedExtensions = new ArrayList<>(
-                Arrays.asList(".png", ".jpg")
+                Arrays.asList(".png", ".jpg", null)
         );
 
         if (! dilemmaDao.idExists(answer.getDilemmaId()) )
