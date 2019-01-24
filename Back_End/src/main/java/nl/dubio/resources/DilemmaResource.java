@@ -1,7 +1,9 @@
 package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import javassist.NotFoundException;
 import nl.dubio.auth.Authorizable;
+import nl.dubio.exceptions.ClientException;
 import nl.dubio.exceptions.InvalidAnswerException;
 import nl.dubio.models.Couple;
 import nl.dubio.models.Dilemma;
@@ -31,7 +33,7 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     @GET
     @Path("/answer/{token}")
     @Produces(MediaType.APPLICATION_JSON)
-    public AnswerDilemmaDatabag getDilemmaForParent(@PathParam("token") String token) {
+    public AnswerDilemmaDatabag getDilemmaForParent(@PathParam("token") String token) throws ClientException {
         AnswerDilemmaDatabag databag = ((DilemmaService)crudService).getByParentToken(token);
         return databag;
     }
@@ -39,7 +41,7 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     @POST
     @Path("/answer/{token}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void saveDilemmaAnswers(@PathParam("token") String token, @FormParam("answerId") int answerId) {
+    public void saveDilemmaAnswers(@PathParam("token") String token, @FormParam("answerId") int answerId) throws ClientException  {
         if (!((DilemmaService)crudService).validAnswer(token, answerId)) {
             throw new InvalidAnswerException();
         } else {
