@@ -37,8 +37,7 @@ public class AdminService implements CrudService<Admin> {
         if (errors.size() > 0)
             throw new InvalidInputException(errors);
 
-//        return adminDao.save(admin);
-        return -1;
+        return adminDao.save(admin);
     }
 
     @Override

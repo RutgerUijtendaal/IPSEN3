@@ -39,8 +39,7 @@ public class ChildService implements CrudService<Child> {
         if (errors.size() > 0)
             throw new InvalidInputException(errors);
 
-//        return childDao.save(child);
-        return -1;
+        return childDao.save(child);
     }
 
     @Override
@@ -50,8 +49,7 @@ public class ChildService implements CrudService<Child> {
         if (errors.size() > 0)
             throw new InvalidInputException(errors);
 
-//        return childDao.update(child);
-        return true;
+        return childDao.update(child);
     }
 
     @Override
