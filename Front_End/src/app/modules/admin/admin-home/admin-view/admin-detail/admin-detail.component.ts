@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminViewService} from '../admin-view.service';
+import {HttpClient} from '@angular/common/http';
+import {AppComponent} from '../../../../../app.component';
 
 @Component({
   selector: 'app-admin-detail',
@@ -7,6 +9,8 @@ import {AdminViewService} from '../admin-view.service';
   styleUrls: ['./admin-detail.component.scss']
 })
 export class AdminDetailComponent implements OnInit {
+
+  URL = AppComponent.environment.server;
 
   viewService: AdminViewService;
 
@@ -24,13 +28,16 @@ export class AdminDetailComponent implements OnInit {
     this.saveButtonText = 'OPSLAAN';
   }
 
-  constructor(viewService: AdminViewService) {
+  constructor(viewService: AdminViewService, private httpClient: HttpClient) {
     this.viewService = viewService;
     this.viewService.adminClicked.subscribe(val => this.updateRadioButtons());
   }
 
   deleteAdmin() {
-
+    this.httpClient.delete(this.URL + /admin/ + this.viewService.admin.id).subscribe(res => {
+    });
+    this.viewService.delete.next(this.viewService.admin);
+    this.viewService.admin = null;
   }
 
   saveRequest() {

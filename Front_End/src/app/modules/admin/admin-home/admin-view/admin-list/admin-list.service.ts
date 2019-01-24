@@ -3,6 +3,7 @@ import {Subject} from 'rxjs';
 
 @Injectable()
 export class AdminListService {
+
   searchQuery: Subject<string>;
 
   constructor() {

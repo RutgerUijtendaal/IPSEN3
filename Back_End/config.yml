@@ -52,4 +52,4 @@ databaseConnection:
   port: 25002
   database: dubio
   user: postgres
-  password: dreamteam_en_bas
+  password: dreamteam_en_koffie
