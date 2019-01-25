@@ -1,17 +1,15 @@
 package nl.dubio.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import nl.dubio.exceptions.FillPreparedStatementException;
+import nl.dubio.exceptions.ReadFromResultSetException;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.Child;
 import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleRegistry;
 import nl.dubio.models.Parent;
-import nl.dubio.exceptions.FillPreparedStatementException;
-import nl.dubio.exceptions.ReadFromResultSetException;
 import nl.dubio.service.PasswordService;
-import nl.dubio.utils.TokenGenerator;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -19,7 +17,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * @author Bas de Bruyn

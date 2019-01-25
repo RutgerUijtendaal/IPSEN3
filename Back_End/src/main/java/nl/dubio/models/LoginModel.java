@@ -15,6 +15,8 @@ public class LoginModel {
     private String type = "";
     @JsonProperty
     private String name = "";
+    @JsonProperty
+    private int right;
 
     public LoginModel(
             @JsonProperty("email") String email,
@@ -37,5 +39,9 @@ public class LoginModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setRight(int right) {
+        this.right = right;
     }
 }

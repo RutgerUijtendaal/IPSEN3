@@ -2,10 +2,10 @@ package nl.dubio.persistance;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import nl.dubio.exceptions.ReadFromResultSetException;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.CoupleListModel;
 import nl.dubio.models.Parent;
-import nl.dubio.exceptions.ReadFromResultSetException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -2,7 +2,6 @@ package nl.dubio.service;
 
 import nl.dubio.ApiApplication;
 import nl.dubio.exceptions.InvalidInputException;
-import nl.dubio.models.Couple;
 import nl.dubio.models.Dilemma;
 import nl.dubio.models.Parent;
 import nl.dubio.persistance.DaoRepository;

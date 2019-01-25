@@ -11,7 +11,10 @@ import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.ParentDao;
 import nl.dubio.service.PasswordService;
 
-import javax.ws.rs.*;
+import javax.ws.rs.NotAuthorizedException;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -45,6 +48,7 @@ public class LoginResource {
                 if (PasswordService.isValidPassword(loginModel.getPassword(), admin.getPassword())) {
                     loginModel.setType("admin");
                     loginModel.setName(admin.getName());
+                    loginModel.setRight(admin.getRights_id());
                     return loginModel;
                 }
             }

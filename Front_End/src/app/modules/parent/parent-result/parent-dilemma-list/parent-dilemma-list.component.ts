@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ParentService} from '../../parent.service';
+import {ParentDilemmaListService} from '../parent-dilemma-list.service';
 
 @Component({
   selector: 'app-parent-dilemma-list',
@@ -8,17 +8,17 @@ import {ParentService} from '../../parent.service';
 })
 export class ParentDilemmaListComponent implements OnInit {
 
-  parentService: ParentService;
+  parentDilemmaService: ParentDilemmaListService;
 
-  constructor(parentService: ParentService) {
-    this.parentService = parentService;
+  constructor(parentDilemmaService: ParentDilemmaListService) {
+    this.parentDilemmaService = parentDilemmaService;
   }
 
   ngOnInit() {
   }
 
   onPeriodChange(period) {
-    this.parentService.filterDilemmas(period);
+    this.parentDilemmaService.filterDilemmas(period);
   }
 
 }

@@ -14,6 +14,4 @@ export class ResultModel {
     this.answeredTime = new Date(+answeredTime);
     this.sentTime = new Date(+sentTime);
   }
-
-
 }

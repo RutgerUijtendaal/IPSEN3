@@ -145,6 +145,7 @@ export class DilemmaDetailComponent implements OnInit {
       currentDilemma.id = Number(dilemmaId);
       currentAnswer1.dilemmaId = Number(dilemmaId);
       currentAnswer2.dilemmaId = Number(dilemmaId);
+      console.log(currentAnswer1);
       this.httpClient.post(this.URL + '/answer', currentAnswer1).subscribe(ans1 => {
         currentAnswer1.id = Number(ans1);
         this.httpClient.post(this.URL + '/answer', currentAnswer2).subscribe(ans2 => {
@@ -158,21 +159,21 @@ export class DilemmaDetailComponent implements OnInit {
 
   uploadPictures() {
     if (this.answer1FileGood && this.answerFile1 != null) {
-      this.service.answer1.url = '.' + this.answerFile1.name.split('.').pop();
+      this.service.answer1.extension = '.' + this.answerFile1.name.split('.').pop();
 
       const formData = new FormData();
       formData.append('file', this.answerFile1);
-      formData.append('filename', this.service.answer1.id + this.service.answer1.url);
+      formData.append('filename', this.service.answer1.id + this.service.answer1.extension);
 
       this.httpClient.post(this.URL + '/imageupload', formData).subscribe(res => {
       });
     }
     if (this.answer2FileGood && this.answerFile2 != null) {
-      this.service.answer2.url = '.' + this.answerFile2.name.split('.').pop();
+      this.service.answer2.extension = '.' + this.answerFile2.name.split('.').pop();
 
       const formData = new FormData();
       formData.append('file', this.answerFile2);
-      formData.append('filename', this.service.answer2.id + this.service.answer2.url);
+      formData.append('filename', this.service.answer2.id + this.service.answer2.extension);
 
       this.httpClient.post(this.URL + '/imageupload', formData).subscribe(res => {
       });
@@ -246,11 +247,11 @@ export class DilemmaDetailComponent implements OnInit {
   }
 
   showFirstPic() {
-    this.loadedImage = 'https://dubio-groep9.nl/.answer-images/' + this.service.answer1.id + this.service.answer1.url;
+    this.loadedImage = 'https://dubio-groep9.nl/.answer-images/' + this.service.answer1.id + this.service.answer1.extension;
   }
 
   showSecondPic() {
-    this.loadedImage = 'https://dubio-groep9.nl/.answer-images/' + this.service.answer2.id + this.service.answer2.url;
+    this.loadedImage = 'https://dubio-groep9.nl/.answer-images/' + this.service.answer2.id + this.service.answer2.extension;
   }
 
 }

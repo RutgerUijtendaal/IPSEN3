@@ -20,6 +20,10 @@ public class ChildService implements CrudService<Child> {
         coupleDao = DaoRepository.getCoupleDao();
     }
 
+    public Child getByCouple(int coupleId) {
+        return childDao.getByCouple(coupleDao.getById(coupleId));
+    }
+
     @Override
     public List<Child> getAll() {
         return childDao.getAll();
@@ -39,8 +43,7 @@ public class ChildService implements CrudService<Child> {
         if (errors.size() > 0)
             throw new InvalidInputException(errors);
 
-//        return childDao.save(child);
-        return -1;
+        return childDao.save(child);
     }
 
     @Override
@@ -50,8 +53,7 @@ public class ChildService implements CrudService<Child> {
         if (errors.size() > 0)
             throw new InvalidInputException(errors);
 
-//        return childDao.update(child);
-        return true;
+        return childDao.update(child);
     }
 
     @Override

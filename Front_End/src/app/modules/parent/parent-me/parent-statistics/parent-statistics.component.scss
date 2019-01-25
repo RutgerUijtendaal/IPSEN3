@@ -1,0 +1,34 @@
+mdb-card-header {
+  text-align: center;
+  font-size: 20px;
+  background-color: #e2b53b;
+}
+
+.main-header {
+  width: 100%;
+  background-color: #1e4768;
+  color: white;
+}
+
+.sub-header {
+  color: #03142b;
+}
+
+.info-pill {
+  background-color: #e2b53b;
+  border: solid 2px #1e4768;
+}
+
+.info-pill>p {
+  text-align: center;
+}
+
+mdb-card {
+  color: black;
+  background-color: #1e4768 !important;
+}
+
+span {
+  color: black;
+  font-size: 18px;
+}

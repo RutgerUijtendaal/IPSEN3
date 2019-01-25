@@ -1,14 +1,15 @@
 package nl.dubio;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import io.dropwizard.Application;
-import io.dropwizard.auth.*;
+import io.dropwizard.auth.AuthFilter;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.PolymorphicAuthDynamicFeature;
+import io.dropwizard.auth.PolymorphicAuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.auth.chained.ChainedAuthFilter;
-import io.dropwizard.jackson.Jackson;
 import io.dropwizard.setup.Environment;
 import nl.dubio.auth.*;
 import nl.dubio.config.ApiConfiguration;
@@ -27,7 +28,6 @@ import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.EnumSet;
 

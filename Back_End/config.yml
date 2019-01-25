@@ -15,7 +15,7 @@ server:
     # - type: https
       # port: 8080
       # keyStorePath: keystore.jks
-      # keyStorePassword: "dreamteam_en_bas"
+      # keyStorePassword: "dreamteam_en_koffie"
 
 daoRepository:
   adminDao:
