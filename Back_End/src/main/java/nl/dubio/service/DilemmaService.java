@@ -1,12 +1,19 @@
 package nl.dubio.service;
 
+import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.*;
 import nl.dubio.models.databag.AnswerDilemmaDatabag;
 import nl.dubio.persistance.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DilemmaService implements CrudService<Dilemma> {
+
+    //TODO should come from configuration
+    private final static int maxThemeSize = 50;
+    private final static int maxFeedbackSize = 200;
+    private final static int maxPeriodSize = 200;
 
     private final DilemmaDao dilemmaDao;
 
@@ -70,14 +77,22 @@ public class DilemmaService implements CrudService<Dilemma> {
     }
 
     @Override
-    public Integer save(Dilemma dilemma) {
+    public Integer save(Dilemma dilemma) throws InvalidInputException {
+        List<String> errors = validate(dilemma);
+
+        if (errors.size() > 0)
+            throw new InvalidInputException(errors);
+
         return dilemmaDao.save(dilemma);
     }
 
     @Override
-    public boolean update(Dilemma dilemma) {
-        System.out.println("UPDATE");
-        System.out.println(dilemma);
+    public boolean update(Dilemma dilemma) throws InvalidInputException {
+        List<String> errors = validate(dilemma);
+
+        if (errors.size() > 0)
+            throw new InvalidInputException(errors);
+
         return dilemmaDao.update(dilemma);
     }
 
@@ -93,6 +108,17 @@ public class DilemmaService implements CrudService<Dilemma> {
 
     @Override
     public List<String> validate(Dilemma dilemma) {
-        return null;
+        List<String> errors = new ArrayList<>();
+
+        if (dilemma.getWeekNr() < 0)
+            errors.add("Invalid week number");
+        if (dilemma.getTheme().length() > maxThemeSize)
+            errors.add("Theme is longer then " + maxThemeSize + " characters");
+        if (dilemma.getFeedback().length() > maxFeedbackSize)
+            errors.add("Feedback is longer then " + maxFeedbackSize + " characters");
+        if (dilemma.getPeriod().length() > maxPeriodSize)
+            errors.add("Period is longer then " + maxPeriodSize + " characters");
+
+        return errors;
     }
 }

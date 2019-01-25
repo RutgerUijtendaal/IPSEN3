@@ -5,6 +5,7 @@ import nl.dubio.auth.Authorizable;
 import io.dropwizard.auth.Auth;
 import nl.dubio.auth.AdminRights;
 import nl.dubio.auth.Authorizable;
+import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleListModel;
 import nl.dubio.models.CoupleRegistry;
@@ -41,7 +42,7 @@ public class CoupleResource extends GenericResource<Couple> {
 
     @POST
     @Path("/register")
-    public int register(@Valid CoupleRegistry couple){
+    public int register(@Valid CoupleRegistry couple) throws InvalidInputException {
         // System.out.println(couple.toString());
         return ((CoupleService) crudService).register(couple);
     }

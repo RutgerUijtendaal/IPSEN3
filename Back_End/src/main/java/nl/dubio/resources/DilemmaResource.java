@@ -3,6 +3,7 @@ package nl.dubio.resources;
 import com.codahale.metrics.annotation.Timed;
 import nl.dubio.auth.Authorizable;
 import nl.dubio.exceptions.InvalidAnswerException;
+import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Couple;
 import nl.dubio.models.Dilemma;
 import nl.dubio.models.Parent;
@@ -39,7 +40,7 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     @POST
     @Path("/answer/{token}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void saveDilemmaAnswers(@PathParam("token") String token, @FormParam("answerId") int answerId) {
+    public void saveDilemmaAnswers(@PathParam("token") String token, @FormParam("answerId") int answerId) throws InvalidInputException {
         if (!((DilemmaService)crudService).validAnswer(token, answerId)) {
             throw new InvalidAnswerException();
         } else {
@@ -50,7 +51,7 @@ public class DilemmaResource extends GenericResource<Dilemma> {
 
     @GET
     @Path("/token-generate")
-    public void tokenGenerator() {
+    public void tokenGenerator() throws InvalidInputException {
         CoupleService coupleService = new CoupleService();
         ParentService parentService = new ParentService();
         List<Couple> couples = coupleService.getAll();

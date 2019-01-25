@@ -1,11 +1,13 @@
 package nl.dubio.factories;
 
+import nl.dubio.exceptions.CreateStatementException;
 import nl.dubio.persistance.GenericDao;
 import nl.dubio.exceptions.PrepareStatementException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * @author Bas de Bruyn
@@ -18,8 +20,18 @@ public class PreparedStatementFactory {
         PreparedStatementFactory.connectionFactory = connectionFactory;
     }
 
+    public static Statement createStatement(){
+        Connection connection = createConnection();
+
+        try {
+            return connection.createStatement();
+        } catch (SQLException exception){
+            throw new CreateStatementException();
+        }
+    }
+
     public static PreparedStatement createPreparedStatement(String query){
-        Connection connection = connectionFactory.getConnection();
+        Connection connection = createConnection();
 
         try {
             return connection.prepareStatement(query);
@@ -29,7 +41,7 @@ public class PreparedStatementFactory {
     }
 
     public static PreparedStatement createPreparedStatementWithReturnedKey(String query){
-        Connection connection = connectionFactory.getConnection();
+        Connection connection = createConnection();
 
         try {
             return connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -128,4 +140,7 @@ public class PreparedStatementFactory {
         return queryBuilder.toString();
     }
 
+    public static Connection createConnection() {
+        return connectionFactory.createConnection();
+    }
 }

@@ -70,7 +70,7 @@ public class ChildService implements CrudService<Child> {
 
         Date currentDate = new Date(System.currentTimeMillis());
 
-        if (! coupleDao.idExists(child.getCoupleId()) )
+        if (! coupleDao.idExists(child.getCoupleId()))
             errors.add("Invalid couple id");
         if (child.getDate().compareTo(currentDate) != 0) {
             if (child.getIsBorn()) {

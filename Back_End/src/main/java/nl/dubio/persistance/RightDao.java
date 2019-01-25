@@ -23,6 +23,17 @@ public class RightDao extends GenericDao<Right> {
         super(tableName, columnNames);
     }
 
+    public boolean rightExists(Right right){
+        PreparedStatement statement =
+                PreparedStatementFactory.createSelectByAttributesStatement(tableName, columnNames);
+
+        fillParameter(statement, 1, right.isCanViewStatistics());
+        fillParameter(statement, 2, right.isCanEditDilemma());
+        fillParameter(statement, 3, right.isCanEditUserInfo());
+
+        return executeGetByAttribute(statement) != null;
+    }
+
     @Override
     public Right createFromResultSet(ResultSet resultSet){
         try {

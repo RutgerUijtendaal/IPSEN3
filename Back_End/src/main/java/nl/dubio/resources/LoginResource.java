@@ -24,7 +24,6 @@ public class LoginResource {
     private CoupleDao coupleDao = DaoRepository.getCoupleDao();
 
     @POST
-    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public LoginModel login(LoginModel loginModel)  {
         System.out.println(loginModel.getPassword());
