@@ -12,7 +12,7 @@ import nl.dubio.models.Dilemma;
 import nl.dubio.models.databag.AnswerDilemmaDatabag;
 import nl.dubio.service.CoupleService;
 import nl.dubio.service.DilemmaService;
-import nl.dubio.service.ParentService;
+import nl.dubio.service.ParentDataService;
 import nl.dubio.service.ResultService;
 
 import javax.validation.Valid;
@@ -53,7 +53,7 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     @Path("/token-generate")
     public void tokenGenerator() throws InvalidInputException {
         CoupleService coupleService = new CoupleService();
-        ParentService parentService = new ParentService();
+        ParentDataService parentService = new ParentDataService();
         List<Couple> couples = coupleService.getAll();
 
         for (Couple couple : couples) {

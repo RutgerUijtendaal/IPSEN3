@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ParentService} from '../parent.service';
+import {ParentDataService} from '../parent-data.service';
 
 @Component({
   selector: 'app-parent-home',
@@ -8,7 +8,7 @@ import {ParentService} from '../parent.service';
 })
 export class ParentHomeComponent implements OnInit {
 
-  constructor(private parentService: ParentService) {
+  constructor(private parentService: ParentDataService) {
 
   }
 

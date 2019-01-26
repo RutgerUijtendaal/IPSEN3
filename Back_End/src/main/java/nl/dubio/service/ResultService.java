@@ -51,7 +51,7 @@ public class ResultService implements CrudService<Result> {
     }
 
     public void updateResult(String token, int answerId) throws InvalidInputException {
-        ParentService parentService = new ParentService();
+        ParentDataService parentService = new ParentDataService();
         CoupleService coupleService = new CoupleService();
 
         Parent parent = parentService.getByToken(token);

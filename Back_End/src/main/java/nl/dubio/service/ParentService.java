@@ -12,10 +12,10 @@ import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParentService implements CrudService<Parent> {
+public class ParentDataService implements CrudService<Parent> {
     private final ParentDao parentDao;
 
-    public ParentService() {
+    public ParentDataService() {
         this.parentDao = DaoRepository.getParentDao();
     }
 
