@@ -21,7 +21,7 @@ public class AdminDao extends GenericDao<Admin> {
         super(tableName, columnNames);
     }
 
-    public void updateWithoutPassword(Admin admin) {
+    public boolean updateWithoutPassword(Admin admin) {
         final String[] columnNamesWithoutPassword = {
             columnNames[0],
             columnNames[2]
@@ -34,10 +34,11 @@ public class AdminDao extends GenericDao<Admin> {
         fillParameter(state, 2, admin.getRights_id());
         fillParameter(state, 3, admin.getId());
 
-        boolean successfull = executeUpdate(state);
+        boolean successful = executeUpdate(state);
 
         closeTransaction(state);
 
+        return successful;
     }
 
     public Admin getByEmail(String email) {

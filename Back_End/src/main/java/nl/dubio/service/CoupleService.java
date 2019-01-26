@@ -100,6 +100,7 @@ public class CoupleService implements CrudService<Couple> {
             mailUtility.addWelcomeMailToQueue(registry.getEmail1(), registry.getFirstName1(), unregisterToken);
             mailUtility.addWelcomeMailToQueue(registry.getEmail2(), registry.getFirstName2(), unregisterToken);
         } catch (MessagingException e) {
+            // TODO
             e.printStackTrace();
         }
 

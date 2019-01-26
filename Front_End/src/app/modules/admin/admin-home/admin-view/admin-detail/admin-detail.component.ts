@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {AppComponent} from '../../../../../app.component';
 import {FormControl} from '@angular/forms';
 import {ValidateEmail} from '../../../../../shared/validators/email.validator';
+import {AdminModel} from '../../../../../shared/models/admin.model';
 
 @Component({
   selector: 'app-admin-detail',
@@ -51,26 +52,59 @@ export class AdminDetailComponent implements OnInit {
   }
 
   saveNewAdmin() {
-    console.log('saving new admin...');
-    console.log(this.edittedEmail);
-    console.log(this.edittedRightsId);
+    this.viewService.admin.email = this.edittedEmail;
+    this.viewService.admin.rightId = this.edittedRightsId;
+    this.httpClient.post(this.URL + '/admin', this.viewService.admin).subscribe(retval => {
+      if (Number(retval) === 0) {
+        this.displayError('Toevoegen mislukt');
+        return;
+      } else {
+        this.goodSave();
+      }
+      this.viewService.admin.id = Number(retval);
+    }, error => {
+      this.displayError('Toevoegen mislukt');
+    });
+  }
+
+  displayError(message: string) {
+    this.saveButtonText = message;
+    this.saveButtonClass = 'danger';
+    setTimeout(() => {
+      this.resetSaveButton();
+    }, 2000);
   }
 
   updateAdmin() {
-    console.log('updating existing admin...');
-    console.log(this.edittedEmail);
-    console.log(this.edittedRightsId);
+    this.viewService.admin.email = this.edittedEmail;
+    this.viewService.admin.rightId = this.edittedRightsId;
+    const currentAdmin = this.viewService.admin;
+    const updatedAdmin = new AdminModel(currentAdmin.id, currentAdmin.email, currentAdmin.password, currentAdmin.rightId);
+    this.httpClient.put(this.URL + '/admin/' + updatedAdmin.id, updatedAdmin).subscribe(retval => {
+      if (Number(retval) === 0) {
+        this.displayError('Updaten mislukt');
+      } else {
+        this.goodSave();
+      }
+    }, error => {
+      this.displayError('Updaten mislukt');
+    });
   }
+
+  goodSave() {
+    this.saveButtonText = 'Opgeslagen';
+    this.saveButtonClass = 'success';
+    setTimeout(() => {
+      this.resetSaveButton();
+    }, 1500);
+  }
+
 
   saveRequest() {
     this.getDetails();
     const form = new FormControl(this.edittedEmail);
     if (ValidateEmail(form)) {
-      this.saveButtonText = 'Foute email';
-      this.saveButtonClass = 'danger';
-      setTimeout(() => {
-        this.resetSaveButton();
-      }, 1500);
+      this.displayError('Foute email');
       return;
     }
     if (this.viewService.admin.id === -1) {
