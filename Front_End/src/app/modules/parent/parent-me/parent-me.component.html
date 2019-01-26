@@ -1,13 +1,39 @@
 <div
   class="row justify-content-center pt-5 mx-0"
-  *ngIf="(parentService.coupleIsLoading)">
+  *ngIf="(parentService.isLoading)">
   <i class="fa fa-refresh fa-spin"></i>
 </div>
 
 
 <div
   class="container mt-5"
-  *ngIf="!parentService.coupleIsLoading">
+  *ngIf="!parentService.isLoading">
+
+  <mdb-card
+    *ngIf="parentService.couple.parent1.token !== null"
+    class="col-md-12 mt-5 px-0 rounded-corner">
+    <mdb-card-header class="main-header">
+      Nieuw Dilemma!
+    </mdb-card-header>
+    <mdb-card-body
+      class="row justify-content-center">
+      <h2
+        class="col-12"
+        style="color: black; text-align: center;">
+        Er staat een nieuw dilemma voor u klaar!
+      </h2>
+      <a
+        id="answer"
+        [routerLink]="'/dilemma/beantwoord/' + parentService.couple.parent1.token"
+        routerLinkActive="active"
+        class="btn-rounded btn-normalize"
+        type="button"
+        mdbBtn color="primary"
+        mdbWavesEffect>
+        Beantwoorden
+      </a>
+    </mdb-card-body>
+  </mdb-card>
 
   <mdb-card class="col-md-12 mt-5 px-0 rounded-corner">
     <mdb-card-header class="main-header">

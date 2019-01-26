@@ -12,7 +12,8 @@ import { ParentDilemmaDetailComponent } from './parent-result/parent-dilemma-det
 import { ParentDilemmaInListComponent } from './parent-result/parent-dilemma-list/parent-dilemma-in-list/parent-dilemma-in-list.component';
 import { ParentDetailsComponent } from './parent-me/parent-details/parent-details.component';
 import {ParentDilemmaListService} from "./parent-result/parent-dilemma-list.service";
-import {ParentStatisticsComponent} from "./parent-me/parent-statistics/parent-statistics.component";
+import {ParentStatisticsComponent} from "./parent-statistics/parent-statistics.component";
+import { ParentDilemmaNewComponent } from './parent-me/parent-dilemma-new/parent-dilemma-new.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {ParentStatisticsComponent} from "./parent-me/parent-statistics/parent-st
     ParentDilemmaDetailComponent,
     ParentDilemmaInListComponent,
     ParentDetailsComponent,
-    ParentStatisticsComponent
+    ParentStatisticsComponent,
+    ParentDilemmaNewComponent
   ],
   imports: [
     CommonModule,

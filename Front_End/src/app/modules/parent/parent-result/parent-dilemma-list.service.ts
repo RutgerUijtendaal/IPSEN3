@@ -48,7 +48,6 @@ export class ParentDilemmaListService {
     this.parentAnswer = null;
     this.partnerAnswer = null;
 
-    console.log(this.activeDilemma);
     const possibleAnswers = this.parentService.answers.filter(i => i.dilemmaId === dilemma.id);
 
     const parentResult: ResultModel = this.parentService.coupleResults[0].find(function(e: ResultModel) {

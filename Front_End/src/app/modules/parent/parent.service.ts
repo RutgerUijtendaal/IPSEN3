@@ -26,20 +26,24 @@ export class ParentService {
   answers: AnswerModel[] = [];
   activeDilemmas: DilemmaModel[] = [];
 
-  coupleIsLoading = false;
-  resultsIsLoading = false;
+  isLoading = false;
 
   constructor(private authenticationService: AuthenticationService,
               private httpClient: HttpClient) {
     this.accountModel = authenticationService.accountModel;
-    this.loadCouple();
   }
 
-  private loadCouple() {
-    this.coupleIsLoading = true;
-    this.resultsIsLoading = true;
-
+  public getData() {
+    this.isLoading = true;
+    this.clearData();
     this.getCouple$().subscribe();
+  }
+
+  private clearData() {
+    this.coupleResults = [[], []];
+    this.dilemmas = [];
+    this.answers = [];
+    this.activeDilemmas = [];
   }
 
   private setActiveDilemmas() {
@@ -53,20 +57,15 @@ export class ParentService {
   }
 
   private loadData() {
-    this.resultsIsLoading = true;
-
     const dilemmas$ = this.getDilemmas$();
     const answers$ = this.getAnswers$();
     const getChild$ = this.getChild$();
     const parent1Results$ = this.getResults$(this.couple.parent1.id, 0);
     const parent2Results$ = this.getResults$(this.couple.parent2.id, 1);
 
-    forkJoin([parent1Results$, parent2Results$, getChild$]).subscribe( () => {
-      this.coupleIsLoading = false;
-      forkJoin([dilemmas$, answers$]).subscribe( () => {
-          this.resultsIsLoading = false;
-          this.setActiveDilemmas();
-      });
+    forkJoin([parent1Results$, parent2Results$, getChild$, dilemmas$, answers$]).subscribe( () => {
+      this.setActiveDilemmas();
+      this.isLoading = false;
     });
   }
 
@@ -155,7 +154,8 @@ export class ParentService {
     const parent: ParentModel = new ParentModel(
       response['firstName'],
       response['phoneNr'],
-      response['email']
+      response['email'],
+      response['token']
     );
     parent.id = response['id'];
     return parent;

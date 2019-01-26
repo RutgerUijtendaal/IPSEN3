@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ParentService} from "../../parent.service";
+import {ParentService} from "../parent.service";
 
 @Component({
   selector: 'app-parent-statistics',
