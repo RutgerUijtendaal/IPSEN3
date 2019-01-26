@@ -3,13 +3,14 @@ package nl.dubio.factories;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.dubio.exceptions.OpenDatabaseConnectionException;
+import nl.dubio.exceptions.ReadFromResultSetException;
+import nl.dubio.exceptions.RegisterDriverException;
+import nl.dubio.persistance.GenericDao;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.postgresql.Driver;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * @author Bas de Bruyn
@@ -40,6 +41,8 @@ public class ConnectionFactory {
     @JsonProperty
     private final String PASSWORD;
 
+    private final String databaseUrl;
+
     @JsonCreator
     public ConnectionFactory(
         @JsonProperty("jdbc") String jdbc,
@@ -55,13 +58,17 @@ public class ConnectionFactory {
         DATABASE = database;
         USER = user;
         PASSWORD = password;
-    }
-
-    public Connection getConnection() {
+        databaseUrl = String.format("jdbc:%s://%s:%d/%s", JDBC, HOST, PORT, DATABASE);
         try {
             DriverManager.registerDriver(new Driver());
-            String url = String.format("jdbc:%s://%s:%d/%s", JDBC, HOST, PORT, DATABASE);
-            return DriverManager.getConnection(url, USER, PASSWORD);
+        } catch (SQLException e) {
+            throw new RegisterDriverException();
+        }
+    }
+
+    public Connection createConnection() {
+        try {
+            return DriverManager.getConnection(databaseUrl, USER, PASSWORD);
         } catch (SQLException exception) {
             throw new OpenDatabaseConnectionException();
         }

@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
 import nl.dubio.auth.Authorizable;
 import nl.dubio.models.Admin;
+import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleRegistry;
 import nl.dubio.models.Parent;
@@ -35,7 +36,7 @@ public class CoupleResource extends GenericResource<Couple> {
 
     @POST
     @Path("/register")
-    public int register(@Valid CoupleRegistry couple){
+    public int register(@Valid CoupleRegistry couple) throws InvalidInputException {
         return ((CoupleService) crudService).register(couple);
     }
 

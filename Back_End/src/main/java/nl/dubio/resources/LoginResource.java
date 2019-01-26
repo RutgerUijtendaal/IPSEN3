@@ -27,7 +27,6 @@ public class LoginResource {
     private CoupleDao coupleDao = DaoRepository.getCoupleDao();
 
     @POST
-    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public LoginModel login(LoginModel loginModel)  {
         System.out.println(loginModel.getPassword());
@@ -49,6 +48,7 @@ public class LoginResource {
                 if (PasswordService.isValidPassword(loginModel.getPassword(), admin.getPassword())) {
                     loginModel.setType("admin");
                     loginModel.setName(admin.getName());
+                    loginModel.setRight(admin.getRights_id());
                     return loginModel;
                 }
             }

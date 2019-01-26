@@ -14,7 +14,7 @@ import java.util.List;
 public class AnswerService implements CrudService<Answer> {
 
     //TODO should come from configuration
-    public final static int maxTextSize = 200;
+    private final static int maxTextSize = 200;
 
     private final AnswerDao answerDao;
     private final DilemmaDao dilemmaDao;
@@ -75,11 +75,11 @@ public class AnswerService implements CrudService<Answer> {
                 Arrays.asList(".png", ".jpg", null)
         );
 
-        if (! dilemmaDao.idExists(answer.getDilemmaId()) )
+        if (! dilemmaDao.idExists(answer.getDilemmaId()))
             errors.add("Invalid dilemma id");
-        if(! allowedExtensions.contains(answer.getExtension()))
+        if (! allowedExtensions.contains(answer.getExtension()))
             errors.add("Invalid file-extension");
-        if( answer.getText().length() > maxTextSize )
+        if (answer.getText().length() > maxTextSize)
             errors.add("Text longer then " + maxTextSize + " characters");
 
         return errors;

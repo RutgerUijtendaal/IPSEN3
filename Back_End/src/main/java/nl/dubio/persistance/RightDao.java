@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.dubio.exceptions.FillPreparedStatementException;
 import nl.dubio.exceptions.ReadFromResultSetException;
+import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.Right;
 
 import java.sql.PreparedStatement;
@@ -18,6 +19,17 @@ public class RightDao extends GenericDao<Right> {
     @JsonCreator
     public RightDao(@JsonProperty("tableName") String tableName, @JsonProperty("columnNames") String[] columnNames) {
         super(tableName, columnNames);
+    }
+
+    public boolean rightExists(Right right){
+        PreparedStatement statement =
+                PreparedStatementFactory.createSelectByAttributesStatement(tableName, columnNames);
+
+        fillParameter(statement, 1, right.isCanViewStatistics());
+        fillParameter(statement, 2, right.isCanEditDilemma());
+        fillParameter(statement, 3, right.isCanEditUserInfo());
+
+        return executeGetByAttribute(statement) != null;
     }
 
     @Override

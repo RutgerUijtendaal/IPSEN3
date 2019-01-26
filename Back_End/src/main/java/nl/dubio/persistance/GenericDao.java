@@ -7,10 +7,7 @@ import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.DatabaseObject;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,12 +131,11 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
         return deleteById(deletedObject.getId());
     }
 
-
-
     public static ResultSet executeQuery(PreparedStatement preparedStatement){
         try {
             return preparedStatement.executeQuery();
         } catch (SQLException exception){
+            exception.printStackTrace();
             throw new ExecutePreparedStatementException();
         }
     }
@@ -263,6 +259,14 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
     public static void fillParameter(PreparedStatement statement, int index, short value){
         try {
             statement.setShort(index, value);
+        } catch (SQLException exception) {
+            throw new FillPreparedStatementException();
+        }
+    }
+
+    public static void fillParameter(PreparedStatement statement, int index, boolean value){
+        try {
+            statement.setBoolean(index, value);
         } catch (SQLException exception) {
             throw new FillPreparedStatementException();
         }

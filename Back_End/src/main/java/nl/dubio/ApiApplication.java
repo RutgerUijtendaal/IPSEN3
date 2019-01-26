@@ -15,6 +15,7 @@ import nl.dubio.auth.*;
 import nl.dubio.config.ApiConfiguration;
 import nl.dubio.exceptionHandlers.ClientExceptionHandler;
 import nl.dubio.factories.PreparedStatementFactory;
+import nl.dubio.healthChecks.DatabaseHealthCheck;
 import nl.dubio.models.Admin;
 import nl.dubio.models.Parent;
 import nl.dubio.resources.FileUploadResource;
@@ -51,6 +52,8 @@ public class ApiApplication extends Application<ApiConfiguration> {
         environment.jersey().register(new ClientExceptionHandler());
 
         mailUtility = configuration.getMailUtility();
+
+        environment.healthChecks().register("database", new DatabaseHealthCheck());
     }
 
     private void setupAuthentication(Environment environment) {

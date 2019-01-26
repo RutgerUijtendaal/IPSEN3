@@ -64,11 +64,11 @@ public class AdminService implements CrudService<Admin> {
     public List<String> validate(Admin admin){
         List<String> errors = new ArrayList<>();
 
-        if (! ValidationService.isValidEmail(admin.getEmail()) )
+        if (! ValidationService.isValidEmail(admin.getEmail()))
             errors.add("Invalid email");
-        if (! ValidationService.isValidPassword(admin.getPassword()) )
+        if (! ValidationService.isValidPassword(admin.getPassword()))
             errors.add("Invalid password");
-        if (! rightDao.idExists(admin.getRights_id()) )
+        if (! rightDao.idExists(admin.getRights_id()))
             errors.add("Invalid right id");
 
         return errors;

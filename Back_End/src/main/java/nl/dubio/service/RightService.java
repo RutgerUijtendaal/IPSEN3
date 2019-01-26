@@ -1,9 +1,11 @@
 package nl.dubio.service;
 
+import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Right;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.RightDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RightService implements CrudService<Right> {
@@ -24,12 +26,22 @@ public class RightService implements CrudService<Right> {
     }
 
     @Override
-    public Integer save(Right right) {
+    public Integer save(Right right) throws InvalidInputException {
+        List<String> errors = validate(right);
+
+        if (errors.size() > 0)
+            throw new InvalidInputException(errors);
+
         return rightDao.save(right);
     }
 
     @Override
-    public boolean update(Right right) {
+    public boolean update(Right right) throws InvalidInputException {
+        List<String> errors = validate(right);
+
+        if (errors.size() > 0)
+            throw new InvalidInputException(errors);
+
         return rightDao.update(right);
     }
 
@@ -45,6 +57,11 @@ public class RightService implements CrudService<Right> {
 
     @Override
     public List<String> validate(Right right) {
-        return null;
+        List<String> errors = new ArrayList<>();
+
+        if (rightDao.rightExists(right))
+            errors.add("Right already exists");
+
+        return errors;
     }
 }
