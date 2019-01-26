@@ -22,32 +22,51 @@ export class AdminNewPasswordComponent implements OnInit {
 
   constructor(private httpClient: HttpClient, private route: ActivatedRoute) { }
 
-  verifyInputs() {
-    if (this.password1 === this.password2) {
-      this.savePassword();
+  resetButton() {
+    this.buttonClass = 'primary';
+    this.buttonText = 'Opslaan';
+  }
+
+  errorMessage(message: string) {
+    this.buttonClass = 'danger';
+    this.buttonText = message;
+    setTimeout(() => {
+      this.resetButton();
+    }, 1500);
+  }
+
+  startSaving() {
+    console.log('starting saving');
+    if (this.password1 === undefined || this.password2 === undefined) {
+      this.errorMessage('Leeg wachtwoord veld');
+    } else if (this.password1 !== this.password2) {
+      this.errorMessage('Wachtwoorden komen niet overeen');
+    } else if (this.password1.length <= 3) {
+      this.errorMessage('Te kort wachtwoord');
     } else {
-
-
-
-
+      this.savePassword();
     }
   }
 
+  firstInputUpdated(event: any) {
+    this.password1 = event.target.value;
+  }
+
+  secondInputUpdated(event: any) {
+    this.password2 = event.target.value;
+  }
+
   savePassword() {
-    console.log('wtf');
+    console.log('actually saving');
     this.httpClient.put(this.URL + '/admin/password/' + this.token, this.password1).subscribe(retval => {
       console.log(retval);
-
     });
-    return false;
   }
 
   ngOnInit() {
     this.token = this.route.snapshot.params['token'];
-    this.buttonClass = 'primary';
-    this.buttonText = 'Opslaan';
+    this.resetButton();
     console.log(this.token);
-
   }
 
 }
