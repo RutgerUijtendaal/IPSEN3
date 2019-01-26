@@ -45,6 +45,9 @@ daoRepository:
   rightDao:
     tableName: rights
     columnNames: [can_edit_dilemma, can_view_statistics, can_edit_user_info]
+  ratingDao:
+    tableName: rating
+    columnNames: [dilemma_id, rating, date]
 
 databaseConnection:
   jdbc: postgresql
