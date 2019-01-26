@@ -48,7 +48,7 @@ public class LoginResource {
                 if (PasswordService.isValidPassword(loginModel.getPassword(), admin.getPassword())) {
                     loginModel.setType("admin");
                     loginModel.setName(admin.getName());
-                    loginModel.setRight(admin.getRights_id());
+                    loginModel.setRight(admin.getRightId());
                     return loginModel;
                 }
             }

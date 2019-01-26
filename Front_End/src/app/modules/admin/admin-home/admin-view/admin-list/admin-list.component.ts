@@ -69,7 +69,7 @@ export class AdminListComponent implements OnInit {
   }
 
   newAdmin() {
-    const newAdmin = new AdminModel(-1, '', '', '1');
+    const newAdmin = new AdminModel(-1, '', '', '1', null);
     const val = this.unfinishedAdmin();
     if (val) {
       this.viewService.admin = val;

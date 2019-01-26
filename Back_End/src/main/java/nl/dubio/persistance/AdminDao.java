@@ -26,7 +26,7 @@ public class AdminDao extends GenericDao<Admin> {
         PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
 
         fillParameter(statement, 1, admin.getEmail());
-        fillParameter(statement, 2, admin.getRights_id());
+        fillParameter(statement, 2, admin.getRightId());
         fillParameter(statement, 3, admin.getId());
 
         boolean successful = executeUpdate(statement);
@@ -96,7 +96,7 @@ public class AdminDao extends GenericDao<Admin> {
             String password = resultSet.getString(columnNames[1]);
             int rightsId = resultSet.getInt(columnNames[2]);
             Date signupDate = resultSet.getDate(columnNames[3]);
-            return new Admin(id, email, password, rightsId, signupDate);
+            return new Admin(id, email, password, rightsId, signupDate, null);
         } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
@@ -107,7 +107,7 @@ public class AdminDao extends GenericDao<Admin> {
         try {
             preparedStatement.setString(1, admin.getEmail());
             preparedStatement.setString(2, admin.getPassword());
-            preparedStatement.setInt(3, admin.getRights_id());
+            preparedStatement.setInt(3, admin.getRightId());
             preparedStatement.setDate(4, new Date(System.currentTimeMillis()));
             preparedStatement.setString(5, null);
         } catch (SQLException exception){

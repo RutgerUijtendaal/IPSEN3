@@ -130,7 +130,7 @@ public class AdminService implements CrudService<Admin> {
 
         if (! ValidationService.isValidEmail(admin.getEmail()))
             errors.add("Invalid email");
-        if (! rightDao.idExists(admin.getRights_id()))
+        if (! rightDao.idExists(admin.getRightId()))
             errors.add("Invalid right id");
 
         /*
