@@ -9,6 +9,7 @@ import nl.dubio.persistance.RightDao;
 
 import javax.mail.MessagingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AdminService implements CrudService<Admin> {
@@ -81,6 +82,25 @@ public class AdminService implements CrudService<Admin> {
         return adminDao.updateWithoutPassword(admin);
     }
 
+    public boolean updatePassword(String token, String password) throws InvalidInputException {
+
+        if (!validatePassword(password)) {
+            throw new InvalidInputException(Arrays.asList("Invalid password"));
+        }
+
+        String hashedPassword = null;
+        try {
+            hashedPassword = PasswordService.generatePasswordHash(password);
+        } catch (Exception e) {
+            // TODO
+            e.printStackTrace();
+        }
+
+        // return true;
+        return this.adminDao.updatePassword(token, hashedPassword);
+    }
+
+
     @Override
     public boolean delete(Admin admin) {
         return adminDao.delete(admin);
@@ -89,6 +109,10 @@ public class AdminService implements CrudService<Admin> {
     @Override
     public boolean deleteById(Integer id) {
         return adminDao.deleteById(id);
+    }
+
+    public boolean validatePassword(String password) {
+        return ValidationService.isValidPassword(password);
     }
 
     @Override

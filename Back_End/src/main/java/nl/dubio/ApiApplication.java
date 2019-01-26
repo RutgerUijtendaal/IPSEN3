@@ -83,6 +83,10 @@ public class ApiApplication extends Application<ApiConfiguration> {
         environment.jersey().register(binder);
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(Authorizable.class));
+
+        // Setup image uploading
+        environment.jersey().register(MultiPartFeature.class);
+        environment.jersey().register(FileUploadResource.class);
     }
 
     public static MailUtility getMailUtility() { return mailUtility; }
@@ -100,9 +104,6 @@ public class ApiApplication extends Application<ApiConfiguration> {
         // Add URL mapping
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
-        // Setup image uploading
-        environment.jersey().register(MultiPartFeature.class);
-        environment.jersey().register(FileUploadResource.class);
     }
 
 

@@ -152,8 +152,10 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
 
     public static boolean executeUpdate(PreparedStatement preparedStatement){
         try {
+            System.out.println("!!!!" + preparedStatement.toString());
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException exception){
+            exception.printStackTrace();
             throw new ExecutePreparedStatementException();
         }
     }

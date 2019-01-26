@@ -14,6 +14,16 @@ h5 {
   transition: all ease-in-out .15s;
 }
 
+.reset-password {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    width: 250px;
+  }
+  padding-bottom: 20px;
+}
+
 .form-button:hover {
   transform: scale(1.02);
 }

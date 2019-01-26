@@ -52,6 +52,24 @@ public class AdminResource extends GenericResource<Admin> {
 
     @PUT
     @Timed
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("/password/{token}")
+    public boolean updatePassword(@Auth Admin admin,
+                                  @PathParam("token") String token,
+                                  String password) {
+        System.out.println("token: " + token);
+        System.out.println("password: " + password);
+        try {
+            new AdminService().updatePassword(token, password);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @PUT
+    @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public boolean update(@Auth Admin admin, @Valid Admin object) {
