@@ -82,7 +82,7 @@ public class CoupleDao extends GenericDao<Couple> {
 
     }
 
-    public boolean resetPasswordRequest(Couple couple) {
+    public String resetPasswordRequest(Couple couple) {
 
         String passwordToken = TokenGenerator.getToken();
 
@@ -92,7 +92,9 @@ public class CoupleDao extends GenericDao<Couple> {
         fillParameter(preparedStatement, 1, passwordToken);
         fillParameter(preparedStatement, 2, couple.getId());
 
-        return executeUpdate(preparedStatement);
+        executeUpdate(preparedStatement);
+
+        return passwordToken;
     }
 
     public int saveCoupleViaRegistry(CoupleRegistry registry) throws InvalidKeySpecException, NoSuchAlgorithmException {

@@ -51,7 +51,7 @@ public class AdminDao extends GenericDao<Admin> {
 
     }
 
-    public boolean resetPasswordRequest(Admin admin) {
+    public String resetPasswordRequest(Admin admin) {
 
         String passwordToken = TokenGenerator.getToken();
 
@@ -61,7 +61,9 @@ public class AdminDao extends GenericDao<Admin> {
         fillParameter(preparedStatement, 1, passwordToken);
         fillParameter(preparedStatement, 2, admin.getId());
 
-        return executeUpdate(preparedStatement);
+        executeUpdate(preparedStatement);
+
+        return passwordToken;
     }
 
 

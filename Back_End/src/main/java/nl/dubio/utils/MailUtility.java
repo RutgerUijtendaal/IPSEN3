@@ -104,6 +104,12 @@ public class MailUtility {
         messageQueue.add(mimeMessage);
     }
 
+    public void addResetPasswordToQueue(String to, String name, String token) throws MessagingException {
+        final String subject = "Wachtwoord resetten";
+        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getResetPasswordMail(name, token));
+        messageQueue.add(mimeMessage);
+    }
+
     public void addNewAdminToQueue(String to, String password) throws MessagingException {
         final String subject = "Uw Dubio beheerders wachtwoord";
         MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getNewAdminMail(password));

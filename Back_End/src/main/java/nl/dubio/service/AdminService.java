@@ -83,11 +83,17 @@ public class AdminService implements CrudService<Admin> {
     }
 
     public boolean resetPasswordRequest(Admin admin) {
-        boolean success = this.adminDao.resetPasswordRequest(admin);
-        if (success) {
-            // TODO: Send mail
+        String token = "beheerder/nieuw-wachtwoord/" + this.adminDao.resetPasswordRequest(admin);
+        if (token != null) {
+            try {
+                ApiApplication.getMailUtility().addResetPasswordToQueue(admin.getEmail(), "beheerder", token);
+                return true;
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
-        return success;
+        return false;
     }
 
     public boolean updatePassword(String token, String password) throws InvalidInputException {

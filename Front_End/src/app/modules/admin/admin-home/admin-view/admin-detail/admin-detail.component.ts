@@ -79,7 +79,7 @@ export class AdminDetailComponent implements OnInit {
     this.viewService.admin.email = this.edittedEmail;
     this.viewService.admin.rightId = this.edittedRightsId;
     const currentAdmin = this.viewService.admin;
-    const updatedAdmin = new AdminModel(currentAdmin.id, currentAdmin.email, currentAdmin.password, currentAdmin.rightId);
+    const updatedAdmin = new AdminModel(currentAdmin.id, currentAdmin.email, currentAdmin.password, currentAdmin.rightId, null);
     this.httpClient.put(this.URL + '/admin/' + updatedAdmin.id, updatedAdmin).subscribe(retval => {
       if (Number(retval) === 0) {
         this.displayError('Updaten mislukt');

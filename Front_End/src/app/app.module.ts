@@ -12,10 +12,14 @@ import {HomeModule} from './modules/home/home.module';
 import {AdminModule} from './modules/admin/admin.module';
 import {DilemmaModule} from './modules/dilemma/dilemma.module';
 import {ParentModule} from './modules/parent/parent.module';
+import { AdminNewPasswordComponent } from './modules/admin/admin-home/admin-new-password/admin-new-password.component';
+import { ParentNewPasswordComponent } from './modules/parent/parent-new-password/parent-new-password.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AdminNewPasswordComponent,
+    ParentNewPasswordComponent
   ],
   imports: [
     BrowserModule,

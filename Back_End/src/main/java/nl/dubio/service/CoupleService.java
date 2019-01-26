@@ -114,11 +114,17 @@ public class CoupleService implements CrudService<Couple> {
     }
 
     public boolean resetPasswordRequest(Couple couple) {
-        boolean success = this.coupleDao.resetPasswordRequest(couple);
-        if (success) {
-            // TODO: Send mail
+        String token = "ouders/nieuw-wachtwoord/" + this.coupleDao.resetPasswordRequest(couple);
+        if (token != null) {
+            try {
+                // TODO
+                throw new MessagingException();
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
-        return success;
+        return false;
     }
 
     public boolean updatePassword(String token, String password) throws InvalidInputException {
