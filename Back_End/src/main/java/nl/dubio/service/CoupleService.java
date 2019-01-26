@@ -117,8 +117,11 @@ public class CoupleService implements CrudService<Couple> {
         String token = "ouders/nieuw-wachtwoord/" + this.coupleDao.resetPasswordRequest(couple);
         if (token != null) {
             try {
-                // TODO
-                throw new MessagingException();
+                Parent parent1 = parentDao.getById(couple.getParent1Id());
+                Parent parent2 = parentDao.getById(couple.getParent2Id());
+                ApiApplication.getMailUtility().addResetPasswordToQueue(parent1.getEmail(), parent1.getFirstName(), token);
+                ApiApplication.getMailUtility().addResetPasswordToQueue(parent2.getEmail(), parent2.getFirstName(), token);
+                return true;
             } catch (MessagingException e) {
                 e.printStackTrace();
                 return false;
