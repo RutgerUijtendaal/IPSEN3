@@ -26,9 +26,11 @@ public class PasswordResource {
             if (couple == null) {
                 return false;
             } else {
+                System.out.println("found couple for pw reset");
                 coupleService.resetPasswordRequest(couple);
             }
         } else {
+            System.out.println("found admin for pw reset");
             adminService.resetPasswordRequest(admin);
         }
         return true;

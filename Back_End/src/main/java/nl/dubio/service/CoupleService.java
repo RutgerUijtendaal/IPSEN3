@@ -113,8 +113,11 @@ public class CoupleService implements CrudService<Couple> {
     }
 
     public boolean resetPasswordRequest(Couple couple) {
-
-        return true;
+        boolean success = this.coupleDao.resetPasswordRequest(couple);
+        if (success) {
+            // TODO: Send mail
+        }
+        return success;
     }
 
 

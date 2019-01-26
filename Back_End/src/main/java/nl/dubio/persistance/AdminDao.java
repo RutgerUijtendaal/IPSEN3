@@ -7,6 +7,7 @@ import nl.dubio.exceptions.NoFurtherResultsException;
 import nl.dubio.exceptions.ReadFromResultSetException;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.Admin;
+import nl.dubio.utils.TokenGenerator;
 
 import java.sql.*;
 
@@ -49,6 +50,20 @@ public class AdminDao extends GenericDao<Admin> {
         return successful;
 
     }
+
+    public boolean resetPasswordRequest(Admin admin) {
+
+        String passwordToken = TokenGenerator.getToken();
+
+        String query = "UPDATE admin SET " + columnNames[4] + " = ? WHERE id = ?;";
+
+        PreparedStatement preparedStatement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(preparedStatement, 1, passwordToken);
+        fillParameter(preparedStatement, 2, admin.getId());
+
+        return executeUpdate(preparedStatement);
+    }
+
 
     public boolean updatePassword(String token, String hashedPassword) {
 

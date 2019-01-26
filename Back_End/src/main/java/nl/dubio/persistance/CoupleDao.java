@@ -10,6 +10,7 @@ import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleRegistry;
 import nl.dubio.models.Parent;
 import nl.dubio.service.PasswordService;
+import nl.dubio.utils.TokenGenerator;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -47,6 +48,19 @@ public class CoupleDao extends GenericDao<Couple> {
 
         return executeGetByAttribute(preparedStatement);
 
+    }
+
+    public boolean resetPasswordRequest(Couple couple) {
+
+        String passwordToken = TokenGenerator.getToken();
+
+        String query = "UPDATE couple SET " + columnNames[5] + " = ? WHERE id = ?;";
+
+        PreparedStatement preparedStatement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(preparedStatement, 1, passwordToken);
+        fillParameter(preparedStatement, 2, couple.getId());
+
+        return executeUpdate(preparedStatement);
     }
 
     public int saveCoupleViaRegistry(CoupleRegistry registry) throws InvalidKeySpecException, NoSuchAlgorithmException {

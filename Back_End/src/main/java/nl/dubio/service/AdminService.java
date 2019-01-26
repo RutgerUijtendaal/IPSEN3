@@ -83,8 +83,11 @@ public class AdminService implements CrudService<Admin> {
     }
 
     public boolean resetPasswordRequest(Admin admin) {
-
-        return true;
+        boolean success = this.adminDao.resetPasswordRequest(admin);
+        if (success) {
+            // TODO: Send mail
+        }
+        return success;
     }
 
     public boolean updatePassword(String token, String password) throws InvalidInputException {
