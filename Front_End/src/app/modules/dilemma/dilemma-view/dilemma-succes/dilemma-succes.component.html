@@ -1,0 +1,52 @@
+<div class="row justify-content-center py-5">
+  <div class="col-md-10 col-xs-12">
+
+    <div class="card rounded-corner">
+
+      <h5 class="card-header white-text text-center py-4">
+        <strong> Uw antwoord is succesvol ontvangen.</strong>
+      </h5>
+
+      <!-- LoginCard form login -->
+      <div class="card">
+        <div *ngIf="!feedbackSend" class="row justify-content-center">
+          <div class="col-md-12 py-4">
+            <h3 style="text-align: center; color: black;">
+              Was dit dilemma relevant voor u?
+            </h3>
+          </div>
+          <div class="row col-md-6 justify-content-center py-3">
+            <a
+              (click)="sendFeedback(-1)"
+              class="btn-rounded btn-normalize feedback-button"
+              type="button"
+              mdbBtn
+              color="red"
+              mdbWavesEffect>
+              Nee
+            </a>
+          </div>
+          <div class="row col-md-6 justify-content-center py-3">
+            <a
+              (click)="sendFeedback(1)"
+              class="btn-rounded btn-normalize feedback-button"
+              type="button"
+              mdbBtn
+              color="green"
+              mdbWavesEffect>
+              Ja
+            </a>
+          </div>
+        </div>
+        <div *ngIf="feedbackSend" class="row justify-content-center">
+          <div class="col-md-12 py-4">
+            <h3 style="text-align: center; color: black;">
+              Bedankt voor uw feedback.
+            </h3>
+          </div>
+        </div>
+      </div>
+      <!-- Material form login -->
+    </div>
+  </div>
+</div>
