@@ -18,6 +18,8 @@ public class Admin implements DatabaseObject<Admin>, Authorizable {
     private int rightId;
     @JsonProperty
     private Date signupDate;
+    @JsonProperty
+    private String passwordToken;
 
     public Admin (String email, String password, int rightId) {
         this.email = email;
@@ -31,13 +33,15 @@ public class Admin implements DatabaseObject<Admin>, Authorizable {
         @JsonProperty("id") int id,
         @JsonProperty("email") String email,
         @JsonProperty("password") String password,
-        @JsonProperty("rightId") int rightId
+        @JsonProperty("rightId") int rightId,
+        @JsonProperty("signupDate") Date signupDate
     )
     {
         this.id = id;
         this.email = email;
         this.password = password;
         this.rightId = rightId;
+        this.signupDate = signupDate;
     }
 
     public void setId(int id) { this.id = id; }

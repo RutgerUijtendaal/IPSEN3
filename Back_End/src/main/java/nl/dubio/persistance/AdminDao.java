@@ -20,41 +20,6 @@ public class AdminDao extends GenericDao<Admin> {
         super(tableName, columnNames);
     }
 
-    @Override
-    public int save(Admin admin) {
-        int generatedKey;
-
-        String query = "INSERT INTO admin (" + columnNames[0] + ", "
-                + columnNames[1] + ", "
-                + columnNames[2] + ", "
-                + columnNames[3] + ") VALUES (?, ?, ?, ?);";
-
-        PreparedStatement statement = PreparedStatementFactory.createPreparedStatementWithReturnedKey(query);
-
-        fillParameter(statement, 4, new Date(System.currentTimeMillis()));
-        fillParameter(statement, 3, admin.getRights_id());
-        fillParameter(statement, 2, admin.getPassword());
-        fillParameter(statement, 1, admin.getEmail());
-
-        execute(statement);
-
-        try{
-            ResultSet resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                generatedKey = resultSet.getInt(1);
-                resultSet.close();
-            } else {
-                throw new NoFurtherResultsException();
-            }
-        } catch (SQLException exception){
-            throw new ReadFromResultSetException();
-        } finally {
-            closeTransaction(statement);
-        }
-
-        return generatedKey;
-    }
-
     public boolean updateWithoutPassword(Admin admin) {
         String query = "UPDATE admin SET " + columnNames[0] + " = ? , " + columnNames[2] + " = ? WHERE id = ?;" ;
 
@@ -73,7 +38,7 @@ public class AdminDao extends GenericDao<Admin> {
 
     private boolean removeToken(String token) {
 
-        String query = "UPDATE admin SET " + columnNames[3] + " = null WHERE " + columnNames[4] + " = ?";
+        String query = "UPDATE admin SET " + columnNames[4] + " = null WHERE " + columnNames[4] + " = ?";
         PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
         fillParameter(statement, 1, token);
 
@@ -129,8 +94,9 @@ public class AdminDao extends GenericDao<Admin> {
             int id = resultSet.getInt("id");
             String email = resultSet.getString(columnNames[0]);
             String password = resultSet.getString(columnNames[1]);
-            int rights_id = resultSet.getInt(columnNames[2]);
-            return new Admin(id, email, password, rights_id);
+            int rightsId = resultSet.getInt(columnNames[2]);
+            Date signupDate = resultSet.getDate(columnNames[3]);
+            return new Admin(id, email, password, rightsId, signupDate);
         } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
@@ -142,6 +108,8 @@ public class AdminDao extends GenericDao<Admin> {
             preparedStatement.setString(1, admin.getEmail());
             preparedStatement.setString(2, admin.getPassword());
             preparedStatement.setInt(3, admin.getRights_id());
+            preparedStatement.setDate(4, new Date(System.currentTimeMillis()));
+            preparedStatement.setString(5, null);
         } catch (SQLException exception){
             throw new FillPreparedStatementException();
         }

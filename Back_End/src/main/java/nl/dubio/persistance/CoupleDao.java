@@ -63,7 +63,7 @@ public class CoupleDao extends GenericDao<Couple> {
                 registry.getPhoneNr2());
         int parent2Id = parentDao.save(parent2);
 
-        Couple couple = new Couple(new Date(System.currentTimeMillis()), parent1Id, parent2Id, PasswordService.generatePasswordHash(registry.getPassword()), registry.getToken());
+        Couple couple = new Couple(new Date(System.currentTimeMillis()), parent1Id, parent2Id, PasswordService.generatePasswordHash(registry.getPassword()), registry.getToken(), null);
         int coupleId = save(couple);
 
         Child child = new Child(coupleId, registry.getDate(), registry.getIsBorn());
@@ -82,7 +82,8 @@ public class CoupleDao extends GenericDao<Couple> {
             int parent2_id = resultSet.getInt("parent2_id");
             String password = resultSet.getString("password");
             String token = resultSet.getString("token");
-            return new Couple(id, signup_date, parent1_id, parent2_id, password, token);
+            String passwordToken = resultSet.getString("password_token");
+            return new Couple(id, signup_date, parent1_id, parent2_id, password, token, passwordToken);
         } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
@@ -96,6 +97,7 @@ public class CoupleDao extends GenericDao<Couple> {
             preparedStatement.setDate(3, couple.getSignupDate());
             preparedStatement.setString(4, couple.getPassword());
             preparedStatement.setString(5, couple.getToken());
+            preparedStatement.setString(6, couple.getPasswordToken());
         } catch (SQLException exception){
             throw new FillPreparedStatementException();
         }
