@@ -92,7 +92,7 @@ public class AdminService implements CrudService<Admin> {
 
     public boolean updatePassword(String token, String password) throws InvalidInputException {
 
-        if (!validatePassword(password)) {
+        if (!ValidationService.isValidPassword(password)) {
             throw new InvalidInputException(Arrays.asList("Invalid password"));
         }
 
@@ -121,10 +121,6 @@ public class AdminService implements CrudService<Admin> {
     @Override
     public boolean deleteById(Integer id) {
         return adminDao.deleteById(id);
-    }
-
-    public boolean validatePassword(String password) {
-        return ValidationService.isValidPassword(password);
     }
 
     @Override

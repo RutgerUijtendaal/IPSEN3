@@ -39,6 +39,38 @@ public class CoupleDao extends GenericDao<Couple> {
         return executeGetByAttribute(preparedStatement);
     }
 
+    private boolean removeToken(String token) {
+
+        String query = "UPDATE couple SET " + columnNames[5] + " = null WHERE " + columnNames[5] + " = ?";
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(statement, 1, token);
+
+        boolean successful = executeUpdate(statement);
+
+        closeTransaction(statement);
+
+        return successful;
+
+    }
+
+    public boolean updatePassword(String token, String hashedPassword) {
+
+        String query = "UPDATE couple SET " + columnNames[3] + " = ? WHERE " + columnNames[5] + " = ?";
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(statement, 2, token);
+        fillParameter(statement, 1, hashedPassword);
+
+        boolean successful = executeUpdate(statement);
+
+        closeTransaction(statement);
+
+        if (!successful) {
+            return false;
+        }
+
+        return removeToken(token);
+    }
+
     public Couple getByToken(String token) {
         String query = "SELECT * FROM " + tableName + " WHERE " + columnNames[4] + " = ?;";
 

@@ -16,6 +16,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CoupleService implements CrudService<Couple> {
@@ -120,6 +121,22 @@ public class CoupleService implements CrudService<Couple> {
         return success;
     }
 
+    public boolean updatePassword(String token, String password) throws InvalidInputException {
+
+        if (!ValidationService.isValidPassword(password)) {
+            throw new InvalidInputException(Arrays.asList("Invalid password"));
+        }
+
+        String hashedPassword = null;
+        try {
+            hashedPassword = PasswordService.generatePasswordHash(password);
+        } catch (Exception e) {
+            // TODO
+        }
+
+        // return true;
+        return this.coupleDao.updatePassword(token, hashedPassword);
+    }
 
     //TODO better error messages and the messages should come from a constants class
     private List<String> validateRegistry(CoupleRegistry registry) {

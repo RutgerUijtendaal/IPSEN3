@@ -40,6 +40,25 @@ public class CoupleResource extends GenericResource<Couple> {
         return ((CoupleService) crudService).register(couple);
     }
 
+    @PUT
+    @Timed
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("/password/{token}")
+    public boolean updatePassword(@PathParam("token") String token,
+                                  String password) {
+        if (token.length() != 32) {
+            return false;
+        }
+
+        try {
+            new CoupleService().updatePassword(token, password);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
     @DELETE
     @Path("/unregister")
     public Response unregister(@QueryParam("token") String token) {
