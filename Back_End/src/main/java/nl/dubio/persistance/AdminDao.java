@@ -3,13 +3,12 @@ package nl.dubio.persistance;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.dubio.exceptions.FillPreparedStatementException;
+import nl.dubio.exceptions.NoFurtherResultsException;
 import nl.dubio.exceptions.ReadFromResultSetException;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.Admin;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * @author Bas de Bruyn
@@ -21,12 +20,43 @@ public class AdminDao extends GenericDao<Admin> {
         super(tableName, columnNames);
     }
 
+    @Override
+    public int save(Admin admin) {
+        int generatedKey;
+
+        String query = "INSERT INTO admin (" + columnNames[0] + ", "
+                + columnNames[1] + ", "
+                + columnNames[2] + ", "
+                + columnNames[3] + ") VALUES (?, ?, ?, ?);";
+
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatementWithReturnedKey(query);
+
+        fillParameter(statement, 4, new Date(System.currentTimeMillis()));
+        fillParameter(statement, 3, admin.getRights_id());
+        fillParameter(statement, 2, admin.getPassword());
+        fillParameter(statement, 1, admin.getEmail());
+
+        execute(statement);
+
+        try{
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                generatedKey = resultSet.getInt(1);
+                resultSet.close();
+            } else {
+                throw new NoFurtherResultsException();
+            }
+        } catch (SQLException exception){
+            throw new ReadFromResultSetException();
+        } finally {
+            closeTransaction(statement);
+        }
+
+        return generatedKey;
+    }
+
     public boolean updateWithoutPassword(Admin admin) {
-        final String[] columnNamesWithoutPassword = {
-            columnNames[0],
-            columnNames[2]
-        };
-        String query = "UPDATE admin SET " + columnNamesWithoutPassword[0] + " = ? , " + columnNamesWithoutPassword[1] + " = ? WHERE id = ?;" ;
+        String query = "UPDATE admin SET " + columnNames[0] + " = ? , " + columnNames[2] + " = ? WHERE id = ?;" ;
 
         PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
 
@@ -43,7 +73,7 @@ public class AdminDao extends GenericDao<Admin> {
 
     private boolean removeToken(String token) {
 
-        String query = "UPDATE admin SET password_token = null WHERE password_token = ?";
+        String query = "UPDATE admin SET " + columnNames[3] + " = null WHERE " + columnNames[4] + " = ?";
         PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
         fillParameter(statement, 1, token);
 
@@ -57,7 +87,7 @@ public class AdminDao extends GenericDao<Admin> {
 
     public boolean updatePassword(String token, String hashedPassword) {
 
-        String query = "UPDATE admin SET " + columnNames[1] + " = ? WHERE password_token = ?";
+        String query = "UPDATE admin SET " + columnNames[1] + " = ? WHERE " + columnNames[4] + " = ?";
         PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
         fillParameter(statement, 1, hashedPassword);
         fillParameter(statement, 2, token);

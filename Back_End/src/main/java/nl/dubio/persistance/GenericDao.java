@@ -258,6 +258,14 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
         }
     }
 
+    public static void fillParameter(PreparedStatement statement, int index, Date value) {
+        try {
+            statement.setDate(index, value);
+        } catch (SQLException exception) {
+            throw new FillPreparedStatementException();
+        }
+    }
+
     public static void fillParameter(PreparedStatement statement, int index, short value){
         try {
             statement.setShort(index, value);

@@ -20,7 +20,7 @@ server:
 daoRepository:
   adminDao:
     tableName: admin
-    columnNames: [email, password, rights_id]
+    columnNames: [email, password, rights_id, signup_date, password_token]
   answerDao:
     tableName: answer
     columnNames: [dilemma_id, extension, text]
@@ -29,7 +29,7 @@ daoRepository:
     columnNames: [couple_id, is_born, date]
   coupleDao:
     tableName: couple
-    columnNames: [parent1_id, parent2_id, signup_date, password, token]
+    columnNames: [parent1_id, parent2_id, signup_date, password, token, password_token]
   coupleListViewDao:
     tableName: couple_list_view
     columnNames: [couple_id, parent_id1, name1, email1, phone_nr1, parent_id2, name2, email2, phone_nr2]
