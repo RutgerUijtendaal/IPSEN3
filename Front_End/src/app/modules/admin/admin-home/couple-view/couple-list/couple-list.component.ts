@@ -34,7 +34,7 @@ export class CoupleListComponent implements OnInit {
         const parent2: ParentModel = couple.parent2;
         parent1.id = couple.parent1.id;
         parent2.id = couple.parent2.id;
-        this.allCouples.push(new CoupleModel(couple.coupleId, parent1, parent2));
+        this.allCouples.push(new CoupleModel(couple.coupleId, parent1, parent2, couple['date'], couple['token']));
       }
     );
     this.updateList('');
