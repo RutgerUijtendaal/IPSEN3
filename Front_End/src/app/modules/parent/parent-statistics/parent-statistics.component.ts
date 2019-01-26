@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ParentService} from "../parent.service";
+import {ParentDataService} from "../parent-data.service";
 
 @Component({
   selector: 'app-parent-statistics',
@@ -28,7 +28,7 @@ export class ParentStatisticsComponent implements OnInit {
     responsive: true
   };
 
-  constructor(private parentService: ParentService) {
+  constructor(private parentService: ParentDataService) {
     this.parentService.coupleResults[0].forEach((item, index) => {
       let otherAwnserId: number = this.parentService.coupleResults[1][index].answerId;
       if(item.answerId !== 0 && otherAwnserId !== 0 ) {

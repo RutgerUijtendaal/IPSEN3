@@ -38,7 +38,7 @@ public class DilemmaService implements CrudService<Dilemma> {
     }
 
     public AnswerDilemmaDatabag getByParentToken(String token) throws ClientException {
-        ParentService parentService = new ParentService();
+        ParentDataService parentService = new ParentDataService();
         CoupleService coupleService = new CoupleService();
         ChildService childService = new ChildService();
 

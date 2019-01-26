@@ -1,24 +1,29 @@
+<app-born-verify #verifyBorn (verify)="submitBorn($event)"></app-born-verify>
 <mdb-card
-  *ngIf="parentService.couple.parent1.token !== null"
+  *ngIf="!parentService.child.isBorn"
   class="col-md-12 mt-5 px-0 rounded-corner">
   <mdb-card-header class="main-header">
-    Nieuw Dilemma!
+    Kind geboren?
   </mdb-card-header>
   <mdb-card-body
     class="row justify-content-center">
     <h3
       class="col-12"
       style="color: black; text-align: center;">
-      Er staat een nieuw dilemma voor u klaar!
+      Is uw kind geboren? Gefeliciteerd!
     </h3>
+    <h5
+      class="col-12 mt-2"
+      style="color: black; text-align: center;">
+      Laat het ons weten zodat u nieuwe dilemmas van ons krijgt.
+    </h5>
     <a
-      [routerLink]="'/dilemma/beantwoord/' + parentService.couple.parent1.token"
-      routerLinkActive="active"
+      (click)="childBornClick()"
       class="btn-rounded btn-normalize parent-button mt-4"
       type="button"
       mdbBtn color="primary"
       mdbWavesEffect>
-      Beantwoorden
+      Kind Geboren
     </a>
   </mdb-card-body>
 </mdb-card>

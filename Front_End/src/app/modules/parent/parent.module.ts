@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ParentHomeComponent } from './parent-home/parent-home.component';
 import {SharedModule} from '../../shared/shared.module';
 import {ParentRoutingModule} from './parent-routing.module';
-import {ParentService} from './parent.service';
+import {ParentDataService} from './parent-data.service';
 import { ParentNavComponent } from './parent-nav/parent-nav.component';
 import { ParentResultComponent } from './parent-result/parent-result.component';
 import { ParentMeComponent } from './parent-me/parent-me.component';
@@ -14,6 +14,10 @@ import { ParentDetailsComponent } from './parent-me/parent-details/parent-detail
 import {ParentDilemmaListService} from "./parent-result/parent-dilemma-list.service";
 import {ParentStatisticsComponent} from "./parent-statistics/parent-statistics.component";
 import { ParentDilemmaNewComponent } from './parent-me/parent-dilemma-new/parent-dilemma-new.component';
+import { ParentChildBornComponent } from './parent-me/parent-child-born/parent-child-born.component';
+import { BornVerifyComponent } from './parent-me/parent-child-born/born-verify/born-verify.component';
+import { ParentDeleteComponent } from './parent-me/parent-delete/parent-delete.component';
+import { DeleteVerifyComponent } from './parent-me/parent-delete/delete-verify/delete-verify.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { ParentDilemmaNewComponent } from './parent-me/parent-dilemma-new/parent
     ParentDilemmaInListComponent,
     ParentDetailsComponent,
     ParentStatisticsComponent,
-    ParentDilemmaNewComponent
+    ParentDilemmaNewComponent,
+    ParentChildBornComponent,
+    BornVerifyComponent,
+    ParentDeleteComponent,
+    DeleteVerifyComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +42,7 @@ import { ParentDilemmaNewComponent } from './parent-me/parent-dilemma-new/parent
     ParentRoutingModule
   ],
   providers: [
-    ParentService,
+    ParentDataService,
     ParentDilemmaListService
   ]
 })

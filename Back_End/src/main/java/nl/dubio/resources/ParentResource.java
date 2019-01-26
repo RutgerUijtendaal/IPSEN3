@@ -4,7 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
 import nl.dubio.auth.Authorizable;
 import nl.dubio.models.Parent;
-import nl.dubio.service.ParentService;
+import nl.dubio.service.ParentDataService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,7 +15,7 @@ import java.util.Optional;
 public class ParentResource extends GenericResource<Parent> {
 
     protected ParentResource() {
-        super(new ParentService());
+        super(new ParentDataService());
     }
 
 
