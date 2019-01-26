@@ -18,7 +18,6 @@ public class ParentResource extends GenericResource<Parent> {
         super(new ParentDataService());
     }
 
-
     @GET
     @Timed
     @Path("/{id}")
