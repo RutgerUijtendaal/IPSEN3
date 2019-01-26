@@ -12,14 +12,11 @@ import {HomeModule} from './modules/home/home.module';
 import {AdminModule} from './modules/admin/admin.module';
 import {DilemmaModule} from './modules/dilemma/dilemma.module';
 import {ParentModule} from './modules/parent/parent.module';
-import { AdminNewPasswordComponent } from './modules/admin/admin-home/admin-new-password/admin-new-password.component';
-import { ParentNewPasswordComponent } from './modules/parent/parent-new-password/parent-new-password.component';
+import {PasswordResetModule} from './modules/password-reset/password-reset.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AdminNewPasswordComponent,
-    ParentNewPasswordComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +26,8 @@ import { ParentNewPasswordComponent } from './modules/parent/parent-new-password
     DilemmaModule,
     HomeModule,
     ParentModule,
-    CoreModule,
+    PasswordResetModule,
+    CoreModule
   ],
   providers: [
     {

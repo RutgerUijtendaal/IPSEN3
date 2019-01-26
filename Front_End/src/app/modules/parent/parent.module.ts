@@ -11,8 +11,8 @@ import { ParentDilemmaListComponent } from './parent-result/parent-dilemma-list/
 import { ParentDilemmaDetailComponent } from './parent-result/parent-dilemma-detail/parent-dilemma-detail.component';
 import { ParentDilemmaInListComponent } from './parent-result/parent-dilemma-list/parent-dilemma-in-list/parent-dilemma-in-list.component';
 import { ParentDetailsComponent } from './parent-me/parent-details/parent-details.component';
-import {ParentDilemmaListService} from "./parent-result/parent-dilemma-list.service";
-import {ParentStatisticsComponent} from "./parent-me/parent-statistics/parent-statistics.component";
+import {ParentStatisticsComponent} from './parent-me/parent-statistics/parent-statistics.component';
+import {ParentDilemmaListService} from './parent-result/parent-dilemma-list.service';
 
 @NgModule({
   declarations: [

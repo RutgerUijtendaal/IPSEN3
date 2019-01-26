@@ -16,7 +16,7 @@ import javax.ws.rs.PathParam;
 public class PasswordResource {
     @POST
     @Timed
-    @Path("/request-pw-reset/{email}")
+    @Path("/request-reset/{email}")
     public boolean requestPasswordReset(@PathParam("email") String email) {
         AdminService adminService = new AdminService();
         CoupleService coupleService = new CoupleService();
