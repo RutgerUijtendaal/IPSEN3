@@ -112,6 +112,12 @@ public class CoupleService implements CrudService<Couple> {
         return coupleDao.getByParent(parent);
     }
 
+    public boolean resetPasswordRequest(Couple couple) {
+
+        return true;
+    }
+
+
     //TODO better error messages and the messages should come from a constants class
     private List<String> validateRegistry(CoupleRegistry registry) {
         List<String> errors = new ArrayList<>();

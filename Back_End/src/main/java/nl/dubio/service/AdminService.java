@@ -82,6 +82,11 @@ public class AdminService implements CrudService<Admin> {
         return adminDao.updateWithoutPassword(admin);
     }
 
+    public boolean resetPasswordRequest(Admin admin) {
+
+        return true;
+    }
+
     public boolean updatePassword(String token, String password) throws InvalidInputException {
 
         if (!validatePassword(password)) {
@@ -98,6 +103,10 @@ public class AdminService implements CrudService<Admin> {
 
         // return true;
         return this.adminDao.updatePassword(token, hashedPassword);
+    }
+
+    public Admin getByEmail(String email) {
+        return this.adminDao.getByEmail(email);
     }
 
 

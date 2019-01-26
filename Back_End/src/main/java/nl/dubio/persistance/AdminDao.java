@@ -41,20 +41,36 @@ public class AdminDao extends GenericDao<Admin> {
         return successful;
     }
 
-    public boolean updatePassword(String token, String hashedPassword) {
+    private boolean removeToken(String token) {
 
-        String query = "UPDATE admin SET " + columnNames[1] + " = ? WHERE id = ?";
-
+        String query = "UPDATE admin SET password_token = null WHERE password_token = ?";
         PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(statement, 1, token);
 
-        fillParameter(statement, 1, hashedPassword);
-        //fillParameter(statement, 2, id);
-
-        boolean succesful = executeUpdate(statement);
+        boolean successful = executeUpdate(statement);
 
         closeTransaction(statement);
 
-        return succesful;
+        return successful;
+
+    }
+
+    public boolean updatePassword(String token, String hashedPassword) {
+
+        String query = "UPDATE admin SET " + columnNames[1] + " = ? WHERE password_token = ?";
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(statement, 1, hashedPassword);
+        fillParameter(statement, 2, token);
+
+        boolean successful = executeUpdate(statement);
+
+        closeTransaction(statement);
+
+        if (!successful) {
+            return false;
+        }
+
+        return removeToken(token);
     }
 
     public Admin getByEmail(String email) {

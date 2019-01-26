@@ -50,15 +50,17 @@ public class AdminResource extends GenericResource<Admin> {
         return this.crudService.deleteById(id);
     }
 
+
     @PUT
     @Timed
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/password/{token}")
-    public boolean updatePassword(@Auth Admin admin,
-                                  @PathParam("token") String token,
+    public boolean updatePassword(@PathParam("token") String token,
                                   String password) {
-        System.out.println("token: " + token);
-        System.out.println("password: " + password);
+        if (token.length() != 32) {
+            return false;
+        }
+
         try {
             new AdminService().updatePassword(token, password);
         } catch (InvalidInputException e) {
