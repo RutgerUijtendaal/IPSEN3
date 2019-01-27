@@ -20,6 +20,7 @@ export class AdminNewPasswordComponent implements OnInit {
   goodPassword1: boolean;
   goodPassword2: boolean;
   matchingPasswords: boolean;
+  disableButton: boolean;
 
   buttonClass: string;
   message: string;
@@ -30,6 +31,7 @@ export class AdminNewPasswordComponent implements OnInit {
     this.buttonClass = 'success';
     this.message = message;
     setTimeout(() => {
+      this.disableButton = false;
       this.router.navigateByUrl('/inloggen');
     }, 1500);
   }
@@ -39,6 +41,7 @@ export class AdminNewPasswordComponent implements OnInit {
     this.message = message;
     setTimeout(() => {
       this.buttonClass = 'primary';
+      this.disableButton = false;
     }, 1500);
   }
 
@@ -50,6 +53,7 @@ export class AdminNewPasswordComponent implements OnInit {
     } else if (this.password1.length <= 3) {
       this.badSave('Te kort wachtwoord');
     } else {
+      this.disableButton = true;
       this.savePassword();
     }
   }
@@ -81,7 +85,7 @@ export class AdminNewPasswordComponent implements OnInit {
   ngOnInit() {
     this.token = this.route.snapshot.params['token'];
     this.buttonClass = 'primary';
-    console.log(this.token);
+    this.disableButton = false;
   }
 
 }

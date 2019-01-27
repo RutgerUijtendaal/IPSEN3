@@ -20,6 +20,8 @@ export class PasswordResetViewComponent implements OnInit {
   message: string;
   goodEmail: boolean;
 
+  disableButton: boolean;
+
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   resetButton() {
@@ -44,6 +46,7 @@ export class PasswordResetViewComponent implements OnInit {
     this.buttonClass = 'success';
     this.message = message;
     setTimeout(() => {
+      this.disableButton = false;
       this.router.navigateByUrl('/inloggen');
     }, 1500);
   }
@@ -53,10 +56,12 @@ export class PasswordResetViewComponent implements OnInit {
     this.message = message;
     setTimeout(() => {
       this.buttonClass = 'primary';
+      this.disableButton = false;
     }, 1500);
   }
 
   resetPassword() {
+    this.disableButton = true;
     this.httpClient.post(this.URL + '/password/request-reset/' + this.email, null).subscribe(retval => {
       if (retval === true) {
         this.goodReset('Email gestuurd met reset link.');
@@ -71,6 +76,7 @@ export class PasswordResetViewComponent implements OnInit {
   ngOnInit() {
     this.resetButton();
     this.goodEmail = false;
+    this.disableButton = false;
   }
 
 }
