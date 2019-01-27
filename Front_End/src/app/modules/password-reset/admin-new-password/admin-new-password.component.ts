@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {AppComponent} from '../../../app.component';
 
@@ -24,13 +24,13 @@ export class AdminNewPasswordComponent implements OnInit {
   buttonClass: string;
   message: string;
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute) { }
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
   goodSave(message: string) {
     this.buttonClass = 'success';
     this.message = message;
     setTimeout(() => {
-      this.buttonClass = 'primary';
+      this.router.navigateByUrl('/inloggen');
     }, 1500);
   }
 
