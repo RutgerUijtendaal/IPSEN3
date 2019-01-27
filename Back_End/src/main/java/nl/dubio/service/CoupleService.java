@@ -188,7 +188,7 @@ public class CoupleService implements CrudService<Couple> {
     }
 
     public void createResultEntry(Couple couple) throws InvalidInputException {
-        ParentService parentService = new ParentService();
+        ParentDataService parentService = new ParentDataService();
         ChildService childService = new ChildService();
 
         DilemmaService dilemmaService = new DilemmaService();

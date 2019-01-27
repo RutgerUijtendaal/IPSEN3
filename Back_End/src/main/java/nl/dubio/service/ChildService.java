@@ -24,6 +24,16 @@ public class ChildService implements CrudService<Child> {
         return childDao.getByCouple(coupleDao.getById(coupleId));
     }
 
+    public Child getByCouple(Couple couple) { return childDao.getByCouple(couple); }
+
+    public Child setChildBorn(int childId) {
+        Child child = childDao.getById(childId);
+        child.setIsBorn(true);
+        child.setDate(new Date(System.currentTimeMillis()));
+        childDao.update(child);
+        return child;
+    }
+
     @Override
     public List<Child> getAll() {
         return childDao.getAll();
@@ -33,8 +43,6 @@ public class ChildService implements CrudService<Child> {
     public Child getById(Integer id) {
         return childDao.getById(id);
     }
-
-    public Child getByCouple(Couple couple) { return childDao.getByCouple(couple); }
 
     @Override
     public Integer save(Child child) throws InvalidInputException {

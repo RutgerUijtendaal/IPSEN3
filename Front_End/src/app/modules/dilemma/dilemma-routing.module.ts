@@ -4,7 +4,7 @@ import { DilemmaViewComponent } from './dilemma-view/dilemma-view.component';
 
 
 const routes: Routes = [
-  { path: 'dilemma/beantwoord/:token', component: DilemmaViewComponent }
+  { path: 'dilemma/beantwoord/:token', component: DilemmaViewComponent },
 ];
 
 @NgModule({

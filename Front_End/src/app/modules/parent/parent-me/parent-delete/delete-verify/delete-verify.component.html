@@ -1,0 +1,28 @@
+<div mdbModal #modal="mdbModal" class="modal fade top" id="loadingModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Bevestiging</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <p>Account Verwijderen?</p>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-6 text-center">
+            <button class="btn btn-rounded btn-warning" (click)="hide()">Nee</button>
+          </div>
+          <div class="col-xs-12 col-md-6 text-center">
+            <button class="btn btn-rounded btn-warning" (click)="verifyAnswer()">Ja</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
