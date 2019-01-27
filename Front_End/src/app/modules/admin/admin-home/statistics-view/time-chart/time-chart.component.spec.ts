@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TimeChartComponent } from './time-chart.component';
 
-describe('DayChartComponent', () => {
+describe('TimeChartComponent', () => {
   let component: TimeChartComponent;
   let fixture: ComponentFixture<TimeChartComponent>;
 
