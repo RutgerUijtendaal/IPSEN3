@@ -12,7 +12,7 @@ export class DayChartComponent implements OnInit {
     responsive: true
   };
 
-  public chartType = 'line';
+  public chartType = 'bar';
 
   public chartDatasets: Array<any> = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Beantwoord op' }
