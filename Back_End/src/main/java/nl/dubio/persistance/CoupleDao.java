@@ -30,6 +30,10 @@ public class CoupleDao extends GenericDao<Couple> {
     }
 
     public Couple getByParent(Parent parent) {
+        if (parent == null) {
+            return null;
+        }
+
         String query = "SELECT * FROM " + tableName + " WHERE " + columnNames[0] + " = ? OR " + columnNames[1] + " = ?;";
         PreparedStatement preparedStatement = PreparedStatementFactory.createPreparedStatement(query);
 
@@ -37,6 +41,12 @@ public class CoupleDao extends GenericDao<Couple> {
         fillParameter(preparedStatement, 2, parent.getId());
 
         return executeGetByAttribute(preparedStatement);
+    }
+
+    public boolean tokenExists(String token) {
+        PreparedStatement statement = PreparedStatementFactory.createExistsByAttributeStatement(tableName, columnNames[5]);
+        fillParameter(statement, 1, token);
+        return executeIsTrue(statement);
     }
 
     private boolean removeToken(String token) {

@@ -61,8 +61,12 @@ public class AdminResource extends GenericResource<Admin> {
             return false;
         }
 
+        if (!((AdminService)this.crudService).tokenExists(token)) {
+            return false;
+        }
+
         try {
-            new AdminService().updatePassword(token, password);
+            ((AdminService)this.crudService).updatePassword(token, password);
         } catch (InvalidInputException e) {
             e.printStackTrace();
             return false;
@@ -76,7 +80,7 @@ public class AdminResource extends GenericResource<Admin> {
     @Path("{id}")
     public boolean update(@Auth Admin admin, @Valid Admin object) {
         try {
-            new AdminService().updateWithoutPassword(object);
+            ((AdminService)this.crudService).updateWithoutPassword(object);
         } catch (InvalidInputException e) {
             e.printStackTrace();
             return false;

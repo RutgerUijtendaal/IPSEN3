@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
 import {AppComponent} from '../../../app.component';
 
 @Component({
@@ -17,32 +17,38 @@ export class ParentNewPasswordComponent implements OnInit {
   password1: string;
   password2: string;
 
+  goodPassword1: boolean;
+  goodPassword2: boolean;
+  matchingPasswords: boolean;
+
   buttonClass: string;
-  buttonText: string;
+  message: string;
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute) { }
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
-  resetButton() {
-    this.buttonClass = 'primary';
-    this.buttonText = 'Opslaan';
+  goodSave(message: string) {
+    this.buttonClass = 'success';
+    this.message = message;
+    setTimeout(() => {
+      this.router.navigateByUrl('/inloggen');
+    }, 1500);
   }
 
-  errorMessage(message: string) {
+  badSave(message: string) {
     this.buttonClass = 'danger';
-    this.buttonText = message;
+    this.message = message;
     setTimeout(() => {
-      this.resetButton();
+      this.buttonClass = 'primary';
     }, 1500);
   }
 
   startSaving() {
-    console.log('starting saving');
-    if (this.password1 === undefined || this.password2 === undefined) {
-      this.errorMessage('Leeg wachtwoord veld');
+    if (this.password1 === undefined || this.password2 === undefined || this.password1.length === 0 || this.password2.length === 0) {
+      this.badSave('Leeg');
     } else if (this.password1 !== this.password2) {
-      this.errorMessage('Wachtwoorden komen niet overeen');
+      this.badSave('Wachtwoorden komen niet overeen');
     } else if (this.password1.length <= 3) {
-      this.errorMessage('Te kort wachtwoord');
+      this.badSave('Te kort wachtwoord');
     } else {
       this.savePassword();
     }
@@ -50,23 +56,33 @@ export class ParentNewPasswordComponent implements OnInit {
 
   firstInputUpdated(event: any) {
     this.password1 = event.target.value;
+    this.goodPassword1 = (this.password1.length > 3);
+    this.matchingPasswords = (this.password1 === this.password2);
   }
 
   secondInputUpdated(event: any) {
     this.password2 = event.target.value;
+    this.goodPassword2 = (this.password2.length > 3);
+    this.matchingPasswords = (this.password1 === this.password2);
   }
 
   savePassword() {
-    console.log('actually saving');
     this.httpClient.put(this.URL + '/couple/password/' + this.token, this.password1).subscribe(retval => {
-      console.log(retval);
+      if (retval === true) {
+        this.goodSave('Wachtwoord succesvol veranderd.');
+      } else {
+        this.badSave('Ouderpaar niet herkent.');
+      }
+    }, error => {
+      this.badSave('Wachtwoord kom niet worden opgeslagen. Verbinding mislukt.');
     });
   }
 
   ngOnInit() {
     this.token = this.route.snapshot.params['token'];
-    this.resetButton();
+    this.buttonClass = 'primary';
     console.log(this.token);
   }
 
 }
+

@@ -50,6 +50,10 @@ public class CoupleService implements CrudService<Couple> {
         return coupleDao.save(couple);
     }
 
+    public boolean tokenExists(String token) {
+        return this.coupleDao.tokenExists(token);
+    }
+
     @Override
     public boolean update(Couple couple) throws InvalidInputException {
         List<String> errors = validate(couple);

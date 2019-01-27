@@ -50,8 +50,12 @@ public class CoupleResource extends GenericResource<Couple> {
             return false;
         }
 
+        if (!((CoupleService)this.crudService).tokenExists(token)) {
+            return false;
+        }
+
         try {
-            new CoupleService().updatePassword(token, password);
+            ((CoupleService)this.crudService).updatePassword(token, password);
         } catch (InvalidInputException e) {
             e.printStackTrace();
             return false;

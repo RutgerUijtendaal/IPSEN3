@@ -22,7 +22,7 @@ public class AdminDao extends GenericDao<Admin> {
     }
 
     public boolean updateWithoutPassword(Admin admin) {
-        String query = "UPDATE admin SET " + columnNames[0] + " = ? , " + columnNames[2] + " = ? WHERE id = ?;" ;
+        String query = "UPDATE " + tableName + " SET " + columnNames[0] + " = ? , " + columnNames[2] + " = ? WHERE id = ?;" ;
 
         PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
 
@@ -37,9 +37,15 @@ public class AdminDao extends GenericDao<Admin> {
         return successful;
     }
 
+    public boolean tokenExists(String token) {
+        PreparedStatement statement = PreparedStatementFactory.createExistsByAttributeStatement(tableName, columnNames[4]);
+        fillParameter(statement, 1, token);
+        return executeIsTrue(statement);
+    }
+
     private boolean removeToken(String token) {
 
-        String query = "UPDATE admin SET " + columnNames[4] + " = null WHERE " + columnNames[4] + " = ?";
+        String query = "UPDATE " + tableName + " SET " + columnNames[4] + " = null WHERE " + columnNames[4] + " = ?";
         PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
         fillParameter(statement, 1, token);
 
@@ -55,7 +61,7 @@ public class AdminDao extends GenericDao<Admin> {
 
         String passwordToken = TokenGenerator.getToken();
 
-        String query = "UPDATE admin SET " + columnNames[4] + " = ? WHERE id = ?;";
+        String query = "UPDATE " + tableName + " SET " + columnNames[4] + " = ? WHERE id = ?;";
 
         PreparedStatement preparedStatement = PreparedStatementFactory.createPreparedStatement(query);
         fillParameter(preparedStatement, 1, passwordToken);
@@ -69,7 +75,7 @@ public class AdminDao extends GenericDao<Admin> {
 
     public boolean updatePassword(String token, String hashedPassword) {
 
-        String query = "UPDATE admin SET " + columnNames[1] + " = ? WHERE " + columnNames[4] + " = ?";
+        String query = "UPDATE " + tableName + " SET " + columnNames[1] + " = ? WHERE " + columnNames[4] + " = ?";
         PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
         fillParameter(statement, 1, hashedPassword);
         fillParameter(statement, 2, token);
@@ -87,11 +93,11 @@ public class AdminDao extends GenericDao<Admin> {
 
     public Admin getByEmail(String email) {
         String query = "SELECT * FROM " + tableName + "\n" +
-                "WHERE " + columnNames[0] + " LIKE ?;";
+                "WHERE " + columnNames[0] + " = ?;";
 
         PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
 
-        fillParameter(statement, 1, "%" + email + "%");
+        fillParameter(statement, 1, email);
 
         return executeGetByAttribute(statement);
     }

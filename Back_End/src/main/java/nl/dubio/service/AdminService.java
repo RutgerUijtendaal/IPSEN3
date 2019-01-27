@@ -32,6 +32,10 @@ public class AdminService implements CrudService<Admin> {
         return allAdmins;
     }
 
+    public boolean tokenExists(String token) {
+        return this.adminDao.tokenExists(token);
+    }
+
     @Override
     public Admin getById(Integer id) {
         return adminDao.getById(id);
