@@ -24,7 +24,8 @@ import {FormsModule} from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {AdminListService} from './admin-home/admin-view/admin-list/admin-list.service';
 import {AdminViewService} from './admin-home/admin-view/admin-view.service';
-import { StatisticsViewComponent } from './admin-home/statistics-view/statistics-view/statistics-view.component';
+import { StatisticsViewComponent } from './admin-home/statistics-view/statistics-view.component';
+import { StatisticsService } from './admin-home/statistics-view/statistics.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { StatisticsViewComponent } from './admin-home/statistics-view/statistics
     DilemmaListService,
     DilemmaViewService,
     AdminListService,
-    AdminViewService
+    AdminViewService,
+    StatisticsService
   ]
 })
 export class AdminModule {

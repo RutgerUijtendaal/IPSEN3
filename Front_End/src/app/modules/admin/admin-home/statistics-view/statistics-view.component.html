@@ -1,0 +1,21 @@
+<div class="container">
+  <mdb-card style="margin-top: 10px;" class="rounded-corner">
+    <mdb-card-header>
+      <h3 style="color: black; margin: 0 auto; text-align: center;">
+        Statistieken
+      </h3>
+    </mdb-card-header>
+    <mdb-card-body>
+      <div style="display: block">
+        <canvas mdbChart
+                [chartType]="chartType"
+                [datasets]="chartDatasets"
+                [labels]="chartLabels"
+                [colors]="chartColors"
+                [options]="chartOptions"
+                [legend]="true">
+        </canvas>
+      </div>
+    </mdb-card-body>
+  </mdb-card>
+</div>
