@@ -28,6 +28,7 @@ import { StatisticsViewComponent } from './admin-home/statistics-view/statistics
 import { StatisticsService } from './admin-home/statistics-view/statistics.service';
 import { AnswerChartComponent } from './admin-home/statistics-view/anwser-chart/answer-chart.component';
 import { TimeChartComponent } from './admin-home/statistics-view/time-chart/time-chart.component';
+import { DayChartComponent } from './admin-home/statistics-view/day-chart/day-chart.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { TimeChartComponent } from './admin-home/statistics-view/time-chart/time
     AdminInListComponent,
     StatisticsViewComponent,
     AnswerChartComponent,
-    TimeChartComponent
+    TimeChartComponent,
+    DayChartComponent
   ],
   imports: [
     CommonModule,
