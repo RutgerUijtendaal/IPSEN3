@@ -46,7 +46,7 @@ public class CoupleResource extends GenericResource<Couple> {
     @Path("/password/{token}")
     public boolean updatePassword(@PathParam("token") String token,
                                   String password) {
-        if (token.length() != 32) {
+        if (token.length() != 32 || password.length() < 4) {
             return false;
         }
 
