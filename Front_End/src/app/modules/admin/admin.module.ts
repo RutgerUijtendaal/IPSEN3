@@ -26,6 +26,8 @@ import {AdminListService} from './admin-home/admin-view/admin-list/admin-list.se
 import {AdminViewService} from './admin-home/admin-view/admin-view.service';
 import { StatisticsViewComponent } from './admin-home/statistics-view/statistics-view.component';
 import { StatisticsService } from './admin-home/statistics-view/statistics.service';
+import { AnswerChartComponent } from './admin-home/statistics-view/anwser-chart/answer-chart.component';
+import { TimeChartComponent } from './admin-home/statistics-view/time-chart/time-chart.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { StatisticsService } from './admin-home/statistics-view/statistics.servi
     AdminDetailComponent,
     DilemmaInListComponent,
     AdminInListComponent,
-    StatisticsViewComponent
+    StatisticsViewComponent,
+    AnswerChartComponent,
+    TimeChartComponent
   ],
   imports: [
     CommonModule,

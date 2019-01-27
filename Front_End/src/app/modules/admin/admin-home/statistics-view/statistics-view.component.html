@@ -6,16 +6,8 @@
       </h3>
     </mdb-card-header>
     <mdb-card-body>
-      <div style="display: block">
-        <canvas mdbChart
-                [chartType]="chartType"
-                [datasets]="chartDatasets"
-                [labels]="chartLabels"
-                [colors]="chartColors"
-                [options]="chartOptions"
-                [legend]="true">
-        </canvas>
-      </div>
+      <app-answer-chart></app-answer-chart>
+      <app-time-chart></app-time-chart>
     </mdb-card-body>
   </mdb-card>
 </div>
