@@ -1,5 +1,9 @@
 package nl.dubio.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.dubio.View;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,18 +12,44 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"Duplicates", "unused", "WeakerAccess"})
 public class StatisticModel implements Serializable {
 
+    @JsonProperty
+    @JsonView(View.Private.class)
     private List<Dilemma> dilemmas;
+    @JsonProperty
+    @JsonView(View.Private.class)
     private List<Couple> couples;
+    @JsonProperty
+    @JsonView(View.Private.class)
     private List<Child> children;
+    @JsonProperty
+    @JsonView(View.Private.class)
     private List<Parent> parents;
+    @JsonProperty
+    @JsonView(View.Private.class)
     private List<Answer> answers;
+    @JsonProperty
+    @JsonView(View.Private.class)
     private List<Result> results;
+    @JsonProperty
+    @JsonView(View.Public.class)
     private List<Dilemma> filteredDilemmas;
+    @JsonProperty
+    @JsonView(View.Public.class)
     private List<Couple> filteredCouples;
+    @JsonProperty
+    @JsonView(View.Public.class)
     private List<Child> filteredChildren;
+    @JsonProperty
+    @JsonView(View.Public.class)
     private List<Parent> filteredParents;
+    @JsonProperty
+    @JsonView(View.Public.class)
     private List<Answer> filteredAnswers;
+    @JsonProperty
+    @JsonView(View.Public.class)
     private List<Result> filteredResults;
+    @JsonProperty
+    @JsonView(View.Private.class)
     private boolean isFilteredByParents;
 
     public void setData(List<Dilemma> dilemmas, List<Parent> parents, List<Couple> couples, List<Child> children, List<Answer> answers, List<Result> results) {

@@ -2,24 +2,34 @@ package nl.dubio.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import nl.dubio.View;
 
 import java.sql.Date;
 
 public class Couple implements DatabaseObject<Couple> {
 
     @JsonProperty
+    @JsonView(View.Public.class)
     private int id;
     @JsonProperty
+    @JsonView(View.Public.class)
     private Date signupDate;
     @JsonProperty
+    @JsonView(View.Public.class)
     private int parent1Id;
     @JsonProperty
+    @JsonView(View.Public.class)
     private int parent2Id;
     @JsonProperty
+    @JsonView(View.Private.class)
     private String password;
     @JsonProperty
+    @JsonView(View.Private.class)
     private String token;
     @JsonProperty
+    @JsonView(View.Private.class)
     private String passwordToken;
 
     public Couple (Date signupDate, int parent1Id, int parent2Id, String password, String token, String passwordToken) {

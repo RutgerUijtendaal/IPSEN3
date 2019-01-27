@@ -1,6 +1,8 @@
 package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.dubio.View;
 import nl.dubio.models.StatisticModel;
 import nl.dubio.service.StatisticsService;
 
@@ -22,6 +24,7 @@ public class StatisticsResource {
     @GET
     @Timed
     @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(View.Public.class)
     public StatisticModel test () {
         statisticsService.resetModel();
         statisticsService.filterByBorn(true);
