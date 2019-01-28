@@ -20,11 +20,11 @@ div {
   cursor: pointer;
 }
 
-.active {
+.active, .active:hover {
   border-bottom: 8px solid green;
 }
 
-.not-active {
+.not-active, .not-active:hover {
   border-bottom: 8px solid red;
 }
 

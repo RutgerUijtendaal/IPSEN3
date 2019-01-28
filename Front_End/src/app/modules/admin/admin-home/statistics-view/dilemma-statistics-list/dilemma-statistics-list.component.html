@@ -10,7 +10,7 @@
         <img width="80px" src="assets/images/couple-list/no-results.png" alt="Laden...">
       </h3>
     </div>
-    <div class="example-list">
+    <div style="max-height: 300px; overflow-y: scroll">
       <div class="box" *ngFor="let d of shownDilemmas">
         <app-statistics-dilemma-in-list (click)="dilemmaClicked(d);" [dilemma]="d"></app-statistics-dilemma-in-list>
       </div>
