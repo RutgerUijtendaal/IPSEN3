@@ -21,9 +21,7 @@ export class AnswerChartComponent implements OnInit {
   };
 
   constructor(private statisticsService: StatisticsService) {
-    statisticsService.getData().subscribe(data => {
-      return this.loadData(data);
-    });
+    statisticsService.data.subscribe(data => this.loadData(data));
   }
 
   loadData(data) {

@@ -1,6 +1,7 @@
 package nl.dubio.service;
 
 import nl.dubio.models.Answer;
+import nl.dubio.models.Couple;
 import nl.dubio.models.Dilemma;
 import nl.dubio.models.StatisticModel;
 import nl.dubio.persistance.DaoRepository;
@@ -44,5 +45,9 @@ public class StatisticsService {
     public StatisticModel filterByHour(int hour) {
         statisticModel.filterByHour(hour);
         return statisticModel;
+    }
+
+    public void filterByCouple(List<Couple> couples) {
+        statisticModel.filterByCouple(couples);
     }
 }

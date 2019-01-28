@@ -30,6 +30,8 @@ import { AnswerChartComponent } from './admin-home/statistics-view/anwser-chart/
 import { TimeChartComponent } from './admin-home/statistics-view/time-chart/time-chart.component';
 import { DayChartComponent } from './admin-home/statistics-view/day-chart/day-chart.component';
 import { SignupChartComponent } from './admin-home/statistics-view/signup-chart/signup-chart.component';
+import { CoupleStatisticsInListComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-in-list/couple-statistics-in-list.component';
+import { CoupleStatisticsListComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-list.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { SignupChartComponent } from './admin-home/statistics-view/signup-chart/
     AnswerChartComponent,
     TimeChartComponent,
     DayChartComponent,
-    SignupChartComponent
+    SignupChartComponent,
+    CoupleStatisticsInListComponent,
+    CoupleStatisticsListComponent
   ],
   imports: [
     CommonModule,

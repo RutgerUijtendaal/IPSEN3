@@ -29,9 +29,7 @@ export class DayChartComponent implements OnInit {
   ];
 
   constructor(private statisticsService: StatisticsService) {
-    statisticsService.getData().subscribe(data => {
-      return this.loadData(data);
-    });
+
   }
 
   loadData(data) {
@@ -56,6 +54,7 @@ export class DayChartComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.statisticsService.data.subscribe(data => this.loadData(data));
   }
 
 }
