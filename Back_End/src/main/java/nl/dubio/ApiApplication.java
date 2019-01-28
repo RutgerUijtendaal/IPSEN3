@@ -54,6 +54,10 @@ public class ApiApplication extends Application<ApiConfiguration> {
         mailUtility = configuration.getMailUtility();
 
         environment.healthChecks().register("database", new DatabaseHealthCheck());
+
+        // Setup image uploading
+        environment.jersey().register(MultiPartFeature.class);
+        environment.jersey().register(FileUploadResource.class);
     }
 
     private void setupAuthentication(Environment environment) {
@@ -84,9 +88,6 @@ public class ApiApplication extends Application<ApiConfiguration> {
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(Authorizable.class));
 
-        // Setup image uploading
-        environment.jersey().register(MultiPartFeature.class);
-        environment.jersey().register(FileUploadResource.class);
     }
 
     public static MailUtility getMailUtility() { return mailUtility; }
