@@ -9,6 +9,7 @@ export class StatisticsService {
 
   data = new EventEmitter<any>();
   couples = [];
+  dilemmas = [];
 
   constructor(private httpClient: HttpClient) {
     this.getData();
@@ -20,7 +21,7 @@ export class StatisticsService {
   }
 
   update() {
-    const allData = { 'couples': this.couples};
+    const allData = { 'couples': this.couples, 'dilemmas' : this.dilemmas};
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',

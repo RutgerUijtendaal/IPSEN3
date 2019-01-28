@@ -32,14 +32,11 @@ export class SignupChartComponent implements OnInit {
 
   loadData(data) {
     const values = [0, 0];
-    console.log(data.filteredChildren);
-    console.log(data.filteredCouples);
     const couples = data.filteredCouples;
     const childeren = data.filteredChildren;
     for (let i = 0; i < couples.length; i++) {
       for (let j = 0; j < childeren.length; j++) {
         if (couples[i].id === childeren[j].coupleId) {
-          console.log((couples[i].signupDate > childeren[j].date));
           if ((couples[i].signupDate > childeren[j].date) && childeren[j].isBorn) {
             values[0] += 1;
           } else {
@@ -48,7 +45,6 @@ export class SignupChartComponent implements OnInit {
         }
       }
     }
-    console.log(values)
     this.chartDatasets = [
       {data: values}
     ];

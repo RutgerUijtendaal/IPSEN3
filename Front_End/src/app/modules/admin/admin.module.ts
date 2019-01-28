@@ -32,6 +32,8 @@ import { DayChartComponent } from './admin-home/statistics-view/day-chart/day-ch
 import { SignupChartComponent } from './admin-home/statistics-view/signup-chart/signup-chart.component';
 import { CoupleStatisticsInListComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-in-list/couple-statistics-in-list.component';
 import { CoupleStatisticsListComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-list.component';
+import { DilemmaStatisticsListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-statistics-list.component';
+import { DilemmaStatisticsInListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-in-list/dilemma-statistics-in-list.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { CoupleStatisticsListComponent } from './admin-home/statistics-view/coup
     DayChartComponent,
     SignupChartComponent,
     CoupleStatisticsInListComponent,
-    CoupleStatisticsListComponent
+    CoupleStatisticsListComponent,
+    DilemmaStatisticsListComponent,
+    DilemmaStatisticsInListComponent
   ],
   imports: [
     CommonModule,

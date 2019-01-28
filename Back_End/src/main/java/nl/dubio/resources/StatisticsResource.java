@@ -7,6 +7,7 @@ import nl.dubio.View;
 import nl.dubio.models.*;
 import nl.dubio.persistance.CoupleDao;
 import nl.dubio.persistance.DaoRepository;
+import nl.dubio.persistance.DilemmaDao;
 import nl.dubio.service.StatisticsService;
 
 import javax.validation.Valid;
@@ -22,11 +23,13 @@ import java.util.List;
 public class StatisticsResource {
 
     private final CoupleDao coupleDao;
+    private final DilemmaDao dilemmaDao;
     StatisticsService statisticsService;
 
     public StatisticsResource() {
         this.statisticsService = new StatisticsService();
         this.coupleDao = DaoRepository.getCoupleDao();
+        this.dilemmaDao = DaoRepository.getDilemmaDao();
     }
 
     @Path("/")
@@ -52,6 +55,13 @@ public class StatisticsResource {
                 couples.add(coupleDao.getById(integer));
             }
             statisticsService.filterByCouple(couples);
+        }
+        List<Dilemma> dilemmas = new ArrayList<>();
+        if (statisticRequestModel.getDilemmas().length > 0) {
+            for (Integer integer: statisticRequestModel.getDilemmas()) {
+                dilemmas.add(dilemmaDao.getById(integer));
+            }
+            statisticsService.filterByDilemma(dilemmas);
         }
         return statisticsService.getStatisticModel();
     }
