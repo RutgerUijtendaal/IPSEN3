@@ -7,11 +7,14 @@ public class StatisticRequestModel {
     @JsonProperty
     private Integer[] couples;
 
-    public StatisticRequestModel(@JsonProperty("dilemmas") Integer[] couples) {
-        this.couples = couples;
-    }
+    @JsonProperty
+    private Integer[] dilemmas;
 
     public Integer[] getCouples() {
         return couples;
+    }
+
+    public Integer[] getDilemmas() {
+        return dilemmas;
     }
 }
