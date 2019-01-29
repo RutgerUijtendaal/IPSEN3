@@ -21,10 +21,10 @@
         {{ couple.parent2.firstName }}
       </div>
     </div>
-    <div class="col-md-2">
-      <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="defaultUnchecked" [checked]="checked" (change)="change(checked)">
-        <label class="custom-control-label" for="defaultUnchecked"></label>
+    <div class="checkbox-box col-md-2">
+      <div class="checkbox-box custom-control custom-checkbox">
+        <input hidden type="checkbox" class="custom-control-input" [id]="couple.coupleId" [checked]="checked" (change)="change(checked)">
+        <label class="custom-control-label" [for]="couple.coupleId"></label>
       </div>
     </div>
   </mdb-card-body>

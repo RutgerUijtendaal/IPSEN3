@@ -19,6 +19,12 @@
   cursor: pointer;
 }
 
+.checkbox-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .delete-button:hover {
   transform: scale(1.1);
 }
@@ -40,4 +46,10 @@
     padding-top: 10px;
     padding-bottom: 10px;
   }
+}
+
+.custom-control-label::before {
+  left: -1.25rem;
+  top: -0.5rem;
+
 }
