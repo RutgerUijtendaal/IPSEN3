@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     this.adminForm = new FormGroup({
       'email': new FormControl('', [Validators.required, ValidateEmail]),
       // TODO
-      'password': new FormControl('', [Validators.required, Validators.minLength(2)])
+      'password': new FormControl('', [Validators.required, Validators.minLength(4)])
     });
   }
 
