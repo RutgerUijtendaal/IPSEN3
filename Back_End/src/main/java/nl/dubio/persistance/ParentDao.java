@@ -22,14 +22,10 @@ public class ParentDao extends GenericDao<Parent> {
     }
 
     public boolean emailExists(String parent_email) {
+        PreparedStatement statement =
+                PreparedStatementFactory.createExistsByAttributeStatement(tableName, columnNames[1]);
 
-        String query = "SELECT (COUNT(" + columnNames[1] + ") >= 1)\n" +
-                "FROM " + tableName + "\n" +
-                "WHERE " + columnNames[1] + " = ?;";
-
-        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
-
-        fillParameter(statement,1, parent_email);
+        fillParameter(statement, 1, parent_email);
 
         return executeIsTrue(statement);
     }
