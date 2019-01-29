@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {DilemmaService} from './dilemma.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DilemmaAnswerDatabag} from './dilemma-answer.databag';
 import {DilemmaLoadingComponent} from './dilemma-loading/dilemma-loading.component';
 import {AnswerModel} from '../../../shared/models/answer.model';
@@ -15,6 +15,10 @@ export class DilemmaViewComponent implements OnInit, AfterViewInit {
 
   private data: DilemmaAnswerDatabag;
   private choosenAnswer: AnswerModel;
+  private answered: boolean = false;
+  private submitting: boolean = false;
+  private error: boolean = false;
+  private errorMessage: string = "";
 
   private token: string;
 
@@ -24,7 +28,9 @@ export class DilemmaViewComponent implements OnInit, AfterViewInit {
   @ViewChild(AnswerVerifyComponent)
   private answerVerifyModal: AnswerVerifyComponent;
 
-  constructor(private service: DilemmaService, private route: ActivatedRoute) {
+  constructor(
+    private service: DilemmaService,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -34,6 +40,10 @@ export class DilemmaViewComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.service.getDilemmaAnswerDatabag(this.token).subscribe((data: DilemmaAnswerDatabag) => {
       this.data = data;
+      this.loadingModal.hide();
+    }, error => {
+      this.error = true;
+      this.errorMessage = "Geen Dilemma voor u gevonden.";
       this.loadingModal.hide();
     });
 
@@ -46,12 +56,14 @@ export class DilemmaViewComponent implements OnInit, AfterViewInit {
   }
 
   submitAnswer(event) {
+    this.submitting = true;
     this.service.submitDilemmaAnswer(this.token, this.choosenAnswer.id).subscribe(response => {
-
+      this.submitting = false;
     }, error => {
-      console.log('Something went wrong');
+      this.error = true;
+      this.errorMessage = "Fout tijdens het invoeren van antwoord. Probeer het later opnieuw."
     }, () => {
-      console.log('It worked');
+      this.answered = true;
     });
   }
 

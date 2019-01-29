@@ -9,7 +9,7 @@
           <table>
             <tr>
               <td>Email:</td>
-              <td><input class="text-input dilemma-theme" value="{{ viewService.admin.email }}"></td>
+              <td><input id="email-input" class="text-input dilemma-theme" value="{{ viewService.admin.email }}"></td>
             </tr>
           </table>
         </mdb-card-body>
@@ -20,11 +20,11 @@
         </mdb-card-header>
         <mdb-card-body>
           <div class="radiobuttons col col-md-12">
-            <input hidden (input)="rightsText = studentText" type="radio" id="student" name="rights" value="student">
+            <input hidden (input)="rightsText = studentText" type="radio" id="student" name="rights" value="1">
             <label for="student"><div class="btn btn-primary rounded-corner">Student</div></label>
-            <input hidden (input)="rightsText = medewerkerText" type="radio" id="medewerker" name="rights" value="medewerker">
+            <input hidden (input)="rightsText = medewerkerText" type="radio" id="medewerker" name="rights" value="2">
             <label for="medewerker"><div class="btn btn-primary rounded-corner">Medewerker</div></label>
-            <input hidden (input)="rightsText = beheerderText" type="radio" id="beheerder" name="rights" value="beheerder">
+            <input hidden (input)="rightsText = beheerderText" type="radio" id="beheerder" name="rights" value="3">
             <label for="beheerder"><div class="btn btn-primary rounded-corner">Beheerder</div></label>
           </div>
           <div class="rightstext">

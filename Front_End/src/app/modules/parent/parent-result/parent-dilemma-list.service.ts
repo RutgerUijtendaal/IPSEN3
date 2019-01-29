@@ -3,7 +3,7 @@ import {DilemmaModel} from '../../../shared/models/dilemma.model';
 import {AnswerModel} from '../../../shared/models/answer.model';
 import {Period} from '../../../shared/models/periode.model';
 import {ResultModel} from '../../../shared/models/result.model';
-import {ParentService} from '../parent.service';
+import {ParentDataService} from '../parent-data.service';
 
 @Injectable()
 export class ParentDilemmaListService {
@@ -17,7 +17,7 @@ export class ParentDilemmaListService {
   parentAnswer: AnswerModel = null;
   partnerAnswer: AnswerModel = null;
 
-  constructor(private parentService: ParentService) {
+  constructor(private parentService: ParentDataService) {
 
     this.setupPeriodes();
     this.setupFilter();

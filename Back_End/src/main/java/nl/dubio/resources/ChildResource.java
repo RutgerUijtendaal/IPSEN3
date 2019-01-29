@@ -7,10 +7,7 @@ import nl.dubio.auth.Authorizable;
 import nl.dubio.models.Child;
 import nl.dubio.service.ChildService;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Optional;
 
@@ -26,6 +23,13 @@ public class ChildResource extends GenericResource<Child> {
     @Produces(MediaType.APPLICATION_JSON)
     public Child getChildByCouple(@Auth Authorizable authorizable, @PathParam("coupleId")IntParam coupleId) {
         return ((ChildService) crudService).getByCouple(coupleId.get());
+    }
+
+    @POST
+    @Path("/born/{childId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Child setChildBorn(@Auth Authorizable authorizable, @PathParam("childId")IntParam childId) {
+        return ((ChildService) crudService).setChildBorn(childId.get());
     }
 
 }

@@ -1,0 +1,24 @@
+<mdb-card
+  *ngIf="parentService.couple.parent1.token !== null"
+  class="col-md-12 mt-5 px-0 rounded-corner">
+  <mdb-card-header class="main-header">
+    Nieuw Dilemma!
+  </mdb-card-header>
+  <mdb-card-body
+    class="row justify-content-center">
+    <h3
+      class="col-12"
+      style="color: black; text-align: center;">
+      Er staat een nieuw dilemma voor u klaar!
+    </h3>
+    <a
+      [routerLink]="'/dilemma/beantwoord/' + parentService.couple.parent1.token"
+      routerLinkActive="active"
+      class="btn-rounded btn-normalize parent-button mt-4"
+      type="button"
+      mdbBtn color="primary"
+      mdbWavesEffect>
+      Beantwoorden
+    </a>
+  </mdb-card-body>
+</mdb-card>

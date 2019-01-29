@@ -2,15 +2,17 @@ package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
-import javassist.NotFoundException;
 import nl.dubio.auth.Authorizable;
 import nl.dubio.exceptions.ClientException;
 import nl.dubio.exceptions.InvalidAnswerException;
 import nl.dubio.exceptions.InvalidInputException;
+import nl.dubio.models.Couple;
 import nl.dubio.models.Admin;
 import nl.dubio.models.Dilemma;
 import nl.dubio.models.databag.AnswerDilemmaDatabag;
+import nl.dubio.service.CoupleService;
 import nl.dubio.service.DilemmaService;
+import nl.dubio.service.ParentDataService;
 import nl.dubio.service.ResultService;
 
 import javax.validation.Valid;
@@ -38,7 +40,7 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     @POST
     @Path("/answer/{token}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void saveDilemmaAnswers(@PathParam("token") String token, @FormParam("answerId") int answerId) throws ClientException  {
+    public void saveDilemmaAnswers(@PathParam("token") String token, @FormParam("answerId") int answerId) throws ClientException {
         if (!((DilemmaService)crudService).validAnswer(token, answerId)) {
             throw new InvalidAnswerException();
         } else {
@@ -48,11 +50,23 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     }
 
     @GET
+    @Path("/token-generate")
+    public void tokenGenerator() throws InvalidInputException {
+        CoupleService coupleService = new CoupleService();
+        ParentDataService parentService = new ParentDataService();
+        List<Couple> couples = coupleService.getAll();
+
+        for (Couple couple : couples) {
+            coupleService.createResultEntry(couple);
+        }
+    }
+
+    @GET
     @Timed
     @Path("/{period}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
-    public List<Dilemma> getAllperiod(@PathParam("period") String period){
+    public List<Dilemma> getAllPeriod(@PathParam("period") String period){
         List<Dilemma> dilemmas = crudService.getAll();
         return dilemmas.stream().filter(dilemma -> {
             if (dilemma.getPeriod() == null) {
@@ -68,7 +82,7 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
     //TODO Roles Allowed
-    public boolean update(@Auth Admin admin, @Valid Dilemma object){
+    public boolean update(@Auth Admin admin, @Valid Dilemma object) {
         try {
             return crudService.update(object);
         } catch (InvalidInputException e) {
@@ -84,18 +98,11 @@ public class DilemmaResource extends GenericResource<Dilemma> {
         return crudService.getAll();
     }
 
-
-
     @POST
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer save(@Auth Admin admin, @Valid Dilemma object)  {
-        try {
-            return crudService.save(object);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-        }
-        return 0;
+    public Integer save(@Auth Admin admin, @Valid Dilemma object) throws InvalidInputException {
+        return crudService.save(object);
     }
 
     @DELETE

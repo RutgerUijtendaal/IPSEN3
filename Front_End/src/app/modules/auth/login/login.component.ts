@@ -35,7 +35,12 @@ export class LoginComponent implements OnInit {
         this.loginLoading = false;
         if (data != null) {
           this.authenticationService.setLogin(data);
-          this.router.navigateByUrl('/');
+          if(this.authenticationService.accountModel.type === 'user') {
+            this.router.navigateByUrl('/gebruiker/me');
+          } else {
+            this.router.navigateByUrl('/');
+
+          }
         }
       },
       (error: any) => {

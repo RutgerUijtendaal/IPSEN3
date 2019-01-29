@@ -1,0 +1,29 @@
+<app-delete-verify #verifyDelete (verify)="submitDelete($event)"></app-delete-verify>
+<mdb-card
+  class="col-md-12 mt-5 px-0 rounded-corner">
+  <mdb-card-header class="main-header">
+    Account Verwijderen?
+  </mdb-card-header>
+  <mdb-card-body
+    class="row justify-content-center">
+    <h3
+      class="col-12"
+      style="color: black; text-align: center;">
+      Wilt u uw account verwijderen?
+    </h3>
+    <h5
+      class="col-12 mt-2"
+      style="color: black; text-align: center;">
+      U ontvangt geen e-mails meer van ons.
+    </h5>
+    <a
+      (click)="deleteAccountClicked()"
+      class="btn-rounded btn-normalize parent-button mt-4"
+      type="button"
+      mdbBtn
+      color="red"
+      mdbWavesEffect>
+      Verwijderen
+    </a>
+  </mdb-card-body>
+</mdb-card>

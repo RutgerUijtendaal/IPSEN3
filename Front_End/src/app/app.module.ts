@@ -12,6 +12,7 @@ import {HomeModule} from './modules/home/home.module';
 import {AdminModule} from './modules/admin/admin.module';
 import {DilemmaModule} from './modules/dilemma/dilemma.module';
 import {ParentModule} from './modules/parent/parent.module';
+import {PasswordResetModule} from './modules/password-reset/password-reset.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {ParentModule} from './modules/parent/parent.module';
     DilemmaModule,
     HomeModule,
     ParentModule,
-    CoreModule,
+    PasswordResetModule,
+    CoreModule
   ],
   providers: [
     {

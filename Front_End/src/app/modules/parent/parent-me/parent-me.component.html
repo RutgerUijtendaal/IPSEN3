@@ -1,16 +1,19 @@
 <div
   class="row justify-content-center pt-5 mx-0"
-  *ngIf="(parentService.coupleIsLoading)">
+  *ngIf="(parentService.isLoading)">
   <i class="fa fa-refresh fa-spin"></i>
 </div>
 
 
 <div
   class="container mt-5"
-  *ngIf="!parentService.coupleIsLoading">
+  *ngIf="!parentService.isLoading">
 
-  <app-parent-statistics>
-  </app-parent-statistics>
+  <app-parent-dilemma-new>
+  </app-parent-dilemma-new>
+
+  <app-parent-child-born>
+  </app-parent-child-born>
 
   <mdb-card class="col-md-12 mt-5 px-0 rounded-corner">
     <mdb-card-header class="main-header">
@@ -22,6 +25,10 @@
       <app-parent-details class="col-md-5 px-0 ml-md-3" [parent]="parentService.couple.parent2"></app-parent-details>
     </mdb-card-body>
   </mdb-card>
+
+  <app-parent-delete>
+  </app-parent-delete>
+
 </div>
 
 

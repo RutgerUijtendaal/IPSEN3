@@ -51,6 +51,11 @@ public class CoupleListViewDao implements DatabaseViewDao<CoupleListModel> {
         return coupleListModels;
     }
 
+    public CoupleListModel getByEmail(String email) {
+
+        return null;
+    }
+
     @Override
     public CoupleListModel getById(int couple_id) {
         CoupleListModel coupleListModel;

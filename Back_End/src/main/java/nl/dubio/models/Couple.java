@@ -2,42 +2,56 @@ package nl.dubio.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import nl.dubio.View;
 
 import java.sql.Date;
 
 public class Couple implements DatabaseObject<Couple> {
 
     @JsonProperty
+    @JsonView(View.Public.class)
     private int id;
     @JsonProperty
+    @JsonView(View.Public.class)
     private Date signupDate;
     @JsonProperty
+    @JsonView(View.Public.class)
     private int parent1Id;
     @JsonProperty
+    @JsonView(View.Public.class)
     private int parent2Id;
     @JsonProperty
+    @JsonView(View.Private.class)
     private String password;
     @JsonProperty
+    @JsonView(View.Private.class)
     private String token;
+    @JsonProperty
+    @JsonView(View.Private.class)
+    private String passwordToken;
 
-    public Couple (Date signupDate, int parent1Id, int parent2Id, String password, String token) {
+    public Couple (Date signupDate, int parent1Id, int parent2Id, String password, String token, String passwordToken) {
         this.signupDate = signupDate;
         this.parent1Id = parent1Id;
         this.parent2Id = parent2Id;
         this.password = password;
         this.token = token;
+        this.passwordToken = passwordToken;
     }
 
     @JsonCreator
     public Couple
-    (
-        @JsonProperty("id") int id,
-        @JsonProperty("signupDate") Date signupDate,
-        @JsonProperty("parent1Id") int parent1Id,
-        @JsonProperty("parent2Id") int parent2Id,
-        @JsonProperty("password") String password,
-        @JsonProperty("token") String token
-    )
+            (
+                    @JsonProperty("id") int id,
+                    @JsonProperty("signupDate") Date signupDate,
+                    @JsonProperty("parent1Id") int parent1Id,
+                    @JsonProperty("parent2Id") int parent2Id,
+                    @JsonProperty("password") String password,
+                    @JsonProperty("token") String token,
+                    @JsonProperty("passwordToken") String passwordToken
+            )
     {
         this.id = id;
         this.signupDate = signupDate;
@@ -45,6 +59,7 @@ public class Couple implements DatabaseObject<Couple> {
         this.parent2Id = parent2Id;
         this.password = password;
         this.token = token;
+        this.passwordToken = passwordToken;
     }
 
     public Date getSignupDate() { return signupDate; }
@@ -58,6 +73,9 @@ public class Couple implements DatabaseObject<Couple> {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     public String getToken() { return token; }
+    public String getPasswordToken() { return passwordToken; }
+    public void setPasswordToken(String passwordToken) { this.passwordToken = passwordToken; }
+
     public void setToken(String token) { this.token = token; }
 
     @Override

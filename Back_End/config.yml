@@ -5,7 +5,7 @@ logging:
 
 mailUtility:
   username: dubiogroep9
-  password: dreamteam_en_bas
+  password: dreamteam_en_koffie
   websiteUrl: "http://localhost:4200/"
 
 server:
@@ -20,7 +20,7 @@ server:
 daoRepository:
   adminDao:
     tableName: admin
-    columnNames: [email, password, rights_id]
+    columnNames: [email, password, rights_id, signup_date, password_token]
   answerDao:
     tableName: answer
     columnNames: [dilemma_id, extension, text]
@@ -29,7 +29,7 @@ daoRepository:
     columnNames: [couple_id, is_born, date]
   coupleDao:
     tableName: couple
-    columnNames: [parent1_id, parent2_id, signup_date, password, token]
+    columnNames: [parent1_id, parent2_id, signup_date, password, token, password_token]
   coupleListViewDao:
     tableName: couple_list_view
     columnNames: [couple_id, parent_id1, name1, email1, phone_nr1, parent_id2, name2, email2, phone_nr2]
@@ -45,6 +45,9 @@ daoRepository:
   rightDao:
     tableName: rights
     columnNames: [can_edit_dilemma, can_view_statistics, can_edit_user_info]
+  ratingDao:
+    tableName: rating
+    columnNames: [dilemma_id, rating, date]
 
 databaseConnection:
   jdbc: postgresql

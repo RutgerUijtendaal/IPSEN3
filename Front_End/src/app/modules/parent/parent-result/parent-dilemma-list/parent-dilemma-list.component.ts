@@ -8,17 +8,17 @@ import {ParentDilemmaListService} from '../parent-dilemma-list.service';
 })
 export class ParentDilemmaListComponent implements OnInit {
 
-  parentService: ParentDilemmaListService;
+  parentDilemmaService: ParentDilemmaListService;
 
-  constructor(parentService: ParentDilemmaListService) {
-    this.parentService = parentService;
+  constructor(parentDilemmaService: ParentDilemmaListService) {
+    this.parentDilemmaService = parentDilemmaService;
   }
 
   ngOnInit() {
   }
 
   onPeriodChange(period) {
-    this.parentService.filterDilemmas(period);
+    this.parentDilemmaService.filterDilemmas(period);
   }
 
 }

@@ -23,7 +23,6 @@ export class UnregisterNewComponent implements OnInit, OnDestroy {
     this.routeSub = this.route.params.subscribe(params => {
       this.token = params['token'];
     });
-    console.log(this.token);
   }
 
   unregister() {

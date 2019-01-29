@@ -2,20 +2,27 @@ package nl.dubio.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.dubio.View;
 
 import java.sql.Timestamp;
 
 public class Result implements DatabaseObject<Result> {
 
     @JsonProperty
+    @JsonView(View.Public.class)
     private int id;
     @JsonProperty
+    @JsonView(View.Public.class)
     private int parentId;
     @JsonProperty
+    @JsonView(View.Public.class)
     private Integer answerId;
     @JsonProperty
+    @JsonView(View.Public.class)
     private Timestamp sentTime;
     @JsonProperty
+    @JsonView(View.Public.class)
     private Timestamp answeredTime;
 
     public Result (int parentId, Integer answerId, Timestamp sentTime, Timestamp answeredTime) {

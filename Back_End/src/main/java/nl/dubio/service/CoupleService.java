@@ -1,6 +1,7 @@
 package nl.dubio.service;
 
 import nl.dubio.ApiApplication;
+import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.*;
 import nl.dubio.persistance.CoupleDao;
 import nl.dubio.persistance.DaoRepository;
@@ -15,6 +16,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CoupleService implements CrudService<Couple> {
@@ -39,16 +41,26 @@ public class CoupleService implements CrudService<Couple> {
     public Couple getByParent(Parent parent) { return coupleDao.getByParent(parent); }
 
     @Override
-    public Integer save(Couple couple) {
-        if (couple.getSignupDate().compareTo(new Date(System.currentTimeMillis())) < 0){
-            return coupleDao.save(couple);
-        }
+    public Integer save(Couple couple) throws InvalidInputException {
+        List<String> errors = validate(couple);
 
-        return -1;
+        if (errors.size() > 0)
+            throw new InvalidInputException(errors);
+
+        return coupleDao.save(couple);
+    }
+
+    public boolean tokenExists(String token) {
+        return this.coupleDao.tokenExists(token);
     }
 
     @Override
-    public boolean update(Couple couple) {
+    public boolean update(Couple couple) throws InvalidInputException {
+        List<String> errors = validate(couple);
+
+        if (errors.size() > 0)
+            throw new InvalidInputException(errors);
+
         return coupleDao.update(couple);
     }
 
@@ -62,31 +74,20 @@ public class CoupleService implements CrudService<Couple> {
         return coupleDao.deleteById(id);
     }
 
-    @Override
-    public List<String> validate(Couple couple) {
-        return null;
-    }
-
     public void unregister(String token) throws NotFoundException {
         Couple couple = coupleDao.getByToken(token);
 
-        if(couple == null) {
+        if (couple == null)
             throw new NotFoundException("No couple for that token");
-        }
 
         coupleDao.delete(couple);
     }
 
-    public int register(CoupleRegistry registry){
+    public int register(CoupleRegistry registry) throws InvalidInputException {
         List<String> errors = validateRegistry(registry);
 
-        if (errors.size() > 0){
-            //TODO the errors should be given to the client
-            for(String error: errors) {
-                System.out.println(error);
-            }
-            return -1;
-        }
+        if (errors.size() > 0)
+            throw new InvalidInputException(errors);
 
         String unregisterToken = TokenGenerator.getToken();
         registry.setToken(unregisterToken);
@@ -104,6 +105,7 @@ public class CoupleService implements CrudService<Couple> {
             mailUtility.addWelcomeMailToQueue(registry.getEmail1(), registry.getFirstName1(), unregisterToken);
             mailUtility.addWelcomeMailToQueue(registry.getEmail2(), registry.getFirstName2(), unregisterToken);
         } catch (MessagingException e) {
+            // TODO
             e.printStackTrace();
         }
 
@@ -112,8 +114,41 @@ public class CoupleService implements CrudService<Couple> {
 
     public Couple getCoupleByEmail(String email) {
         Parent parent = parentDao.getByEmail(email);
-        Couple couple = coupleDao.getByParent(parent);
-        return couple;
+        return coupleDao.getByParent(parent);
+    }
+
+    public boolean resetPasswordRequest(Couple couple) {
+        String token = "ouders/nieuw-wachtwoord/" + this.coupleDao.resetPasswordRequest(couple);
+        if (token != null) {
+            try {
+                Parent parent1 = parentDao.getById(couple.getParent1Id());
+                Parent parent2 = parentDao.getById(couple.getParent2Id());
+                ApiApplication.getMailUtility().addResetPasswordToQueue(parent1.getEmail(), parent1.getFirstName(), token);
+                ApiApplication.getMailUtility().addResetPasswordToQueue(parent2.getEmail(), parent2.getFirstName(), token);
+                return true;
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean updatePassword(String token, String password) throws InvalidInputException {
+
+        if (!ValidationService.isValidPassword(password)) {
+            throw new InvalidInputException(Arrays.asList("Invalid password"));
+        }
+
+        String hashedPassword = null;
+        try {
+            hashedPassword = PasswordService.generatePasswordHash(password);
+        } catch (Exception e) {
+            // TODO
+        }
+
+        // return true;
+        return this.coupleDao.updatePassword(token, hashedPassword);
     }
 
     //TODO better error messages and the messages should come from a constants class
@@ -152,8 +187,8 @@ public class CoupleService implements CrudService<Couple> {
         return errors;
     }
 
-    public void createResultEntry(Couple couple) {
-        ParentService parentService = new ParentService();
+    public void createResultEntry(Couple couple) throws InvalidInputException {
+        ParentDataService parentService = new ParentDataService();
         ChildService childService = new ChildService();
 
         DilemmaService dilemmaService = new DilemmaService();
@@ -196,5 +231,23 @@ public class CoupleService implements CrudService<Couple> {
             parentService.update(parents[0]);
             parentService.update(parents[1]);
         }
+    }
+
+    @Override
+    public List<String> validate(Couple couple) {
+        List<String> errors = new ArrayList<>();
+
+        Date currentDate = new Date(System.currentTimeMillis());
+
+        if (couple.getSignupDate().compareTo(currentDate) > 0)
+            errors.add("Invalid sign-up date");
+        if (! parentDao.idExists(couple.getParent1Id()))
+            errors.add("Invalid parent1 id");
+        if (! parentDao.idExists(couple.getParent2Id()))
+            errors.add("Invalid parent2 id");
+        if (! ValidationService.isValidPassword(couple.getPassword()))
+            errors.add("Invalid password");
+
+        return errors;
     }
 }

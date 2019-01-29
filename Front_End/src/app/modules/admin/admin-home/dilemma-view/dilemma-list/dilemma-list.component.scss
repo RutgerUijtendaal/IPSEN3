@@ -2,6 +2,8 @@ mdb-card {
   display: inline-block;
   vertical-align: top;
   padding: 0px;
+  overflow-y: scroll;
+  max-height: 735px;
 }
 
 mdb-card-body {

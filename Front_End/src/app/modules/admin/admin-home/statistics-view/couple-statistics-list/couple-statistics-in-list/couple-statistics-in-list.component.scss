@@ -1,0 +1,55 @@
+.parent {
+  display: inline-block;
+  text-align: center;
+}
+
+.plus, .delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.delete-button {
+  -webkit-transition: all ease-in-out .15s;
+  -moz-transition: all ease-in-out .15s;
+  -ms-transition: all ease-in-out .15s;
+  -o-transition: all ease-in-out .15s;
+  transition: all ease-in-out .15s;
+  cursor: pointer;
+}
+
+.checkbox-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-button:hover {
+  transform: scale(1.1);
+}
+
+.info-text {
+  font-size: 18px;
+}
+
+.card {
+  border-bottom: 2px solid lightgrey;
+}
+
+.card-body {
+  padding: 5px 0px 5px 0px;
+}
+
+@media all and (max-width: 768px) {
+  .plus, .delete {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+.custom-control-label::before {
+  left: -1.25rem;
+  top: -0.5rem;
+
+}

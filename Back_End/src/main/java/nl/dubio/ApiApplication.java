@@ -15,6 +15,7 @@ import nl.dubio.auth.*;
 import nl.dubio.config.ApiConfiguration;
 import nl.dubio.exceptionHandlers.ClientExceptionHandler;
 import nl.dubio.factories.PreparedStatementFactory;
+import nl.dubio.healthChecks.DatabaseHealthCheck;
 import nl.dubio.models.Admin;
 import nl.dubio.models.Parent;
 import nl.dubio.resources.FileUploadResource;
@@ -51,6 +52,12 @@ public class ApiApplication extends Application<ApiConfiguration> {
         environment.jersey().register(new ClientExceptionHandler());
 
         mailUtility = configuration.getMailUtility();
+
+        environment.healthChecks().register("database", new DatabaseHealthCheck());
+
+        // Setup image uploading
+        environment.jersey().register(MultiPartFeature.class);
+        environment.jersey().register(FileUploadResource.class);
     }
 
     private void setupAuthentication(Environment environment) {
@@ -80,6 +87,7 @@ public class ApiApplication extends Application<ApiConfiguration> {
         environment.jersey().register(binder);
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(Authorizable.class));
+
     }
 
     public static MailUtility getMailUtility() { return mailUtility; }
@@ -97,9 +105,6 @@ public class ApiApplication extends Application<ApiConfiguration> {
         // Add URL mapping
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
-        // Setup image uploading
-        environment.jersey().register(MultiPartFeature.class);
-        environment.jersey().register(FileUploadResource.class);
     }
 
 

@@ -1,21 +1,35 @@
 package nl.dubio.service;
 
 import nl.dubio.ApiApplication;
+import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.*;
+import nl.dubio.persistance.*;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.DilemmaDao;
 import nl.dubio.persistance.ResultDao;
 import nl.dubio.utils.MailUtility;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResultService implements CrudService<Result> {
     private final ResultDao resultDao;
+    private final ParentDao parentDao;
+    private final AnswerDao answerDao;
+    private final DilemmaDao dilemmaDao;
+    private final MailUtility mailUtility;
+
 
     public ResultService() {
         this.resultDao = DaoRepository.getResultDao();
+        parentDao = DaoRepository.getParentDao();
+        answerDao = DaoRepository.getAnswerDao();
+        dilemmaDao = DaoRepository.getDilemmaDao();
+        mailUtility = ApiApplication.getMailUtility();
     }
 
     public List<Result> getByParent(int parentId) {
@@ -36,8 +50,8 @@ public class ResultService implements CrudService<Result> {
         return resultDao.getByParentId(parent.getId()).get(0);
     }
 
-    public void updateResult(String token, int answerId) {
-        ParentService parentService = new ParentService();
+    public void updateResult(String token, int answerId) throws InvalidInputException {
+        ParentDataService parentService = new ParentDataService();
         CoupleService coupleService = new CoupleService();
 
         Parent parent = parentService.getByToken(token);
@@ -64,12 +78,9 @@ public class ResultService implements CrudService<Result> {
             AnswerService answerService = new AnswerService();
             Answer answerOne = answerService.getById(resultOne.getAnswerId());
             Answer answerTwo = answerService.getById(resultTwo.getAnswerId());
-
-            DilemmaDao dilemmaDao = DaoRepository.getDilemmaDao();
             Dilemma dilemma = dilemmaDao.getById(answerOne.getDilemmaId());
 
             try {
-                MailUtility mailUtility = ApiApplication.getMailUtility();
                 mailUtility.addFeedbackMailToQueue(
                         parentOne.getEmail(),
                         parentOne.getFirstName(), parentTwo.getFirstName(),
@@ -102,12 +113,22 @@ public class ResultService implements CrudService<Result> {
     }
 
     @Override
-    public Integer save(Result result) {
+    public Integer save(Result result) throws InvalidInputException {
+        List<String> errors = validate(result);
+
+        if (errors.size() > 0)
+            throw new InvalidInputException(errors);
+
         return resultDao.save(result);
     }
 
     @Override
-    public boolean update(Result result) {
+    public boolean update(Result result) throws InvalidInputException {
+        List<String> errors = validate(result);
+
+        if (errors.size() > 0)
+            throw new InvalidInputException(errors);
+
         return resultDao.update(result);
     }
 
@@ -123,6 +144,19 @@ public class ResultService implements CrudService<Result> {
 
     @Override
     public List<String> validate(Result result) {
-        return null;
+        List<String> errors = new ArrayList<>();
+
+        Date currentDate = new Date(System.currentTimeMillis());
+
+        if (! parentDao.idExists(result.getParentId()))
+            errors.add("Invalid parent id");
+        if (! answerDao.idExists(result.getAnswerId()))
+            errors.add("Invalid answer id");
+        if (result.getSentTime().compareTo(currentDate) > 0)
+            errors.add("Invalid sent time");
+        if (result.getAnsweredTime().compareTo(currentDate) > 0)
+            errors.add("Invalid answered time");
+
+        return errors;
     }
 }

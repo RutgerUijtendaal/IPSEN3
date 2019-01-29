@@ -2,18 +2,25 @@ package nl.dubio.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.dubio.View;
 
 public class Dilemma implements DatabaseObject<Dilemma> {
 
     @JsonProperty
+    @JsonView(View.Public.class)
     private int id;
     @JsonProperty
+    @JsonView(View.Public.class)
     private short weekNr;
     @JsonProperty
+    @JsonView(View.Public.class)
     private String theme;
     @JsonProperty
+    @JsonView(View.Public.class)
     private String feedback;
     @JsonProperty
+    @JsonView(View.Public.class)
     private String period;
 
     public Dilemma (short weekNr, String theme, String feedback, String period) {
