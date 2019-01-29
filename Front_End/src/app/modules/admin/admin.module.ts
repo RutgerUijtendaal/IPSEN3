@@ -34,6 +34,7 @@ import { CoupleStatisticsInListComponent } from './admin-home/statistics-view/co
 import { CoupleStatisticsListComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-list.component';
 import { DilemmaStatisticsListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-statistics-list.component';
 import { DilemmaStatisticsInListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-in-list/dilemma-statistics-in-list.component';
+import { SpeedChartComponent } from './admin-home/statistics-view/speed-chart/speed-chart.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { DilemmaStatisticsInListComponent } from './admin-home/statistics-view/d
     CoupleStatisticsInListComponent,
     CoupleStatisticsListComponent,
     DilemmaStatisticsListComponent,
-    DilemmaStatisticsInListComponent
+    DilemmaStatisticsInListComponent,
+    SpeedChartComponent
   ],
   imports: [
     CommonModule,

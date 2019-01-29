@@ -22,7 +22,10 @@
       </div>
     </div>
     <div class="col-md-2">
-      <input type="checkbox" [checked]="checked" (change)="change(checked)">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="defaultUnchecked" [checked]="checked" (change)="change(checked)">
+        <label class="custom-control-label" for="defaultUnchecked"></label>
+      </div>
     </div>
   </mdb-card-body>
 </mdb-card>
