@@ -1,17 +1,12 @@
 export class ChildModel {
-  private _date: Date;
-  private _isBorn: boolean;
+  public id: number;
+  public date: Date;
+  public isBorn: boolean;
 
-  constructor(date: Date, isBorn: boolean) {
-    this._date = date;
-    this._isBorn = isBorn;
+  constructor(id: number, date: Date, isBorn: boolean) {
+    this.id = id;
+    this.date = date;
+    this.isBorn = isBorn;
   }
 
-  get date(): Date {
-    return this._date;
-  }
-
-  get isBorn(): boolean {
-    return this._isBorn;
-  }
 }

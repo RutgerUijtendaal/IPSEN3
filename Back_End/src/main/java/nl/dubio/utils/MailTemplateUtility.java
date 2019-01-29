@@ -22,6 +22,10 @@ public class MailTemplateUtility {
 
     private static final String UNREGISTER_REPLACER = "REPLACEUNREGISTERHERE";
 
+    private static final String ADMIN_PASSWORD = "REPLACERANDOMIZEDPASSWORDHERE";
+
+    private static final String PASSWORD_LINK_REPLACER = "REPLACELINKHERE";
+
     public static String getWelcomeMail(String websiteUrl, String name, String unregisterToken) {
         InputStream input = MailTemplateUtility.class.getResourceAsStream("/welcome.html");
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -70,6 +74,45 @@ public class MailTemplateUtility {
                 }
                 if (line.contains(UNREGISTER_REPLACER)) {
                     line = line.replace(UNREGISTER_REPLACER, websiteUrl + UNREGISTER_PATH + unregisterToken);
+                }
+                builder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return builder.toString();
+    }
+
+    public static String getResetPasswordMail(String name, String link) {
+        InputStream input = MailTemplateUtility.class.getResourceAsStream("/password_reset.html");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        StringBuilder builder = new StringBuilder();
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(NAME_REPLACER)) {
+                    line = line.replace(NAME_REPLACER, name);
+                }
+                if (line.contains(PASSWORD_LINK_REPLACER)) {
+                    line = line.replace(PASSWORD_LINK_REPLACER, link);
+                }
+                builder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return builder.toString();
+    }
+
+    public static String getNewAdminMail(String password) {
+        InputStream input = MailTemplateUtility.class.getResourceAsStream("/new_admin.html");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        StringBuilder builder = new StringBuilder();
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(ADMIN_PASSWORD)) {
+                    line = line.replace(ADMIN_PASSWORD, password);
                 }
                 builder.append(line);
             }

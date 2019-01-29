@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ParentService} from '../parent.service';
+import {ParentDataService} from '../parent-data.service';
 
 @Component({
   selector: 'app-parent-me',
@@ -8,13 +8,14 @@ import {ParentService} from '../parent.service';
 })
 export class ParentMeComponent implements OnInit {
 
-  parentService: ParentService;
+  parentService: ParentDataService;
 
-  constructor(parentService: ParentService) {
+  constructor(parentService: ParentDataService) {
     this.parentService = parentService;
   }
 
   ngOnInit() {
   }
+
 
 }

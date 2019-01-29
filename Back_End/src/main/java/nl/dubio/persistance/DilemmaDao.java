@@ -55,6 +55,19 @@ public class DilemmaDao extends GenericDao<Dilemma> {
         return executeIsTrue(statement);
     }
 
+    public boolean dilemmaExists(int dilemmaId) {
+
+        String query = "SELECT (COUNT(id) >= 1)\n" +
+                "FROM " + tableName + "\n" +
+                "WHERE id = ?;";
+
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+
+        fillParameter(statement,1, dilemmaId);
+
+        return executeIsTrue(statement);
+    }
+
     @Override
     public Dilemma createFromResultSet(ResultSet resultSet) {
         try {

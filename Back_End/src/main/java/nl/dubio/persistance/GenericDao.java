@@ -152,8 +152,10 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
 
     public static boolean executeUpdate(PreparedStatement preparedStatement){
         try {
+            System.out.println("!!!!" + preparedStatement.toString());
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException exception){
+            exception.printStackTrace();
             throw new ExecutePreparedStatementException();
         }
     }
@@ -251,6 +253,14 @@ public abstract class GenericDao<T extends DatabaseObject<T>>{
     public static void fillParameter(PreparedStatement statement, int index, int value){
         try {
             statement.setInt(index, value);
+        } catch (SQLException exception) {
+            throw new FillPreparedStatementException();
+        }
+    }
+
+    public static void fillParameter(PreparedStatement statement, int index, Date value) {
+        try {
+            statement.setDate(index, value);
         } catch (SQLException exception) {
             throw new FillPreparedStatementException();
         }

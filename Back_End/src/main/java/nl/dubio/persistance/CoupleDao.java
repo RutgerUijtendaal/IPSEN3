@@ -10,6 +10,7 @@ import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleRegistry;
 import nl.dubio.models.Parent;
 import nl.dubio.service.PasswordService;
+import nl.dubio.utils.TokenGenerator;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -29,6 +30,10 @@ public class CoupleDao extends GenericDao<Couple> {
     }
 
     public Couple getByParent(Parent parent) {
+        if (parent == null) {
+            return null;
+        }
+
         String query = "SELECT * FROM " + tableName + " WHERE " + columnNames[0] + " = ? OR " + columnNames[1] + " = ?;";
         PreparedStatement preparedStatement = PreparedStatementFactory.createPreparedStatement(query);
 
@@ -36,6 +41,44 @@ public class CoupleDao extends GenericDao<Couple> {
         fillParameter(preparedStatement, 2, parent.getId());
 
         return executeGetByAttribute(preparedStatement);
+    }
+
+    public boolean tokenExists(String token) {
+        PreparedStatement statement = PreparedStatementFactory.createExistsByAttributeStatement(tableName, columnNames[5]);
+        fillParameter(statement, 1, token);
+        return executeIsTrue(statement);
+    }
+
+    private boolean removeToken(String token) {
+
+        String query = "UPDATE couple SET " + columnNames[5] + " = null WHERE " + columnNames[5] + " = ?";
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(statement, 1, token);
+
+        boolean successful = executeUpdate(statement);
+
+        closeTransaction(statement);
+
+        return successful;
+
+    }
+
+    public boolean updatePassword(String token, String hashedPassword) {
+
+        String query = "UPDATE couple SET " + columnNames[3] + " = ? WHERE " + columnNames[5] + " = ?";
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(statement, 2, token);
+        fillParameter(statement, 1, hashedPassword);
+
+        boolean successful = executeUpdate(statement);
+
+        closeTransaction(statement);
+
+        if (!successful) {
+            return false;
+        }
+
+        return removeToken(token);
     }
 
     public Couple getByToken(String token) {
@@ -47,6 +90,21 @@ public class CoupleDao extends GenericDao<Couple> {
 
         return executeGetByAttribute(preparedStatement);
 
+    }
+
+    public String resetPasswordRequest(Couple couple) {
+
+        String passwordToken = TokenGenerator.getToken();
+
+        String query = "UPDATE couple SET " + columnNames[5] + " = ? WHERE id = ?;";
+
+        PreparedStatement preparedStatement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(preparedStatement, 1, passwordToken);
+        fillParameter(preparedStatement, 2, couple.getId());
+
+        executeUpdate(preparedStatement);
+
+        return passwordToken;
     }
 
     public int saveCoupleViaRegistry(CoupleRegistry registry) throws InvalidKeySpecException, NoSuchAlgorithmException {
@@ -63,7 +121,7 @@ public class CoupleDao extends GenericDao<Couple> {
                 registry.getPhoneNr2());
         int parent2Id = parentDao.save(parent2);
 
-        Couple couple = new Couple(new Date(System.currentTimeMillis()), parent1Id, parent2Id, PasswordService.generatePasswordHash(registry.getPassword()), registry.getToken());
+        Couple couple = new Couple(new Date(System.currentTimeMillis()), parent1Id, parent2Id, PasswordService.generatePasswordHash(registry.getPassword()), registry.getToken(), null);
         int coupleId = save(couple);
 
         Child child = new Child(coupleId, registry.getDate(), registry.getIsBorn());
@@ -82,7 +140,8 @@ public class CoupleDao extends GenericDao<Couple> {
             int parent2_id = resultSet.getInt("parent2_id");
             String password = resultSet.getString("password");
             String token = resultSet.getString("token");
-            return new Couple(id, signup_date, parent1_id, parent2_id, password, token);
+            String passwordToken = resultSet.getString("password_token");
+            return new Couple(id, signup_date, parent1_id, parent2_id, password, token, passwordToken);
         } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
@@ -96,6 +155,7 @@ public class CoupleDao extends GenericDao<Couple> {
             preparedStatement.setDate(3, couple.getSignupDate());
             preparedStatement.setString(4, couple.getPassword());
             preparedStatement.setString(5, couple.getToken());
+            preparedStatement.setString(6, couple.getPasswordToken());
         } catch (SQLException exception){
             throw new FillPreparedStatementException();
         }

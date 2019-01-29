@@ -27,7 +27,7 @@ public class MailUtility {
     private final String password;
     private final String websiteUrl;
 
-    private final int MAILSPEED = 5000;
+    private final int MAILSPEED = 2500;
 
     private List<MimeMessage> messageQueue;
 
@@ -99,8 +99,20 @@ public class MailUtility {
     }
 
     public void addDilemmaReadyToQueue(String to, String parentName, String dilemmaName, String parentToken, String unregisterToken) throws MessagingException {
-        final String subject = "Er staat een nieuw dilemma klaar";
+        final String subject = "Er staat een nieuw dilemma klaar!";
         MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getDilemmaReadymail(websiteUrl, parentName, dilemmaName, parentToken, unregisterToken));
+        messageQueue.add(mimeMessage);
+    }
+
+    public void addResetPasswordToQueue(String to, String name, String token) throws MessagingException {
+        final String subject = "Wachtwoord resetten";
+        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getResetPasswordMail(name, token));
+        messageQueue.add(mimeMessage);
+    }
+
+    public void addNewAdminToQueue(String to, String password) throws MessagingException {
+        final String subject = "Uw Dubio beheerders wachtwoord";
+        MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getNewAdminMail(password));
         messageQueue.add(mimeMessage);
     }
 

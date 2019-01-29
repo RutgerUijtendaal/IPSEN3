@@ -13,7 +13,7 @@ import {DilemmaModel} from '../../shared/models/dilemma.model';
 import {ChildModel} from "../../shared/models/child.model";
 
 @Injectable()
-export class ParentService {
+export class ParentDataService {
 
   private URL = AppComponent.environment.server;
 
@@ -26,20 +26,24 @@ export class ParentService {
   answers: AnswerModel[] = [];
   activeDilemmas: DilemmaModel[] = [];
 
-  coupleIsLoading = false;
-  resultsIsLoading = false;
+  isLoading = false;
 
   constructor(private authenticationService: AuthenticationService,
               private httpClient: HttpClient) {
     this.accountModel = authenticationService.accountModel;
-    this.loadCouple();
   }
 
-  private loadCouple() {
-    this.coupleIsLoading = true;
-    this.resultsIsLoading = true;
-
+  public getData() {
+    this.isLoading = true;
+    this.clearData();
     this.getCouple$().subscribe();
+  }
+
+  private clearData() {
+    this.coupleResults = [[], []];
+    this.dilemmas = [];
+    this.answers = [];
+    this.activeDilemmas = [];
   }
 
   private setActiveDilemmas() {
@@ -53,41 +57,37 @@ export class ParentService {
   }
 
   private loadData() {
-    this.resultsIsLoading = true;
-
     const dilemmas$ = this.getDilemmas$();
     const answers$ = this.getAnswers$();
     const getChild$ = this.getChild$();
     const parent1Results$ = this.getResults$(this.couple.parent1.id, 0);
     const parent2Results$ = this.getResults$(this.couple.parent2.id, 1);
 
-    forkJoin([parent1Results$, parent2Results$, getChild$]).subscribe( () => {
-      this.coupleIsLoading = false;
-      forkJoin([dilemmas$, answers$]).subscribe( () => {
-          this.resultsIsLoading = false;
-          this.setActiveDilemmas();
-      });
+    forkJoin([parent1Results$, parent2Results$, getChild$, dilemmas$, answers$]).subscribe( () => {
+      this.setActiveDilemmas();
+      this.isLoading = false;
     });
   }
 
   private getCouple$() {
     return this.httpClient.get(this.URL + '/couple/email').pipe(
       map((data) => {
-        const parent1$ =  this.httpClient.get(this.URL + '/parent/' + data['parent1Id']);
-        const parent2$ =  this.httpClient.get(this.URL + '/parent/' + data['parent2Id']);
+        const parent1$ =  this.httpClient.get<ParentModel>(this.URL + '/parent/' + data['parent1Id']);
+        const parent2$ =  this.httpClient.get<ParentModel>(this.URL + '/parent/' + data['parent2Id']);
         forkJoin([parent1$, parent2$]).subscribe(results => {
+          console.log(results)
           let parent1: ParentModel;
           let parent2: ParentModel;
 
           if (results[0]['email'] === this.accountModel.email) {
-            parent1 = this.buildParentFromResponse(results[0]);
-            parent2 = this.buildParentFromResponse(results[1]);
+            parent1 = results[0];
+            parent2 = results[1];
           } else {
-            parent1 = this.buildParentFromResponse(results[1]);
-            parent2 = this.buildParentFromResponse(results[0]);
+            parent1 = results[1];
+            parent2 = results[0];
           }
 
-          this.couple = new CoupleModel(data['id'], parent1, parent2);
+          this.couple = new CoupleModel(data['id'], parent1, parent2, data['date'], data['token']);
           this.loadData();
         });
       })
@@ -98,76 +98,41 @@ export class ParentService {
     return this.httpClient.get<ChildModel>(this.URL + '/child/couple/' + this.couple.coupleId).pipe(
       map((child: ChildModel) => {
         this.child = child;
+        console.log(this.child)
       })
     )
   }
 
   private getDilemmas$() {
-    return this.httpClient.get(this.URL + '/dilemma').pipe(
-      map((dilemmas) => {
-        for (const item in dilemmas) {
-          this.dilemmas.push(this.buildDilemmaFromResponse(dilemmas[item]));
-        }
+    return this.httpClient.get<DilemmaModel[]>(this.URL + '/dilemma').pipe(
+      map((dilemmas: DilemmaModel[]) => {
+        dilemmas.forEach(dilemma => {
+          this.dilemmas.push(dilemma);
+        });
       })
     );
   }
 
   private getAnswers$() {
-    return this.httpClient.get(this.URL + '/answer').pipe(
-      map((answers) => {
-        for (const item in answers) {
-          this.answers.push(this.buildAnswerFromResponse(answers[item]));
-        }
+    return this.httpClient.get<AnswerModel[]>(this.URL + '/answer').pipe(
+      map((answers: AnswerModel[]) => {
+        answers.forEach(answers => {
+          this.answers.push(answers)
+        })
       })
     );
   }
 
   private getResults$(parentId: number, parent: number) {
-    return this.httpClient.get(this.URL + '/result/parent/' + parentId.toString()).pipe(
-      map((results) => {
-        for (const item in results) {
-          this.coupleResults[parent].push(this.buildResultFromResponse(results[item]));
+    return this.httpClient.get<ResultModel[]>(this.URL + '/result/parent/' + parentId.toString()).pipe(
+      map((results: ResultModel[]) => {
+        if (results && results.length > 0) {
+          results.forEach(result => {
+            this.coupleResults[parent].push(result);
+
+          })
         }
       })
-    );
-  }
-
-  private buildDilemmaFromResponse(response) {
-    return new DilemmaModel(
-      response['id'],
-      response['weekNr'],
-      response['theme'],
-      response['feedback'],
-      response['period']
-    );
-  }
-
-  private buildAnswerFromResponse(response) {
-    return new AnswerModel(
-      response['id'],
-      response['dilemmaId'],
-      response['url'],
-      response['text']
-    );
-  }
-
-  private buildParentFromResponse(response) {
-    const parent: ParentModel = new ParentModel(
-      response['firstName'],
-      response['phoneNr'],
-      response['email']
-    );
-    parent.id = response['id'];
-    return parent;
-  }
-
-  private buildResultFromResponse(response) {
-    return new ResultModel(
-      response['id'],
-      response['parentId'],
-      response['answerId'],
-      response['answeredTime'],
-      response['sentTime']
     );
   }
 

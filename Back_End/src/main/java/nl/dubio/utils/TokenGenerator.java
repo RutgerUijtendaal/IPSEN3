@@ -19,7 +19,7 @@ public class TokenGenerator {
         return randomString(32);
     }
 
-    private static String randomString(int length) {
+    public static String randomString(int length) {
         StringBuilder stringBuilder = new StringBuilder(length);
 
         for(int i = 0; i < length; i++) {

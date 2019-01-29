@@ -28,4 +28,5 @@ public class CoupleListViewResource {
     public List<CoupleListModel> getAll(@Auth Admin admin) {
         return this.coupleListService.getAll();
     }
+
 }

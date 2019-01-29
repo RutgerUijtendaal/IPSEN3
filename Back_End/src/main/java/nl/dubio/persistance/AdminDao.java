@@ -3,13 +3,13 @@ package nl.dubio.persistance;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.dubio.exceptions.FillPreparedStatementException;
+import nl.dubio.exceptions.NoFurtherResultsException;
 import nl.dubio.exceptions.ReadFromResultSetException;
 import nl.dubio.factories.PreparedStatementFactory;
 import nl.dubio.models.Admin;
+import nl.dubio.utils.TokenGenerator;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * @author Bas de Bruyn
@@ -21,32 +21,83 @@ public class AdminDao extends GenericDao<Admin> {
         super(tableName, columnNames);
     }
 
-    public void updateWithoutPassword(Admin admin) {
-        final String[] columnNamesWithoutPassword = {
-            columnNames[0],
-            columnNames[2]
-        };
-        String query = "UPDATE admin SET " + columnNamesWithoutPassword[0] + " = ? , " + columnNamesWithoutPassword[1] + " = ? WHERE id = ?;" ;
+    public boolean updateWithoutPassword(Admin admin) {
+        String query = "UPDATE " + tableName + " SET " + columnNames[0] + " = ? , " + columnNames[2] + " = ? WHERE id = ?;" ;
 
-        PreparedStatement state = PreparedStatementFactory.createPreparedStatement(query);
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
 
-        fillParameter(state, 1, admin.getEmail());
-        fillParameter(state, 2, admin.getRights_id());
-        fillParameter(state, 3, admin.getId());
+        fillParameter(statement, 1, admin.getEmail());
+        fillParameter(statement, 2, admin.getRightId());
+        fillParameter(statement, 3, admin.getId());
 
-        boolean successfull = executeUpdate(state);
+        boolean successful = executeUpdate(statement);
 
-        closeTransaction(state);
+        closeTransaction(statement);
 
+        return successful;
+    }
+
+    public boolean tokenExists(String token) {
+        PreparedStatement statement = PreparedStatementFactory.createExistsByAttributeStatement(tableName, columnNames[4]);
+        fillParameter(statement, 1, token);
+        return executeIsTrue(statement);
+    }
+
+    private boolean removeToken(String token) {
+
+        String query = "UPDATE " + tableName + " SET " + columnNames[4] + " = null WHERE " + columnNames[4] + " = ?";
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(statement, 1, token);
+
+        boolean successful = executeUpdate(statement);
+
+        closeTransaction(statement);
+
+        return successful;
+
+    }
+
+    public String resetPasswordRequest(Admin admin) {
+
+        String passwordToken = TokenGenerator.getToken();
+
+        String query = "UPDATE " + tableName + " SET " + columnNames[4] + " = ? WHERE id = ?;";
+
+        PreparedStatement preparedStatement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(preparedStatement, 1, passwordToken);
+        fillParameter(preparedStatement, 2, admin.getId());
+
+        executeUpdate(preparedStatement);
+
+        return passwordToken;
+    }
+
+
+    public boolean updatePassword(String token, String hashedPassword) {
+
+        String query = "UPDATE " + tableName + " SET " + columnNames[1] + " = ? WHERE " + columnNames[4] + " = ?";
+        PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
+        fillParameter(statement, 1, hashedPassword);
+        fillParameter(statement, 2, token);
+
+        boolean successful = executeUpdate(statement);
+
+        closeTransaction(statement);
+
+        if (!successful) {
+            return false;
+        }
+
+        return removeToken(token);
     }
 
     public Admin getByEmail(String email) {
         String query = "SELECT * FROM " + tableName + "\n" +
-                "WHERE " + columnNames[0] + " LIKE ?;";
+                "WHERE " + columnNames[0] + " = ?;";
 
         PreparedStatement statement = PreparedStatementFactory.createPreparedStatement(query);
 
-        fillParameter(statement, 1, "%" + email + "%");
+        fillParameter(statement, 1, email);
 
         return executeGetByAttribute(statement);
     }
@@ -66,8 +117,9 @@ public class AdminDao extends GenericDao<Admin> {
             int id = resultSet.getInt("id");
             String email = resultSet.getString(columnNames[0]);
             String password = resultSet.getString(columnNames[1]);
-            int rights_id = resultSet.getInt(columnNames[2]);
-            return new Admin(id, email, password, rights_id);
+            int rightsId = resultSet.getInt(columnNames[2]);
+            Date signupDate = resultSet.getDate(columnNames[3]);
+            return new Admin(id, email, password, rightsId, signupDate, null);
         } catch (SQLException exception){
             throw new ReadFromResultSetException();
         }
@@ -78,7 +130,9 @@ public class AdminDao extends GenericDao<Admin> {
         try {
             preparedStatement.setString(1, admin.getEmail());
             preparedStatement.setString(2, admin.getPassword());
-            preparedStatement.setInt(3, admin.getRights_id());
+            preparedStatement.setInt(3, admin.getRightId());
+            preparedStatement.setDate(4, new Date(System.currentTimeMillis()));
+            preparedStatement.setString(5, null);
         } catch (SQLException exception){
             throw new FillPreparedStatementException();
         }

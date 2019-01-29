@@ -17,4 +17,9 @@ public class CoupleListService {
     public List<CoupleListModel> getAll() {
         return coupleListViewDao.getAll();
     }
+
+    public CoupleListModel getByEmail(String email) {
+        return coupleListViewDao.getByEmail(email);
+    }
+
 }
