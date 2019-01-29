@@ -2,19 +2,26 @@ package nl.dubio.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.dubio.View;
 import nl.dubio.auth.Authorizable;
 
 public class Parent implements DatabaseObject<Parent>, Authorizable {
 
     @JsonProperty
+    @JsonView(View.Public.class)
     private int id;
     @JsonProperty
+    @JsonView(View.Public.class)
     private String firstName;
     @JsonProperty
+    @JsonView(View.Public.class)
     private String phoneNr;
     @JsonProperty
+    @JsonView(View.Public.class)
     private String email;
     @JsonProperty
+    @JsonView(View.Private.class)
     private String token;
 
     public Parent (String firstName, String email, String phoneNr) {

@@ -2,6 +2,8 @@ package nl.dubio.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.dubio.View;
 import org.joda.time.DateTime;
 import org.joda.time.Weeks;
 
@@ -10,12 +12,16 @@ import java.sql.Date;
 public class Child implements DatabaseObject<Child> {
 
     @JsonProperty
+    @JsonView(View.Public.class)
     private int id;
     @JsonProperty
+    @JsonView(View.Public.class)
     private int coupleId;
     @JsonProperty
+    @JsonView(View.Public.class)
     private Date date;
     @JsonProperty
+    @JsonView(View.Public.class)
     private boolean isBorn;
 
     public Child (int coupleId, Date date, boolean isBorn) {

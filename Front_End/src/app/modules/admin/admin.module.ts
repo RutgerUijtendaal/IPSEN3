@@ -24,6 +24,17 @@ import {FormsModule} from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {AdminListService} from './admin-home/admin-view/admin-list/admin-list.service';
 import {AdminViewService} from './admin-home/admin-view/admin-view.service';
+import { StatisticsViewComponent } from './admin-home/statistics-view/statistics-view.component';
+import { StatisticsService } from './admin-home/statistics-view/statistics.service';
+import { AnswerChartComponent } from './admin-home/statistics-view/anwser-chart/answer-chart.component';
+import { TimeChartComponent } from './admin-home/statistics-view/time-chart/time-chart.component';
+import { DayChartComponent } from './admin-home/statistics-view/day-chart/day-chart.component';
+import { SignupChartComponent } from './admin-home/statistics-view/signup-chart/signup-chart.component';
+import { CoupleStatisticsInListComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-in-list/couple-statistics-in-list.component';
+import { CoupleStatisticsListComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-list.component';
+import { DilemmaStatisticsListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-statistics-list.component';
+import { DilemmaStatisticsInListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-in-list/dilemma-statistics-in-list.component';
+import { SpeedChartComponent } from './admin-home/statistics-view/speed-chart/speed-chart.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +52,17 @@ import {AdminViewService} from './admin-home/admin-view/admin-view.service';
     DilemmaDetailComponent,
     AdminDetailComponent,
     DilemmaInListComponent,
-    AdminInListComponent
+    AdminInListComponent,
+    StatisticsViewComponent,
+    AnswerChartComponent,
+    TimeChartComponent,
+    DayChartComponent,
+    SignupChartComponent,
+    CoupleStatisticsInListComponent,
+    CoupleStatisticsListComponent,
+    DilemmaStatisticsListComponent,
+    DilemmaStatisticsInListComponent,
+    SpeedChartComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +76,8 @@ import {AdminViewService} from './admin-home/admin-view/admin-view.service';
     DilemmaListService,
     DilemmaViewService,
     AdminListService,
-    AdminViewService
+    AdminViewService,
+    StatisticsService
   ]
 })
 export class AdminModule {
