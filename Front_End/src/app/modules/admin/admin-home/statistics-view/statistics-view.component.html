@@ -1,0 +1,28 @@
+<div class="container">
+  <mdb-card style="margin-top: 10px;" class="rounded-corner">
+    <mdb-card-header>
+      <h3 style="color: black; margin: 0 auto; text-align: center;">
+        Statistieken
+      </h3>
+    </mdb-card-header>
+    <mdb-card-body>
+      <h3 style="color: black; text-align: center">Ouder filter</h3>
+      <app-couple-list-searchbar></app-couple-list-searchbar>
+      <div style="max-height: 300px; overflow-y: scroll">
+        <app-statistics-couple-list></app-statistics-couple-list>
+      </div>
+      <h3 style="color: black; text-align: center">Dilemma Filter</h3>
+      <app-statistics-dilemma-list></app-statistics-dilemma-list>
+      <hr>
+      <app-answer-chart></app-answer-chart>
+      <hr>
+      <app-time-chart></app-time-chart>
+      <hr>
+      <app-day-chart></app-day-chart>
+      <hr>
+      <app-signup-chart></app-signup-chart>
+      <hr>
+      <app-speed-chart></app-speed-chart>
+    </mdb-card-body>
+  </mdb-card>
+</div>
