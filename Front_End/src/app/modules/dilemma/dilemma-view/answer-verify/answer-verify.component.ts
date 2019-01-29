@@ -13,7 +13,7 @@ export class AnswerVerifyComponent implements OnInit {
   private modal: ModalDirective;
 
   @Input()
-  private answer: AnswerModel;
+  public answer: AnswerModel;
 
   @Output()
   private verify: EventEmitter<void> = new EventEmitter<void>();

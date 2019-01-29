@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
 export class DilemmaSuccesComponent implements OnInit {
 
   @Input() dilemma: DilemmaModel;
-  private feedbackSend = false;
+  public feedbackSend = false;
 
   constructor(private dilemmaService: DilemmaService) { }
 

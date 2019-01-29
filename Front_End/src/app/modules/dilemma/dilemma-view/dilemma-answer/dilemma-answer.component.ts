@@ -9,7 +9,7 @@ import {AnswerModel} from '../../../../shared/models/answer.model';
 export class DilemmaAnswerComponent implements OnInit {
 
   @Input()
-  private answer: AnswerModel;
+  public answer: AnswerModel;
 
   @Output()
   private select: EventEmitter<{answer: AnswerModel}> = new EventEmitter<{answer: AnswerModel}>();

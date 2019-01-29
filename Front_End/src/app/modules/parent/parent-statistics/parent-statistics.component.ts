@@ -28,7 +28,7 @@ export class ParentStatisticsComponent implements OnInit {
     responsive: true
   };
 
-  constructor(private parentService: ParentDataService) {
+  constructor(public parentService: ParentDataService) {
     this.parentService.coupleResults[0].forEach((item, index) => {
       const otherAwnserId: number = this.parentService.coupleResults[1][index].answerId;
       if (item.answerId !== 0 && otherAwnserId !== 0 ) {

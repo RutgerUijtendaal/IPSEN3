@@ -13,11 +13,11 @@ import {AnswerVerifyComponent} from './answer-verify/answer-verify.component';
 })
 export class DilemmaViewComponent implements OnInit, AfterViewInit {
 
-  private data: DilemmaAnswerDatabag;
-  private choosenAnswer: AnswerModel;
-  private answered = false;
-  private submitting = false;
-  private error = false;
+  public data: DilemmaAnswerDatabag;
+  public choosenAnswer: AnswerModel;
+  public answered = false;
+  public submitting = false;
+  public error = false;
   private errorMessage = '';
 
   private token: string;
