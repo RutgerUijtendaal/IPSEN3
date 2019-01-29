@@ -82,13 +82,8 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
     //TODO Roles Allowed
-    public boolean update(@Auth Admin admin, @Valid Dilemma object) {
-        try {
-            return crudService.update(object);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public boolean update(@Auth Admin admin, @Valid Dilemma object) throws InvalidInputException {
+        return crudService.update(object);
     }
 
     @GET

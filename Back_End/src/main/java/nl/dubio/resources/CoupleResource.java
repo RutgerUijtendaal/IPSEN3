@@ -45,7 +45,7 @@ public class CoupleResource extends GenericResource<Couple> {
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/password/{token}")
     public boolean updatePassword(@PathParam("token") String token,
-                                  String password) {
+                                  String password) throws InvalidInputException {
         if (token.length() != 32 || password.length() < 4) {
             return false;
         }
@@ -54,13 +54,7 @@ public class CoupleResource extends GenericResource<Couple> {
             return false;
         }
 
-        try {
-            ((CoupleService)this.crudService).updatePassword(token, password);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+        return ((CoupleService)this.crudService).updatePassword(token, password);
     }
 
     @DELETE

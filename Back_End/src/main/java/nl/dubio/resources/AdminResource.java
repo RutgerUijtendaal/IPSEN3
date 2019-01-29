@@ -29,16 +29,10 @@ public class AdminResource extends GenericResource<Admin> {
 
     @POST
     @Timed
-    public Integer save(@Auth Admin admin, @Valid Admin object) {
-        int retval = 0;
-        try {
-            String randomString = TokenGenerator.randomString(8);
-            object.setPassword(randomString);
-            retval = this.crudService.save(object);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-        }
-        return retval;
+    public Integer save(@Auth Admin admin, @Valid Admin object) throws InvalidInputException {
+        String randomString = TokenGenerator.randomString(8);
+        object.setPassword(randomString);
+        return this.crudService.save(object);
     }
 
 
@@ -56,7 +50,7 @@ public class AdminResource extends GenericResource<Admin> {
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/password/{token}")
     public boolean updatePassword(@PathParam("token") String token,
-                                  String password) {
+                                  String password) throws InvalidInputException {
         if (token.length() != 32 || password.length() < 4) {
             return false;
         }
@@ -65,27 +59,15 @@ public class AdminResource extends GenericResource<Admin> {
             return false;
         }
 
-        try {
-            ((AdminService)this.crudService).updatePassword(token, password);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+        return ((AdminService)this.crudService).updatePassword(token, password);
     }
 
     @PUT
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public boolean update(@Auth Admin admin, @Valid Admin object) {
-        try {
-            ((AdminService)this.crudService).updateWithoutPassword(object);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+    public boolean update(@Auth Admin admin, @Valid Admin object) throws InvalidInputException {
+        return ((AdminService)this.crudService).updateWithoutPassword(object);
     }
 
 }

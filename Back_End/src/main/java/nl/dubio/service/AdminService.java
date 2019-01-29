@@ -55,7 +55,6 @@ public class AdminService implements CrudService<Admin> {
         try {
             admin.setPassword(PasswordService.generatePasswordHash(admin.getPassword()));
         } catch (Exception e) {
-            e.printStackTrace();
             return 0;
         }
 
