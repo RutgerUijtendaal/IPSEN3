@@ -144,8 +144,6 @@ public class AdminService implements CrudService<Admin> {
             errors.add("Email already exists");
         if (parentDao.emailExists(admin.getEmail()))
             errors.add("Email already exists");
-        if (! ValidationService.isValidPassword(admin.getPassword()))
-            errors.add("Invalid password");
         if (! rightDao.idExists(admin.getRightId()))
             errors.add("Invalid right id");
 
@@ -153,6 +151,8 @@ public class AdminService implements CrudService<Admin> {
         Validating the password is not required since passwords get handled
         in another way (not during creation or updating) for security reasons
          */
+        // if (! ValidationService.isValidPassword(admin.getPassword()))
+        // errors.add("Invalid password");
 
         return errors;
     }
