@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class StatisticModel implements Serializable {
 
     @JsonProperty
-    @JsonView(View.Public.class)
+    @JsonView(View.Private.class)
     private List<Dilemma> dilemmas;
     @JsonProperty
     @JsonView(View.Private.class)
@@ -25,13 +25,13 @@ public class StatisticModel implements Serializable {
     @JsonView(View.Private.class)
     private List<Parent> parents;
     @JsonProperty
-    @JsonView(View.Public.class)
+    @JsonView(View.Private.class)
     private List<Answer> answers;
     @JsonProperty
     @JsonView(View.Private.class)
     private List<Result> results;
     @JsonProperty
-    @JsonView(View.Public.class)
+    @JsonView(View.Private.class)
     private List<Dilemma> filteredDilemmas;
     @JsonProperty
     @JsonView(View.Public.class)
@@ -40,7 +40,7 @@ public class StatisticModel implements Serializable {
     @JsonView(View.Public.class)
     private List<Child> filteredChildren;
     @JsonProperty
-    @JsonView(View.Public.class)
+    @JsonView(View.Private.class)
     private List<Parent> filteredParents;
     @JsonProperty
     @JsonView(View.Public.class)
