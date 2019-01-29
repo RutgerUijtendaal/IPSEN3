@@ -5,6 +5,7 @@ import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Admin;
 import nl.dubio.persistance.AdminDao;
 import nl.dubio.persistance.DaoRepository;
+import nl.dubio.persistance.ParentDao;
 import nl.dubio.persistance.RightDao;
 
 import javax.mail.MessagingException;
@@ -15,12 +16,13 @@ import java.util.List;
 public class AdminService implements CrudService<Admin> {
 
     private final AdminDao adminDao;
-
     private final RightDao rightDao;
+    private final ParentDao parentDao;
 
     public AdminService() {
         this.adminDao = DaoRepository.getAdminDao();
         rightDao = DaoRepository.getRightDao();
+        parentDao = DaoRepository.getParentDao();
     }
 
     @Override
@@ -139,6 +141,12 @@ public class AdminService implements CrudService<Admin> {
 
         if (! ValidationService.isValidEmail(admin.getEmail()))
             errors.add("Invalid email");
+        if (adminDao.emailExists(admin.getEmail()))
+            errors.add("Email already exists");
+        if (parentDao.emailExists(admin.getEmail()))
+            errors.add("Email already exists");
+        if (! ValidationService.isValidPassword(admin.getPassword()))
+            errors.add("Invalid password");
         if (! rightDao.idExists(admin.getRightId()))
             errors.add("Invalid right id");
 
