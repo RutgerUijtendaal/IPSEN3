@@ -94,9 +94,9 @@ public class ParentDataService implements CrudService<Parent> {
             errors.add("Invalid name");
         if (! ValidationService.isValidEmail(parent.getEmail()))
             errors.add("Invalid email");
-        if (! adminDao.emailExists(parent.getEmail()))
+        if (adminDao.emailExists(parent.getEmail()))
             errors.add("Email already exists");
-        if (! parentDao.emailExists(parent.getEmail()))
+        if (parentDao.emailExists(parent.getEmail()))
             errors.add("Email already exists");
         if (! ValidationService.isValidPhone(parent.getPhoneNr()))
             errors.add("Invalid phone number");

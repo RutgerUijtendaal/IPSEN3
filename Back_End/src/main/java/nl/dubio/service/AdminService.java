@@ -141,9 +141,9 @@ public class AdminService implements CrudService<Admin> {
 
         if (! ValidationService.isValidEmail(admin.getEmail()))
             errors.add("Invalid email");
-        if (! adminDao.emailExists(admin.getEmail()))
+        if (adminDao.emailExists(admin.getEmail()))
             errors.add("Email already exists");
-        if (! parentDao.emailExists(admin.getEmail()))
+        if (parentDao.emailExists(admin.getEmail()))
             errors.add("Email already exists");
         if (! ValidationService.isValidPassword(admin.getPassword()))
             errors.add("Invalid password");
