@@ -30,7 +30,6 @@ public class ParentDataService implements CrudService<Parent> {
     @Override
     public Parent getById(Integer id) {
         Parent parent = parentDao.getById(id);
-        System.out.println(parent);
         return parent;
     }
 

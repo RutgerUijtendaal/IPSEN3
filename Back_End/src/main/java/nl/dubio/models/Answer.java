@@ -14,7 +14,6 @@ public class Answer implements DatabaseObject<Answer> {
     @JsonView(View.Public.class)
     private int dilemmaId;
     @JsonProperty
-    //TODO SEPARATE VIEW
     @JsonView(View.Public.class)
     private String extension;
     @JsonProperty

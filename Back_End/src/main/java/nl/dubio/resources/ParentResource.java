@@ -21,7 +21,6 @@ public class ParentResource extends GenericResource<Parent> {
     @GET
     @Timed
     @Path("/{id}")
-    //TODO ROLES ALLOWED
     public Parent getById(@Auth Optional<Authorizable> authorizable, @PathParam("id") Integer id){
         return crudService.getById(id);
     }

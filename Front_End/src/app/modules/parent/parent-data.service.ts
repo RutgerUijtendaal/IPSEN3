@@ -4,13 +4,13 @@ import {AuthenticationService} from '../../core/auth/authentication.service';
 import {AccountModel} from '../../shared/models/account.model';
 import {CoupleModel} from '../../shared/models/couple.model';
 import {AppComponent} from '../../app.component';
-import {map, mergeMap, take} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {forkJoin} from 'rxjs';
 import {ParentModel} from '../../shared/models/parent.model';
 import {ResultModel} from '../../shared/models/result.model';
 import {AnswerModel} from '../../shared/models/answer.model';
 import {DilemmaModel} from '../../shared/models/dilemma.model';
-import {ChildModel} from "../../shared/models/child.model";
+import {ChildModel} from '../../shared/models/child.model';
 
 @Injectable()
 export class ParentDataService {
@@ -53,7 +53,7 @@ export class ParentDataService {
         const dilemma: DilemmaModel = this.dilemmas.find(i => i.id === answer.dilemmaId);
         this.activeDilemmas.push(dilemma);
       }
-    })
+    });
   }
 
   private loadData() {
@@ -75,7 +75,6 @@ export class ParentDataService {
         const parent1$ =  this.httpClient.get<ParentModel>(this.URL + '/parent/' + data['parent1Id']);
         const parent2$ =  this.httpClient.get<ParentModel>(this.URL + '/parent/' + data['parent2Id']);
         forkJoin([parent1$, parent2$]).subscribe(results => {
-          console.log(results)
           let parent1: ParentModel;
           let parent2: ParentModel;
 
@@ -91,16 +90,15 @@ export class ParentDataService {
           this.loadData();
         });
       })
-    )
+    );
   }
 
   private getChild$() {
     return this.httpClient.get<ChildModel>(this.URL + '/child/couple/' + this.couple.coupleId).pipe(
       map((child: ChildModel) => {
         this.child = child;
-        console.log(this.child)
       })
-    )
+    );
   }
 
   private getDilemmas$() {
@@ -116,9 +114,9 @@ export class ParentDataService {
   private getAnswers$() {
     return this.httpClient.get<AnswerModel[]>(this.URL + '/answer').pipe(
       map((answers: AnswerModel[]) => {
-        answers.forEach(answers => {
-          this.answers.push(answers)
-        })
+        answers.forEach(answers1 => {
+          this.answers.push(answers1);
+        });
       })
     );
   }
@@ -130,7 +128,7 @@ export class ParentDataService {
           results.forEach(result => {
             this.coupleResults[parent].push(result);
 
-          })
+          });
         }
       })
     );

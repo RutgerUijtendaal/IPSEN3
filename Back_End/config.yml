@@ -7,6 +7,7 @@ mailUtility:
   username: dubiogroep9
   password: dreamteam_en_koffie
   websiteUrl: "http://localhost:4200/"
+  smtpServer: "smtp.gmail.com"
 
 server:
   applicationConnectors:

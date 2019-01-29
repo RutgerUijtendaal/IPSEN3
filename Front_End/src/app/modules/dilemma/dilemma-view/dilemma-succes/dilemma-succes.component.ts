@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
 export class DilemmaSuccesComponent implements OnInit {
 
   @Input() dilemma: DilemmaModel;
-  private feedbackSend: boolean = false;
+  private feedbackSend = false;
 
   constructor(private dilemmaService: DilemmaService) { }
 
@@ -24,7 +24,7 @@ export class DilemmaSuccesComponent implements OnInit {
       map((response) => {
         this.feedbackSend = true;
       })
-    ).subscribe()
+    ).subscribe();
   }
 
 }

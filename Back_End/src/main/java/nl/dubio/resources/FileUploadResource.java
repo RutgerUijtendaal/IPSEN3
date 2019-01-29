@@ -1,5 +1,7 @@
 package nl.dubio.resources;
 
+import io.dropwizard.auth.Auth;
+import nl.dubio.models.Admin;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.Consumes;
@@ -15,8 +17,8 @@ public class FileUploadResource {
 
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public boolean uploadFile(@FormDataParam("file") InputStream uploadedInputStream,
-                               @FormDataParam("filename") String fileName) throws IOException {
+    public boolean uploadFile(@Auth Admin admin, @FormDataParam("file") InputStream uploadedInputStream,
+                              @FormDataParam("filename") String fileName) throws IOException {
         // TODO: uploadFileLocation should come from config.yml
         String uploadedFileLocation = "/var/www/html/.answer-images/" + fileName;
         return writeToFile(uploadedInputStream, uploadedFileLocation);

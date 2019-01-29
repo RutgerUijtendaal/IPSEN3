@@ -20,9 +20,9 @@ export class LoginComponent implements OnInit {
   }
 
   private initForm() {
-    // TODO HOGER ZETTEN
     this.adminForm = new FormGroup({
       'email': new FormControl('', [Validators.required, ValidateEmail]),
+      // TODO
       'password': new FormControl('', [Validators.required, Validators.minLength(2)])
     });
   }
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         this.loginLoading = false;
         if (data != null) {
           this.authenticationService.setLogin(data);
-          if(this.authenticationService.accountModel.type === 'user') {
+          if (this.authenticationService.accountModel.type === 'user') {
             this.router.navigateByUrl('/gebruiker/me');
           } else {
             this.router.navigateByUrl('/');

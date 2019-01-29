@@ -3,14 +3,14 @@ package nl.dubio.factories;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.dubio.exceptions.OpenDatabaseConnectionException;
-import nl.dubio.exceptions.ReadFromResultSetException;
 import nl.dubio.exceptions.RegisterDriverException;
-import nl.dubio.persistance.GenericDao;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.postgresql.Driver;
 
 import javax.validation.constraints.NotNull;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * @author Bas de Bruyn

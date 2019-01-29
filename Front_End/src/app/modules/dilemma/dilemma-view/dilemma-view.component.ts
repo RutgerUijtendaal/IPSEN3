@@ -15,10 +15,10 @@ export class DilemmaViewComponent implements OnInit, AfterViewInit {
 
   private data: DilemmaAnswerDatabag;
   private choosenAnswer: AnswerModel;
-  private answered: boolean = false;
-  private submitting: boolean = false;
-  private error: boolean = false;
-  private errorMessage: string = "";
+  private answered = false;
+  private submitting = false;
+  private error = false;
+  private errorMessage = '';
 
   private token: string;
 
@@ -43,7 +43,7 @@ export class DilemmaViewComponent implements OnInit, AfterViewInit {
       this.loadingModal.hide();
     }, error => {
       this.error = true;
-      this.errorMessage = "Geen Dilemma voor u gevonden.";
+      this.errorMessage = 'Geen Dilemma voor u gevonden.';
       this.loadingModal.hide();
     });
 
@@ -61,7 +61,7 @@ export class DilemmaViewComponent implements OnInit, AfterViewInit {
       this.submitting = false;
     }, error => {
       this.error = true;
-      this.errorMessage = "Fout tijdens het invoeren van antwoord. Probeer het later opnieuw."
+      this.errorMessage = 'Fout tijdens het invoeren van antwoord. Probeer het later opnieuw.';
     }, () => {
       this.answered = true;
     });

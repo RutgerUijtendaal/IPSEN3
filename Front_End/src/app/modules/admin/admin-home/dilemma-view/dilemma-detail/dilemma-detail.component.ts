@@ -145,7 +145,6 @@ export class DilemmaDetailComponent implements OnInit {
       currentDilemma.id = Number(dilemmaId);
       currentAnswer1.dilemmaId = Number(dilemmaId);
       currentAnswer2.dilemmaId = Number(dilemmaId);
-      console.log(currentAnswer1);
       this.httpClient.post(this.URL + '/answer', currentAnswer1).subscribe(ans1 => {
         currentAnswer1.id = Number(ans1);
         this.httpClient.post(this.URL + '/answer', currentAnswer2).subscribe(ans2 => {

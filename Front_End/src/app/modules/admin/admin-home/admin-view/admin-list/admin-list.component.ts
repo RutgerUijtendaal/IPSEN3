@@ -43,9 +43,6 @@ export class AdminListComponent implements OnInit {
     this.shownAdmins = [];
     this.httpClient.get(this.URL + '/admin').subscribe(data => {
       this.allAdmins = data as AdminModel[];
-      this.allAdmins.forEach(a => {
-        console.log(a);
-      });
       this.updateList('');
     });
   }

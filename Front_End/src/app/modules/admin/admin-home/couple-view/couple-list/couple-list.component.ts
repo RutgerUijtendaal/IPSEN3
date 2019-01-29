@@ -41,7 +41,7 @@ export class CoupleListComponent implements OnInit {
   }
 
   updateList(searchQuery: string) {
-    searchQuery = searchQuery.toLocaleLowerCase()
+    searchQuery = searchQuery.toLocaleLowerCase();
     this.oldSearch = searchQuery;
     this.shownCouples = this.allCouples.filter( couple =>
       couple.parent1.email.toLocaleLowerCase().includes(searchQuery) ||
@@ -55,7 +55,6 @@ export class CoupleListComponent implements OnInit {
     this.allCouples.splice(this.allCouples.findIndex(c => c.coupleId === this.currentSelectedCouple.coupleId), 1);
     this.updateList(this.oldSearch);
     this.httpClient.delete(this.URL + '/couple/' + this.currentSelectedCouple.coupleId).subscribe((res) => {
-      console.log(res.toString());
     });
   }
 

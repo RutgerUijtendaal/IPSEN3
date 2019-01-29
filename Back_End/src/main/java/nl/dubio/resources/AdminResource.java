@@ -2,12 +2,13 @@ package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
-import jdk.nashorn.internal.parser.Token;
+import nl.dubio.auth.AdminRights;
 import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Admin;
 import nl.dubio.service.AdminService;
 import nl.dubio.utils.TokenGenerator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -22,7 +23,7 @@ public class AdminResource extends GenericResource<Admin> {
 
     @GET
     @Timed
-    //TODO Roles Allowed
+    @RolesAllowed(AdminRights.Constants.USERINFO)
     public List<Admin> getAll(@Auth Admin admin){
         return crudService.getAll();
     }
@@ -39,6 +40,7 @@ public class AdminResource extends GenericResource<Admin> {
     @DELETE
     @Timed
     @Path("/{id}")
+    @RolesAllowed(AdminRights.Constants.USERINFO)
     public boolean delete(@Auth Admin admin,
                           @PathParam("id") int id) {
         return this.crudService.deleteById(id);
@@ -66,6 +68,7 @@ public class AdminResource extends GenericResource<Admin> {
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
+    @RolesAllowed(AdminRights.Constants.USERINFO)
     public boolean update(@Auth Admin admin, @Valid Admin object) throws InvalidInputException {
         return ((AdminService)this.crudService).updateWithoutPassword(object);
     }

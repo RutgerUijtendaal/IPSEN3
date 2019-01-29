@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ParentDataService} from "../parent-data.service";
+import {ParentDataService} from '../parent-data.service';
 
 @Component({
   selector: 'app-parent-statistics',
@@ -10,7 +10,7 @@ export class ParentStatisticsComponent implements OnInit {
 
   data: [number, number] = [0, 0];
 
-  chartType: string = 'pie';
+  chartType = 'pie';
   chartDatasets: Array<any> = [
     { data: this.data,
       label: 'Resultaten' }
@@ -30,15 +30,15 @@ export class ParentStatisticsComponent implements OnInit {
 
   constructor(private parentService: ParentDataService) {
     this.parentService.coupleResults[0].forEach((item, index) => {
-      let otherAwnserId: number = this.parentService.coupleResults[1][index].answerId;
-      if(item.answerId !== 0 && otherAwnserId !== 0 ) {
+      const otherAwnserId: number = this.parentService.coupleResults[1][index].answerId;
+      if (item.answerId !== 0 && otherAwnserId !== 0 ) {
         if (item.answerId === otherAwnserId) {
           this.data[0] = this.data[0] + 1;
         } else {
           this.data[1] = this.data[1] + 1;
         }
       }
-    })
+    });
   }
 
   ngOnInit() {

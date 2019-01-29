@@ -111,7 +111,6 @@ public class AdminService implements CrudService<Admin> {
         try {
             hashedPassword = PasswordService.generatePasswordHash(password);
         } catch (Exception e) {
-            // TODO
             e.printStackTrace();
         }
 

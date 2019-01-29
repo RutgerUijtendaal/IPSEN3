@@ -26,6 +26,7 @@ public class MailUtility {
     private final String username;
     private final String password;
     private final String websiteUrl;
+    private final String smtpServer;
 
     private final int MAILSPEED = 2500;
 
@@ -34,10 +35,12 @@ public class MailUtility {
     @JsonCreator
     public MailUtility(@JsonProperty("username") String username,
                        @JsonProperty("password") String password,
-                       @JsonProperty("websiteUrl") String websiteUrl) {
+                       @JsonProperty("websiteUrl") String websiteUrl,
+                       @JsonProperty("smtpServer") String smtpServer) {
         this.username = username;
         this.password = password;
         this.websiteUrl = websiteUrl;
+        this.smtpServer = smtpServer;
         this.messageQueue = new ArrayList<>();
         startMailThread();
     }
@@ -49,7 +52,6 @@ public class MailUtility {
                     if (!messageQueue.isEmpty()) {
                         String info = "[+] Sending mail to: '" + messageQueue.get(0).getAllRecipients()[0] +
                                 "' with subject: '" + messageQueue.get(0).getSubject() + "'";
-                        System.out.println(info);
                         sendMailInQueue(messageQueue.get(0));
                         messageQueue.remove(0);
                     }
@@ -81,7 +83,7 @@ public class MailUtility {
         generateProperties();
         mailSession = Session.getDefaultInstance(mailServerProperties, null);
         Transport transport = mailSession.getTransport("smtp");
-        transport.connect("smtp.gmail.com", username, password);
+        transport.connect(smtpServer, username, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
     }

@@ -6,7 +6,7 @@ export function ValidateBirthdate(group: FormGroup) {
   const userDate = (new Date(group.value.date)).getTime();
   const currentDate = new Date().getTime();
 
-  if(isBorn && currentDate < userDate || !isBorn && currentDate > (userDate + dayMili)) {
+  if (isBorn && currentDate < userDate || !isBorn && currentDate > (userDate + dayMili)) {
     return {
       valid: false
     };
