@@ -38,6 +38,7 @@ public class StatisticsResource {
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(View.Public.class)
     public StatisticModel test () {
+        this.statisticsService = new StatisticsService();
         statisticsService.resetModel();
         return statisticsService.getStatisticModel();
     }
