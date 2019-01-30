@@ -32,6 +32,9 @@ public class StatisticModel implements Serializable {
     private List<Result> results;
     @JsonProperty
     @JsonView(View.Private.class)
+    private List<Rating> ratings;
+    @JsonProperty
+    @JsonView(View.Private.class)
     private List<Dilemma> filteredDilemmas;
     @JsonProperty
     @JsonView(View.Public.class)
@@ -49,16 +52,20 @@ public class StatisticModel implements Serializable {
     @JsonView(View.Public.class)
     private List<Result> filteredResults;
     @JsonProperty
+    @JsonView(View.Public.class)
+    private List<Rating> filteredRatings;
+    @JsonProperty
     @JsonView(View.Private.class)
     private boolean isFilteredByParents;
 
-    public void setData(List<Dilemma> dilemmas, List<Parent> parents, List<Couple> couples, List<Child> children, List<Answer> answers, List<Result> results) {
+    public void setData(List<Dilemma> dilemmas, List<Parent> parents, List<Couple> couples, List<Child> children, List<Answer> answers, List<Result> results, List<Rating> ratings) {
         this.dilemmas = dilemmas;
         this.couples = couples;
         this.children = children;
         this.answers = answers;
         this.results = results;
         this.parents = parents;
+        this.ratings = ratings;
     }
 
     public void resetFilters() {
@@ -68,6 +75,7 @@ public class StatisticModel implements Serializable {
         this.filteredDilemmas = dilemmas;
         this.filteredResults = results;
         this.filteredParents = parents;
+        this.filteredRatings = ratings;
         this.isFilteredByParents = false;
     }
 
@@ -229,6 +237,17 @@ public class StatisticModel implements Serializable {
         return answers.stream().distinct().collect(Collectors.toList());
     }
 
+    private List<Rating> filterRatingByDilemma(List<Dilemma> dilemmaList) {
+        List<Rating> ratings = new ArrayList<>();
+        dilemmaList.forEach(dilemma -> {
+            List<Rating> filter = filteredRatings.stream().
+                    filter(rating -> dilemma.getId() == rating.getDilemmaId())
+                    .collect(Collectors.toList());
+            ratings.addAll(filter);
+        });
+        return ratings.stream().distinct().collect(Collectors.toList());
+    }
+
     public void filterByDilemma(List<Dilemma> dilemmas) {
         int[] dilemmaIds = new int[dilemmas.size()];
         for (int index = 0; index < dilemmas.size(); index++) {
@@ -237,6 +256,7 @@ public class StatisticModel implements Serializable {
         }
         filterByDilemmaIds(dilemmaIds);
         filteredAnswers = filterAnswerByDilemma(dilemmas);
+        filteredRatings = filterRatingByDilemma(dilemmas);
         filteredResults = filterResultByAnswer(filteredAnswers);
         filteredParents = filterParentByResult(filteredResults);
         filteredCouples = filterCouplesByParent(filteredParents);
@@ -315,6 +335,10 @@ public class StatisticModel implements Serializable {
 
     public List<Dilemma> getFilteredDilemmas() {
         return filteredDilemmas;
+    }
+
+    public List<Rating> getFilteredRatings() {
+        return filteredRatings;
     }
 
     public List<Couple> getFilteredCouples() {

@@ -14,7 +14,7 @@ public class StatisticsService {
 
     public StatisticsService() {
         statisticModel = new StatisticModel();
-        statisticModel.setData(DaoRepository.getDilemmaDao().getAll(), DaoRepository.getParentDao().getAll(), DaoRepository.getCoupleDao().getAll(), DaoRepository.getChildDao().getAll(), DaoRepository.getAnswerDao().getAll(), DaoRepository.getResultDao().getAll());
+        statisticModel.setData(DaoRepository.getDilemmaDao().getAll(), DaoRepository.getParentDao().getAll(), DaoRepository.getCoupleDao().getAll(), DaoRepository.getChildDao().getAll(), DaoRepository.getAnswerDao().getAll(), DaoRepository.getResultDao().getAll(), DaoRepository.getRatingDao().getAll());
         statisticModel.initFilter();
     }
 
