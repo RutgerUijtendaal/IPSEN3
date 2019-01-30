@@ -24,10 +24,9 @@ public class StatisticsResource {
 
     private final CoupleDao coupleDao;
     private final DilemmaDao dilemmaDao;
-    StatisticsService statisticsService;
+    private StatisticsService statisticsService;
 
     public StatisticsResource() {
-        this.statisticsService = new StatisticsService();
         this.coupleDao = DaoRepository.getCoupleDao();
         this.dilemmaDao = DaoRepository.getDilemmaDao();
     }
@@ -48,6 +47,7 @@ public class StatisticsResource {
     @JsonView(View.Public.class)
     @Path("/")
     public StatisticModel getModel(@Auth Admin admin, @Valid StatisticRequestModel statisticRequestModel) {
+        this.statisticsService = new StatisticsService();
         statisticsService.resetModel();
         List<Couple> couples = new ArrayList<>();
         if (statisticRequestModel.getCouples().length > 0) {
