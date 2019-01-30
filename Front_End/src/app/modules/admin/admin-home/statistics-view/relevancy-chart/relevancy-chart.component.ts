@@ -46,7 +46,6 @@ export class RelevancyChartComponent implements OnInit {
   loadData(data) {
     let ratings;
     ratings = data.filteredRatings;
-    console.log(ratings);
     const completeDataset = [];
     const labels = [];
 
