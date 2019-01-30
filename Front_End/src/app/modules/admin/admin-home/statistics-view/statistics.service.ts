@@ -8,6 +8,8 @@ export class StatisticsService {
   private URL = AppComponent.environment.server + '/statistics';
 
   data = new EventEmitter<any>();
+  activeCharts = [];
+  activeFilters = [];
   couples = [];
   dilemmas = [];
 

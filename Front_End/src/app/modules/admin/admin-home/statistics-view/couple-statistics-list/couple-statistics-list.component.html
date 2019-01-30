@@ -1,10 +1,12 @@
-<mdb-card style="margin-bottom: 10px;" class="rounded-corner">
+<mdb-card class="mt-2" style="margin-bottom: 10px;" class="rounded-corner">
   <div>
     <h3 [hidden]="shownCouples.length > 0">
       <img width="100px" src="assets/images/couple-list/no-results.png" alt="Laden...">
     </h3>
   </div>
   <mdb-card-body id="results-body">
-    <app-statistics-couple-in-list *ngFor="let c of shownCouples" [couple]="c"></app-statistics-couple-in-list>
+    <div style="margin: 0; padding: 0" *ngFor="let c of shownCouples">
+      <app-statistics-couple-in-list (click)="coupleClicked(c)" [couple]="c"></app-statistics-couple-in-list>
+    </div>
   </mdb-card-body>
 </mdb-card>

@@ -1,0 +1,37 @@
+$dubio-black: #03142b;
+
+nav {
+  color: black;
+  background-color: lightgray;
+}
+
+a {
+  color: white;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+.nav-pills .nav-link {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 0;
+  width: 33%;
+}
+
+.nav-pills .nav-link.active {
+  color: black;
+  background-color: #e2b53b;
+  text-decoration: underline;
+  text-decoration-style: solid;
+}
+
+.middle-nav {
+  border-left: 2px solid $dubio-black;
+  border-right: 2px solid $dubio-black;
+}
+
+.bottom-row {
+  border-bottom: 1px solid $dubio-black;
+}

@@ -35,6 +35,10 @@ import { CoupleStatisticsListComponent } from './admin-home/statistics-view/coup
 import { DilemmaStatisticsListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-statistics-list.component';
 import { DilemmaStatisticsInListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-in-list/dilemma-statistics-in-list.component';
 import { SpeedChartComponent } from './admin-home/statistics-view/speed-chart/speed-chart.component';
+import { StatisticsNavComponent } from './admin-home/statistics-view/statistics-nav/statistics-nav.component';
+import { FilterNavComponent } from './admin-home/statistics-view/filter-nav/filter-nav.component';
+import { CoupleStatisticsFilterComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-filter/couple-statistics-filter.component';
+import { RelevancyChartComponent } from './admin-home/statistics-view/relevancy-chart/relevancy-chart.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +66,11 @@ import { SpeedChartComponent } from './admin-home/statistics-view/speed-chart/sp
     CoupleStatisticsListComponent,
     DilemmaStatisticsListComponent,
     DilemmaStatisticsInListComponent,
-    SpeedChartComponent
+    SpeedChartComponent,
+    StatisticsNavComponent,
+    FilterNavComponent,
+    CoupleStatisticsFilterComponent,
+    RelevancyChartComponent
   ],
   imports: [
     CommonModule,
