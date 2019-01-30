@@ -9,7 +9,7 @@ export class ContactComponent implements OnInit {
 
   UNSELECTED = '#1e4768';
   SELECTED = '#03142b';
-  phoneDetails = '';
+  phoneDetails = 'n/a';
   mailDetails = 'dubio@garage2020.nl';
   locationDetails = 'IJsbaanpad 9, Amsterdam, 1076 CV ';
 
