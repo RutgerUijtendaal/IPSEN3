@@ -7,6 +7,7 @@ import { AnswerModel } from '../../../../../shared/models/answer.model';
 import {DilemmaViewService} from '../dilemma-view-service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {DilemmaViewHttpService} from '../dilemma-view-http.service';
+import { AuthenticationService } from '../../../../../core/auth/authentication.service';
 
 @Component({
   selector: 'app-dilemma-list',
@@ -24,10 +25,12 @@ export class DilemmaListComponent implements OnInit {
   newDilemmaButtonClass: string;
   periods: Period[] = [];
   period: string;
+  canEdit = false;
 
   constructor(private listService: DilemmaListService,
               private httpService: DilemmaViewHttpService,
-              private viewService: DilemmaViewService) {
+              private viewService: DilemmaViewService,
+              authenticationService: AuthenticationService) {
     listService.searchQuery.subscribe(search => this.updateList(search));
     viewService.delete.subscribe(dilemma => this.deleteDilemmaFromList());
     this.httpService.loadedData.subscribe(val => {
@@ -37,6 +40,7 @@ export class DilemmaListComponent implements OnInit {
     this.periods.push(new Period('voor', 'Voor Geboorte'));
     this.periods.push(new Period('na', 'Na Geboorte'));
     this.period = this.periods[0].link;
+    this.canEdit = authenticationService.accountModel.right > 1;
     this.loadInitialData();
     this.resetNewDilemmaButton();
   }

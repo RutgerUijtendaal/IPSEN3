@@ -5,6 +5,7 @@ import {DilemmaViewService} from '../dilemma-view-service';
 import {AppComponent} from '../../../../../app.component';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {DilemmaViewHttpService} from '../dilemma-view-http.service';
+import { AuthenticationService } from '../../../../../core/auth/authentication.service';
 
 @Component({
   selector: 'app-dilemma-detail',
@@ -36,9 +37,11 @@ export class DilemmaDetailComponent implements OnInit {
   loadedImage: string;
 
   service: DilemmaViewService;
+  canEdit: any;
 
   constructor(service: DilemmaViewService,
-              private httpService: DilemmaViewHttpService) {
+              private httpService: DilemmaViewHttpService,
+              authenticationService: AuthenticationService) {
     this.service = service;
     this.service.click.subscribe(value => {
       this.resetFileInput();
@@ -47,6 +50,7 @@ export class DilemmaDetailComponent implements OnInit {
     this.answer1FileGood = true;
     this.answer2FileGood = true;
     this.loadedImage = '';
+    this.canEdit = authenticationService.accountModel.right > 1;
   }
 
   ngOnInit() {
