@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ValidateEmail} from '../../../shared/validators/email.validator';
 import {FormControl, FormGroup} from '@angular/forms';
+import {PasswordResetHttpService} from '../password-reset-http.service';
 
 @Component({
   selector: 'app-password-reset-view',
@@ -11,8 +12,6 @@ import {FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./password-reset-view.component.scss']
 })
 export class PasswordResetViewComponent implements OnInit {
-
-  URL = AppComponent.environment.server;
 
   email: string;
 
@@ -22,7 +21,8 @@ export class PasswordResetViewComponent implements OnInit {
 
   disableButton: boolean;
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private router: Router,
+              private httpService: PasswordResetHttpService) { }
 
   resetButton() {
     this.buttonClass = 'primary';
@@ -62,21 +62,15 @@ export class PasswordResetViewComponent implements OnInit {
 
   resetPassword() {
     this.disableButton = true;
-    this.httpClient.post(this.URL + '/password/request-reset/' + this.email, null).subscribe(retval => {
-      if (retval === true) {
-        this.goodReset('Email gestuurd met reset link.');
-      } else {
-        this.badReset('Wachtwoord resetten niet gelukt. Bestaat de gebruiker wel?');
-      }
-    }, error => {
-      this.badReset('Wachtwoord resetten niet gelukt. Verbinding verloren.');
-    });
+    this.httpService.resetPassword(this.email);
   }
 
   ngOnInit() {
     this.resetButton();
     this.goodEmail = false;
     this.disableButton = false;
+    this.httpService.failure.subscribe(message => this.badReset(message));
+    this.httpService.success.subscribe(message => this.goodReset(message));
   }
 
 }

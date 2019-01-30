@@ -35,6 +35,9 @@ import { CoupleStatisticsListComponent } from './admin-home/statistics-view/coup
 import { DilemmaStatisticsListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-statistics-list.component';
 import { DilemmaStatisticsInListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-in-list/dilemma-statistics-in-list.component';
 import { SpeedChartComponent } from './admin-home/statistics-view/speed-chart/speed-chart.component';
+import {DilemmaViewHttpService} from './admin-home/dilemma-view/dilemma-view-http.service';
+import {CoupleViewHttpService} from './admin-home/couple-view/couple-view-http.service';
+import {AdminViewHttpService} from './admin-home/admin-view/admin-view-http.service';
 import { StatisticsNavComponent } from './admin-home/statistics-view/statistics-nav/statistics-nav.component';
 import { FilterNavComponent } from './admin-home/statistics-view/filter-nav/filter-nav.component';
 import { CoupleStatisticsFilterComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-filter/couple-statistics-filter.component';
@@ -85,7 +88,10 @@ import { RelevancyChartComponent } from './admin-home/statistics-view/relevancy-
     DilemmaViewService,
     AdminListService,
     AdminViewService,
-    StatisticsService
+    StatisticsService,
+    DilemmaViewHttpService,
+    CoupleViewHttpService,
+    AdminViewHttpService
   ]
 })
 export class AdminModule {

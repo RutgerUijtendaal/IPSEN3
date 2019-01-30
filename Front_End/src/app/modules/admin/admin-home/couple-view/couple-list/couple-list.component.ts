@@ -4,6 +4,7 @@ import {CoupleModel} from '../../../../../shared/models/couple.model';
 import {CoupleListService} from '../couple-list-service';
 import {HttpClient} from '@angular/common/http';
 import {AppComponent} from '../../../../../app.component';
+import {CoupleViewHttpService} from '../couple-view-http.service';
 
 @Component({
   selector: 'app-couple-list',
@@ -19,25 +20,12 @@ export class CoupleListComponent implements OnInit {
   oldSearch: string;
   currentSelectedCouple: CoupleModel;
 
-  constructor(private service: CoupleListService, private httpClient: HttpClient) {
-    service.searchQuery.subscribe(search => this.updateList(search));
-    this.allCouples = [];
+  constructor(private service: CoupleListService,
+              private httpService: CoupleViewHttpService) {
+    this.service.searchQuery.subscribe(search => this.updateList(search));
+    this.httpService.success.subscribe(val => this.updateList(''));
     this.shownCouples = [];
-    httpClient.get(this.URL + '/couple-list').subscribe(data =>
-      this.createRecords(data as CoupleModel[])
-    );
-  }
-
-  createRecords(data: CoupleModel[]) {
-    data.forEach(couple => {
-        const parent1: ParentModel = couple.parent1;
-        const parent2: ParentModel = couple.parent2;
-        parent1.id = couple.parent1.id;
-        parent2.id = couple.parent2.id;
-        this.allCouples.push(new CoupleModel(couple.coupleId, parent1, parent2, couple['date'], couple['token']));
-      }
-    );
-    this.updateList('');
+    this.allCouples = this.httpService.loadCouples();
   }
 
   updateList(searchQuery: string) {
@@ -54,8 +42,7 @@ export class CoupleListComponent implements OnInit {
   confirmDelete() {
     this.allCouples.splice(this.allCouples.findIndex(c => c.coupleId === this.currentSelectedCouple.coupleId), 1);
     this.updateList(this.oldSearch);
-    this.httpClient.delete(this.URL + '/couple/' + this.currentSelectedCouple.coupleId).subscribe((res) => {
-    });
+    this.httpService.deleteCouple(this.currentSelectedCouple);
   }
 
   deleteRequest(coupleModel: CoupleModel) {
@@ -65,14 +52,4 @@ export class CoupleListComponent implements OnInit {
   ngOnInit() {
   }
 
-  /*
-  createFakeRecords() {
-    for (let i = 0; i < 20; i += 2) {
-      this.allCouples.push(new CoupleModel(
-        new ParentModel('Foo' + String(i), String(i) + 'parentemail@gmail.com', '+31612345678'),
-        new ParentModel('Bar' + String(i + 1), String(i + 1) + 'parentemail@gmail.com', '+31612345678')
-      ));
-    }
-  }
-  */
 }
