@@ -65,12 +65,14 @@ export class RelevancyChartComponent implements OnInit {
         completeDataset[index] = rating.rating;
       } else {
         if (rating.rating === -1) {
-          completeDataset[index] += 1;
-        } else {
           completeDataset[index] -= 1;
+        } else {
+          completeDataset[index] += 1;
         }
       }
     }
+
+    console.log(completeDataset);
 
     const myColors = [];
     for(let i = 0; i < labels.length; i++) {
