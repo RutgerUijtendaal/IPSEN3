@@ -27,7 +27,7 @@ export class AdminListComponent implements OnInit {
     this.loadAdmins();
     this.listService.searchQuery.subscribe(searchQuery => this.updateList(searchQuery));
     this.viewService.delete.subscribe(admin => this.deleteAdmin(admin));
-    this.httpService.success.subscribe(val => this.updateList(''));
+    this.httpService.loadedAdmins.subscribe(val => this.updateList(''));
   }
 
   deleteAdmin(admin: AdminModel) {

@@ -11,12 +11,15 @@ export class AdminViewHttpService {
 
   success: Subject<string>;
   failure: Subject<string>;
+  loadedAdmins: Subject<any>;
 
   constructor(private httpClient: HttpClient) {
     this.success = new Subject();
     this.failure = new Subject();
+    this.loadedAdmins = new Subject();
     this.success.asObservable();
     this.failure.asObservable();
+    this.loadedAdmins.asObservable();
   }
 
 
@@ -49,7 +52,7 @@ export class AdminViewHttpService {
     const admins: AdminModel[] = [];
     this.httpClient.get(this.URL + '/admin').subscribe(data => {
       (data as AdminModel[]).forEach(admin => admins.push(admin));
-      this.success.next('');
+      this.loadedAdmins.next(0);
     });
     return admins;
   }
