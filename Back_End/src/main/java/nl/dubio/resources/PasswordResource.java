@@ -3,9 +3,7 @@ package nl.dubio.resources;
 import com.codahale.metrics.annotation.Timed;
 import nl.dubio.models.Admin;
 import nl.dubio.models.Couple;
-import nl.dubio.models.CoupleListModel;
 import nl.dubio.service.AdminService;
-import nl.dubio.service.CoupleListService;
 import nl.dubio.service.CoupleService;
 
 import javax.ws.rs.POST;
@@ -26,11 +24,9 @@ public class PasswordResource {
             if (couple == null) {
                 return false;
             } else {
-                System.out.println("found couple for pw reset");
                 coupleService.resetPasswordRequest(couple);
             }
         } else {
-            System.out.println("found admin for pw reset");
             adminService.resetPasswordRequest(admin);
         }
         return true;

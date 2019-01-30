@@ -29,15 +29,12 @@ public class LoginResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public LoginModel login(LoginModel loginModel)  {
-        System.out.println(loginModel.getPassword());
         try {
             Parent parent = parentDao.getByEmail(loginModel.getEmail());
-            System.out.println(parent);
             if (parent != null) {
                 Couple couple = coupleDao.getByParent(parent);
                 if (PasswordService.isValidPassword(loginModel.getPassword(), couple.getPassword())) {
                     loginModel.setType("user");
-                    //TODO FIX THIS
                     loginModel.setName(parent.getFirstName());
                     return loginModel;
                 }

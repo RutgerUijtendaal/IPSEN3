@@ -1,0 +1,16 @@
+<nav class="nav nav-pills nav-fill" style="border-bottom: 1px solid black">
+  <a
+    (click)="updateFilter(1)"
+    [ngClass]="statisticsService.activeFilters.includes(1) ? 'active' : ''"
+    class="nav-item  nav-link left-nav">
+    Ouders
+  </a>
+
+  <a
+    (click)="updateFilter(2)"
+    [ngClass]="statisticsService.activeFilters.includes(2) ? 'active' : ''"
+    class="nav-item  nav-link">
+    Dilemma's
+  </a>
+
+</nav>

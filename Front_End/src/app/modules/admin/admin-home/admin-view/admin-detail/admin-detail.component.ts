@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminViewService} from '../admin-view.service';
-import {HttpClient} from '@angular/common/http';
 import {AppComponent} from '../../../../../app.component';
 import {FormControl} from '@angular/forms';
 import {ValidateEmail} from '../../../../../shared/validators/email.validator';
 import {AdminModel} from '../../../../../shared/models/admin.model';
+import {AdminViewHttpService} from '../admin-view-http.service';
 
 @Component({
   selector: 'app-admin-detail',
@@ -34,14 +34,15 @@ export class AdminDetailComponent implements OnInit {
     this.saveButtonText = 'OPSLAAN';
   }
 
-  constructor(viewService: AdminViewService, private httpClient: HttpClient) {
+  constructor(viewService: AdminViewService, private httpService: AdminViewHttpService) {
     this.viewService = viewService;
     this.viewService.adminClicked.subscribe(val => this.updateRadioButtons());
+    this.httpService.success.subscribe(message => this.goodSave(message));
+    this.httpService.failure.subscribe(message => this.displayError(message));
   }
 
   deleteAdmin() {
-    this.httpClient.delete(this.URL + /admin/ + this.viewService.admin.id).subscribe(res => {
-    });
+    this.httpService.deleteAdmin(this.viewService.admin.id);
     this.viewService.delete.next(this.viewService.admin);
     this.viewService.admin = null;
   }
@@ -54,17 +55,7 @@ export class AdminDetailComponent implements OnInit {
   saveNewAdmin() {
     this.viewService.admin.email = this.edittedEmail;
     this.viewService.admin.rightId = this.edittedRightsId;
-    this.httpClient.post(this.URL + '/admin', this.viewService.admin).subscribe(retval => {
-      if (Number(retval) === 0) {
-        this.displayError('Toevoegen mislukt');
-        return;
-      } else {
-        this.goodSave();
-      }
-      this.viewService.admin.id = Number(retval);
-    }, error => {
-      this.displayError('Toevoegen mislukt');
-    });
+    this.httpService.saveNewAdmin(this.viewService.admin);
   }
 
   displayError(message: string) {
@@ -80,19 +71,11 @@ export class AdminDetailComponent implements OnInit {
     this.viewService.admin.rightId = this.edittedRightsId;
     const currentAdmin = this.viewService.admin;
     const updatedAdmin = new AdminModel(currentAdmin.id, currentAdmin.email, currentAdmin.password, currentAdmin.rightId, null);
-    this.httpClient.put(this.URL + '/admin/' + updatedAdmin.id, updatedAdmin).subscribe(retval => {
-      if (Number(retval) === 0) {
-        this.displayError('Updaten mislukt');
-      } else {
-        this.goodSave();
-      }
-    }, error => {
-      this.displayError('Updaten mislukt');
-    });
+    this.httpService.updateAdmin(updatedAdmin);
   }
 
-  goodSave() {
-    this.saveButtonText = 'Opgeslagen';
+  goodSave(message: string) {
+    this.saveButtonText = message;
     this.saveButtonClass = 'success';
     setTimeout(() => {
       this.resetSaveButton();

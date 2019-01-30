@@ -1,7 +1,6 @@
 package nl.dubio.factories;
 
 import nl.dubio.exceptions.CreateStatementException;
-import nl.dubio.persistance.GenericDao;
 import nl.dubio.exceptions.PrepareStatementException;
 import nl.dubio.persistance.GenericDao;
 

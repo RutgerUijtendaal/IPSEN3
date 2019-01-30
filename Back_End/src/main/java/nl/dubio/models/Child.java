@@ -2,21 +2,26 @@ package nl.dubio.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.dubio.View;
 import org.joda.time.DateTime;
 import org.joda.time.Weeks;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 public class Child implements DatabaseObject<Child> {
 
     @JsonProperty
+    @JsonView(View.Public.class)
     private int id;
     @JsonProperty
+    @JsonView(View.Public.class)
     private int coupleId;
     @JsonProperty
+    @JsonView(View.Public.class)
     private Date date;
     @JsonProperty
+    @JsonView(View.Public.class)
     private boolean isBorn;
 
     public Child (int coupleId, Date date, boolean isBorn) {
@@ -49,8 +54,8 @@ public class Child implements DatabaseObject<Child> {
     public Date getDate() { return date; }
     public boolean getIsBorn() { return isBorn; }
 
-    public short getAgeInWeeks(Timestamp time) {
-        DateTime now = new DateTime(time);
+    public short getAgeInWeeks() {
+        DateTime now = new DateTime();
         DateTime birthDate = new DateTime(date);
 
         Weeks weeks = Weeks.weeksBetween(birthDate, now);

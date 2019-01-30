@@ -12,7 +12,6 @@ public class AdminAuthorizer implements Authorizer<Admin> {
 
     @Override
     public boolean authorize(Admin admin, String role) {
-        System.out.println(role);
         int rightId = admin.getRightId();
         Right right = rightDao.getById(rightId);
         AdminRights adminRight = AdminRights.fromString(role);

@@ -43,7 +43,7 @@ export class DilemmaService {
       params: params,
     };
 
-    return this.httpClient.post(this.url + "/rating", {}, httpOptions);
+    return this.httpClient.post(this.url + '/rating', {}, httpOptions);
   }
 }
 

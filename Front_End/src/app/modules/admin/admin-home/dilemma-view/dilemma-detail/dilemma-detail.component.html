@@ -9,11 +9,11 @@
           <table>
             <tr>
               <td>Thema:</td>
-              <td><input class="text-input dilemma-theme" value="{{ service.dilemma.theme }}"></td>
+              <td><input [disabled]="!canEdit" class="text-input dilemma-theme" value="{{ service.dilemma.theme }}"></td>
             </tr>
             <tr>
               <td>Feedback:</td>
-              <td><input class="text-input dilemma-feedback" value="{{ service.dilemma.feedback }}"></td>
+              <td><input [disabled]="!canEdit" class="text-input dilemma-feedback" value="{{ service.dilemma.feedback }}"></td>
             </tr>
           </table>
         </mdb-card-body>
@@ -26,13 +26,13 @@
           <table>
             <tr>
               <td>Tekst:</td>
-              <td><input class="text-input answer1-text" value="{{ service.answer1.text }}"></td>
+              <td><input [disabled]="!canEdit" class="text-input answer1-text" value="{{ service.answer1.text }}"></td>
             </tr>
           </table>
           <div class="image-buttons">
             <button class="btn btn-primary" [disabled]="service.answer1.extension == null" (click)="showFirstPic(); imgModal.show()">Huidig plaatje</button>
-            <input (change)="answer1FileInput($event)" hidden type="file" name="file" accept=".png, .jpg, .jpeg" id="answer1-file" class="file-input">
-            <label class="btn btn-primary" [ngClass]="'btn btn-' + answer1Button" for="answer1-file">{{ answer1ButtonText }}</label>
+            <input *ngIf="canEdit" (change)="answer1FileInput($event)" hidden type="file" name="file" accept=".png, .jpg, .jpeg" id="answer1-file" class="file-input">
+            <label *ngIf="canEdit" class="btn btn-primary" [ngClass]="'btn btn-' + answer1Button" for="answer1-file">{{ answer1ButtonText }}</label>
           </div>
         </mdb-card-body>
       </mdb-card>
@@ -44,17 +44,17 @@
           <table>
             <tr>
               <td>Tekst:</td>
-              <td><input class="text-input answer2-text" value="{{ service.answer2.text }}"></td>
+              <td><input [disabled]="!canEdit" class="text-input answer2-text" value="{{ service.answer2.text }}"></td>
             </tr>
           </table>
           <div class="image-buttons">
             <button class="btn btn-primary" [disabled]="service.answer2.extension == null" (click)="showSecondPic(); imgModal.show()">Huidig plaatje</button>
-            <input (change)="answer2FileInput($event)" hidden type="file" name="file" accept=".png, .jpg, .jpeg" id="answer2-file" class="file-input">
-            <label class="btn btn-primary" [ngClass]="'btn btn-' + answer2Button" for="answer2-file">{{ answer2ButtonText }}</label>
+            <input *ngIf="canEdit" (change)="answer2FileInput($event)" hidden type="file" name="file" accept=".png, .jpg, .jpeg" id="answer2-file" class="file-input">
+            <label *ngIf="canEdit" class="btn btn-primary" [ngClass]="'btn btn-' + answer2Button" for="answer2-file">{{ answer2ButtonText }}</label>
           </div>
         </mdb-card-body>
       </mdb-card>
-      <div class="buttons">
+      <div class="buttons" *ngIf="canEdit">
         <button [ngClass]="'rounded-corner btn btn-' + saveButtonClass" (click)="saveRequest()">{{ saveButtonText }}</button>
         <button class="rounded-corner btn btn-primary" (click)="resetDetails()">RESET</button>
         <button class="rounded-corner btn btn-danger" (click)="basicModal.show()">VERWIJDEREN</button>

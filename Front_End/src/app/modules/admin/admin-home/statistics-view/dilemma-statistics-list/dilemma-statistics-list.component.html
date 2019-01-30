@@ -1,0 +1,19 @@
+<mdb-card class="rounded-corner" style="margin-bottom: 10px; margin-top: 20px; width: 100%">
+  <mdb-card-header>
+    <select class="browser-default custom-select" (change)="onChange($event.target.value)">
+      <option *ngFor="let period of periods" value="{{period.link}}">{{period.name}}</option>
+    </select>
+  </mdb-card-header>
+  <mdb-card-body id="results-body">
+    <div class="img-container" [hidden]="shownDilemmas.length > 0">
+      <h3>
+        <img width="80px" src="assets/images/couple-list/no-results.png" alt="Laden...">
+      </h3>
+    </div>
+    <div style="max-height: 300px; overflow-y: scroll">
+      <div class="box" *ngFor="let d of shownDilemmas">
+        <app-statistics-dilemma-in-list (click)="dilemmaClicked(d);" [dilemma]="d"></app-statistics-dilemma-in-list>
+      </div>
+    </div>
+  </mdb-card-body>
+</mdb-card>

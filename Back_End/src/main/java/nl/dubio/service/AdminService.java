@@ -5,6 +5,7 @@ import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Admin;
 import nl.dubio.persistance.AdminDao;
 import nl.dubio.persistance.DaoRepository;
+import nl.dubio.persistance.ParentDao;
 import nl.dubio.persistance.RightDao;
 
 import javax.mail.MessagingException;
@@ -15,12 +16,13 @@ import java.util.List;
 public class AdminService implements CrudService<Admin> {
 
     private final AdminDao adminDao;
-
     private final RightDao rightDao;
+    private final ParentDao parentDao;
 
     public AdminService() {
         this.adminDao = DaoRepository.getAdminDao();
         rightDao = DaoRepository.getRightDao();
+        parentDao = DaoRepository.getParentDao();
     }
 
     @Override
@@ -43,7 +45,7 @@ public class AdminService implements CrudService<Admin> {
 
     @Override
     public Integer save(Admin admin) throws InvalidInputException {
-        List<String> errors = validate(admin);
+        List<String> errors = validate(admin, true);
 
         if (errors.size() > 0)
             throw new InvalidInputException(errors);
@@ -53,7 +55,6 @@ public class AdminService implements CrudService<Admin> {
         try {
             admin.setPassword(PasswordService.generatePasswordHash(admin.getPassword()));
         } catch (Exception e) {
-            e.printStackTrace();
             return 0;
         }
 
@@ -69,7 +70,7 @@ public class AdminService implements CrudService<Admin> {
 
     @Override
     public boolean update(Admin admin) throws InvalidInputException {
-        List<String> errors = validate(admin);
+        List<String> errors = validate(admin, false);
 
         if (errors.size() > 0)
             throw new InvalidInputException(errors);
@@ -78,10 +79,11 @@ public class AdminService implements CrudService<Admin> {
     }
 
     public boolean updateWithoutPassword(Admin admin) throws InvalidInputException {
-        List<String> errors = validate(admin);
+        List<String> errors = validate(admin, false);
 
-        if (errors.size() > 0)
+        if (errors.size() > 0) {
             throw new InvalidInputException(errors);
+        }
 
         return adminDao.updateWithoutPassword(admin);
     }
@@ -110,7 +112,6 @@ public class AdminService implements CrudService<Admin> {
         try {
             hashedPassword = PasswordService.generatePasswordHash(password);
         } catch (Exception e) {
-            // TODO
             e.printStackTrace();
         }
 
@@ -133,12 +134,24 @@ public class AdminService implements CrudService<Admin> {
         return adminDao.deleteById(id);
     }
 
+
     @Override
-    public List<String> validate(Admin admin){
+    @Deprecated
+    public List<String> validate(Admin admin) {
+        return null;
+    }
+
+    public List<String> validate(Admin admin, boolean newAdmin){
         List<String> errors = new ArrayList<>();
 
         if (! ValidationService.isValidEmail(admin.getEmail()))
             errors.add("Invalid email");
+        if (newAdmin) {
+            if (adminDao.emailExists(admin.getEmail()))
+                errors.add("Email already exists");
+            if (parentDao.emailExists(admin.getEmail()))
+                errors.add("Email already exists");
+        }
         if (! rightDao.idExists(admin.getRightId()))
             errors.add("Invalid right id");
 
@@ -146,6 +159,8 @@ public class AdminService implements CrudService<Admin> {
         Validating the password is not required since passwords get handled
         in another way (not during creation or updating) for security reasons
          */
+        // if (! ValidationService.isValidPassword(admin.getPassword()))
+        // errors.add("Invalid password");
 
         return errors;
     }

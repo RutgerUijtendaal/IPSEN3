@@ -4,6 +4,7 @@ import nl.dubio.ApiApplication;
 import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Dilemma;
 import nl.dubio.models.Parent;
+import nl.dubio.persistance.AdminDao;
 import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.ParentDao;
 import nl.dubio.utils.MailUtility;
@@ -14,9 +15,11 @@ import java.util.List;
 
 public class ParentDataService implements CrudService<Parent> {
     private final ParentDao parentDao;
+    private final AdminDao adminDao;
 
     public ParentDataService() {
         this.parentDao = DaoRepository.getParentDao();
+        adminDao = DaoRepository.getAdminDao();
     }
 
     @Override
@@ -27,7 +30,6 @@ public class ParentDataService implements CrudService<Parent> {
     @Override
     public Parent getById(Integer id) {
         Parent parent = parentDao.getById(id);
-        System.out.println(parent);
         return parent;
     }
 
@@ -92,6 +94,10 @@ public class ParentDataService implements CrudService<Parent> {
             errors.add("Invalid name");
         if (! ValidationService.isValidEmail(parent.getEmail()))
             errors.add("Invalid email");
+        if (adminDao.emailExists(parent.getEmail()))
+            errors.add("Email already exists");
+        if (parentDao.emailExists(parent.getEmail()))
+            errors.add("Email already exists");
         if (! ValidationService.isValidPhone(parent.getPhoneNr()))
             errors.add("Invalid phone number");
 

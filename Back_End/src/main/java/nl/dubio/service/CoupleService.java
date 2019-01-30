@@ -105,7 +105,6 @@ public class CoupleService implements CrudService<Couple> {
             mailUtility.addWelcomeMailToQueue(registry.getEmail1(), registry.getFirstName1(), unregisterToken);
             mailUtility.addWelcomeMailToQueue(registry.getEmail2(), registry.getFirstName2(), unregisterToken);
         } catch (MessagingException e) {
-            // TODO
             e.printStackTrace();
         }
 
@@ -144,14 +143,12 @@ public class CoupleService implements CrudService<Couple> {
         try {
             hashedPassword = PasswordService.generatePasswordHash(password);
         } catch (Exception e) {
-            // TODO
         }
 
         // return true;
         return this.coupleDao.updatePassword(token, hashedPassword);
     }
 
-    //TODO better error messages and the messages should come from a constants class
     private List<String> validateRegistry(CoupleRegistry registry) {
         List<String> errors = new ArrayList<>();
         Date currentDate = new Date(System.currentTimeMillis());

@@ -2,12 +2,13 @@ package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
+import nl.dubio.auth.AdminRights;
 import nl.dubio.auth.Authorizable;
 import nl.dubio.exceptions.ClientException;
 import nl.dubio.exceptions.InvalidAnswerException;
 import nl.dubio.exceptions.InvalidInputException;
-import nl.dubio.models.Couple;
 import nl.dubio.models.Admin;
+import nl.dubio.models.Couple;
 import nl.dubio.models.Dilemma;
 import nl.dubio.models.databag.AnswerDilemmaDatabag;
 import nl.dubio.service.CoupleService;
@@ -15,6 +16,7 @@ import nl.dubio.service.DilemmaService;
 import nl.dubio.service.ParentDataService;
 import nl.dubio.service.ResultService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -69,19 +71,13 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    //TODO Roles Allowed
-    public boolean update(@Auth Admin admin, @Valid Dilemma object) {
-        try {
-            return crudService.update(object);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-        }
-        return false;
+    @RolesAllowed(AdminRights.Constants.USERINFO)
+    public boolean update(@Auth Admin admin, @Valid Dilemma object) throws InvalidInputException {
+        return crudService.update(object);
     }
 
     @GET
     @Timed
-    //TODO ROLES ALLOWED
     public List<Dilemma> getAll(@Auth Authorizable authorizable){
         return crudService.getAll();
     }
@@ -89,6 +85,7 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     @POST
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed(AdminRights.Constants.USERINFO)
     public Integer save(@Auth Admin admin, @Valid Dilemma object) throws InvalidInputException {
         return crudService.save(object);
     }

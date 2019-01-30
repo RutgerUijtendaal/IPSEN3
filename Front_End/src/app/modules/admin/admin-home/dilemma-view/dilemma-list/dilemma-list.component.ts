@@ -6,6 +6,8 @@ import { DilemmaModel } from '../../../../../shared/models/dilemma.model';
 import { AnswerModel } from '../../../../../shared/models/answer.model';
 import {DilemmaViewService} from '../dilemma-view-service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {DilemmaViewHttpService} from '../dilemma-view-http.service';
+import { AuthenticationService } from '../../../../../core/auth/authentication.service';
 
 @Component({
   selector: 'app-dilemma-list',
@@ -13,8 +15,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./dilemma-list.component.scss']
 })
 export class DilemmaListComponent implements OnInit {
-
-  URL = AppComponent.environment.server;
 
   allDilemmas: DilemmaModel[];
   allAnswers: AnswerModel[];
@@ -25,39 +25,42 @@ export class DilemmaListComponent implements OnInit {
   newDilemmaButtonClass: string;
   periods: Period[] = [];
   period: string;
+  canEdit = false;
 
   constructor(private listService: DilemmaListService,
-              private httpClient: HttpClient,
-              private viewService: DilemmaViewService) {
+              private httpService: DilemmaViewHttpService,
+              private viewService: DilemmaViewService,
+              authenticationService: AuthenticationService) {
     listService.searchQuery.subscribe(search => this.updateList(search));
     viewService.delete.subscribe(dilemma => this.deleteDilemmaFromList());
+    this.httpService.loadedData.subscribe(val => {
+      this.setupDilemmasAndAnswers();
+    });
     this.shownDilemmas = [];
     this.periods.push(new Period('voor', 'Voor Geboorte'));
     this.periods.push(new Period('na', 'Na Geboorte'));
     this.period = this.periods[0].link;
-    this.loadDilemmas('voor');
-    this.loadAnswers();
+    this.canEdit = authenticationService.accountModel.right > 1;
+    this.loadInitialData();
     this.resetNewDilemmaButton();
   }
 
+  loadInitialData() {
+    this.allDilemmas = this.httpService.loadDilemmas('voor');
+    this.allAnswers = this.httpService.loadAnswers();
+  }
+
   loadDilemmas(period: string) {
-    this.allDilemmas = [];
-    this.httpClient.get(this.URL + '/dilemma/' + period).subscribe(data =>
-      this.createDilemmaRecords(data as DilemmaModel[])
-    );
-    this.allDilemmas.sort((d1, d2) => d1.weekNr > d2.weekNr ? 1 : -1);
+    this.allDilemmas = this.httpService.loadDilemmas(period);
   }
 
-  loadAnswers() {
-    this.allAnswers = [];
-    this.httpClient.get(this.URL + '/answer/').subscribe(data =>
-      this.createAnswerRecords(data as AnswerModel[])
-    );
-  }
-
-  createDilemmaRecords(data: DilemmaModel[]) {
-    this.allDilemmas = data;
-    this.allDilemmas.sort((d1, d2) => d1.weekNr > d2.weekNr ? 1 : -1);
+  setupDilemmasAndAnswers() {
+    if (this.allDilemmas !== null) {
+        this.allDilemmas.sort((d1, d2) => d1.weekNr > d2.weekNr ? 1 : -1);
+    }
+    if (this.allAnswers !== null) {
+      this.allAnswers.sort((a, b) => (a.id > b.id) ? 1 : 0);
+    }
     this.updateList('');
   }
 
@@ -82,11 +85,6 @@ export class DilemmaListComponent implements OnInit {
     this.matchAnswerDilemma(dilemma);
     this.viewService.click.next(0);
     this.allAnswers.sort(   (a, b) => (a.id > b.id) ? 1 : 0);
-  }
-
-  createAnswerRecords(data: AnswerModel[]) {
-    this.allAnswers = data;
-    this.updateList('');
   }
 
   updateList(searchQuery: string) {
@@ -160,8 +158,7 @@ export class DilemmaListComponent implements OnInit {
     this.updateList('');
     this.shownDilemmas.forEach((dilemma, index) => {
       dilemma.weekNr = index + 1;
-      this.httpClient.put(this.URL + '/dilemma/' + dilemma.id, dilemma).subscribe(res => {
-      });
+      this.httpService.updateDilemma(dilemma);
     });
   }
 
