@@ -4,6 +4,7 @@ import {AnswerModel} from '../../../../../shared/models/answer.model';
 import {DilemmaViewService} from '../dilemma-view-service';
 import {AppComponent} from '../../../../../app.component';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {DilemmaViewHttpService} from '../dilemma-view-http.service';
 
 @Component({
   selector: 'app-dilemma-detail',
@@ -11,8 +12,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   styleUrls: ['./dilemma-detail.component.scss']
 })
 export class DilemmaDetailComponent implements OnInit {
-
-  URL = AppComponent.environment.server;
 
   editedTheme: string;
   editedFeedback: string;
@@ -38,7 +37,8 @@ export class DilemmaDetailComponent implements OnInit {
 
   service: DilemmaViewService;
 
-  constructor(service: DilemmaViewService, private httpClient: HttpClient) {
+  constructor(service: DilemmaViewService,
+              private httpService: DilemmaViewHttpService) {
     this.service = service;
     this.service.click.subscribe(value => {
       this.resetFileInput();
@@ -141,41 +141,19 @@ export class DilemmaDetailComponent implements OnInit {
     currentDilemma.feedback = this.editedFeedback;
     currentAnswer1.text = this.editedAnswerText1;
     currentAnswer2.text = this.editedAnswerText2;
-    this.httpClient.post(this.URL + '/dilemma', currentDilemma).subscribe(dilemmaId => {
-      currentDilemma.id = Number(dilemmaId);
-      currentAnswer1.dilemmaId = Number(dilemmaId);
-      currentAnswer2.dilemmaId = Number(dilemmaId);
-      this.httpClient.post(this.URL + '/answer', currentAnswer1).subscribe(ans1 => {
-        currentAnswer1.id = Number(ans1);
-        this.httpClient.post(this.URL + '/answer', currentAnswer2).subscribe(ans2 => {
-          currentAnswer2.id = Number(ans2);
-          this.uploadPictures();
-        });
-      });
-    });
+    this.httpService.saveDilemma(currentDilemma, currentAnswer1, currentAnswer2);
+    this.uploadPictures();
     return true;
   }
 
   uploadPictures() {
     if (this.answer1FileGood && this.answerFile1 != null) {
       this.service.answer1.extension = '.' + this.answerFile1.name.split('.').pop();
-
-      const formData = new FormData();
-      formData.append('file', this.answerFile1);
-      formData.append('filename', this.service.answer1.id + this.service.answer1.extension);
-
-      this.httpClient.post(this.URL + '/imageupload', formData).subscribe(res => {
-      });
+      this.httpService.uploadPicture(this.answerFile1, this.service.answer1.id + this.service.answer1.extension);
     }
     if (this.answer2FileGood && this.answerFile2 != null) {
       this.service.answer2.extension = '.' + this.answerFile2.name.split('.').pop();
-
-      const formData = new FormData();
-      formData.append('file', this.answerFile2);
-      formData.append('filename', this.service.answer2.id + this.service.answer2.extension);
-
-      this.httpClient.post(this.URL + '/imageupload', formData).subscribe(res => {
-      });
+      this.httpService.uploadPicture(this.answerFile2, this.service.answer2.id + this.service.answer2.extension);
     }
     this.resetFileInput();
   }
@@ -190,18 +168,14 @@ export class DilemmaDetailComponent implements OnInit {
     currentAnswer1.text = this.editedAnswerText1;
     currentAnswer2.text = this.editedAnswerText2;
     this.uploadPictures();
-    this.httpClient.put(this.URL + '/dilemma/' + currentDilemma.id, currentDilemma).subscribe(res => {
-    });
-    this.httpClient.put(this.URL + '/answer/' + currentAnswer1.id, currentAnswer1).subscribe(res => {
-    });
-    this.httpClient.put(this.URL + '/answer/' + currentAnswer2.id, currentAnswer2).subscribe(res => {
-    });
+    this.httpService.updateDilemmaAnswers(currentDilemma.id, currentDilemma,
+      currentAnswer1.id, currentAnswer1,
+      currentAnswer2.id, currentAnswer2);
     return true;
   }
 
   deleteDilemma() {
-    this.httpClient.delete(this.URL + /dilemma/ + this.service.dilemma.id).subscribe(res => {
-    });
+    this.httpService.deleteDilemma(this.service.dilemma.id);
     this.service.dilemma = null;
     this.service.answer1 = null;
     this.service.answer2 = null;

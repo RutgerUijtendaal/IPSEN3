@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {AppComponent} from '../../../app.component';
+import {PasswordResetHttpService} from '../password-reset-http.service';
 
 @Component({
   selector: 'app-admin-new-password',
@@ -9,8 +10,6 @@ import {AppComponent} from '../../../app.component';
   styleUrls: ['./admin-new-password.component.scss']
 })
 export class AdminNewPasswordComponent implements OnInit {
-
-  URL = AppComponent.environment.server;
 
   token: string;
 
@@ -25,7 +24,9 @@ export class AdminNewPasswordComponent implements OnInit {
   buttonClass: string;
   message: string;
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private httpService: PasswordResetHttpService) { }
 
   goodSave(message: string) {
     this.buttonClass = 'success';
@@ -71,21 +72,15 @@ export class AdminNewPasswordComponent implements OnInit {
   }
 
   savePassword() {
-    this.httpClient.put(this.URL + '/admin/password/' + this.token, this.password1).subscribe(retval => {
-      if (retval === true) {
-        this.goodSave('Wachtwoord succesvol veranderd.');
-      } else {
-        this.badSave('Beheerder niet herkent.');
-      }
-    }, error => {
-      this.badSave('Wachtwoord kom niet worden opgeslagen. Verbinding mislukt.');
-    });
+    this.httpService.saveAdminPassword(this.token, this.password1);
   }
 
   ngOnInit() {
     this.token = this.route.snapshot.params['token'];
     this.buttonClass = 'primary';
     this.disableButton = false;
+    this.httpService.failure.subscribe(message => this.badSave(message));
+    this.httpService.success.subscribe(message => this.goodSave(message));
   }
 
 }

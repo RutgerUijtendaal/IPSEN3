@@ -4,6 +4,7 @@ import {AdminModel} from '../../../../../shared/models/admin.model';
 import {HttpClient} from '@angular/common/http';
 import {AdminListService} from './admin-list.service';
 import {AdminViewService} from '../admin-view.service';
+import {AdminViewHttpService} from '../admin-view-http.service';
 
 @Component({
   selector: 'app-admin-list',
@@ -11,8 +12,6 @@ import {AdminViewService} from '../admin-view.service';
   styleUrls: ['./admin-list.component.scss']
 })
 export class AdminListComponent implements OnInit {
-
-  URL = AppComponent.environment.server;
 
   shownAdmins: AdminModel[];
   allAdmins: AdminModel[];
@@ -22,10 +21,13 @@ export class AdminListComponent implements OnInit {
 
   oldSearch: string;
 
-  constructor(private httpClient: HttpClient, private listService: AdminListService, private viewService: AdminViewService) {
+  constructor(private httpService: AdminViewHttpService,
+              private listService: AdminListService,
+              private viewService: AdminViewService) {
     this.loadAdmins();
     this.listService.searchQuery.subscribe(searchQuery => this.updateList(searchQuery));
     this.viewService.delete.subscribe(admin => this.deleteAdmin(admin));
+    this.httpService.success.subscribe(val => this.updateList(''));
   }
 
   deleteAdmin(admin: AdminModel) {
@@ -39,12 +41,8 @@ export class AdminListComponent implements OnInit {
   }
 
   loadAdmins() {
-    this.allAdmins = [];
     this.shownAdmins = [];
-    this.httpClient.get(this.URL + '/admin').subscribe(data => {
-      this.allAdmins = data as AdminModel[];
-      this.updateList('');
-    });
+    this.allAdmins = this.httpService.loadAdmins();
   }
 
   adminClicked(admin: AdminModel) {
