@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CoupleInListComponent } from './couple-statistics-in-list.component';
+import { StatisticsNavComponent } from './statistics-nav.component';
 
-describe('CoupleInListComponent', () => {
-  let component: CoupleInListComponent;
-  let fixture: ComponentFixture<CoupleInListComponent>;
+describe('StatisticsNavComponent', () => {
+  let component: StatisticsNavComponent;
+  let fixture: ComponentFixture<StatisticsNavComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CoupleInListComponent ]
+      declarations: [ StatisticsNavComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CoupleInListComponent);
+    fixture = TestBed.createComponent(StatisticsNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

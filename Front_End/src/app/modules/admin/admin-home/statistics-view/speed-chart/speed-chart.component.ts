@@ -9,7 +9,15 @@ import { StatisticsService } from '../statistics.service';
 export class SpeedChartComponent implements OnInit {
 
   public chartOptions: any = {
-    responsive: true
+    responsive: true,
+    scales: {
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Uren'
+        }
+      }]
+    }
   };
 
   public chartType = 'bar';
@@ -52,6 +60,7 @@ export class SpeedChartComponent implements OnInit {
       }
       values.push(values);
     }
+
     this.chartLabels = labels;
     this.chartDatasets = [
       {data: completeDataset, label: 'Beantwoord na:'}

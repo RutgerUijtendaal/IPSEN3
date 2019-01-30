@@ -38,6 +38,10 @@ import { SpeedChartComponent } from './admin-home/statistics-view/speed-chart/sp
 import {DilemmaViewHttpService} from './admin-home/dilemma-view/dilemma-view-http.service';
 import {CoupleViewHttpService} from './admin-home/couple-view/couple-view-http.service';
 import {AdminViewHttpService} from './admin-home/admin-view/admin-view-http.service';
+import { StatisticsNavComponent } from './admin-home/statistics-view/statistics-nav/statistics-nav.component';
+import { FilterNavComponent } from './admin-home/statistics-view/filter-nav/filter-nav.component';
+import { CoupleStatisticsFilterComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-filter/couple-statistics-filter.component';
+import { RelevancyChartComponent } from './admin-home/statistics-view/relevancy-chart/relevancy-chart.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +69,11 @@ import {AdminViewHttpService} from './admin-home/admin-view/admin-view-http.serv
     CoupleStatisticsListComponent,
     DilemmaStatisticsListComponent,
     DilemmaStatisticsInListComponent,
-    SpeedChartComponent
+    SpeedChartComponent,
+    StatisticsNavComponent,
+    FilterNavComponent,
+    CoupleStatisticsFilterComponent,
+    RelevancyChartComponent
   ],
   imports: [
     CommonModule,

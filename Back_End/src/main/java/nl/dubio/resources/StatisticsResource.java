@@ -24,12 +24,12 @@ public class StatisticsResource {
 
     private final CoupleDao coupleDao;
     private final DilemmaDao dilemmaDao;
-    StatisticsService statisticsService;
+    private StatisticsService statisticsService;
 
     public StatisticsResource() {
-        this.statisticsService = new StatisticsService();
         this.coupleDao = DaoRepository.getCoupleDao();
         this.dilemmaDao = DaoRepository.getDilemmaDao();
+        this.statisticsService = new StatisticsService();
     }
 
     @Path("/")
@@ -38,6 +38,7 @@ public class StatisticsResource {
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(View.Public.class)
     public StatisticModel test () {
+        this.statisticsService = new StatisticsService();
         statisticsService.resetModel();
         return statisticsService.getStatisticModel();
     }

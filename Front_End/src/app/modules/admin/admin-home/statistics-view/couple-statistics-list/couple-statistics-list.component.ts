@@ -4,6 +4,7 @@ import {CoupleModel} from '../../../../../shared/models/couple.model';
 import {HttpClient} from '@angular/common/http';
 import {AppComponent} from '../../../../../app.component';
 import { CoupleListService } from '../../couple-view/couple-list-service';
+import {StatisticsService} from '../statistics.service';
 
 @Component({
   selector: 'app-statistics-couple-list',
@@ -18,7 +19,9 @@ export class CoupleStatisticsListComponent implements OnInit {
   shownCouples: CoupleModel[];
   oldSearch: string;
 
-  constructor(private service: CoupleListService, private httpClient: HttpClient) {
+  constructor(private service: CoupleListService,
+              private httpClient: HttpClient,
+              public statisticsService: StatisticsService) {
     service.searchQuery.subscribe(search => this.updateList(search));
     this.allCouples = [];
     this.shownCouples = [];
@@ -37,6 +40,16 @@ export class CoupleStatisticsListComponent implements OnInit {
       }
     );
     this.updateList('');
+  }
+
+  coupleClicked(couple: CoupleModel) {
+    const indexOf = this.statisticsService.couples.indexOf(couple.coupleId);
+    if (indexOf > -1) {
+      this.statisticsService.couples.splice(indexOf, 1);
+    } else {
+      this.statisticsService.couples.push(couple.coupleId);
+    }
+    this.statisticsService.update();
   }
 
   updateList(searchQuery: string) {

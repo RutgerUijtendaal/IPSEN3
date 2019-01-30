@@ -1,0 +1,45 @@
+<nav class="nav nav-pills nav-fill" style="border-bottom: 1px solid black">
+  <a
+    (click)="updateFilter(1)"
+    [ngClass]="statisticsService.activeCharts.includes(1) ? 'active' : ''"
+    class="nav-item  nav-link">
+    Antwoorden
+  </a>
+
+  <a
+    (click)="updateFilter(2)"
+    [ngClass]="statisticsService.activeCharts.includes(2) ? 'active' : ''"
+    class="nav-item  nav-link middle-nav">
+    Tijdstip
+  </a>
+
+  <a
+    (click)="updateFilter(3)"
+    [ngClass]="statisticsService.activeCharts.includes(3) ? 'active' : ''"
+    class="nav-item  nav-link">
+    Dag
+  </a>
+</nav>
+<nav class="nav nav-pills nav-fill bottom-row">
+  <a
+    (click)="updateFilter(4)"
+    [ngClass]="statisticsService.activeCharts.includes(4) ? 'active' : ''"
+    class="nav-item  nav-link">
+    Periode
+  </a>
+
+  <a
+    (click)="updateFilter(5)"
+    [ngClass]="statisticsService.activeCharts.includes(5) ? 'active' : ''"
+    class="nav-item  nav-link middle-nav">
+    Snelheid
+  </a>
+
+  <a
+    (click)="updateFilter(6)"
+    [ngClass]="statisticsService.activeCharts.includes(6) ? 'active' : ''"
+    class="nav-item  nav-link">
+    Relevantie
+  </a>
+
+</nav>
