@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {StatisticsService} from '../statistics.service';
-import {DilemmaModel} from '../../../../../shared/models/dilemma.model';
 
 @Component({
   selector: 'app-relevancy-chart',
