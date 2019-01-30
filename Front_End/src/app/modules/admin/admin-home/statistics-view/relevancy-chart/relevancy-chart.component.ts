@@ -71,8 +71,6 @@ export class RelevancyChartComponent implements OnInit {
       }
     }
 
-    console.log(completeDataset);
-
     const myColors = [];
     for(let i = 0; i < labels.length; i++) {
       if(completeDataset[i] < 0) {
