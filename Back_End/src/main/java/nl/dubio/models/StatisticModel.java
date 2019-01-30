@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class StatisticModel implements Serializable {
 
     @JsonProperty
-    @JsonView(View.Private.class)
+    @JsonView(View.Public.class)
     private List<Dilemma> dilemmas;
     @JsonProperty
     @JsonView(View.Private.class)
