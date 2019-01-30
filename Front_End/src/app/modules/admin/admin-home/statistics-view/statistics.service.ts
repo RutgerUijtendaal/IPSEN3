@@ -15,12 +15,11 @@ export class StatisticsService {
   dilemmas = [];
 
   constructor(private httpClient: HttpClient) {
+    this.filter = new EventEmitter();
     this.getData();
-
   }
 
   getData() {
-    this.filter = new EventEmitter();
     this.httpClient.get(this.URL).subscribe(data => this.data.emit(data));
   }
 
