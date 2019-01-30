@@ -35,7 +35,6 @@ public class LoginResource {
                 Couple couple = coupleDao.getByParent(parent);
                 if (PasswordService.isValidPassword(loginModel.getPassword(), couple.getPassword())) {
                     loginModel.setType("user");
-                    //TODO FIX THIS
                     loginModel.setName(parent.getFirstName());
                     return loginModel;
                 }

@@ -37,8 +37,7 @@ public class StatisticsResource {
     @Timed
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(View.Public.class)
-    public StatisticModel test () {
-        this.statisticsService = new StatisticsService();
+    public StatisticModel getModel () {
         statisticsService.resetModel();
         return statisticsService.getStatisticModel();
     }
