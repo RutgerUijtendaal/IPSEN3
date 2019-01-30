@@ -20,6 +20,7 @@ export class DilemmaStatisticsInListComponent implements OnInit, OnDestroy {
   }
 
   update() {
+    console.log("a");
     this.empty = this.statisticsService.dilemmas.length === 0;
     const indexOf = this.statisticsService.dilemmas.indexOf(this.dilemma.id);
     this.isActive = indexOf > -1;

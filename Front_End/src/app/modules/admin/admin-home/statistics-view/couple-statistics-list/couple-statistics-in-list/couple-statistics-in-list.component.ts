@@ -20,7 +20,7 @@ export class CoupleStatisticsInListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.statisticsService.data.subscribe(data => this.update());
+    this.subscription = this.statisticsService.filter.subscribe( data => this.update());
   }
 
   update() {
