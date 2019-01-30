@@ -27,7 +27,7 @@ export class DilemmaStatisticsInListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.update()
-    this.subscription = this.statisticsService.data.subscribe(data => this.update());
+    this.subscription = this.statisticsService.filter.subscribe(data => this.update());
   }
 
   ngOnDestroy(): void {
