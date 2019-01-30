@@ -90,7 +90,6 @@ public class DilemmaResource extends GenericResource<Dilemma> {
 
     @GET
     @Timed
-    @RolesAllowed(AdminRights.Constants.USERINFO)
     public List<Dilemma> getAll(@Auth Authorizable authorizable){
         return crudService.getAll();
     }
