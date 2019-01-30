@@ -10,35 +10,38 @@
   text-align: center;
 }
 
-.delete-button {
-  -webkit-transition: all ease-in-out .15s;
-  -moz-transition: all ease-in-out .15s;
-  -ms-transition: all ease-in-out .15s;
-  -o-transition: all ease-in-out .15s;
-  transition: all ease-in-out .15s;
+.card {
+  -webkit-transition: all ease-in-out .10s;
+  -moz-transition: all ease-in-out .10s;
+  -ms-transition: all ease-in-out .10s;
+  -o-transition: all ease-in-out .10s;
+  transition: all ease-in-out .10s;
+}
+
+.card:active:hover {
+  border-bottom: 8px solid darkgoldenrod;
+}
+
+.card:hover, .card:focus {
+  border-bottom: 8px solid #e2b53b;
   cursor: pointer;
 }
 
-.checkbox-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.active, .active:hover {
+  border-bottom: 8px solid green;
 }
 
-.delete-button:hover {
-  transform: scale(1.1);
-}
-
-.info-text {
-  font-size: 18px;
-}
-
-.card {
-  border-bottom: 2px solid lightgrey;
+.not-active, .not-active:hover {
+  border-bottom: 8px solid red;
 }
 
 .card-body {
   padding: 5px 0px 5px 0px;
+  font-size: 18px;
+}
+
+.info-text {
+  font-size: 16px;
 }
 
 @media all and (max-width: 768px) {

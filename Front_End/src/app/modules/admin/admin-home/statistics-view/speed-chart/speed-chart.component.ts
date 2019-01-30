@@ -9,7 +9,15 @@ import { StatisticsService } from '../statistics.service';
 export class SpeedChartComponent implements OnInit {
 
   public chartOptions: any = {
-    responsive: true
+    responsive: true,
+    scales: {
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Uren'
+        }
+      }]
+    }
   };
 
   public chartType = 'bar';
@@ -34,7 +42,6 @@ export class SpeedChartComponent implements OnInit {
       if (result.answeredTime != null) {
         const speed = Math.floor((result.answeredTime - result.sentTime) / (3600000));
         if (speed >= 0 && speed < 169) {
-          console.log(speed)
           if (completeDataset[speed] === undefined) {
             completeDataset[speed] = 1;
           } else {
@@ -43,7 +50,6 @@ export class SpeedChartComponent implements OnInit {
         }
       }
     }
-    console.log(completeDataset);
     const labels = [];
     const values = [];
     for (let i = 0; i < results.length; i++)  {
@@ -54,6 +60,7 @@ export class SpeedChartComponent implements OnInit {
       }
       values.push(values);
     }
+
     this.chartLabels = labels;
     this.chartDatasets = [
       {data: completeDataset, label: 'Beantwoord na:'}

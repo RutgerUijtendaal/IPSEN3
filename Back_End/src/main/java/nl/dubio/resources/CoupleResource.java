@@ -2,14 +2,16 @@ package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
+import nl.dubio.auth.AdminRights;
 import nl.dubio.auth.Authorizable;
-import nl.dubio.models.Admin;
 import nl.dubio.exceptions.InvalidInputException;
+import nl.dubio.models.Admin;
 import nl.dubio.models.Couple;
 import nl.dubio.models.CoupleRegistry;
 import nl.dubio.models.Parent;
 import nl.dubio.service.CoupleService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -45,7 +47,7 @@ public class CoupleResource extends GenericResource<Couple> {
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/password/{token}")
     public boolean updatePassword(@PathParam("token") String token,
-                                  String password) {
+                                  String password) throws InvalidInputException {
         if (token.length() != 32 || password.length() < 4) {
             return false;
         }
@@ -54,13 +56,7 @@ public class CoupleResource extends GenericResource<Couple> {
             return false;
         }
 
-        try {
-            ((CoupleService)this.crudService).updatePassword(token, password);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+        return ((CoupleService)this.crudService).updatePassword(token, password);
     }
 
     @DELETE
@@ -77,7 +73,7 @@ public class CoupleResource extends GenericResource<Couple> {
     @DELETE
     @Timed
     @Path("/{id}")
-    //TODO ROLES ALLOWED
+    @RolesAllowed(AdminRights.Constants.USERINFO)
     public boolean deleteById(@Auth Admin admin, @PathParam("id") Integer id){
         return crudService.deleteById(id);
     }

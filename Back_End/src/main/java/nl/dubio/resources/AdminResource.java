@@ -2,12 +2,13 @@ package nl.dubio.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
-import jdk.nashorn.internal.parser.Token;
+import nl.dubio.auth.AdminRights;
 import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.Admin;
 import nl.dubio.service.AdminService;
 import nl.dubio.utils.TokenGenerator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -22,29 +23,24 @@ public class AdminResource extends GenericResource<Admin> {
 
     @GET
     @Timed
-    //TODO Roles Allowed
+    @RolesAllowed(AdminRights.Constants.USERINFO)
     public List<Admin> getAll(@Auth Admin admin){
         return crudService.getAll();
     }
 
     @POST
     @Timed
-    public Integer save(@Auth Admin admin, @Valid Admin object) {
-        int retval = 0;
-        try {
-            String randomString = TokenGenerator.randomString(8);
-            object.setPassword(randomString);
-            retval = this.crudService.save(object);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-        }
-        return retval;
+    public Integer save(@Auth Admin admin, @Valid Admin object) throws InvalidInputException {
+        String randomString = TokenGenerator.randomString(8);
+        object.setPassword(randomString);
+        return this.crudService.save(object);
     }
 
 
     @DELETE
     @Timed
     @Path("/{id}")
+    @RolesAllowed(AdminRights.Constants.USERINFO)
     public boolean delete(@Auth Admin admin,
                           @PathParam("id") int id) {
         return this.crudService.deleteById(id);
@@ -56,7 +52,7 @@ public class AdminResource extends GenericResource<Admin> {
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/password/{token}")
     public boolean updatePassword(@PathParam("token") String token,
-                                  String password) {
+                                  String password) throws InvalidInputException {
         if (token.length() != 32 || password.length() < 4) {
             return false;
         }
@@ -65,27 +61,16 @@ public class AdminResource extends GenericResource<Admin> {
             return false;
         }
 
-        try {
-            ((AdminService)this.crudService).updatePassword(token, password);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+        return ((AdminService)this.crudService).updatePassword(token, password);
     }
 
     @PUT
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public boolean update(@Auth Admin admin, @Valid Admin object) {
-        try {
-            ((AdminService)this.crudService).updateWithoutPassword(object);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+    @RolesAllowed(AdminRights.Constants.USERINFO)
+    public boolean update(@Auth Admin admin, @Valid Admin object) throws InvalidInputException {
+        return ((AdminService)this.crudService).updateWithoutPassword(object);
     }
 
 }

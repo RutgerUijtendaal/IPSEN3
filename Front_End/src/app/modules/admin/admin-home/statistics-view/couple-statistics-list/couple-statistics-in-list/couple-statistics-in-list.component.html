@@ -1,6 +1,6 @@
-<mdb-card>
+<mdb-card [ngClass]="empty ? '' : (isActive ? 'active' : 'not-active')">
   <mdb-card-body class="col-md-12 d-flex flex-wrap">
-    <div class="col-md-4 parent">
+    <div class="col-md-5 parent">
       <i class="fa fa-user" style="font-size: 25px;" aria-hidden="true"></i>
       <div class="info-text">
         {{ couple.parent1.email }}
@@ -12,19 +12,13 @@
     <div class="col-md-2 plus">
       <i style="font-size: 35px; color: lightblue" class="fa fa-plus" aria-hidden="true"></i>
     </div>
-    <div class="col-md-4 parent">
+    <div class="col-md-5 parent">
       <i class="fa fa-user" style="font-size: 25px;" aria-hidden="true"></i>
       <div class="info-text">
         {{ couple.parent2.email }}
       </div>
       <div class="info-text">
         {{ couple.parent2.firstName }}
-      </div>
-    </div>
-    <div class="checkbox-box col-md-2">
-      <div class="checkbox-box custom-control custom-checkbox">
-        <input hidden type="checkbox" class="custom-control-input" [id]="couple.coupleId" [checked]="checked" (change)="change(checked)">
-        <label class="custom-control-label" [for]="couple.coupleId"></label>
       </div>
     </div>
   </mdb-card-body>

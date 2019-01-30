@@ -8,12 +8,15 @@ export class StatisticsService {
   private URL = AppComponent.environment.server + '/statistics';
 
   data = new EventEmitter<any>();
+  filter = new EventEmitter<any>();
+  activeCharts = [];
+  activeFilters = [];
   couples = [];
   dilemmas = [];
 
   constructor(private httpClient: HttpClient) {
+    this.filter = new EventEmitter();
     this.getData();
-
   }
 
   getData() {
@@ -21,6 +24,7 @@ export class StatisticsService {
   }
 
   update() {
+    this.filter.emit();
     const allData = { 'couples': this.couples, 'dilemmas' : this.dilemmas};
     const httpOptions = {
       headers: new HttpHeaders({

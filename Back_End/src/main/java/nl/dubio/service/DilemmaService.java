@@ -12,7 +12,6 @@ import java.util.List;
 
 public class DilemmaService implements CrudService<Dilemma> {
 
-    //TODO should come from configuration
     private final static int maxThemeSize = 50;
     private final static int maxFeedbackSize = 200;
     private final static int maxPeriodSize = 200;

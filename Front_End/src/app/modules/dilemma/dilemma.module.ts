@@ -12,7 +12,8 @@ import { DilemmaErrorComponent } from './dilemma-view/dilemma-error/dilemma-erro
 
 // @ts-ignore
 @NgModule({
-  declarations: [DilemmaViewComponent, DilemmaAnswerComponent, DilemmaLoadingComponent, AnswerVerifyComponent, DilemmaSuccesComponent, DilemmaErrorComponent],
+  declarations: [DilemmaViewComponent,
+    DilemmaAnswerComponent, DilemmaLoadingComponent, AnswerVerifyComponent, DilemmaSuccesComponent, DilemmaErrorComponent],
   imports: [
     CommonModule,
     HttpClientModule,

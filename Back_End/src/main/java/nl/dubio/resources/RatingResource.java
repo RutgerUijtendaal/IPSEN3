@@ -23,7 +23,7 @@ public class RatingResource extends GenericResource<Rating> {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Integer saveRating(
+    public Integer saveRating( @Auth Authorizable authorizable,
             @QueryParam("dilemmaId") IntParam dilemmaId,
             @QueryParam("rating") IntParam ratingValue
     ) throws InvalidInputException {
@@ -33,13 +33,13 @@ public class RatingResource extends GenericResource<Rating> {
                 new Timestamp(System.currentTimeMillis())
         );
 
-        return ((RatingService) crudService).save(rating);
+        return crudService.save(rating);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Rating> getAll(@Auth Admin admin) {
-        return ((RatingService) crudService).getAll();
+        return crudService.getAll();
     }
 
 }

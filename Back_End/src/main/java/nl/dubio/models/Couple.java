@@ -3,7 +3,6 @@ package nl.dubio.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-
 import nl.dubio.View;
 
 import java.sql.Date;

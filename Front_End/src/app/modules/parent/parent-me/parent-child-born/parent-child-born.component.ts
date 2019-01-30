@@ -39,7 +39,7 @@ export class ParentChildBornComponent implements OnInit {
         this.bornVerifyModal.hide();
         this.parentService.child.isBorn = true;
       })
-    ).subscribe()
+    ).subscribe();
 
   }
 }

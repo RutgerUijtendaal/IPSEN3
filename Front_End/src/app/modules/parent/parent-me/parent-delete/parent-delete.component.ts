@@ -36,7 +36,7 @@ export class ParentDeleteComponent implements OnInit {
   }
 
   submitDelete() {
-    let params = new HttpParams().set('token', this.parentService.couple.token);
+    const params = new HttpParams().set('token', this.parentService.couple.token);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -49,9 +49,9 @@ export class ParentDeleteComponent implements OnInit {
       map( (response) => {
         this.deleteVerifyModal.hide();
         this.authService.logout();
-        this.router.navigate(['uitschrijven/' + this.parentService.couple.token + '/succes'])
+        this.router.navigate(['uitschrijven/' + this.parentService.couple.token + '/succes']);
       })
-    ).subscribe()
+    ).subscribe();
 
   }
 
