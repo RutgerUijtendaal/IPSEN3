@@ -14,7 +14,7 @@ export class RelevancyChartComponent implements OnInit {
       xAxes: [{
         scaleLabel: {
           display: true,
-          labelString: 'Dilemma'
+          labelString: 'Dilemma Week (Periode)'
         }
       }]
     },
@@ -43,21 +43,26 @@ export class RelevancyChartComponent implements OnInit {
   }
 
   loadData(data) {
-    let ratings;
-    ratings = data.filteredRatings;
+    let ratings = data.filteredRatings;
+    let dilemmas = data.dilemmas;
     const completeDataset = [];
     const labels = [];
 
     for(let i = 0; i < ratings.length; i++) {
       let rating;
       rating = ratings[i];
+
+
+
+      let dilemma = dilemmas.find(dilemma => dilemma.id === rating.dilemmaId);
+      let newLabel = dilemma.weekNr + ' (' + dilemma.period + ')';
       // Build Labels
-      let label = labels.find(id => id === rating.dilemmaId);
-      if(!label) {
-        labels.push(rating.dilemmaId);
+      let exists = labels.find(label => label === newLabel);
+      if(!exists) {
+        labels.push(newLabel);
       }
 
-      let index = labels.findIndex(id => id === rating.dilemmaId);
+      let index = labels.findIndex(label => label === newLabel);
 
       // Build Result
       if(completeDataset[index] === undefined) {
