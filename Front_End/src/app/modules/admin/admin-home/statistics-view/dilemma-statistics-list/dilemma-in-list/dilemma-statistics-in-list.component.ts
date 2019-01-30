@@ -24,7 +24,9 @@ export class DilemmaStatisticsInListComponent implements OnInit, OnDestroy {
     const indexOf = this.statisticsService.dilemmas.indexOf(this.dilemma.id);
     this.isActive = indexOf > -1;
   }
+
   ngOnInit() {
+    this.update()
     this.subscription = this.statisticsService.data.subscribe(data => this.update());
   }
 
