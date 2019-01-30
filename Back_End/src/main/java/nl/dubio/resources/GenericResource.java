@@ -31,6 +31,7 @@ public abstract class GenericResource<T extends DatabaseObject<T>> {
         // Also create and register the resource for a specific view in the database
         environment.jersey().register(new CoupleListViewResource());
         environment.jersey().register(new PasswordResource());
+        environment.jersey().register(new ConfigResource());
     }
 
 }

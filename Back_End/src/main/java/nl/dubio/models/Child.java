@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Weeks;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Child implements DatabaseObject<Child> {
 
@@ -48,8 +49,8 @@ public class Child implements DatabaseObject<Child> {
     public Date getDate() { return date; }
     public boolean getIsBorn() { return isBorn; }
 
-    public short getAgeInWeeks() {
-        DateTime now = new DateTime();
+    public short getAgeInWeeks(Timestamp time) {
+        DateTime now = new DateTime(time);
         DateTime birthDate = new DateTime(date);
 
         Weeks weeks = Weeks.weeksBetween(birthDate, now);

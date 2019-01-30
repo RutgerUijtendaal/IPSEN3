@@ -50,18 +50,6 @@ public class DilemmaResource extends GenericResource<Dilemma> {
     }
 
     @GET
-    @Path("/token-generate")
-    public void tokenGenerator() throws InvalidInputException {
-        CoupleService coupleService = new CoupleService();
-        ParentDataService parentService = new ParentDataService();
-        List<Couple> couples = coupleService.getAll();
-
-        for (Couple couple : couples) {
-            coupleService.createResultEntry(couple);
-        }
-    }
-
-    @GET
     @Timed
     @Path("/{period}")
     @Produces(MediaType.APPLICATION_JSON)

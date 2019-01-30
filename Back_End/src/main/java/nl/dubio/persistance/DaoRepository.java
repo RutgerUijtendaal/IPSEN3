@@ -25,6 +25,8 @@ public class DaoRepository {
     private static RightDao rightDao;
     @JsonProperty
     private static RatingDao ratingDao;
+    @JsonProperty
+    private static ConfigDao configDao;
 
     @JsonCreator
     public DaoRepository(
@@ -37,7 +39,8 @@ public class DaoRepository {
         @JsonProperty("parentDao") ParentDao parentDao,
         @JsonProperty("resultDao") ResultDao resultDao,
         @JsonProperty("rightDao") RightDao rightDao,
-        @JsonProperty("ratingDao") RatingDao ratingDao
+        @JsonProperty("ratingDao") RatingDao ratingDao,
+        @JsonProperty("configDao") ConfigDao configDao
     ) {
         DaoRepository.adminDao = adminDao;
         DaoRepository.answerDao = answerDao;
@@ -49,6 +52,7 @@ public class DaoRepository {
         DaoRepository.resultDao = resultDao;
         DaoRepository.rightDao = rightDao;
         DaoRepository.ratingDao = ratingDao;
+        DaoRepository.configDao = configDao;
     }
 
     public static AdminDao getAdminDao() { return adminDao; }
@@ -61,4 +65,5 @@ public class DaoRepository {
     public static ResultDao getResultDao() { return resultDao; }
     public static RightDao getRightDao() { return rightDao; }
     public static RatingDao getRatingDao() { return ratingDao; }
+    public static ConfigDao getConfigDao() { return configDao; }
 }

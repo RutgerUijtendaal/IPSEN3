@@ -187,6 +187,60 @@ public class CoupleService implements CrudService<Couple> {
         return errors;
     }
 
+    private Parent[] getParents(Couple couple) {
+        ParentDataService parentService = new ParentDataService();
+
+        Parent[] parents = new Parent[2];
+        parents[0] = parentService.getById(couple.getParent1Id());
+        parents[1] = parentService.getById(couple.getParent2Id());
+
+        return parents;
+    }
+
+    private Dilemma getDilemmaByChild(Child child, Timestamp time) {
+        DilemmaService dilemmaService = new DilemmaService();
+        short ageInWeeks = child.getAgeInWeeks(time);
+
+        Dilemma dilemma;
+
+        // Get the dilemma
+        if (!child.getIsBorn())
+            dilemma = dilemmaService.getByWeekNr((short) (ageInWeeks + 15), "voor");
+        else
+            dilemma = dilemmaService.getByWeekNr((short) (ageInWeeks + 1), "na");
+
+        return dilemma;
+    }
+
+    public void remindResultEntry(Couple couple) throws InvalidInputException {
+        ParentDataService parentService = new ParentDataService();
+        ChildService childService = new ChildService();
+        ResultService resultService = new ResultService();
+
+        Parent[] parents = this.getParents(couple);
+        Child child = childService.getByCouple(couple);
+
+        try {
+            Result result = resultService.getRecentResultOfParent(parents[0]);
+            Dilemma dilemma = this.getDilemmaByChild(child, result.getSentTime());
+            System.out.println("Dilemma status" + dilemma);
+
+            // Throw exception if the dilemma does not exists
+            if (dilemma == null)
+                throw new NullPointerException();
+
+            if (parents[0].getToken() != null)
+                parentService.notifyDilemmaReady("U heeft nog een onbeantwoord dilemma", parents[0], dilemma, couple.getToken());
+
+            if (parents[1].getToken() != null)
+                parentService.notifyDilemmaReady("U heeft nog een onbeantwoord dilemma", parents[1], dilemma, couple.getToken());
+
+            System.out.println("START REMINDER");
+        } catch (NullPointerException e) {
+//            e.printStackTrace();
+        }
+    }
+
     public void createResultEntry(Couple couple) throws InvalidInputException {
         ParentDataService parentService = new ParentDataService();
         ChildService childService = new ChildService();
@@ -198,32 +252,38 @@ public class CoupleService implements CrudService<Couple> {
         parents[0] = parentService.getById(couple.getParent1Id());
         parents[1] = parentService.getById(couple.getParent2Id());
 
-        Child child = childService.getByCouple(couple);
-        short ageInWeeks = child.getAgeInWeeks();
-
         try {
+            Result[] results = new Result[2];
+            results[0] = new Result(parents[0].getId(), null, new Timestamp(System.currentTimeMillis()), null);
+            results[1] = new Result(parents[1].getId(), null, new Timestamp(System.currentTimeMillis()), null);
+
+            Child child = childService.getByCouple(couple);
+            short ageInWeeks = child.getAgeInWeeks(new Timestamp(System.currentTimeMillis()));
+
             Dilemma dilemma;
 
             // Get the dilemma
             if (!child.getIsBorn())
                 dilemma = dilemmaService.getByWeekNr((short) (ageInWeeks + 15), "voor");
             else
-                dilemma = dilemmaService.getByWeekNr(ageInWeeks, "na");
+                dilemma = dilemmaService.getByWeekNr((short)(ageInWeeks + 1), "na");
 
             // Throw exception if the dilemma does not exists
-            if (dilemma == null)
+            if (dilemma == null) {
                 throw new NullPointerException();
-
-            for (Parent parent : parents) {
-                Result result = new Result(parent.getId(), null, new Timestamp(System.currentTimeMillis()), null);
-                resultService.save(result);
-
-                parent.setToken(TokenGenerator.getToken());
-                parentService.update(parent);
             }
 
-            parentService.notifyDilemmaReady(parents[0], dilemma, couple.getToken());
-            parentService.notifyDilemmaReady(parents[1], dilemma, couple.getToken());
+            resultService.save(results[0]);
+            resultService.save(results[1]);
+
+            parents[0].setToken(TokenGenerator.getToken());
+            parents[1].setToken(TokenGenerator.getToken());
+
+            parentService.update(parents[0]);
+            parentService.update(parents[1]);
+
+            parentService.notifyDilemmaReady("Er staat een nieuw dilemma voor u klaar", parents[0], dilemma, couple.getToken());
+            parentService.notifyDilemmaReady("Er staat een nieuw dilemma voor u klaar", parents[1], dilemma, couple.getToken());
         } catch (NullPointerException e) {
             parents[0].setToken(null);
             parents[1].setToken(null);
