@@ -9,9 +9,9 @@ export class ContactComponent implements OnInit {
 
   UNSELECTED = '#1e4768';
   SELECTED = '#03142b';
-  phoneDetails = 'TELEFOON Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.';
-  mailDetails = 'EMAIL Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.';
-  locationDetails = 'LOCATIE Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.';
+  phoneDetails = 'n/a';
+  mailDetails = 'dubio@garage2020.nl';
+  locationDetails = 'IJsbaanpad 9, Amsterdam, 1076 CV ';
 
   displayTitle: string;
   displayDetails: string;

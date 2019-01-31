@@ -6,9 +6,7 @@ import nl.dubio.persistance.DaoRepository;
 import nl.dubio.persistance.DilemmaDao;
 import nl.dubio.persistance.RatingDao;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class RatingService implements CrudService<Rating> {

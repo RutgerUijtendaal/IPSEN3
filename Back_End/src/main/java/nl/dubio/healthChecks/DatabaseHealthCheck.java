@@ -3,8 +3,6 @@ package nl.dubio.healthChecks;
 import com.codahale.metrics.health.HealthCheck;
 import nl.dubio.exceptions.ReadFromResultSetException;
 import nl.dubio.factories.PreparedStatementFactory;
-import nl.dubio.persistance.DaoRepository;
-import nl.dubio.persistance.RightDao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

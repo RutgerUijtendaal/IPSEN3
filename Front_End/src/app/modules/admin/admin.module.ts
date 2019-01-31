@@ -25,6 +25,24 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import {AdminListService} from './admin-home/admin-view/admin-list/admin-list.service';
 import {AdminViewService} from './admin-home/admin-view/admin-view.service';
 import { ConfigEditComponent } from './config-edit/config-edit.component';
+import { StatisticsViewComponent } from './admin-home/statistics-view/statistics-view.component';
+import { StatisticsService } from './admin-home/statistics-view/statistics.service';
+import { AnswerChartComponent } from './admin-home/statistics-view/anwser-chart/answer-chart.component';
+import { TimeChartComponent } from './admin-home/statistics-view/time-chart/time-chart.component';
+import { DayChartComponent } from './admin-home/statistics-view/day-chart/day-chart.component';
+import { SignupChartComponent } from './admin-home/statistics-view/signup-chart/signup-chart.component';
+import { CoupleStatisticsInListComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-in-list/couple-statistics-in-list.component';
+import { CoupleStatisticsListComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-list.component';
+import { DilemmaStatisticsListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-statistics-list.component';
+import { DilemmaStatisticsInListComponent } from './admin-home/statistics-view/dilemma-statistics-list/dilemma-in-list/dilemma-statistics-in-list.component';
+import { SpeedChartComponent } from './admin-home/statistics-view/speed-chart/speed-chart.component';
+import {DilemmaViewHttpService} from './admin-home/dilemma-view/dilemma-view-http.service';
+import {CoupleViewHttpService} from './admin-home/couple-view/couple-view-http.service';
+import {AdminViewHttpService} from './admin-home/admin-view/admin-view-http.service';
+import { StatisticsNavComponent } from './admin-home/statistics-view/statistics-nav/statistics-nav.component';
+import { FilterNavComponent } from './admin-home/statistics-view/filter-nav/filter-nav.component';
+import { CoupleStatisticsFilterComponent } from './admin-home/statistics-view/couple-statistics-list/couple-statistics-filter/couple-statistics-filter.component';
+import { RelevancyChartComponent } from './admin-home/statistics-view/relevancy-chart/relevancy-chart.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +61,22 @@ import { ConfigEditComponent } from './config-edit/config-edit.component';
     AdminDetailComponent,
     DilemmaInListComponent,
     AdminInListComponent,
-    ConfigEditComponent
+    ConfigEditComponent,
+    AdminInListComponent,
+    StatisticsViewComponent,
+    AnswerChartComponent,
+    TimeChartComponent,
+    DayChartComponent,
+    SignupChartComponent,
+    CoupleStatisticsInListComponent,
+    CoupleStatisticsListComponent,
+    DilemmaStatisticsListComponent,
+    DilemmaStatisticsInListComponent,
+    SpeedChartComponent,
+    StatisticsNavComponent,
+    FilterNavComponent,
+    CoupleStatisticsFilterComponent,
+    RelevancyChartComponent
   ],
   imports: [
     CommonModule,
@@ -57,7 +90,11 @@ import { ConfigEditComponent } from './config-edit/config-edit.component';
     DilemmaListService,
     DilemmaViewService,
     AdminListService,
-    AdminViewService
+    AdminViewService,
+    StatisticsService,
+    DilemmaViewHttpService,
+    CoupleViewHttpService,
+    AdminViewHttpService
   ]
 })
 export class AdminModule {

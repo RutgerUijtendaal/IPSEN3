@@ -4,13 +4,9 @@ import nl.dubio.ApiApplication;
 import nl.dubio.exceptions.InvalidInputException;
 import nl.dubio.models.*;
 import nl.dubio.persistance.*;
-import nl.dubio.persistance.DaoRepository;
-import nl.dubio.persistance.DilemmaDao;
-import nl.dubio.persistance.ResultDao;
 import nl.dubio.utils.MailUtility;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;

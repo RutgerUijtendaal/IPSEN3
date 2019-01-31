@@ -25,13 +25,9 @@ public class ParentAuthenticator implements Authenticator<BasicCredentials, Pare
         String password = basicCredentials.getPassword();
         Parent parent = parentDao.getByEmail(email);
         if (parent != null) {
-            System.out.println(parent);
             Couple couple = coupleDao.getByParent(parent);
             try {
                 boolean valid = PasswordService.isValidPassword(password, couple.getPassword());
-                System.out.println(password);
-                System.out.println(couple.getPassword());
-                System.out.println(valid);
                 if (valid) {
                     return Optional.of(parent);
                 }

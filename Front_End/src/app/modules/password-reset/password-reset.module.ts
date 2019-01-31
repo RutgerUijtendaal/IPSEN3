@@ -5,6 +5,7 @@ import {PasswordResetViewComponent} from './password-reset-view/password-reset-v
 import {PasswordResetRoutingModule} from './password-reset-routing.module';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from '../../shared/shared.module';
+import {PasswordResetHttpService} from './password-reset-http.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {SharedModule} from '../../shared/shared.module';
     SharedModule
   ],
   providers: [
+    PasswordResetHttpService
   ]
 })
 export class PasswordResetModule { }

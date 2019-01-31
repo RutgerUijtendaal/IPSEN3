@@ -23,7 +23,6 @@ export class RegisterNewComponent implements OnInit {
   coupleForm: FormGroup;
 
   constructor(private router: Router, private service: RegisterNewService, private route: ActivatedRoute) {
-    console.log(AppComponent.environment);
   }
 
   ngOnInit() {

@@ -1,0 +1,58 @@
+.parent {
+  display: inline-block;
+  text-align: center;
+}
+
+.plus, .delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card {
+  -webkit-transition: all ease-in-out .10s;
+  -moz-transition: all ease-in-out .10s;
+  -ms-transition: all ease-in-out .10s;
+  -o-transition: all ease-in-out .10s;
+  transition: all ease-in-out .10s;
+}
+
+.card:active:hover {
+  border-bottom: 8px solid darkgoldenrod;
+}
+
+.card:hover, .card:focus {
+  border-bottom: 8px solid #e2b53b;
+  cursor: pointer;
+}
+
+.active, .active:hover {
+  border-bottom: 8px solid green;
+}
+
+.not-active, .not-active:hover {
+  border-bottom: 8px solid red;
+}
+
+.card-body {
+  padding: 5px 0px 5px 0px;
+  font-size: 18px;
+}
+
+.info-text {
+  font-size: 16px;
+}
+
+@media all and (max-width: 768px) {
+  .plus, .delete {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+.custom-control-label::before {
+  left: -1.25rem;
+  top: -0.5rem;
+
+}

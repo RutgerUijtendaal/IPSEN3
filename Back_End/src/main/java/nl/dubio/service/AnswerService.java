@@ -13,7 +13,6 @@ import java.util.List;
 
 public class AnswerService implements CrudService<Answer> {
 
-    //TODO should come from configuration
     private final static int maxTextSize = 200;
 
     private final AnswerDao answerDao;
@@ -70,7 +69,6 @@ public class AnswerService implements CrudService<Answer> {
     public List<String> validate(Answer answer) {
         List<String> errors = new ArrayList<>();
 
-        //TODO allowed extensions should come from configuration
         List<String> allowedExtensions = new ArrayList<>(
                 Arrays.asList(".png", ".jpg", null)
         );

@@ -1,0 +1,46 @@
+<div class="row px-0 mx-0">
+  <div class="col-lg-4 offset-lg-1">
+    <mdb-card style="margin-top: 10px;" class="rounded-corner">
+      <mdb-card-header style="background-color: #1e4768">
+        <h3 style="color: white; margin: 0 auto; text-align: center;">
+          Filters
+        </h3>
+      </mdb-card-header>
+      <app-filter-nav></app-filter-nav>
+      <mdb-card-body>
+        <div [hidden]="!statisticsService.activeFilters.includes(1)">
+          <h3 class="filter-header">Ouder Filter</h3>
+          <app-couple-statistics-filter></app-couple-statistics-filter>
+          <div style="max-height: 300px; overflow-y: scroll">
+            <app-statistics-couple-list></app-statistics-couple-list>
+          </div>
+        </div>
+        <div [hidden]="!statisticsService.activeFilters.includes(2)">
+          <h3 class="mt-4 filter-header">Dilemma Filter</h3>
+          <app-statistics-dilemma-list></app-statistics-dilemma-list>
+        </div>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
+
+  <div class="col-lg-6">
+    <mdb-card style="margin-top: 10px;" class="rounded-corner">
+      <mdb-card-header style="background-color: #1e4768">
+        <h3 style="color: white; margin: 0 auto; text-align: center;">
+          Statistieken
+        </h3>
+      </mdb-card-header>
+      <app-statistics-nav></app-statistics-nav>
+      <mdb-card-body>
+        <div>
+          <app-answer-chart [hidden]="!statisticsService.activeCharts.includes(1)"></app-answer-chart>
+          <app-time-chart [hidden]="!statisticsService.activeCharts.includes(2)"></app-time-chart>
+          <app-day-chart [hidden]="!statisticsService.activeCharts.includes(3)"></app-day-chart>
+          <app-signup-chart [hidden]="!statisticsService.activeCharts.includes(4)"></app-signup-chart>
+          <app-speed-chart [hidden]="!statisticsService.activeCharts.includes(5)"></app-speed-chart>
+          <app-relevancy-chart [hidden]="!statisticsService.activeCharts.includes(6)"></app-relevancy-chart>
+        </div>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
+</div>
