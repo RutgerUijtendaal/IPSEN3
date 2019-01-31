@@ -40,6 +40,7 @@ public class DilemmaService implements CrudService<Dilemma> {
         ParentDataService parentService = new ParentDataService();
         CoupleService coupleService = new CoupleService();
         ChildService childService = new ChildService();
+        ResultService resultService = new ResultService();
 
         AnswerService answerService = new AnswerService();
 
@@ -47,9 +48,11 @@ public class DilemmaService implements CrudService<Dilemma> {
         Couple couple = coupleService.getByParent(parent);
         Child child = childService.getByCouple(couple);
 
+        Result result = resultService.getRecentResultOfParent(parent);
+
         Dilemma dilemma;
 
-        int age = child.getAgeInWeeks();
+        int age = child.getAgeInWeeks(result.getSentTime());
 
         age = (age == 0) ? 1 : age;
 

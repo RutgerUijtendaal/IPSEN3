@@ -24,6 +24,7 @@ import {FormsModule} from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {AdminListService} from './admin-home/admin-view/admin-list/admin-list.service';
 import {AdminViewService} from './admin-home/admin-view/admin-view.service';
+import { ConfigEditComponent } from './config-edit/config-edit.component';
 import { StatisticsViewComponent } from './admin-home/statistics-view/statistics-view.component';
 import { StatisticsService } from './admin-home/statistics-view/statistics.service';
 import { AnswerChartComponent } from './admin-home/statistics-view/anwser-chart/answer-chart.component';
@@ -59,6 +60,8 @@ import { RelevancyChartComponent } from './admin-home/statistics-view/relevancy-
     DilemmaDetailComponent,
     AdminDetailComponent,
     DilemmaInListComponent,
+    AdminInListComponent,
+    ConfigEditComponent,
     AdminInListComponent,
     StatisticsViewComponent,
     AnswerChartComponent,

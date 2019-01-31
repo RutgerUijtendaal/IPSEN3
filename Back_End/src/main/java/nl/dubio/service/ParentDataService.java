@@ -40,11 +40,12 @@ public class ParentDataService implements CrudService<Parent> {
         return parentDao.update(parent);
     }
 
-    public void notifyDilemmaReady(Parent parent, Dilemma dilemma, String unregisterToken) {
+    public void notifyDilemmaReady(String subject, Parent parent, Dilemma dilemma, String unregisterToken) {
         MailUtility mailUtility = ApiApplication.getMailUtility();
 
         try {
             mailUtility.addDilemmaReadyToQueue(
+                    subject,
                     parent.getEmail(),
                     parent.getFirstName(),
                     dilemma.getTheme(),

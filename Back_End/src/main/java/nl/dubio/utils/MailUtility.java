@@ -100,8 +100,7 @@ public class MailUtility {
         messageQueue.add(mimeMessage);
     }
 
-    public void addDilemmaReadyToQueue(String to, String parentName, String dilemmaName, String parentToken, String unregisterToken) throws MessagingException {
-        final String subject = "Er staat een nieuw dilemma klaar!";
+    public void addDilemmaReadyToQueue(String subject, String to, String parentName, String dilemmaName, String parentToken, String unregisterToken) throws MessagingException {
         MimeMessage mimeMessage = generateMessage(to, subject, MailTemplateUtility.getDilemmaReadymail(websiteUrl, parentName, dilemmaName, parentToken, unregisterToken));
         messageQueue.add(mimeMessage);
     }

@@ -114,6 +114,21 @@ public class PreparedStatementFactory {
         return statement;
     }
 
+    public static PreparedStatement createUpdateStatement(String[] columnNames, String tableName, String id){
+        String query = "UPDATE " + tableName;
+
+        query += " SET " + String.join(" = ? , ", columnNames) + " = ?";
+
+        query += " WHERE id = ?;";
+
+        PreparedStatement statement = createPreparedStatement(query);
+
+        GenericDao.fillParameter(statement, columnNames.length + 1, id);
+
+        return statement;
+    }
+
+
     public static PreparedStatement createDeleteStatement(String tableName, int id){
         String query = "DELETE FROM " + tableName + " WHERE id = ?;";
 

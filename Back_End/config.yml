@@ -49,6 +49,9 @@ daoRepository:
   ratingDao:
     tableName: rating
     columnNames: [dilemma_id, rating, date]
+  configDao:
+    tableName: config
+    columnNames: [id, value]
 
 databaseConnection:
   jdbc: postgresql

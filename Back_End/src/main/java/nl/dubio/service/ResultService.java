@@ -146,12 +146,8 @@ public class ResultService implements CrudService<Result> {
 
         if (! parentDao.idExists(result.getParentId()))
             errors.add("Invalid parent id");
-        if (! answerDao.idExists(result.getAnswerId()))
-            errors.add("Invalid answer id");
         if (result.getSentTime().compareTo(currentDate) > 0)
             errors.add("Invalid sent time");
-        if (result.getAnsweredTime().compareTo(currentDate) > 0)
-            errors.add("Invalid answered time");
 
         return errors;
     }

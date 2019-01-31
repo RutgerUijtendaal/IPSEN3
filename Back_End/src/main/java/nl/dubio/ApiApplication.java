@@ -20,6 +20,7 @@ import nl.dubio.models.Admin;
 import nl.dubio.models.Parent;
 import nl.dubio.resources.FileUploadResource;
 import nl.dubio.resources.GenericResource;
+import nl.dubio.service.MailService;
 import nl.dubio.utils.MailUtility;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
@@ -58,6 +59,9 @@ public class ApiApplication extends Application<ApiConfiguration> {
         // Setup image uploading
         environment.jersey().register(MultiPartFeature.class);
         environment.jersey().register(FileUploadResource.class);
+
+        // Set up mail service for automatic mailing
+        MailService mailService = new MailService();
     }
 
     private void setupAuthentication(Environment environment) {
