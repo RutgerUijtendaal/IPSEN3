@@ -220,7 +220,6 @@ public class CoupleService implements CrudService<Couple> {
         try {
             Result result = resultService.getRecentResultOfParent(parents[0]);
             Dilemma dilemma = this.getDilemmaByChild(child, result.getSentTime());
-            System.out.println("Dilemma status" + dilemma);
 
             // Throw exception if the dilemma does not exists
             if (dilemma == null)
@@ -231,10 +230,7 @@ public class CoupleService implements CrudService<Couple> {
 
             if (parents[1].getToken() != null)
                 parentService.notifyDilemmaReady("U heeft nog een onbeantwoord dilemma", parents[1], dilemma, couple.getToken());
-
-            System.out.println("START REMINDER");
         } catch (NullPointerException e) {
-//            e.printStackTrace();
         }
     }
 
