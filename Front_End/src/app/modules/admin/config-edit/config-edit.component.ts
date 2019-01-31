@@ -9,15 +9,15 @@ import {ConfigModel} from '../../../shared/models/config.model';
 })
 export class ConfigEditComponent implements OnInit {
 
-  private saveClass = 'primary';
-  private saveText = 'OPSLAAN';
+  public saveClass = 'primary';
+  public saveText = 'OPSLAAN';
 
   constructor(private configService: ConfigService) {
   }
 
-  private weekDay: ConfigModel = new ConfigModel('MAIL_WEEK_DAY', '1');
-  private dayTime: ConfigModel = new ConfigModel('MAIL_DAY_TIME', '00:00');
-  private reminder: ConfigModel = new ConfigModel('MAIL_REMINDER', '1');
+  public weekDay: ConfigModel = new ConfigModel('MAIL_WEEK_DAY', '1');
+  public dayTime: ConfigModel = new ConfigModel('MAIL_DAY_TIME', '00:00');
+  public reminder: ConfigModel = new ConfigModel('MAIL_REMINDER', '1');
 
   ngOnInit() {
     this.weekDay = new ConfigModel('MAIL_WEEK_DAY', '1');
