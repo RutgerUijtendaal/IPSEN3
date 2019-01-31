@@ -68,7 +68,7 @@ public class ParentDataService implements CrudService<Parent> {
 
     @Override
     public boolean update(Parent parent) throws InvalidInputException {
-        List<String> errors = validate(parent);
+        List<String> errors = validate(parent, true);
 
         if (errors.size() > 0)
             throw new InvalidInputException(errors);
@@ -88,6 +88,12 @@ public class ParentDataService implements CrudService<Parent> {
 
     @Override
     public List<String> validate(Parent parent) {
+        List<String> errors = this.validate(parent, false);
+
+        return errors;
+    }
+
+    public List<String> validate(Parent parent, boolean skip) {
         List<String> errors = new ArrayList<>();
 
         if (! ValidationService.isValidName(parent.getFirstName()))
@@ -96,7 +102,7 @@ public class ParentDataService implements CrudService<Parent> {
             errors.add("Invalid email");
         if (adminDao.emailExists(parent.getEmail()))
             errors.add("Email already exists");
-        if (parentDao.emailExists(parent.getEmail()))
+        if (parentDao.emailExists(parent.getEmail()) && !skip)
             errors.add("Email already exists");
         if (! ValidationService.isValidPhone(parent.getPhoneNr()))
             errors.add("Invalid phone number");

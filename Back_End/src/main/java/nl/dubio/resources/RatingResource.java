@@ -23,7 +23,7 @@ public class RatingResource extends GenericResource<Rating> {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Integer saveRating( @Auth Authorizable authorizable,
+    public Integer saveRating(
             @QueryParam("dilemmaId") IntParam dilemmaId,
             @QueryParam("rating") IntParam ratingValue
     ) throws InvalidInputException {

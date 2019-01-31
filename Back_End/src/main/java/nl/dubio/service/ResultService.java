@@ -43,7 +43,7 @@ public class ResultService implements CrudService<Result> {
     }
 
     public Result getByParent(Parent parent) {
-        return resultDao.getByParentId(parent.getId()).get(0);
+        return resultDao.getRecentByParentId(parent.getId());
     }
 
     public void updateResult(String token, int answerId) throws InvalidInputException {
@@ -59,9 +59,6 @@ public class ResultService implements CrudService<Result> {
         result.setAnsweredTime(new Timestamp(System.currentTimeMillis()));
 
         update(result);
-
-        // Revoke access token
-        parentService.revokeTokenAccess(parent);
 
         // Check if both parents have answered
         if (bothHasAnswered(couple)) {
@@ -98,6 +95,9 @@ public class ResultService implements CrudService<Result> {
                 e.printStackTrace();
             }
         }
+
+        // Revoke access token
+        parentService.revokeTokenAccess(parent);
     }
 
     public boolean bothHasAnswered(Couple couple) {
