@@ -48,22 +48,6 @@ public class AdminService implements CrudService<Admin> {
         if (errors.size() > 0)
             throw new InvalidInputException(errors);
 
-        String password = admin.getPassword();
-
-        try {
-            admin.setPassword(PasswordService.generatePasswordHash(admin.getPassword()));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
-        try {
-            ApiApplication.getMailUtility().addNewAdminToQueue(admin.getEmail(), password);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            return 0;
-        }
-
         return adminDao.save(admin);
     }
 
